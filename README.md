@@ -1,3 +1,33 @@
-# HCI_project
+# Mattoni 2.0
+> Attualmente nel servizio sanitario di emergenza locale di Regione Toscana i soccorritori sulle ambulanze sono tenuti a compilare un documento cartaceo, "Scheda Mattoni", per delineare l'anamnesi del paziente durante un servizio e comunicarla alla Centrale Operativa 118 per provvedere al ricovero. Questo però è un sistema "outdated" che non permette una comunicazione immediata tra soccorritore e medico di centrale; è infatti richiesta una chiamata a valle del servizio per spiegare quello che il soccorritore ha scritto nella scheda. 
+> In questo progetto abbiamo deciso di implementare una versione digitale di tale documento capace di essere compilato velocemenete e che permetta la possibilità di invio diretto in Centrale. Questo è vantaggioso perchè potrebbe permettere un notevole risparmio di tempo, essenziale durante un servizio.
+> Con questa reimplementazione vogliamo anche migliorare la specificità delle informazioni che andranno raccolte nella scheda adattandole alla casistica di intervento (attualmente comunicate a voce) rendendo questo più strutturato e immediato, e al contempo rendendo la scheda più di supporto ai soccorritori.
 
+## Table of Contents
+* [General Info](#general-information)
+* [Tools and Techniques](#tools-and-techniques)
+* [Expected Outcomes](#expected-outcomes)
+* [Summary and Applications](#summary-and-applications )
+
+
+## General Information
+- Anno accademico: 2021-2022
+- Titolo: Mattoni 2.0
+- Studenti: Lisa Cresti e Lorenzo Caselli
+- CFU: 9
+
+
+## Tools and Techniques
+TBD
+
+## Expected Outcomes
+Gli obiettivi che vorremmo raggiungere sono:
+- creare un'interfacccia digitale della scheda Mattoni rivisitata per essere più intuitiva all'utilizzo
+- possibilità di adattare i contenuti della scheda in base al tipo d'intervento e al protocollo da attuare 
+- simulare la comunicazione tra soccorritore e medico di centrale tramite l'applicativo
+- fornire un report stampabile/inviabile dell'intervento
+
+
+## Summary and Applications 
+Con questo progetto vogliamo sperimentare se la reimplementazione digitale di tale documento può effettivamente migliorare l'intervento sanitario locale in situazioni di emergenza, migliorando l'efficienza e l'efficacia del servizio. Abbiamo intenzione di testare l'applicazione durante la formazione e il retraining dei soccorritori della nostra associazione così da verificare l'impatto che potrebbe avere in situazioni reali comprendendone così i vantaggi e i limiti di tale approccio.
 
