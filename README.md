@@ -1,7 +1,7 @@
 # Mattoni 2.0
 > Attualmente nel servizio sanitario di emergenza locale di Regione Toscana i soccorritori sulle ambulanze sono tenuti a compilare un documento cartaceo, **Scheda Mattoni**, per delineare l'anamnesi del paziente durante un servizio e comunicarla alla Centrale Operativa 118 per provvedere al ricovero. Questo però è un sistema "outdated" che non permette una comunicazione immediata tra soccorritore e medico di centrale; è infatti richiesta una chiamata a valle del servizio per spiegare quello che il soccorritore ha scritto nella scheda. 
 >
-> In questo progetto abbiamo deciso di implementare una versione digitale di tale documento capace di essere compilato velocemenete e che permetta la possibilità di invio diretto in Centrale. Questo è vantaggioso perchè potrebbe permettere un notevole risparmio di tempo, essenziale durante un servizio.
+> In questo progetto abbiamo deciso di implementare una versione digitale di tale documento capace di essere compilato velocemente e che permetta la possibilità di invio diretto in Centrale. Questo è vantaggioso perchè potrebbe permettere un notevole risparmio di tempo, essenziale durante un servizio.
 > 
 > Con questa reimplementazione vogliamo anche migliorare la specificità delle informazioni che andranno raccolte nella scheda adattandole alla casistica di intervento (attualmente comunicate a voce) rendendo questo più strutturato e immediato, e al contempo rendendo la scheda più di supporto ai soccorritori.
 
