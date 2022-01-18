@@ -126,6 +126,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'scheda/static/scheda/'),
+]
+
 LOGIN_REDIRECT_URL = '/scheda/'
 
 LOGOUT_REDIRECT_URL = 'home'
