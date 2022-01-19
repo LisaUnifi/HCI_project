@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Pagina Operatore Centrale 118{% endblock %}
+
+{% block content %}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  
+    <ul class="navbar-nav ml-auto">
+
+        <li class="nav-item">
+            <div class="container p-3">
+                <a class="navbar-brand" href="#">
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+                    height="20"
+                    alt="MDB Logo"
+                    loading="lazy"
+                  />
+                </a>
+            </div>
+        </li>
+        
+        <li class="nav-item">
+            <div class="container-fluid ">
+                <ul class="navbar-nav">
+                  <!-- Avatar -->
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle d-flex align-items-center"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-mdb-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+                        class="square"
+                        height="50"
+                        alt="Personale Image"
+                        loading="lazy"
+                      />
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li>
+                        <a class="dropdown-item" href="#">I miei dati</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">Logout</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+            </div>
+        </li>
+
+    </ul>
+</nav>
+
+<!-- Bottone per Modal -->
+<button type="button" class="btn btn-primary float-sm-right" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Dati Missione</h5>
+            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
+            <button type="button" class="btn btn-primary">Invia Missione</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+<!-- Background image -->
+<div class="bg-image d-flex justify-content-center align-items-center" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/fluid/nature/015.webp'); height: 100vh;">
+    <!-- Container form -->
+    <div class="container-sm p-3 w-30 rounded bg-white text-center" style="width: 550px">
+        <img src="https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png" class="logo p-3" />
+        <h3>Mattoni 2.0</h3>
+        <p class="slogan">Registrati e fai parte del nostro gruppo!</p>
+        <form action="/newaccount" method=post oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
+
+          <!-- Nome e Cognome -->
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" id="form3Example1" class="form-control" />
+                <label class="form-label" for="form3Example1">Nome</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <input type="text" id="form3Example2" class="form-control" />
+                <label class="form-label" for="form3Example2">Cognome</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Username -->
+          <div class="form-outline mb-4">
+            <input type="text" id="form2Example1" class="form-control" />
+            <label class="form-label" for="form2Example1">Username</label>
+          </div>
+
+          <!-- Email -->
+          <div class="form-outline mb-4">
+            <input type="email" id="typeEmail" class="form-control" />
+            <label class="form-label" for="typeEmail">Email</label>
+          </div>
+          
+          <!-- Password -->
+          <div class="form-outline mb-4">
+            <input id="password1" type=password  class="form-control" required name=up>
+            <label class="form-label" for="password1">Password</label>
+          </div>
+          <div class="form-outline mb-4">
+            <input id="password2" type=password  class="form-control" required name=up2>
+            <label class="form-label" for="password2">Conferma password</label>
+          </div>
+
+          <!-- Numero Telefono -->
+          <div class="form-outline mb-4">
+            <input type="tel" id="typePhone" class="form-control" />
+            <label class="form-label" for="typePhone">Cellulare</label>
+          </div>
+
+          <!-- Associazione -->
+          <div class="form-outline mb-4">
+            <input type="text" id="typeText" class="form-control" />
+            <label class="form-label" for="typeText">Associazione</label>
+          </div>
+
+            <!-- Menù selezione-->
+            <div class="container mb-4">
+              <h4>Seleziona ruolo:</h4>
+              <p>Si ricorda che...</p>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>Formazione</option>
+                <option value="1">Associazione</option>
+                <option value="2">Operatore Centrale 118</option>
+              </select>
+            </div>
+            
+          
+            <!-- Submit button -->
+            <div class="row">
+                <div class="col-sm-12 text-center p-1">
+                    <a href="#" class="btn btn-primary w-75" role="button" type="submit">Registrati</a>
+                </div>
+            </div>    
+          </form>
+      
+    </div>
+  </div>
+
+
+
+{% endblock %}
+
