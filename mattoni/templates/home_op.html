@@ -61,7 +61,7 @@
 
 <!-- Bottone per Modal -->
 <button type="button" class="btn btn-primary float-sm-right" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-    Launch demo modal
+  Nuova Missione 
 </button>
 
 <!-- Modal -->
@@ -72,7 +72,133 @@
             <h5 class="modal-title" id="exampleModalLabel">Dati Missione</h5>
             <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body text-center">
+          <p class="slogan">Inserisci i dati del paziente</p>
+          <form>
+
+            <!-- Nome e Cognome -->
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form3Example1" class="form-control" />
+                  <label class="form-label" for="form3Example1">Nome</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form3Example2" class="form-control" />
+                  <label class="form-label" for="form3Example2">Cognome</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Indirizzo -->
+            <div class="row mb-4">
+              <div class="col-9">
+                <div class="form-outline">
+                  <input type="text" id="form3Example1" class="form-control" />
+                  <label class="form-label" for="form3Example1">Indirizzo</label>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="form-outline">
+                  <input type="text" id="form3Example2" class="form-control" />
+                  <label class="form-label" for="form3Example2">Civico</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-6">
+                <div class="form-outline">
+                  <input type="text" id="form3Example1" class="form-control" />
+                  <label class="form-label" for="form3Example1">Comune</label>
+                </div>
+              </div>
+              <div class="col-3">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Prov.</option>
+                  <option value="1">AR</option>
+                  <option value="2">FI</option>
+                  <option value="3">GR</option>
+                  <option value="4">LI</option>
+                  <option value="5">LU</option>
+                  <option value="6">MS</option>
+                  <option value="7">PI</option>
+                  <option value="8">PT</option>
+                  <option value="9">PO</option>
+                  <option value="10">SI</option>
+                </select>
+              </div>
+              <div class="col-3">
+                <div class="form-outline">
+                  <input type="text" id="form3Example2" class="form-control" />
+                  <label class="form-label" for="form3Example2">CAP</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" checked>
+                  <label class="form-check-label" for="inlineCheckbox1">Indirizzo uguale ad indirizzo di residenza</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Numero Telefono -->
+            <div class="form-outline mb-4">
+              <input type="tel" id="typePhone" class="form-control" />
+              <label class="form-label" for="typePhone">Cellulare</label>
+            </div>
+
+            <!-- Note missione: -->
+            <p class="slogan">Note missione</p>
+            <div class="form-outline mb-4">
+              <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+              <label class="form-label" for="textAreaExample">Messaggio</label>
+            </div>
+
+            <!-- Note della Centrale -->
+            <p class="slogan">Avvisi dalla Centrale</p>
+            <div class="form-outline mb-4">
+              <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+              <label class="form-label" for="textAreaExample">Messaggio</label>
+            </div>
+
+            <!-- Codice patologia -->
+            <p class="slogan">Codice patologia ipotizzato</p>
+            <div class="row mb-4">
+              <div class="col-4">
+                <div class="form-outline">
+                  <input type="text" id="form3Example1" class="form-control" />
+                  <label class="form-label" for="form3Example1">Luogo</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-outline">
+                  <input type="text" id="form3Example2" class="form-control" />
+                  <label class="form-label" for="form3Example2">Patologia</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-outline">
+                  <input type="text" id="form3Example2" class="form-control" />
+                  <label class="form-label" for="form3Example2">Criticità</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Attivazione mezzi -->
+
+            <select id="mezzi" class="selectpicker" multiple data-live-search="true" title="Seleziona mezzi">
+              <option value="1">Alfa</option>
+              <option value="2">Delta</option>
+              <option value="3">India</option>
+              <option value="4">Mike</option>
+              <option value="5">Pegaso</option>
+            </select>
+              
+          </form>
 
         </div>
         <div class="modal-footer">
@@ -84,6 +210,15 @@
 </div>
 
 
+
+{% endblock %}
+
+{% block scripts %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<!-- funzioni -->
+<script src="{% static 'js/functions.js' %}"></script>
 {% endblock %}
 
 
