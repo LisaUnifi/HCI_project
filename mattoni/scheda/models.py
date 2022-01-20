@@ -1,50 +1,98 @@
 from django.db import models
 import datetime
 from django.utils import timezone 
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
+
+
+
+class UserManager(BaseUserManager):
+    def create_user(self, username, password=None):
+        """
+        Creates and saves a User with the given email and password.
+        """
+        if not username:
+            raise ValueError('Users must have a username')
+
+        user = self.model(
+            username=self.normalize_email(username),
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_staffuser(self, username, password):
+        """
+        Creates and saves a staff user with the given email and password.
+        """
+        user = self.create_user(
+            username=username,
+            password=password,
+        )
+        user.staff = True
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, password):
+        """
+        Creates and saves a superuser with the given email and password.
+        """
+        user = self.create_user(
+            username=username,
+            password=password,
+        )
+        user.staff = True
+        user.admin = True
+        user.save(using=self._db)
+        return user
+
 
 #custom User class for authentication
 class MyUser(AbstractUser):
-    #('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')) also this is present
     username = models.CharField(max_length=30, unique=True,
         help_text= ('Required. 30 characters or fewer. Letters, digits and '
-                    '@/./+/-/_ only.'),
-        error_messages={
-            'unique': ("A user with that username already exists."),
-        })
-    #('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')) also this is present
-    #('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-    first_name = models.CharField(('first name'), max_length=30, blank=True)
-    last_name = models.CharField(('last name'), max_length=30, blank=True)
-    email = models.EmailField(('email address'), blank=True)
-    is_active = models.BooleanField(('active'), default=True,
-        help_text=('Designates whether this user should be treated as '
-                    'active. Unselect this instead of deleting accounts.'))
-    date_joined = models.DateTimeField(('date joined'), default=timezone.now)
-    is_staff = models.BooleanField(('staff status'), default=False,
-        help_text=('Designates whether the user can log into this admin '
-                    'site.'))
-    is_operator = models.BooleanField(('operator status'), default=False,
-        help_text=('Designates whether the user is an operator type user or not.'))
-    #('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
-    #('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
+                    '@/./+/-/_ only.'))
 
+    is_active = models.BooleanField(default=True)
+    staff = models.BooleanField(default=False) # a admin user; non super-user
+    admin = models.BooleanField(default=False) # a superuser
+    is_operator = models.BooleanField(default=False)
+    
+
+    # notice the absence of a "Password field", that is built in.
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = [] # Email & Password are required by default.
 
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
-    example = models.IntegerField(default = 7)
+    objects = UserManager()
 
-    def was_published_recently(self):
-        now = timezone.now()
-        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+    def get_full_name(self):
+        # The user is identified by their email address
+        return self.email
 
+    def get_short_name(self):
+        # The user is identified by their email address
+        return self.email
 
-class Choice(models.Model):
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+    def __str__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        return self.staff
+
+    @property
+    def is_admin(self):
+        "Is the user a admin member?"
+        return self.admin
