@@ -12,6 +12,7 @@ class RegisterForm(forms.ModelForm):
 
     password = forms.CharField(widget=forms.PasswordInput)
     password_2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
+    email = forms.EmailField(widget=forms.EmailInput)
 
     class Meta:
         model = MyUser
@@ -26,6 +27,16 @@ class RegisterForm(forms.ModelForm):
         if qs.exists():
             raise forms.ValidationError("username is taken")
         return username
+
+    def clean_email(self):
+        '''
+        Verify email is available.
+        '''
+        email = self.cleaned_data.get('email')
+        qs = MyUser.objects.filter(email=email)
+        if qs.exists():
+            raise forms.ValidationError("email is taken")
+        return email
 
     def clean(self):
         '''

@@ -16,12 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView 
+import scheda.views as scheda
 
 urlpatterns = [
     #path include nella prima parte il nome della pagina e nella seconda il contenuto 
     path('', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('scheda/', include('scheda.urls')),
+    path('loginpage/', scheda.LoginView.as_view(), name='loginpage'),
+    path('access/', scheda.LoginView.access, name='access'),
     path('admin/', admin.site.urls),
     
 ]

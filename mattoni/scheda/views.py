@@ -4,7 +4,7 @@ from django.http import Http404
 from django.template import loader
 from django.utils import timezone
 from django.views import generic
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import MyUser
 from django.contrib.auth.decorators import user_passes_test
@@ -34,6 +34,10 @@ class LoginView(generic.View):
         else:
             return HttpResponse('<h1>Page was found</h1>')
     
+
+def logout_view(request):
+    logout(request)
+    #TODO:fare reindirizzamento alla home
 
 class HomesView(generic.View):
     pass
