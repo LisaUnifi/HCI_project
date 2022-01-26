@@ -30,6 +30,7 @@ class LoginView(generic.View):
                 login(request, user)
                 return redirect('home_op')
             else:
+                login(request, user)
                 return redirect('home_sc')
         else:
             return HttpResponse('<h1>Page was found</h1>')

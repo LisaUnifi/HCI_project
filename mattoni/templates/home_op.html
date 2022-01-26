@@ -3,6 +3,7 @@
 
 {% block title %}Pagina Operatore Centrale 118{% endblock %}
 
+
 {% block content %}
 <!-- Navbar -->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
@@ -22,7 +23,7 @@
             </div>
         </li>
         
-        <li class="nav-item pull-right">
+        <li class="nav-item">
             <div class="container-fluid">
                 <ul class="navbar-nav">
                   <!-- Avatar -->
@@ -48,7 +49,7 @@
                         <a class="dropdown-item" href="#">I miei dati</a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                       </li>
                     </ul>
                   </li>
@@ -59,10 +60,293 @@
     </ul>
 </nav>
 
+<!-- Tabs -->
+<ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">I miei dati</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Mezzi operativi</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Missioni</a>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <!-- Jumbotron -->
+    <div class="container p-3">
+      <div class="p-5 bg-light">
+        <div class="col-md-12 p-5">
+
+          <ul class="list-unstyled font-small mt-5 mb-0">
+            <li>
+              <p class="text-uppercase mb-2"><strong>Operatore</strong></p>
+              <p class="text-muted mb-4">...</p>
+            </li>
+
+            <li>
+              <p class="text-uppercase mb-2"><strong>Date</strong></p>
+              <p class="text-muted mb-4">June 27, 2019</p>
+            </li>
+
+            <li>
+              <p class="text-uppercase mb-2"><strong>Skills</strong></p>
+              <p class="text-muted mb-4">Design, HTML, CSS, Javascript</p>
+            </li>
+
+            <li>
+              <p class="text-uppercase mb-2"><strong>Address</strong></p>
+              <a href="https://mdbootstrap.com/docs/jquery/design-blocks/">MDBootstrap</a>
+            </li>
+
+          </ul>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div class="container p-3">
+      <table id="dt-vertical-scroll" class="table table-responsive table-hover" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Position
+            </th>
+            <th>Office
+            </th>
+            <th>Age
+            </th>
+            <th>Start date
+            </th>
+            <th>Salary
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>System Architect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td>2011/04/25</td>
+            <td>$320,800</td>
+          </tr>
+          <tr>
+            <td>Accountant</td>
+            <td>Tokyo</td>
+            <td>63</td>
+            <td>2011/07/25</td>
+            <td>$170,750</td>
+          </tr>
+          <tr>
+            <td>Junior Technical Author</td>
+            <td>San Francisco</td>
+            <td>66</td>
+            <td>2009/01/12</td>
+            <td>$86,000</td>
+          </tr>
+          <tr>
+            <td>Senior Javascript Developer</td>
+            <td>Edinburgh</td>
+            <td>22</td>
+            <td>2012/03/29</td>
+            <td>$433,060</td>
+          </tr>
+          <tr>
+            <td>Accountant</td>
+            <td>Tokyo</td>
+            <td>33</td>
+            <td>2008/11/28</td>
+            <td>$162,700</td>
+          </tr>
+          <tr>
+
+            <td>Integration Specialist</td>
+            <td>New York</td>
+            <td>61</td>
+            <td>2012/12/02</td>
+            <td>$372,000</td>
+          </tr>
+          <tr>
+            <td>Sales Assistant</td>
+            <td>San Francisco</td>
+            <td>59</td>
+            <td>2012/08/06</td>
+            <td>$137,500</td>
+          </tr>
+          <tr>
+            <td>Integration Specialist</td>
+            <td>Tokyo</td>
+            <td>55</td>
+            <td>2010/10/14</td>
+            <td>$327,900</td>
+          </tr>
+          <tr>
+            <td>Javascript Developer</td>
+            <td>San Francisco</td>
+            <td>39</td>
+            <td>2009/09/15</td>
+            <td>$205,500</td>
+          </tr>
+          <tr>
+            <td>Software Engineer</td>
+            <td>Edinburgh</td>
+            <td>23</td>
+            <td>2008/12/13</td>
+            <td>$103,600</td>
+          </tr>
+          <tr>
+            <td>Office Manager</td>
+            <td>London</td>
+            <td>30</td>
+            <td>2008/12/19</td>
+            <td>$90,560</td>
+          </tr>
+          <tr>
+            <td>Support Lead</td>
+            <td>Edinburgh</td>
+            <td>22</td>
+            <td>2013/03/03</td>
+            <td>$342,000</td>
+          </tr>
+          <tr>
+            <td>Regional Director</td>
+            <td>San Francisco</td>
+            <td>36</td>
+            <td>2008/10/16</td>
+            <td>$470,600</td>
+          </tr>
+          <tr>
+            <td>Senior Marketing Designer</td>
+            <td>London</td>
+            <td>43</td>
+            <td>2012/12/18</td>
+            <td>$313,500</td>
+          </tr>
+          <tr>
+
+            <td>Regional Director</td>
+            <td>London</td>
+            <td>19</td>
+            <td>2010/03/17</td>
+            <td>$385,750</td>
+          </tr>
+          <tr>
+            <td>Marketing Designer</td>
+            <td>London</td>
+            <td>66</td>
+            <td>2012/11/27</td>
+            <td>$198,500</td>
+          </tr>
+          <tr>
+            <td>Chief Financial Officer (CFO)</td>
+            <td>New York</td>
+            <td>64</td>
+            <td>2010/06/09</td>
+            <td>$725,000</td>
+          </tr>
+          <tr>
+            <td>Systems Administrator</td>
+            <td>New York</td>
+            <td>59</td>
+            <td>2009/04/10</td>
+            <td>$237,500</td>
+          </tr>
+          <tr>
+            <td>Software Engineer</td>
+            <td>London</td>
+            <td>41</td>
+            <td>2012/10/13</td>
+            <td>$132,000</td>
+          </tr>
+          <tr>
+            <td>Personnel Lead</td>
+            <td>Edinburgh</td>
+            <td>35</td>
+            <td>2012/09/26</td>
+            <td>$217,500</td>
+          </tr>
+          <tr>
+            <td>Development Lead</td>
+            <td>New York</td>
+            <td>30</td>
+            <td>2011/09/03</td>
+            <td>$345,000</td>
+          </tr>
+          <tr>
+            <td>Chief Marketing Officer (CMO)</td>
+            <td>New York</td>
+            <td>40</td>
+            <td>2009/06/25</td>
+            <td>$675,000</td>
+          </tr>
+          <tr>
+            <td>Pre-Sales Support</td>
+            <td>New York</td>
+            <td>21</td>
+            <td>2011/12/12</td>
+            <td>$106,450</td>
+          </tr>
+          <tr>
+            <td>Sales Assistant</td>
+            <td>Sidney</td>
+            <td>23</td>
+            <td>2010/09/20</td>
+            <td>$85,600</td>
+          </tr>
+          <tr>
+            <td>Chief Executive Officer (CEO)</td>
+            <td>London</td>
+            <td>47</td>
+            <td>2009/10/09</td>
+            <td>$1,200,000</td>
+          </tr>
+          <tr>
+            <td>Developer</td>
+            <td>Edinburgh</td>
+            <td>42</td>
+            <td>2010/12/22</td>
+            <td>$92,575</td>
+          </tr>
+          <tr>
+            <td>Regional Director</td>
+            <td>Singapore</td>
+            <td>28</td>
+            <td>2010/11/14</td>
+            <td>$357,650</td>
+          </tr>
+          <tr>
+            <td>Software Engineer</td>
+            <td>San Francisco</td>
+            <td>28</td>
+            <td>2011/06/07</td>
+            <td>$206,850</td>
+          </tr>
+          <tr>
+            <td>Chief Operating Officer (COO)</td>
+            <td>San Francisco</td>
+            <td>48</td>
+            <td>2010/03/11</td>
+            <td>$850,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+    
+  </div>
+</div>
+
 <!-- Bottone per Modal -->
-<button type="button" class="btn btn-primary pull-right" data-mdb-toggle="modal" data-mdb-target="#formmissione">
-  Nuova Missione 
-</button>
+<div class="position-absolute bottom-0 end-0">
+  <div class="container p-5">
+    <button type="button" class="btn btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#formmissione">
+      Nuova Missione 
+    </button>
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="formmissione" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -207,16 +491,16 @@
         </div>
     </div>
 </div>
-
-
-
 {% endblock %}
 
 {% block scripts %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-<!-- funzioni -->
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<link rel = "stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+<script src = "https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src = "https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script src="{% static 'js/functions.js' %}"></script>
 {% endblock %}
 

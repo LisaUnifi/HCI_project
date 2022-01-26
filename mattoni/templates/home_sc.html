@@ -1,17 +1,79 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Pagina associazione{% endblock %}
+
 
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
+
+<div class="bg-image d-flex justify-content-center align-items-center" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/fluid/nature/015.webp'); height: 100vh;">
+    <!-- Container form -->
+    <div class="container-sm p-3 w-30 rounded bg-white text-center" style="width: 550px">
+        <img src="https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png" class="logo p-3" />
+        <h1>Benvenuto ...!</h1>
+        <p class="slogan">Seleziona il mezzo</p>
+        <form>
+            <div class="row">
+                <div class="col-3">
+                    
+                </div>
+                <div class="col-9 mb-4">
+                    <button type="button" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">Delta 61</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    
+                </div>
+                <div class="col-9 mb-4">
+                    <button type="button" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">India 12</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    
+                </div>
+                <div class="col-9 mb-4">
+                    <button type="button" class="btn btn-primary float-start btn-rounded" data-mdb-toggle="collapse"
+                    href="#mezzonuovo"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="mezzonuovo">+</button>
+                    <!-- Collapsed content -->
+                    <div class="collapse mt-3" id="mezzonuovo">
+                        <div class="container border mr-2">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                            sapiente ea proident.
+                        </div> 
+                    </div>
+                </div>
+            </div>
+
+
+          
+            <!-- Submit button -->
+            <div class="row">
+                <div class="col-sm-12 text-center p-1">
+                    <a href="#" class="btn btn-primary w-25 pull-right m-4" role="button" type="submit">Avanti</a>
+                </div>
+            </div>    
+          </form>
+      
+    </div>
+  </div>
 
 
 
-{% endif %}
+{% endblock %}
 
-<h1 class="m-3">Home Associazione</h1>
-
-
+{% block scripts %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<link rel = "stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+<script src = "https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src = "https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="{% static 'js/functions.js' %}"></script>
 {% endblock %}
