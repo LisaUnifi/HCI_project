@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .forms import UserRegistrationForm
 from .models import MyUser
 from django.contrib import messages 
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 import pdb
 
@@ -31,16 +31,21 @@ class LoginView(generic.View):
         password = request.GET['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            if operator_check(user):
-                login(request, user)
-                return redirect('home_op')
-            elif staff_check(user):
-                return redirect('home_socc')
-            else:
-                return redirect('home_sc')
-
+            login(request,user)
+            return logged_home_redirect(request)
         else:
             return HttpResponse('<h1>Page was found</h1>')
+
+@login_required
+def logged_home_redirect(request):
+    if operator_check(request.user):
+        template_name = 'home_op.html'
+    elif staff_check(request.user):
+        template_name = 'home_socc.html'
+    else:
+        template_name = 'home_sc.html'
+
+    return render(request, template_name)
     
 
 def logout_view(request):
