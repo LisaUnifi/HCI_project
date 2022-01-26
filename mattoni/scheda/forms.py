@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
 
 MyUser = get_user_model()
 
@@ -98,3 +98,57 @@ class UserAdminChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+
+class UserRegistrationForm(UserCreationForm):
+    """
+    The default 
+
+    """
+
+
+    first_name = forms.CharField(required=True, max_length=30)
+    second_name = forms.CharField(required=True, max_length=30)
+    password1 = forms.CharField(required=True)
+    password2 = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+    corporation = forms.CharField(max_length=30, required=True)
+    phone = forms.CharField(max_length=30)
+    user_type = forms.CharField(max_length=30)
+
+    class Meta:
+        model = MyUser
+        fields = ['username']
+
+
+    def clean_username(self):
+        '''
+        Verify username is available.
+        '''
+        username = self.cleaned_data.get('username')
+        qs = MyUser.objects.filter(username=username)
+        if qs.exists():
+            raise forms.ValidationError("username is taken")
+        return username
+
+    def clean_email(self):
+        '''
+        Verify email is available.
+        '''
+        email = self.cleaned_data.get('email')
+        qs = MyUser.objects.filter(email=email)
+        if qs.exists():
+            raise forms.ValidationError("email is taken")
+        return email
+
+
+    def clean(self):
+        '''
+        Verify both passwords match.
+        '''
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+        if password1 is not None and password1 != password2:
+            self.add_error("password_2", "Your passwords must match")
+        return cleaned_data

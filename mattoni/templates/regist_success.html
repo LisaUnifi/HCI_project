@@ -1,22 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-<!-- 
 
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'loginpage' %}">Log In</a>
-
-
-{% endif %}
-
-<h1 class="m-3">You need to add this card into the grid or add styles as me here below</h1>
--->
-
-{% block title %}Home{% endblock %}
+{% block title %}Registration Successful{% endblock %}
 
 {% block content %}
 
@@ -32,17 +18,12 @@
     <div class="row">
       <div class="col-sm-12 text-center p-3">
         <h1>Mattoni 2.0</h1>    
-        <h4 class="text-gray">Scheda di intervento locale in emergenza</h4>
+        <h4 class="text-gray">Registrazione avvenuta con successo!</h4>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12 text-center p-1">
-        <a href="{% url 'loginpage' %}" class="btn btn-info w-50" role="button">Log In</a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 text-center p-1">
-        <a href="{% url 'registration_user' %}" class="btn btn-primary w-50" role="button">Registrati</a>
+        <a href="{% url 'home' %}" class="btn btn-info w-50" role="button">Ritorna alla Home</a>
       </div>
     </div>
     
@@ -51,4 +32,3 @@
 
 
 {% endblock %}
-

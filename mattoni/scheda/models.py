@@ -52,11 +52,13 @@ class MyUser(AbstractUser):
     username = models.CharField(max_length=30, unique=True,
         help_text= ('Required. 30 characters or fewer. Letters, digits and '
                     '@/./+/-/_ only.'))
-
+    #also has first_name and last_name
     is_active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False) # a admin user; non super-user
     admin = models.BooleanField(default=False) # a superuser
     is_operator = models.BooleanField(default=False)
+    corporation = models.CharField(max_length=30, blank=True)
+    phone = models.CharField(max_length=30, blank=True)
     
 
     # notice the absence of a "Password field", that is built in.
@@ -96,3 +98,5 @@ class MyUser(AbstractUser):
     def is_admin(self):
         "Is the user a admin member?"
         return self.admin
+
+
