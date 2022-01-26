@@ -26,6 +26,7 @@ urlpatterns = [
     path('loginpage/', scheda.LoginView.as_view(), name='loginpage'),
     path('access/', scheda.LoginView.access, name='access'),
     path('admin/', admin.site.urls),
-    path('registration/', TemplateView.as_view(template_name='registration.html'), name='registration'),
+    path('logout/', scheda.logout_view, name='logout'),
+    path("registration_user/", scheda.registration_request, name="registration_user"),
     path('home_op/', TemplateView.as_view(template_name='home_op.html'), name='home_op'),
 ]
