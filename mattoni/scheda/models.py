@@ -100,3 +100,105 @@ class MyUser(AbstractUser):
         return self.admin
 
 
+class Intervento(models.Model):
+    id_scheda = models.OneToOneField(Scheda, on_delete = models.CASCADE)
+    id_mezzo = models.OneToOneField(Mezzo, on_delete = models.CASCADE)
+    id_missione = models.OneToOneField(Missione, on_delete = models.CASCADE)
+
+
+class Scheda(models.Model):
+    id_scheda = model.AutoField(primary_key = True)
+    '''
+    nome
+    cognome
+    nascita
+    eta
+    doveNato
+    residenza
+    comuneResidenza
+    capResidenza
+
+    scenario -obl
+
+    cosciente -obl
+    respiraBLS
+    circoloBLS
+    dae
+    pervieta
+    ostruzione
+
+    respira
+    freqResp
+    respirazione
+    palpazioneTorace
+    rumoroso
+    saturazione
+    saturazioneOss
+    ossigeno
+
+    pressioneA
+    pressioneB
+    freqCircolatoria
+    temperatura
+    emorragie
+    polso
+    polsoRegolare
+    cute
+    sudato 
+    doloretoracico
+    oraDolore
+    tipoDolore
+
+    avpu
+    cincinnati TBD
+    forzaSensibilita TBD
+    tempo
+    spazio
+
+    posizioneArrivo
+    testaPiedi TBD
+    allergie
+    patologie
+    glicemia
+    farmaci
+    pasto
+
+    note
+
+    esito TBD
+
+    '''
+
+
+class Mezzo(models.Model):
+    id_mezzo = model.AutoField(primary_key = True)
+    nome = CharField(unique = True, max_length = 10)
+    #TODO associazione = ?, quindi creazione di tabella associazione-mezzi
+    '''
+    tipologia 
+    fisso
+    stato
+    ora_inizio
+    ora_fine
+    equipaggio
+    '''
+
+
+class Missione(models.Model):
+    id_missione = model.AutoField(primary_key = True)
+    '''
+    luogo
+    patologia
+    criticità
+    nome
+    cognome
+    indirizzo
+    civico
+    comune
+    provincia
+    cap
+    cellulare
+    indirizzoUgualeResidenza = true/false
+    note
+    avvisi
+    '''
