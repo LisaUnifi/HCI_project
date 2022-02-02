@@ -2,6 +2,7 @@ from django.db import models
 import datetime
 from django.utils import timezone 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from PIL import Image
 
 
 
@@ -100,105 +101,112 @@ class MyUser(AbstractUser):
         return self.admin
 
 
+class Scheda(models.Model):
+    id_scheda = models.AutoField(primary_key = True)
+
+    scenario = models.CharField(max_length = 20)
+
+    cosciente = models.BooleanField()
+    respiraBLS = models.BooleanField()
+    circoloBLS = models.BooleanField()
+    dae = models.BooleanField()
+    cicli = models.IntegerField(default = 0)
+    noteBLS = models.TextField()
+    pervieta = models.BooleanField()
+    ostruzione = models.BooleanField()
+
+    dispnea = models.BooleanField()
+    osservo = models.CharField(max_length = 20)
+    palpo = models.CharField(max_length = 20)
+    ascolto = models.BooleanField()
+    conto = models.IntegerField()
+    saturazione = models.IntegerField()
+    saturazione_oss = models.IntegerField()
+    ossigeno = models.IntegerField()
+
+    pressione_massima = models.IntegerField()
+    pressione_minima = models.IntegerField()
+    temperatura = models.IntegerField()
+    emorragie = models.CharField(max_length = 20)
+    polso = models.BooleanField()
+    regolare_polso = models.BooleanField()
+    cute = models.CharField(max_length = 20)
+    sudato = models.BooleanField()
+    dolore_toracico = models.BooleanField()
+    ora_dolore = models.DateTimeField(auto_now = False, auto_now_add = False)
+    tipo_dolore = models.BooleanField()
+
+    avpu = models.CharField(max_length = 1)
+    tempo = models.BooleanField()
+    spazio = models.BooleanField()
+    mimica_c = models.CharField(max_length = 10)
+    braccia_c = models.CharField(max_length = 10)
+    linguaggio_c = models.BooleanField()
+    forza_sup = models.CharField(max_length = 10)
+    forza_inf = models.CharField(max_length = 10)
+    sens_sup = models.CharField(max_length = 10)
+    sens_inf = models.CharField(max_length = 10)
+
+    posizione = models.CharField(max_length = 20)
+    allergie = models.TextField()
+    patologie = models.TextField()
+    glicemia = models.IntegerField()
+    farmaci = models.TextField()
+    pasto = models.TextField()
+    #setta immagini 
+    testa_piedi_front = models.ImageField(upload_to = '')
+    testa_piedi_back = models.ImageField(upload_to = '')
+
+    note = models.TextField()
+
+
+class Mezzo(models.Model):
+    id_mezzo = models.AutoField(primary_key = True)
+    nome = models.CharField(unique = True, max_length = 10)
+    tipologia = models.CharField(max_length = 10)
+    all_day = models.BooleanField(default = False)
+
+
+class Missione(models.Model):
+    id_missione = models.AutoField(primary_key = True)
+    luogo = models.CharField(max_length = 1)
+    patologia = models.IntegerField()
+    criticita = models.CharField(max_length = 1)
+    nome_p = models.CharField(max_length = 20)
+    cognome_p = models.CharField(max_length = 20, default = "NON DEFINITO")
+    luogo_intervento = models.CharField(max_length = 100)
+    comune_intervento = models.CharField(max_length = 20)
+    residenza = models.CharField(max_length = 100)
+    comune_residenza = models.CharField(max_length = 20)
+    cellulare = models.CharField(max_length = 15)
+    data_nascita = models.DateField(auto_now = False, auto_now_add = False)
+    dove_nato = models.CharField(max_length = 25)
+    eta = models.IntegerField()
+    note = models.TextField()
+    avvisi = models.TextField()
+
+    invio = models.DateTimeField()
+    inizio = models.DateTimeField()
+    arrivo = models.DateTimeField()
+    partenza = models.DateTimeField()
+    pronto_socc = models.DateTimeField()
+    fine = models.DateTimeField()
+    sede = models.DateTimeField()
+
+    #capire come gestire esito
+    esito = models.CharField(max_length = 20)
+
+
 class Intervento(models.Model):
     id_scheda = models.OneToOneField(Scheda, on_delete = models.CASCADE)
     id_mezzo = models.OneToOneField(Mezzo, on_delete = models.CASCADE)
     id_missione = models.OneToOneField(Missione, on_delete = models.CASCADE)
 
 
-class Scheda(models.Model):
-    id_scheda = model.AutoField(primary_key = True)
-    '''
-    nome
-    cognome
-    nascita
-    eta
-    doveNato
-    residenza
-    comuneResidenza
-    capResidenza
-
-    scenario -obl
-
-    cosciente -obl
-    respiraBLS
-    circoloBLS
-    dae
-    pervieta
-    ostruzione
-
-    respira
-    freqResp
-    respirazione
-    palpazioneTorace
-    rumoroso
-    saturazione
-    saturazioneOss
-    ossigeno
-
-    pressioneA
-    pressioneB
-    freqCircolatoria
-    temperatura
-    emorragie
-    polso
-    polsoRegolare
-    cute
-    sudato 
-    doloretoracico
-    oraDolore
-    tipoDolore
-
-    avpu
-    cincinnati TBD
-    forzaSensibilita TBD
-    tempo
-    spazio
-
-    posizioneArrivo
-    testaPiedi TBD
-    allergie
-    patologie
-    glicemia
-    farmaci
-    pasto
-
-    note
-
-    esito TBD
-
-    '''
+class MezziUtente(models.Model):
+    username = models.ForeignKey(MyUser, on_delete = models.CASCADE)
+    id_mezzo = models.OneToOneField(Mezzo, on_delete = models.CASCADE)
 
 
-class Mezzo(models.Model):
-    id_mezzo = model.AutoField(primary_key = True)
-    nome = CharField(unique = True, max_length = 10)
-    #TODO associazione = ?, quindi creazione di tabella associazione-mezzi
-    '''
-    tipologia 
-    fisso
-    stato
-    ora_inizio
-    ora_fine
-    equipaggio
-    '''
 
 
-class Missione(models.Model):
-    id_missione = model.AutoField(primary_key = True)
-    '''
-    luogo
-    patologia
-    criticità
-    nome
-    cognome
-    indirizzo
-    civico
-    comune
-    provincia
-    cap
-    cellulare
-    indirizzoUgualeResidenza = true/false
-    note
-    avvisi
-    '''
