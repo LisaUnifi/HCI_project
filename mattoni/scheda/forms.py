@@ -107,18 +107,18 @@ class UserRegistrationForm(UserCreationForm):
     """
 
 
-    first_name = forms.CharField(required=True, max_length=30)
-    second_name = forms.CharField(required=True, max_length=30)
-    password1 = forms.CharField(required=True)
-    password2 = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
-    corporation = forms.CharField(max_length=30, required=True)
-    phone = forms.CharField(max_length=30)
-    user_type = forms.CharField(max_length=30)
+    first_name = forms.CharField(required=True, max_length=30, label='first_name')
+    last_name = forms.CharField(required=True, max_length=30, label='last_name')
+    password1 = forms.CharField(required=True, label='password1')
+    password2 = forms.CharField(required=True, label='password2')
+    email = forms.EmailField(required=True, label='email')
+    corporation = forms.CharField(max_length=30, required=True, label='corporation')
+    phone = forms.CharField(max_length=30, label='phone')
+    user_type = forms.CharField(max_length=30, label='user_type')
 
     class Meta:
         model = MyUser
-        fields = ['username']
+        fields = ['username', 'first_name', 'last_name', 'corporation', 'email', 'phone']
 
 
     def clean_username(self):
