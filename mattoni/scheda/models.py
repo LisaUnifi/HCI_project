@@ -58,7 +58,7 @@ class MyUser(AbstractUser):
     staff = models.BooleanField(default=False) # a admin user; non super-user
     admin = models.BooleanField(default=False) # a superuser
     is_operator = models.BooleanField(default=False)
-    corporation = models.CharField(max_length=30, blank=True)
+    corporation = models.CharField(unique=True, max_length=30, blank=True)
     phone = models.CharField(max_length=30, blank=True)
     
 
@@ -165,6 +165,9 @@ class Mezzo(models.Model):
     nome = models.CharField(unique = True, max_length = 10)
     tipologia = models.CharField(max_length = 10)
     all_day = models.BooleanField(default = False)
+    username = models.ForeignKey(MyUser, on_delete = models.CASCADE)
+    num_mezzo = models.IntegerField()
+    equip_min = models.IntegerField()
 
 
 class Missione(models.Model):
@@ -201,12 +204,4 @@ class Intervento(models.Model):
     id_scheda = models.OneToOneField(Scheda, on_delete = models.CASCADE)
     id_mezzo = models.OneToOneField(Mezzo, on_delete = models.CASCADE)
     id_missione = models.OneToOneField(Missione, on_delete = models.CASCADE)
-
-
-class MezziUtente(models.Model):
-    username = models.ForeignKey(MyUser, on_delete = models.CASCADE)
-    id_mezzo = models.OneToOneField(Mezzo, on_delete = models.CASCADE)
-
-
-
 

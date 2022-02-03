@@ -7,8 +7,8 @@ from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .forms import UserRegistrationForm
-from .models import MyUser
+from .forms import MezziCreationForm, UserRegistrationForm
+from .models import MyUser, Mezzo
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
 
@@ -74,5 +74,28 @@ def registration_request(request):
             #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
             #return HttpResponse('<h1>Form Not valid</h1>')
     return render(request, 'registration.html', {'form': form})
-    
 
+
+class GestioneMezzi(generic.View):
+    def get(self, request):
+        template_name = 'gestione_mezzi.html'
+        mezzi = Mezzo.objects.filter(username=request.user.username)
+        return render(request, template_name, context={'mezzi':mezzi})
+
+
+def mezzi_creation_form(request):
+    form = MezziCreationForm(request.POST or None, request.FILES or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            mezzo = form.save(commit=False)
+
+            user = MyUser.objects.get(username=request.user.username)
+            mezzo.username = user
+            
+            mezzo.save()
+            return redirect(logged_home_redirect(request))
+        else:
+            print(form.errors)
+            #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
+            #return HttpResponse('<h1>Form Not valid</h1>')
+    return render(request, 'creation_mezzi.html', {'form': form})

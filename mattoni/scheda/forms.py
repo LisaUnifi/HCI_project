@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
+from .models import Mezzo
 
 MyUser = get_user_model()
 
@@ -102,8 +103,7 @@ class UserAdminChangeForm(forms.ModelForm):
 
 class UserRegistrationForm(UserCreationForm):
     """
-    The default 
-
+    Registration Form
     """
 
 
@@ -152,3 +152,13 @@ class UserRegistrationForm(UserCreationForm):
         if password1 is not None and password1 != password2:
             self.add_error("password_2", "Your passwords must match")
         return cleaned_data
+
+class MezziCreationForm(forms.ModelForm):
+    """
+        Creazione mezzi
+    """
+
+    class Meta:
+        model = Mezzo
+        fields = ['nome','tipologia','all_day','num_mezzo','equip_min']
+
