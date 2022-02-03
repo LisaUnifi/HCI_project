@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Scheda Intervento{% endblock %}
+
+{% block content %}
+
+<!-- Background image -->
+<div class="bg-image d-flex justify-content-center align-items-center" style="background-image: url('/static/img/lo.jpg'); height: 100vh;">
+  <!-- Container form -->
+  <div class="container-sm p-3 w-30 rounded" style="width: 550px; background: rgba(255, 255, 255, 0.85);">
+    <div class="row">
+      <div class="col-sm-12 text-center p-3">
+        <img src="{% static 'img/covid.jpeg' %}" class="rounded" alt="Covid" style="height: 30vh">    
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 text-center p-3">
+        <h1>Mattoni 2.0</h1>    
+        <h4 class="text-gray">Scheda di intervento locale in emergenza</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 text-center p-1">
+        <a href="{% url 'loginpage' %}" class="btn btn-info w-50" role="button">Log In</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 text-center p-1">
+        <a href="{% url 'registration_user' %}" class="btn btn-primary w-50" role="button">Registrati</a>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+{% endblock %}

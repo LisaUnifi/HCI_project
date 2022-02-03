@@ -6,75 +6,90 @@
 
 {% block content %}
 
-<div class="bg-image d-flex justify-content-center align-items-center" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/fluid/nature/015.webp'); height: 100vh;">
-    <!-- Container form -->
-    <div class="container-sm p-3 w-30 rounded bg-white text-center" style="width: 550px">
-        <img src="https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png" class="logo p-3" />
-        <h1>Benvenuto ...!</h1>
-        <p class="slogan">Seleziona il mezzo</p>
-        <form>
-            <div class="row">
-                <div class="col-3">
-                    
-                </div>
-                <div class="col-9 mb-4">
-                    <button type="button" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">Delta 61</button>
-                </div>
+<div class="container-sm p-3 rounded bg-white text-center" >
+    <img src="https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png" class="logo p-3" />
+    <h1>Benvenuto ...!</h1>
+    <p class="slogan">Seleziona il mezzo</p>
+    <form>
+        <div class="row">
+            <div class="col-3">
+                
             </div>
-            <div class="row">
-                <div class="col-3">
-                    
-                </div>
-                <div class="col-9 mb-4">
-                    <button type="button" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">India 12</button>
-                </div>
+            <div class="col-9 mb-4">
+                <button type="button" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">Delta 61</button>
             </div>
-            <div class="row">
-                <div class="col-3">
-                </div>
-                <div class="col-9 mb-4">
-                    <button type="button" class="btn btn-primary float-start btn-rounded" data-mdb-toggle="collapse"
-                    href="#mezzonuovo"
-                    role="button"
-                    aria-expanded="false"
-                    aria-controls="mezzonuovo">+</button>
-                    <!-- Collapsed content -->
-                    <div class="collapse mt-3" id="mezzonuovo">
-                        <div class="container border w-50">
-                            <div class="row">
-                                <div class="col-12 mb-4">
-                                    <button type="button" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">Delta 61</button>
-                                </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                
+            </div>
+            <div class="col-9 mb-4">
+                <button type="button" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">India 12</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-9 mb-4">
+                <button type="button" class="btn btn-primary float-start btn-rounded" data-mdb-toggle="collapse"
+                href="#mezzonuovo"
+                role="button"
+                aria-expanded="false"
+                aria-controls="mezzonuovo">+</button>
+                <!-- Collapsed content -->
+                <div class="collapse mt-3" id="mezzonuovo">
+                    <div class="container border w-50">
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <button type="button" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">Delta 61</button>
                             </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    
-                                </div>
-                                <div class="col-9 mb-4">
-                                    <button type="button" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">India 12</button>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                
                             </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    
-                                </div>
-                        </div> 
-                    </div>
+                            <div class="col-9 mb-4">
+                                <button type="button" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">India 12</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                
+                            </div>
+                    </div> 
                 </div>
             </div>
+        </div>
+
+        
+
+        
+        <!-- Submit button -->
+        <div class="row">
+            <div class="col-sm-12 text-center p-1">
+                <a href="{% url 'gestione_mezzi' %}" class="btn btn-primary w-25 pull-bottom-right m-4" role="button" type="submit">Gestione Mezzi</a>
+            </div>
+        </div>   
+        <div class="row">
+            <div class="col-sm-12 text-center p-1">
+                <a href="#" class="btn btn-primary w-25 pull-right m-4" role="button" type="submit">Avanti</a>
+            </div>
+        </div>
+        
+        <div class="position-absolute bottom-0 end-0">
+            <div class="container p-5">
+              <button type="button" class="btn btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#formmissione">
+                Nuova Missione 
+              </button>
+            </div>
+          </div>
 
 
-          
-            <!-- Submit button -->
-            <div class="row">
-                <div class="col-sm-12 text-center p-1">
-                    <a href="#" class="btn btn-primary w-25 pull-right m-4" role="button" type="submit">Avanti</a>
-                </div>
-            </div>    
-          </form>
-      
-    </div>
-  </div>
+
+    </form>
+    
+</div>
+
 
 
 
