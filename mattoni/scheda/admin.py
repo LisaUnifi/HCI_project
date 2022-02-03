@@ -3,7 +3,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .forms import UserAdminCreationForm, UserAdminChangeForm
+from .forms import UserAdminCreationForm, UserAdminChangeForm, MezziCreationForm
+from .models import Mezzo
 
 MyUser = get_user_model()
 
@@ -22,7 +23,7 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ['admin']
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        ('Personal info', {'fields': ('corporation','phone')}),
+        ('Personal info', {'fields': ()}),
         ('Permissions', {'fields': ('admin','staff','is_operator',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -38,4 +39,9 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
+class MezzoAdmin(admin.ModelAdmin):
+    list_display = ('nome','tipologia','all_day','num_mezzo','equip_min', 'username')
+
+
 admin.site.register(MyUser, UserAdmin)
+admin.site.register(Mezzo, MezzoAdmin)

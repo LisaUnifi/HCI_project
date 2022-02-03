@@ -32,10 +32,26 @@ class LoginView(generic.View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request,user)
-            return logged_home_redirect(request)
+            return redirect('home_sc')
         else:
             return HttpResponse('<h1>Page was found</h1>')
 
+
+
+class HomeSocieta(generic.View):
+    def get(self, request):
+        template_name = 'home_sc.html'
+        mezzi = Mezzo.objects.filter(username=request.user.id)
+        return render(request, template_name, context={'mezzi':mezzi})
+
+
+class GestioneMezzi(generic.View):
+    def get(self, request):
+        template_name = 'gestione_mezzi.html'
+        mezzi = Mezzo.objects.filter(username=request.user.id)
+        return render(request, template_name, context={'mezzi':mezzi})
+
+'''
 @login_required
 def logged_home_redirect(request):
     if operator_check(request.user):
@@ -46,7 +62,8 @@ def logged_home_redirect(request):
         template_name = 'home_sc.html'
 
     return render(request, template_name)
-    
+''' 
+
 
 def logout_view(request):
     logout(request)
@@ -76,11 +93,10 @@ def registration_request(request):
     return render(request, 'registration.html', {'form': form})
 
 
-class GestioneMezzi(generic.View):
-    def get(self, request):
-        template_name = 'gestione_mezzi.html'
-        mezzi = Mezzo.objects.filter(username=request.user.username)
-        return render(request, template_name, context={'mezzi':mezzi})
+
+
+
+
 
 
 def mezzi_creation_form(request):

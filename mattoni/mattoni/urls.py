@@ -30,7 +30,7 @@ urlpatterns = [
     path("registration_user/", scheda.registration_request, name="registration_user"),
     #TODO: da togliere
     path('home_op/', TemplateView.as_view(template_name='home_op.html'), name='home_op'),
-    path('home_sc/', TemplateView.as_view(template_name='home_sc.html'), name='home_sc'),
+    path('home_sc/', scheda.HomeSocieta.as_view(), name='home_sc'),
     path('mattoni/', TemplateView.as_view(template_name='mattoni.html'), name='mattoni'),
-    path('gestione_mezzi/', TemplateView.as_view(template_name='gestione_mezzi.html'), name='gestione_mezzi'),
+    path('gestione_mezzi/', scheda.GestioneMezzi.as_view(), name='gestione_mezzi'),
 ]

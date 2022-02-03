@@ -58,7 +58,7 @@ class MyUser(AbstractUser):
     staff = models.BooleanField(default=False) # a admin user; non super-user
     admin = models.BooleanField(default=False) # a superuser
     is_operator = models.BooleanField(default=False)
-    corporation = models.CharField(unique=True, max_length=30, blank=True)
+    corporation = models.CharField(max_length=30, blank=True)
     phone = models.CharField(max_length=30, blank=True)
     
 
@@ -78,7 +78,7 @@ class MyUser(AbstractUser):
         return self.email
 
     def __str__(self):
-        return self.email
+        return self.username
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
