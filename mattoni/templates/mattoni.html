@@ -5,34 +5,231 @@
 
 {% block content %}
 
-<!-- Background image -->
-<div class="bg-image d-flex justify-content-center align-items-center" style="background-image: url('/static/img/lo.jpg'); height: 100vh;">
-  <!-- Container form -->
-  <div class="container-sm p-3 w-30 rounded" style="width: 550px; background: rgba(255, 255, 255, 0.85);">
-    <div class="row">
-      <div class="col-sm-12 text-center p-3">
-        <img src="{% static 'img/covid.jpeg' %}" class="rounded" alt="Covid" style="height: 30vh">    
-      </div>
+<div class="d-flex flex-column" style="height: 100vh">
+
+    <div class="container text-center bg-light">
+        <div class="row m-4">
+            <div class="col-4">
+                <p class="text-uppercase mb-2"><strong>ID MISSIONE</strong></p>
+            </div>
+            <div class="col-4">
+                <p class="text-uppercase mb-2"><strong>K C01 R</strong></p>
+            </div>
+            <div class="col-4">
+                <a href="{% url 'home_sc' %}" role="button" class="btn p-3 btn-primary btn-lg ">
+                    MODIFICA 
+                </a>
+            </div>
+        </div>
+        <div class="row m-4 mb-0">
+            <div class="col-12">
+                <p class="text-muted mb-4">Luogo di intervento</p>
+            </div>
+        </div>
+
     </div>
-    <div class="row">
-      <div class="col-sm-12 text-center p-3">
-        <h1>Mattoni 2.0</h1>    
-        <h4 class="text-gray">Scheda di intervento locale in emergenza</h4>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 text-center p-1">
-        <a href="{% url 'loginpage' %}" class="btn btn-info w-50" role="button">Log In</a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 text-center p-1">
-        <a href="{% url 'registration_user' %}" class="btn btn-primary w-50" role="button">Registrati</a>
-      </div>
-    </div>
+
+    <div class="container mb-auto bg-white">
+       
+        <div class="row">
+            <div class="col-sm-3">
+                <nav class="nav nav-pills flex-column fixed-left nav-fill" style="height: 70vh">
+                    <a class="nav-link d-flex align-items-center justify-content-center active" href="#scenario">Scenario</a>
+                    <a class="nav-link d-flex align-items-center justify-content-center" href="#A">A</a>
+                    <a class="nav-link d-flex align-items-center justify-content-center" href="#B">B</a>
+                    <a class="nav-link d-flex align-items-center justify-content-center" href="#C">C</a>
+                    <a class="nav-link d-flex align-items-center justify-content-center" href="#D">D</a>
+                    <a class="nav-link d-flex align-items-center justify-content-center" href="#E">E</a>
+                    <a class="nav-link d-flex align-items-center justify-content-center" href="#note">Note</a>
+                    <a class="nav-link d-flex align-items-center justify-content-center" href="#esito">Esito</a>
+                </nav>
+            </div>
+          
+            <div class="col-sm-9">
+              <div data-spy="scroll" class="scrollspy-example z-depth-1 mt-4" data-target="#navbar-example3"
+              data-offset="0" style="height: 70vh; overflow: auto;">
+                <h1 id="scenario" class="text-center border-bottom border-top">Scenario all'arrivo</h1>
+                <h6>Dinamica riferita:</h6>
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="groupOfDefaultRadios">
+                    <label class="custom-control-label" for="defaultGroupExample1">Soccorso a persona</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="groupOfDefaultRadios" checked>
+                    <label class="custom-control-label" for="defaultGroupExample2">Trauma</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="groupOfDefaultRadios">
+                    <label class="custom-control-label" for="defaultGroupExample3">Trauma maggiore</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample4" name="groupOfDefaultRadios">
+                    <label class="custom-control-label" for="defaultGroupExample4">Non definita</label>
+                </div>
+
+                <h1 id="A" class="text-center mt-4 border-bottom border-top">A - Airway</h1>
+                <div class="row p-1 align-self-middle">
+                    <div class="col-7">
+                        <h6>Cosciente?</h6>
+                    </div>
+                    <div class="col-5">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <button class="btn btn-light-blue form-check-label active">
+                              <input class="form-check-input" type="radio" name="options" id="option1" autocomplete="off">
+                              SI
+                            </button>
+                            <button class="btn btn-light-blue form-check-label">
+                              <input class="form-check-input" type="radio" name="options" id="option2" autocomplete="off"> NO
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 d-flex align-items-center">
+                    <div class="col-7">
+                        <h6>Vie aeree pervie?</h6>
+                    </div>
+                    <div class="col-5 pull-right">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary">Left</button>
+                            <button type="button" class="btn btn-secondary">Middle</button>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <h1 id="B" class="text-center mt-4 border-bottom border-top">B - Breathing</h1>
+                <div class="row p-1 align-self-middle">
+                    <div class="col-7">
+                        <h6>Cosciente?</h6>
+                    </div>
+                    <div class="col-5">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <button class="btn btn-light-blue form-check-label active">
+                              <input class="form-check-input" type="radio" name="options" id="option1" autocomplete="off">
+                              SI
+                            </button>
+                            <button class="btn btn-light-blue form-check-label">
+                              <input class="form-check-input" type="radio" name="options" id="option2" autocomplete="off"> NO
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 align-self-middle">
+                    <div class="col-7">
+                        <h6>Vie aeree pervie?</h6>
+                    </div>
+                    <div class="col-5">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <button class="btn btn-light-blue form-check-label active">
+                              <input class="form-check-input" type="radio" name="options" id="option1" autocomplete="off">
+                              SI
+                            </button>
+                            <button class="btn btn-light-blue form-check-label">
+                              <input class="form-check-input" type="radio" name="options" id="option2" autocomplete="off"> NO
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <h1 id="C" class="text-center mt-4 border-bottom border-top">C - Circulation</h1>
+
+                <h1 id="D" class="text-center mt-4 border-bottom border-top">D - Disability</h1>
+
+                <h1 id="E" class="text-center mt-4 border-bottom border-top">E - Eventually</h1>
+                <select id="mezzi" class="selectpicker w-100 mb-2" multiple data-live-search="true" title="Posizione all'arrivo">
+                    <option value="1">In piedi</option>
+                    <option value="2">Seduto</option>
+                    <option value="3">Supino</option>
+                    <option value="4">Prono</option>
+                    <option value="5">Incastrato</option>
+                    <option value="6">Sul fianco sx</option>
+                    <option value="7">Sul fianco dx</option>
+                </select>
+                <button type="button" class="btn p-2 btn-primary btn-lg w-100 mb-2" data-mdb-toggle="modal" data-mdb-target="#testapiedi">
+                    Esame testa-piedi
+                </button>
+                <div class="container border rounded mb-2">
+                    <div class="form-outline mb-4">
+                        <textarea class="form-control" id="textAreaExample" rows="2"></textarea>
+                        <label class="form-label" for="textAreaExample">Allergie riferite</label>
+                    </div>
+                </div>
+                <div class="container border rounded mb-2">
+                    <div class="form-outline mb-4">
+                        <textarea class="form-control" id="textAreaExample" rows="2"></textarea>
+                        <label class="form-label" for="textAreaExample">Patologie riferite</label>
+                    </div>
+                </div>
+                <div class="container border rounded mb-2">
+                    <div class="form-outline mb-4">
+                        <textarea class="form-control" id="textAreaExample" rows="2"></textarea>
+                        <label class="form-label" for="textAreaExample">Riferita assunzione di farmaci</label>
+                    </div>
+                </div>
+                
+                <div class="md-form input-group mt-0 mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="material-addon3">Glicemia riferita</span>
+                    </div>
+                    <input type="text" class="form-control" id="material-url" aria-describedby="material-addon3">
+                </div>
+
+                <div class="container border rounded mb-2">
+                    <div class="form-outline mb-4">
+                        <textarea class="form-control" id="textAreaExample" rows="2"></textarea>
+                        <label class="form-label" for="textAreaExample">Ultimo pasto riferito</label>
+                    </div>
+                </div>
+
+                <h1 id="note" class="text-center mt-4 border-bottom border-top">Note</h1>
+                <div class="container border rounded">
+                    <div class="form-outline mb-4">
+                        <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                        <label class="form-label" for="textAreaExample">Note del soccorritore</label>
+                    </div>
+                </div>
+
+                <h1 id="esito" class="text-center mt-4 border-bottom border-top">Esito</h1>
+                <select id="mezzi" class="selectpicker w-100 mb-4" multiple data-live-search="true" title="Seleziona esito missione">
+                    <option value="1">Trasporto in ospedale</option>
+                    <option value="2">Rendez vous</option>
+                    <option value="3">Rifiuto trasporto</option>
+                    <option value="4">Intervento con ALS</option>
+                    <option value="5">Missione annullata</option>
+                </select>
+
+              </div>
+            </div>
+
+        </div>
     
-  </div>
+    </div>
+
+    <div class="container p-5 mt-auto mb-5 text-center bg-white">
+        <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-2">
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn p-3 btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#nuovomezzo">
+                    Stati
+                </button>
+                <a href="{% url 'home_sc' %}" role="button" class="btn p-3 btn-primary btn-lg ">
+                    Invia Dati 
+                </a>
+            </div>
+        </div>
+    </div>
+
 </div>
 
+{% endblock %}
 
+{% block scripts %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="{% static 'js/functions.js' %}"></script>
 {% endblock %}

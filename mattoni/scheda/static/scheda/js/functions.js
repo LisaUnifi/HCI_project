@@ -4,5 +4,9 @@ $(document).ready(function () {
       "paging": false,
       "scrollY": "50vh",
     });
+  });
+
+
+$(document).ready(function () {    
     $('#mezzi').selectpicker();
   });

@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.http import Http404
 from django.template import loader, RequestContext
 from django.utils import timezone
@@ -11,6 +11,8 @@ from .forms import MezziCreationForm, UserRegistrationForm
 from .models import MyUser, Mezzo
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
+from bootstrap_modal_forms.generic import BSModalCreateView
+
 
 import pdb
 
@@ -95,6 +97,11 @@ def registration_request(request):
 
 
 
+class MezziCreateView(BSModalCreateView):
+    template_name = 'crea_mezzo.html'
+    form_class = MezziCreationForm
+    success_message = 'Success: Mezzo creato.'
+    success_url = reverse_lazy('gestione_mezzi')
 
 
 
