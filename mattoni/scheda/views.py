@@ -34,7 +34,7 @@ class LoginView(generic.View):
             login(request,user)
             return logged_home_redirect(request)
         else:
-            return HttpResponse('<h1>Page was found</h1>')
+            return HttpResponse('<h1>User not found</h1>')
 
 @login_required
 def logged_home_redirect(request):
