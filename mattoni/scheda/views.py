@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.http import Http404
 from django.template import loader, RequestContext
 from django.utils import timezone
@@ -11,6 +11,8 @@ from .forms import MezziCreationForm, UserRegistrationForm
 from .models import MyUser, Mezzo
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
+from bootstrap_modal_forms.generic import BSModalCreateView
+
 
 import pdb
 
@@ -32,10 +34,26 @@ class LoginView(generic.View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request,user)
-            return logged_home_redirect(request)
+            return redirect('home_sc')
         else:
             return HttpResponse('<h1>User not found</h1>')
 
+
+
+class HomeSocieta(generic.View):
+    def get(self, request):
+        template_name = 'home_sc.html'
+        mezzi = Mezzo.objects.filter(username=request.user.id)
+        return render(request, template_name, context={'mezzi':mezzi})
+
+
+class GestioneMezzi(generic.View):
+    def get(self, request):
+        template_name = 'gestione_mezzi.html'
+        mezzi = Mezzo.objects.filter(username=request.user.id)
+        return render(request, template_name, context={'mezzi':mezzi})
+
+'''
 @login_required
 def logged_home_redirect(request):
     if operator_check(request.user):
@@ -46,7 +64,8 @@ def logged_home_redirect(request):
         template_name = 'home_sc.html'
 
     return render(request, template_name)
-    
+''' 
+
 
 def logout_view(request):
     logout(request)
@@ -76,12 +95,6 @@ def registration_request(request):
     return render(request, 'registration.html', {'form': form})
 
 
-class GestioneMezzi(generic.View):
-    def get(self, request):
-        template_name = 'gestione_mezzi.html'
-        mezzi = Mezzo.objects.filter(username=request.user.username)
-        return render(request, template_name, context={'mezzi':mezzi})
-
 
 def mezzi_creation_form(request):
     form = MezziCreationForm(request.POST or None, request.FILES or None)
@@ -93,9 +106,9 @@ def mezzi_creation_form(request):
             mezzo.username = user
             
             mezzo.save()
-            return redirect(logged_home_redirect(request))
+            return HttpResponse()
         else:
             print(form.errors)
             #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
             #return HttpResponse('<h1>Form Not valid</h1>')
-    return render(request, 'creation_mezzi.html', {'form': form})
+    return render(request, '', {'form': form})

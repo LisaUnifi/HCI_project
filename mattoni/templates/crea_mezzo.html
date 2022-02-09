@@ -1,0 +1,62 @@
+<!-- Modal -->
+<form class="text-center" method="post" action=""> <!--action="{% url 'registration_user' %}"-->
+    {% csrf_token %}
+
+    <div class="modal fade" id="nuovomezzo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuovo Mezzo</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="slogan">Inserisci i dati del nuovo mezzo:</p>
+                    
+
+                        <!-- Dati mezzo -->
+                        <div class="row mb-4">
+                            <div class="col">
+                                <div class="form-outline">
+                                    <input type="text" id="nome" class="form-control" name="nome"/>
+                                    <label class="form-label" for="nome">Nome del mezzo</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <div class="form-outline">
+                                    <input type="text" id="equip_min" class="form-control" name="equip_min"/>
+                                    <label class="form-label" for="equip_min">Numero Minimo Equipaggio</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-outline">
+                                    <input type="text" id="num_mezzo" class="form-control" name="num_mezzo"/>
+                                    <label class="form-label" for="num_mezzo">Numero Mezzo</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tipologia mezzi -->
+                        <select id="mezzi" class="selectpicker w-75 mb-4" multiple data-live-search="true" title="Seleziona tipologia mezzo" name="tipologia">
+                        <option value="INDIA">INDIA</option>
+                        <option value="BLSD">BLSD</option>
+                        <option value="BLS">BLS</option>
+                        <option value="Ordinaria">Ordinaria</option>
+                        </select>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="all_day" name="all_day">
+                            <label class="custom-control-label" for="all_day"> Mezzo attivo H24</label>
+                        </div>
+                        
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
+                    <button type="button" class="btn btn-primary">Aggiungi Mezzo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
