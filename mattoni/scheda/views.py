@@ -96,16 +96,6 @@ def registration_request(request):
 
 
 
-
-class MezziCreateView(BSModalCreateView):
-    template_name = 'crea_mezzo.html'
-    form_class = MezziCreationForm
-    success_message = 'Success: Mezzo creato.'
-    success_url = reverse_lazy('gestione_mezzi')
-
-
-
-
 def mezzi_creation_form(request):
     form = MezziCreationForm(request.POST or None, request.FILES or None)
     if request.method == 'POST':
@@ -116,9 +106,9 @@ def mezzi_creation_form(request):
             mezzo.username = user
             
             mezzo.save()
-            return redirect(logged_home_redirect(request))
+            return HttpResponse()
         else:
             print(form.errors)
             #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
             #return HttpResponse('<h1>Form Not valid</h1>')
-    return render(request, 'creation_mezzi.html', {'form': form})
+    return render(request, '', {'form': form})
