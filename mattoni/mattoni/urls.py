@@ -40,4 +40,5 @@ urlpatterns = [
     path('gestione_missioni/', TemplateView.as_view(template_name='gestione_missioni.html'), name='gestione_missioni'),
     path('protocolli/', TemplateView.as_view(template_name='protocolli.html'), name='protocolli'),
     path('dati_mezzo/', TemplateView.as_view(template_name='dati_mezzo.html'), name='dati_mezzo'),
+    path('accetta_missione/', TemplateView.as_view(template_name='accetta_missione.html'), name='accetta_missione'),
 ]

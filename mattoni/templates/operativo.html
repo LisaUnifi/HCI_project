@@ -92,6 +92,164 @@
     </div>
 </div>
 
+<!-- Bottone per Modal -->
+<div class="position-absolute bottom-0 end-0">
+    <div class="container p-5">
+      <button type="button" class="btn btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#formmissione">
+        Nuova Missione 
+      </button>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="formmissione" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Dati Missione</h5>
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <p class="slogan">Inserisci i dati del paziente</p>
+            <form >
+  
+              <!-- Nome e Cognome -->
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" id="form3Example1" class="form-control" />
+                    <label class="form-label" for="form3Example1">Nome</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" id="form3Example2" class="form-control" />
+                    <label class="form-label" for="form3Example2">Cognome</label>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Indirizzo -->
+              <div class="row mb-4">
+                <div class="col-9">
+                  <div class="form-outline">
+                    <input type="text" id="form3Example1" class="form-control" />
+                    <label class="form-label" for="form3Example1">Indirizzo</label>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="form-outline">
+                    <input type="text" id="form3Example2" class="form-control" />
+                    <label class="form-label" for="form3Example2">Civico</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-5">
+                  <div class="form-outline">
+                    <input type="text" id="form3Example1" class="form-control" />
+                    <label class="form-label" for="form3Example1">Comune</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <select id="mezzi" class="selectpicker w-100" title="Prov.">
+                    <option value="AR">AR</option>
+                    <option value="FI">FI</option>
+                    <option value="GR">GR</option>
+                    <option value="LI">LI</option>
+                    <option value="LU">LU</option>
+                    <option value="MS">MS</option>
+                    <option value="PI">PI</option>
+                    <option value="PT">PT</option>
+                    <option value="PO">PO</option>
+                    <option value="SI">SI</option>
+                  </select>
+                </div>
+                <div class="col-3">
+                  <div class="form-outline">
+                    <input type="text" id="form3Example2" class="form-control" />
+                    <label class="form-label" for="form3Example2">CAP</label>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Numero Telefono -->
+              <div class="form-outline mb-4">
+                <input type="tel" id="typePhone" class="form-control" />
+                <label class="form-label" for="typePhone">Cellulare</label>
+              </div>
+  
+              <!-- Note missione: -->
+              <p class="slogan">Note missione</p>
+              <div class="form-outline mb-4">
+                <textarea class="form-control" id="textAreaExample" rows="5"></textarea>
+                <label class="form-label" for="textAreaExample">Messaggio</label>
+              </div>
+  
+              <!-- Note della Centrale -->
+              <p class="slogan">Avvisi dalla Centrale</p>
+              <div class="form-outline mb-4">
+                <textarea class="form-control" id="textAreaExample" rows="5"></textarea>
+                <label class="form-label" for="textAreaExample">Messaggio</label>
+              </div>
+  
+              <!-- Codice patologia -->
+              <p class="slogan">Codice patologia ipotizzato</p>
+              <div class="row mb-4">
+                <div class="col-4">
+                    <select id="mezzi" class="selectpicker w-100" title="Luogo">
+                        <option value="S">S Strada</option>
+                        <option value="P">P Esercizio Pubblico</option>
+                        <option value="Y">Y Impianto Sportivo</option>
+                        <option value="K">K Casa</option>
+                        <option value="L">L Impianto Lavoro</option>
+                        <option value="Q">Q Scuola</option>
+                        <option value="T">T Trasporto</option>
+                        <option value="Z">Z Altro Luogo</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select id="mezzi" class="selectpicker w-100" title="Patologia">
+                        <option value="1">C01 Traumatica</option>
+                        <option value="2">C02 Cardiocircolatoria</option>
+                        <option value="3">C03 Respiratoria</option>
+                        <option value="4">C04 Neurologica</option>
+                        <option value="5">C05 Psichiatrica</option>
+                        <option value="6">C06 Neoplastica</option>
+                        <option value="7">C07 Tossicologica</option>
+                        <option value="8">C08 Metabolica</option>
+                        <option value="9">C09 Gastroenterologica</option>
+                        <option value="10">C10 Urologica</option>
+                        <option value="11">C11 Oculistica</option>
+                        <option value="12">C12 Otorinolaringoiatrica</option>
+                        <option value="13">C13 Dermatologica</option>
+                        <option value="14">C14 Ostetrico-ginecologica</option>
+                        <option value="15">C15 Infettiva</option>
+                        <option value="19">C19 Altra patologia</option>
+                        <option value="20">C20 Patologia non definita</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select id="mezzi" class="selectpicker w-100" title="Criticità">
+                        <option value="B">Bianco</option>
+                        <option value="V">Verde</option>
+                        <option value="G">Giallo</option>
+                        <option value="R">Rosso</option>
+                    </select>
+                </div>
+              </div>
+                
+            </form>
+  
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-light" data-mdb-dismiss="modal">Annulla</button>
+              <a type="button" class="btn btn-primary" href="{% url 'accetta_missione' %}">Invia Missione</a>
+          </div>
+          </div>
+      </div>
+  </div>
+
 {% endblock %}
 {% block scripts %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
