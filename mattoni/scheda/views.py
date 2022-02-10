@@ -8,11 +8,11 @@ from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .forms import MezziCreationForm, UserRegistrationForm
+from .forms import MezziCreationForm, MissionCreationForm, UserRegistrationForm
 from .models import MyUser, Mezzo
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
-
+import datetime
 
 
 import pdb
@@ -130,3 +130,23 @@ def delete_mezzo(request, pk):
         query.delete()
         messages.success(request, 'Mezzo eliminato correttamente')
         return redirect('gestione_mezzi')
+
+
+def missione_creation_form(request):
+    form = MissionCreationForm(request.POST or None, request.FILES or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            missione = form.save(commit=False)
+
+            invio = datetime.now
+            missione.invio = invio
+            
+            missione.save()
+            return HttpResponse()
+        else:
+            print(form.errors)
+            #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
+            #return HttpResponse('<h1>Form Not valid</h1>')
+    return render(request, '', {'form': form})
+
+

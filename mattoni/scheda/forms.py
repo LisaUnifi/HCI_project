@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
-from .models import Mezzo
+from .models import Mezzo, Missione
 
 MyUser = get_user_model()
 
@@ -162,3 +162,12 @@ class MezziCreationForm(forms.ModelForm):
         model = Mezzo
         fields = ['nome','tipologia','all_day','num_mezzo','equip_min']
 
+class MissionCreationForm(forms.ModelForm):
+    """
+        Creazione missioni
+    """
+
+    class Meta:
+        model = Missione
+        fields = ['nome_p','cognome_p','luogo','patologia','criticita',
+            'luogo_intervento', 'comune_intervento', 'cellulare']
