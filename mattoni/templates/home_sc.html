@@ -11,7 +11,7 @@
     <h1>Benvenuto ...!</h1>
     <p class="slogan">Seleziona il mezzo</p>
     <form action="" method="get">
-        <div class="btn-group" data-toggle="buttons">
+    
             <div class="container-sm p-3 rounded bg-white text-center" >
                 <p class="slogan">Mezzi H/24</p>
                 {% for m in mezzi %}
@@ -21,7 +21,12 @@
                                 
                             </div>
                             <div class="col-9 mb-4">
+
+                                <input type="radio" class="btn-check btn-lg float-start" name="mezzoscelto" id="{{ m.nome }}"  value="{{m.id}}" autocomplete="off">
+                                <label class="btn btn-primary" for="{{ m.nome }}">{{ m.nome }}</label>
+                                <!--
                                 <button type="radio" name="mezzoscelto" value="{{m.id}}" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">{{ m.nome }}</button>
+                                -->
                             </div>
                         </div>
                         
@@ -36,7 +41,9 @@
                             
                         </div>
                         <div class="col-9 mb-4">
-                            <button type="radio" name="mezzoscelto" value="{{m.id}}" class="btn btn btn-secondary btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">{{ m.nome }}</button>
+                            <input type="radio" class="btn-check btn-lg float-start" name="mezzoscelto" id="{{ m.nome }}"  value="{{m.id}}" autocomplete="off">
+                            <label class="btn btn-secondary" for="{{ m.nome }}">{{ m.nome }}</label>
+                            
                         </div>
                     </div>
                         
@@ -49,7 +56,7 @@
                             
                  
            
-        </div>
+        
 
         
 
