@@ -1,3 +1,4 @@
+from re import S
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse, reverse_lazy
 from django.http import Http404
@@ -61,22 +62,11 @@ class GestioneMezzi(generic.View):
 class Operativo(generic.View):
     def get(self, request):
         if request.method == 'GET':
+            breakpoint()
             request.session['mezzo'] = request.GET.get('mezzoscelto')
             template_name = 'operativo.html'
             return render(request, template_name)
 
-'''
-@login_required
-def logged_home_redirect(request):
-    if operator_check(request.user):
-        template_name = 'home_op.html'
-    elif staff_check(request.user):
-        template_name = 'home_socc.html'
-    else:
-        template_name = 'home_sc.html'
-
-    return render(request, template_name)
-''' 
 
 
 def logout_view(request):
