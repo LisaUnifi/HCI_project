@@ -142,7 +142,7 @@ def missione_creation_form(request):
             missione.invio = invio
             
             missione.save()
-            return HttpResponse()
+            return redirect('accetta_missione')
         else:
             print(form.errors)
             #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
