@@ -62,8 +62,15 @@ class GestioneMezzi(generic.View):
 class Operativo(generic.View):
     def get(self, request):
         if request.method == 'GET':
-            breakpoint()
-            request.session['mezzo'] = request.GET.get('mezzoscelto')
+            m = Mezzo.objects.get(id_mezzo=request.GET.get('mezzoscelto'))
+            mezzo = {'id_mezzo': m.id_mezzo, 
+            'nome': m.nome,
+            'tipologia': m.tipologia,
+            'all_day': m.all_day,
+            'num_mezzo': m.num_mezzo,
+            'equip_min': m.equip_min,
+            }
+            request.session['mezzo'] = mezzo
             template_name = 'operativo.html'
             return render(request, template_name)
 
