@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home Intervento{% endblock %}
+
+{% block content %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <div class="container m-auto p-3">
+                <a class="navbar-brand" href="#">
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+                    height="20"
+                    alt="MDB Logo"
+                    loading="lazy"
+                  />
+                </a>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <div class="container p-3">
+                <h3>Misericordia Galluzzo</h3>
+            </div>
+        </li>
+        
+        <li class="nav-item">
+            <div class="container-fluid">
+                <ul class="navbar-nav">
+                  <!-- Avatar -->
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle d-flex align-items-center"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-mdb-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+                        class="square"
+                        height="50"
+                        alt="Personale Image"
+                        loading="lazy"
+                      />
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li>
+                        <a class="dropdown-item" href="{% url 'operativo' %}">Home</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'dati' %}">I miei dati</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'protocolli' %}">Protocolli</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+            </div>
+        </li>
+
+    </ul>
+</nav>
+
+<div class="container mt-1 mb-auto p-0 bg-white">
+    <div class="row">
+        <div class="col-6">
+            <p>Delta61 Operativa</p>
+        </div>
+        <div class="col-6">
+            <div class="md-form">
+                <div class="material-switch">
+                    <input id="switch-default" name="switch-default" type="checkbox">
+                    <label for="switch-default" class="default-color"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="{% static 'js/functions.js' %}"></script>
+{% endblock %}
+

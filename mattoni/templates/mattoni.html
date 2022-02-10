@@ -7,7 +7,7 @@
 
 <div class="d-flex flex-column" style="height: 100vh">
 
-    <div class="container text-center bg-light">
+    <div class="container text-center bg-light mt-4">
         <div class="row m-4">
             <div class="col-4">
                 <p class="text-uppercase mb-2"><strong>ID MISSIONE</strong></p>
@@ -29,7 +29,7 @@
 
     </div>
 
-    <div class="container mb-auto bg-white">
+    <div class="container mt-1 mb-auto p-0 bg-white">
        
         <div class="row">
             <div class="col-sm-3">
@@ -51,102 +51,394 @@
                 <h1 id="scenario" class="text-center border-bottom border-top">Scenario all'arrivo</h1>
                 <h6>Dinamica riferita:</h6>
                 <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="groupOfDefaultRadios">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="groupOfDefaultRadios" checked>
                     <label class="custom-control-label" for="defaultGroupExample1">Soccorso a persona</label>
                 </div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="groupOfDefaultRadios" checked>
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="groupOfDefaultRadios">
                     <label class="custom-control-label" for="defaultGroupExample2">Trauma</label>
                 </div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="groupOfDefaultRadios">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="groupOfDefaultRadios" data-toggle="modal" data-target="#centrale">
                     <label class="custom-control-label" for="defaultGroupExample3">Trauma maggiore</label>
                 </div>
                 <div class="custom-control custom-radio">
                     <input type="radio" class="custom-control-input" id="defaultGroupExample4" name="groupOfDefaultRadios">
                     <label class="custom-control-label" for="defaultGroupExample4">Non definita</label>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="centrale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header d-flex justify-content-end">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <h5 class="modal-title" id="exampleModalLabel">Avverto la centrale?</h5>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">SI</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <h1 id="A" class="text-center mt-4 border-bottom border-top">A - Airway</h1>
-                <div class="row p-1 align-self-middle">
-                    <div class="col-7">
+                <div class="row p-1 ">
+                    <div class="col-7 d-flex align-items-end">
                         <h6>Cosciente?</h6>
                     </div>
-                    <div class="col-5">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <button class="btn btn-light-blue form-check-label active">
-                              <input class="form-check-input" type="radio" name="options" id="option1" autocomplete="off">
-                              SI
-                            </button>
-                            <button class="btn btn-light-blue form-check-label">
-                              <input class="form-check-input" type="radio" name="options" id="option2" autocomplete="off"> NO
-                            </button>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light">NO</button>
                         </div>
                     </div>
                 </div>
-                <div class="row p-1 d-flex align-items-center">
+                <div class="row p-1 d-flex align-items-end">
                     <div class="col-7">
                         <h6>Vie aeree pervie?</h6>
                     </div>
-                    <div class="col-5 pull-right">
+                    <div class="col-5 d-flex justify-content-end">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-primary">Left</button>
-                            <button type="button" class="btn btn-secondary">Middle</button>
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#ostruzione" aria-expanded="false" aria-controls="collapseExample">NO</button>
                         </div>
                     </div>
                 </div>
-                
+                <!-- Elemento nascosto -->
+                <div class="collapse" id="ostruzione">
+                    <div class="row mt-2 m-0 p-0">
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">Ostruzione parziale</button>
+                            <button type="button" class="btn btn-light">Ostruzione totale</button>
+                        </div>
+                    </div>
+                </div>
 
                 <h1 id="B" class="text-center mt-4 border-bottom border-top">B - Breathing</h1>
-                <div class="row p-1 align-self-middle">
-                    <div class="col-7">
-                        <h6>Cosciente?</h6>
+                <div class="row p-1 mb-2">
+                    <div class="col-7 d-flex align-items-end">
+                        <h6>Respira?</h6>
                     </div>
-                    <div class="col-5">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <button class="btn btn-light-blue form-check-label active">
-                              <input class="form-check-input" type="radio" name="options" id="option1" autocomplete="off">
-                              SI
-                            </button>
-                            <button class="btn btn-light-blue form-check-label">
-                              <input class="form-check-input" type="radio" name="options" id="option2" autocomplete="off"> NO
-                            </button>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light">NO</button>
                         </div>
                     </div>
                 </div>
-                <div class="row p-1 align-self-middle">
-                    <div class="col-7">
-                        <h6>Vie aeree pervie?</h6>
+                <div class="md-form input-group mt-0 mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">Frequenza respiratoria:</span>
                     </div>
-                    <div class="col-5">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <button class="btn btn-light-blue form-check-label active">
-                              <input class="form-check-input" type="radio" name="options" id="option1" autocomplete="off">
-                              SI
-                            </button>
-                            <button class="btn btn-light-blue form-check-label">
-                              <input class="form-check-input" type="radio" name="options" id="option2" autocomplete="off"> NO
-                            </button>
+                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">atti/min</span>
+                    </div>
+                </div>
+                <div class="row p-1 ">
+                    <div class="col-7 d-flex align-items-end">
+                        <h6>Respirazione dispneica?</h6>
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light">NO</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 ">
+                    <div class="col-7 d-flex align-items-end">
+                        <h6>Respiro rumoroso?</h6>
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light">NO</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 ">
+                    <select id="mezzi" class="selectpicker w-100 mb-2" title="Palpazione torace:">
+                        <option value="Normale">Normale</option>
+                        <option value="Anormale a destra">Anormale a destra</option>
+                        <option value="Anormale a sinistra">Anormale a sinistra</option>
+                        <option value="Anormale da entrabi i lati">Anormale da entrambi i lati</option>
+                    </select>
+                </div>
+                <div class="md-form input-group mt-0 mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">Saturazione in aria:</span>
+                    </div>
+                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">%</span>
+                    </div>
+                </div>
+                <div class="container text-center bg-light border mb-2 w-100">
+                    <h6 class="mt-2">Somministrazione ossigeno:</h6>
+                    <div class="md-form input-group mt-0 mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text md-addon" id="sat">Saturazione con ossigeno:</span>
+                        </div>
+                        <input type="text" class="form-control" id="material-url" aria-describedby="sat">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text md-addon" id="sat">%</span>
+                        </div>
+                    </div>
+                    <div class="md-form input-group mt-0 mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text md-addon" id="sat">Ossigeno:</span>
+                        </div>
+                        <input type="text" class="form-control" id="material-url" aria-describedby="sat">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text md-addon" id="sat">L/min</span>
                         </div>
                     </div>
                 </div>
                 
 
                 <h1 id="C" class="text-center mt-4 border-bottom border-top">C - Circulation</h1>
+                <div class="md-form input-group mt-0 mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">Pressione arteriosa:</span>
+                    </div>
+                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">/</span>
+                    </div>
+                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">mmHg</span>
+                    </div>
+                </div>
+                <div class="md-form input-group mt-0 mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">Frequenza circolatoria:</span>
+                    </div>
+                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">batt/min</span>
+                    </div>
+                </div>
+                <div class="md-form input-group mt-0 mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">Temperatura corporea:</span>
+                    </div>
+                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text md-addon" id="sat">°C</span>
+                    </div>
+                </div>
+                <div class="row p-1 ">
+                    <div class="col-7 d-flex align-items-end">
+                        <h6>Emorragie?</h6>
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light">NO</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 ">
+                    <div class="col-7 d-flex align-items-end">
+                        <h6>Polso radiale?</h6>
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light">NO</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 ">
+                    <div class="col-7 d-flex align-items-end">
+                        <h6>Regolare?</h6>
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light">NO</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 ">
+                    <select id="mezzi" class="selectpicker w-100 mb-2" title="Colorito cutaneo:">
+                        <option value="Normale">Normale</option>
+                        <option value="Cianotico">Cianotico</option>
+                        <option value="Rossastro">Rossastro</option>
+                        <option value="Pallido">Pallido</option>
+                    </select>
+                </div>
+                <div class="row p-1 ">
+                    <div class="col-7 d-flex align-items-end">
+                        <h6>Sudato?</h6>
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light">NO</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 ">
+                    <div class="col-7 d-flex align-items-end">
+                        <h6>Dolore toracico?</h6>
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#torace" aria-expanded="false" aria-controls="collapseExample">SI</button>
+                            <!-- aggiusta si e no -->
+                            <button type="button" class="btn btn-light">NO</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Elemento nascosto -->
+                <div class="collapse" id="torace">
+                    <div class="container text-center bg-light border mb-2 w-100">
+                        <div class="row p-1 ">
+                            <div class="col-7 d-flex align-items-end">
+                                <h6>Data insorgenza sintomi:</h6>
+                            </div>
+                            <div class="col-5 d-flex justify-content-end">
+                                <div class="md-form md-outline input-with-post-icon datepicker">
+                                    <input placeholder="Seleziona giorno" type="date" id="data" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-1 ">
+                            <div class="col-7 d-flex align-items-end">
+                                <h6>Ora insorgenza sintomi:</h6>
+                            </div>
+                            <div class="col-5 d-flex justify-content-end">
+                                <div class="md-form md-outline">
+                                    <input type="time" id="ora" class="form-control" placeholder="Seleziona ora">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-light">Dolore a spilli</button>
+                                <button type="button" class="btn btn-light">Dolore oppressivo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <h1 id="D" class="text-center mt-4 border-bottom border-top">D - Disability</h1>
+                <div class="row">
+                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-light">A</button>
+                        <button type="button" class="btn btn-light">V</button>
+                        <button type="button" class="btn btn-light">P</button>
+                        <button type="button" class="btn btn-light">U</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#cincinnaty" aria-expanded="false" aria-controls="collapseExample">Cincinnaty</button>
+                        <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#forzasensibilita" aria-expanded="false" aria-controls="collapseExample">Forza e sensibilità</button>
+                    </div>
+                </div>
+                <!-- Elemento nascosto -->
+                <div class="collapse" id="cincinnaty">
+                    <div class="container text-center bg-light border mb-2 w-100">
+                        <h4 class="mt-2">Cincinnaty</h4>
+                        <h6 class="mt-2">Mimica facciale:</h6>
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">Normale</button>
+                            <button type="button" class="btn btn-light">Anor. dx</button>
+                            <button type="button" class="btn btn-light">Anor. sx</button>
+                            <button type="button" class="btn btn-light">Anor. dx e sx</button>
+                        </div>
+                        <h6 class="mt-2">Spostamento delle braccia:</h6>
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">Normale</button>
+                            <button type="button" class="btn btn-light">Anor. dx</button>
+                            <button type="button" class="btn btn-light">Anor. sx</button>
+                            <button type="button" class="btn btn-light">Anor. dx e sx</button>
+                        </div>
+                        <h6 class="mt-2">Linguaggio:</h6>
+                        <div class="btn-group d-flex flex-fill mb-2" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">Normale</button>
+                            <button type="button" class="btn btn-light">Anormale</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id="forzasensibilita">
+                    <div class="container text-center bg-light border mb-2 w-100">
+                        <h4 class="mt-2">Forza e sensibilità</h4>
+                        <h6 class="mt-2">Forza arti superiori:</h6>
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">Normale</button>
+                            <button type="button" class="btn btn-light">Anor. dx</button>
+                            <button type="button" class="btn btn-light">Anor. sx</button>
+                            <button type="button" class="btn btn-light">Anor. dx e sx</button>
+                        </div>
+                        <h6 class="mt-2">Sensibilità arti superiori:</h6>
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">Normale</button>
+                            <button type="button" class="btn btn-light">Anor. dx</button>
+                            <button type="button" class="btn btn-light">Anor. sx</button>
+                            <button type="button" class="btn btn-light">Anor. dx e sx</button>
+                        </div>
+                        <h6 class="mt-2">Forza arti inferiori:</h6>
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">Normale</button>
+                            <button type="button" class="btn btn-light">Anor. dx</button>
+                            <button type="button" class="btn btn-light">Anor. sx</button>
+                            <button type="button" class="btn btn-light">Anor. dx e sx</button>
+                        </div>
+                        <h6 class="mt-2">Sensibilità arti inferiori:</h6>
+                        <div class="btn-group d-flex flex-fill mb-2" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">Normale</button>
+                            <button type="button" class="btn btn-light">Anor. dx</button>
+                            <button type="button" class="btn btn-light">Anor. sx</button>
+                            <button type="button" class="btn btn-light">Anor. dx e sx</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 ">
+                    <div class="col-7 d-flex align-items-end">
+                        <h6>Orientato nel tempo?</h6>
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light">NO</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1 ">
+                    <div class="col-7 d-flex align-items-end">
+                        <h6>Orientato nello spazio?</h6>
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-light">SI</button>
+                            <button type="button" class="btn btn-light">NO</button>
+                        </div>
+                    </div>
+                </div>
 
                 <h1 id="E" class="text-center mt-4 border-bottom border-top">E - Eventually</h1>
-                <select id="mezzi" class="selectpicker w-100 mb-2" multiple data-live-search="true" title="Posizione all'arrivo">
-                    <option value="1">In piedi</option>
-                    <option value="2">Seduto</option>
-                    <option value="3">Supino</option>
-                    <option value="4">Prono</option>
-                    <option value="5">Incastrato</option>
-                    <option value="6">Sul fianco sx</option>
-                    <option value="7">Sul fianco dx</option>
+                <select id="mezzi" class="selectpicker w-100 mb-2" title="Posizione all'arrivo">
+                    <option value="In piedi">In piedi</option>
+                    <option value="Seduto">Seduto</option>
+                    <option value="Supino">Supino</option>
+                    <option value="Prono">Prono</option>
+                    <option value="Incastrato">Incastrato</option>
+                    <option value="Sul fianco sx">Sul fianco sx</option>
+                    <option value="Sul fianco dx">Sul fianco dx</option>
                 </select>
-                <button type="button" class="btn p-2 btn-primary btn-lg w-100 mb-2" data-mdb-toggle="modal" data-mdb-target="#testapiedi">
+                <button type="button" class="btn btn-primary btn-lg w-100 mb-2" data-mdb-toggle="modal" data-mdb-target="#testapiedi">
                     Esame testa-piedi
                 </button>
                 <div class="container border rounded mb-2">
