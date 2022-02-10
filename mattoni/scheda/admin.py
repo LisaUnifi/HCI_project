@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .forms import UserAdminCreationForm, UserAdminChangeForm, MezziCreationForm
-from .models import Mezzo
+from .models import Mezzo, Missione
 
 MyUser = get_user_model()
 
@@ -41,7 +41,13 @@ class UserAdmin(BaseUserAdmin):
 
 class MezzoAdmin(admin.ModelAdmin):
     list_display = ('nome','tipologia','all_day','num_mezzo','equip_min', 'username')
+    
+class MissioneAdmin(admin.ModelAdmin):
+    list_display = ('nome_p','cognome_p','luogo','patologia','criticita',
+            'luogo_intervento', 'comune_intervento', 'cap_intervento', 'provincia_intervento', 
+            'civico_intervento', 'cellulare', 'note', 'avvisi')
 
 
 admin.site.register(MyUser, UserAdmin)
 admin.site.register(Mezzo, MezzoAdmin)
+admin.site.register(Missione, MissioneAdmin)

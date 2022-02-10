@@ -137,9 +137,6 @@ def missione_creation_form(request):
     if request.method == 'POST':
         if form.is_valid():
             missione = form.save(commit=False)
-
-            invio = datetime.now
-            missione.invio = invio
             
             missione.save()
             return redirect('accetta_missione')
@@ -150,3 +147,7 @@ def missione_creation_form(request):
     return render(request, '', {'form': form})
 
 
+class AccettaMissione(generic.View):
+    def get(self, request):
+        template_name = 'accetta_missione.html'
+        return render(request, template_name)

@@ -170,4 +170,5 @@ class MissionCreationForm(forms.ModelForm):
     class Meta:
         model = Missione
         fields = ['nome_p','cognome_p','luogo','patologia','criticita',
-            'luogo_intervento', 'comune_intervento', 'cellulare']
+            'luogo_intervento', 'comune_intervento', 'cap_intervento', 'provincia_intervento', 
+            'civico_intervento', 'cellulare', 'note', 'avvisi']

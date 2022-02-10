@@ -36,9 +36,12 @@ urlpatterns = [
     path('crea_mezzo/', scheda.mezzi_creation_form, name='crea_mezzo'),
     path('delete_mezzo/<int:pk>/', scheda.delete_mezzo, name='delete_mezzo'),
     path('operativo/', scheda.Operativo.as_view(), name='operativo'),
+    path('invia_missione/', scheda.missione_creation_form, name='invia_missione'),
+    path('accetta_missione/', scheda.AccettaMissione.as_view(), name='accetta_missione'),
+
     path('dati/', TemplateView.as_view(template_name='dati.html'), name='dati'),
     path('gestione_missioni/', TemplateView.as_view(template_name='gestione_missioni.html'), name='gestione_missioni'),
     path('protocolli/', TemplateView.as_view(template_name='protocolli.html'), name='protocolli'),
     path('dati_mezzo/', TemplateView.as_view(template_name='dati_mezzo.html'), name='dati_mezzo'),
-    path('accetta_missione/', TemplateView.as_view(template_name='accetta_missione.html'), name='accetta_missione'),
+    
 ]
