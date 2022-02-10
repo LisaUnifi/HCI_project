@@ -10,6 +10,15 @@
     <div class="container p-5 mt-5 text-center bg-white">
         <h1 class="m-3">Benvenuta</h1>
         <h4 class="mb-3">{{ request.user.corporation }}</h4>  
+
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
     </div>
 
     <div class="container mb-auto text-center bg-white" style="height: 50vh; overflow: auto;">
@@ -30,9 +39,10 @@
                             <td>{{ m.tipologia }}</td>
                             <td>{{ m.all_day }}</td>
                             <td>
-                            <button type="button" class="btn btn-danger btn-sm px-3">
-                                <i class="fas fa-times"></i>
-                            </button>
+                            <form action="{% url 'delete_mezzo' m.id_mezzo %}" method='post'>
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger btn-sm px-3 fas fa-times" value='x' onclick='return confirm("Vuoi veramente eliminare il mezzo?");'>
+                            </form> 
                             </td>
                         </tr>
                     {% endfor %}            

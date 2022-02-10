@@ -34,4 +34,5 @@ urlpatterns = [
     path('mattoni/', TemplateView.as_view(template_name='mattoni.html'), name='mattoni'),
     path('gestione_mezzi/', scheda.GestioneMezzi.as_view(), name='gestione_mezzi'),
     path('crea_mezzo/', scheda.mezzi_creation_form, name='crea_mezzo'),
+    path('delete_mezzo/<int:pk>/', scheda.delete_mezzo, name='delete_mezzo'),
 ]

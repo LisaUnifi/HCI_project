@@ -11,7 +11,7 @@ from .forms import MezziCreationForm, UserRegistrationForm
 from .models import MyUser, Mezzo
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
-from bootstrap_modal_forms.generic import BSModalCreateView
+
 
 
 import pdb
@@ -44,7 +44,11 @@ class HomeSocieta(generic.View):
     def get(self, request):
         template_name = 'home_sc.html'
         mezzi = Mezzo.objects.filter(username=request.user.id)
-        return render(request, template_name, context={'mezzi':mezzi})
+        mezzitemp = []
+        for m in mezzi:
+            if m.all_day == False:
+                mezzitemp.append(m)
+        return render(request, template_name, context={'mezzi':mezzi,'mezzitemp':mezzitemp})
 
 
 class GestioneMezzi(generic.View):
@@ -52,6 +56,14 @@ class GestioneMezzi(generic.View):
         template_name = 'gestione_mezzi.html'
         mezzi = Mezzo.objects.filter(username=request.user.id)
         return render(request, template_name, context={'mezzi':mezzi})
+
+
+class Operativo(generic.View):
+    def get(self, request):
+        if request.method == 'GET':
+            request.session['mezzo'] = request.GET.get('mezzoscelto')
+            template_name = 'operativo.html'
+            return render(request, template_name)
 
 '''
 @login_required
@@ -106,9 +118,18 @@ def mezzi_creation_form(request):
             mezzo.username = user
             
             mezzo.save()
-            return HttpResponse()
+            messages.success(request, 'Mezzo creato con successo!')
+            return redirect('gestione_mezzi')
         else:
             print(form.errors)
             #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
             #return HttpResponse('<h1>Form Not valid</h1>')
     return render(request, '', {'form': form})
+
+
+def delete_mezzo(request, pk):
+    if request.method == 'POST':
+        query = Mezzo.objects.get(id_mezzo=pk)
+        query.delete()
+        messages.success(request, 'Mezzo eliminato correttamente')
+        return redirect('gestione_mezzi')
