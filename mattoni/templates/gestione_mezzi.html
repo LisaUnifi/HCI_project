@@ -82,24 +82,13 @@
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <form class="text-center" method="post" action="{% url 'crea_mezzo' %}"> <!--action="{% url 'registration_user' %}"-->
+                    <form class="text-center" method="post"> <!--action="{% url 'registration_user' %}"-->
                         {% csrf_token %}
                         <p class="slogan">Inserisci i dati del nuovo mezzo:</p>
                     
-                        {% if form.errors %}
-                            {% for field in form %}
-                                {% for error in field.errors %}
-                                    <div class="alert alert-danger">
-                                        <strong>{{ error|escape }}</strong>
-                                    </div>
-                                {% endfor %}
-                            {% endfor %}
-                            {% for error in form.non_field_errors %}
-                                <div class="alert alert-danger">
-                                    <strong>{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                        <div class='text-center' id='errors'>
+
+                        </div>
 
                         <!-- Dati mezzo -->
                         <div class="row mb-4">
@@ -118,9 +107,9 @@
                             </div>
                             <div class="col-6 d-flex justify-content-end">
                                 <div class="def-number-input number-input">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
                                     <input class="quantity form-control" min="0" value="3" type="number" id="equip_min" name="equip_min">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                 </div>
                             </div>
                         </div>
@@ -132,9 +121,9 @@
                             </div>
                             <div class="col-6 d-flex justify-content-end">
                                 <div class="def-number-input number-input">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                    <input class="quantity form-control" min="0" value="0" type="number" id="equip_min" name="num_mezzo">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                    <input class="quantity form-control" min="0" value="0" type="number" id="num_mezzo" name="num_mezzo">
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +143,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
-                            <input type="submit" class="btn btn-primary" value="Aggiungi Mezzo">
+                            <input type="submit" id="invio_post "class="btn btn-primary">
                         </div>
                         
                     </form>
@@ -174,4 +163,34 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script src="{% static 'js/functions.js' %}"></script>
+<script>
+$(document).ready(function () {
+    var token = '{{ csrf_token }}';
+
+
+    $('#invio_post').click(function (e) {
+        e.preventDefault();
+        
+          $.ajax({
+              headers: {
+                  "X-CSRFToken": token,
+              },
+              url: '{% url "crea_mezzo" %}',
+              dataType: 'json',
+              type: 'POST',
+              data: form.serialize(),
+              success: function (result) {
+                  
+              },
+
+          });
+        
+
+
+
+  });
+
+});
+</script>
 {% endblock %}
+
