@@ -128,7 +128,7 @@ class UserRegistrationForm(UserCreationForm):
         username = self.cleaned_data.get('username')
         qs = MyUser.objects.filter(username=username)
         if qs.exists():
-            raise forms.ValidationError("username is taken")
+            raise forms.ValidationError("Username già preso!")
         return username
 
     def clean_email(self):
@@ -138,7 +138,7 @@ class UserRegistrationForm(UserCreationForm):
         email = self.cleaned_data.get('email')
         qs = MyUser.objects.filter(email=email)
         if qs.exists():
-            raise forms.ValidationError("email is taken")
+            raise forms.ValidationError("Utente già registrato con questa mail!")
         return email
 
 
