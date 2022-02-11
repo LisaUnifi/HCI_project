@@ -105,7 +105,7 @@
                         <div class="row mb-4">
                             <div class="col">
                                 <div class="form-outline">
-                                    <input type="text" id="nome" class="form-control" name="nome" oninvalid="this.setCustomValidity('Inserisci il nome del mezzo')" oninput="setCustomValidity('')">
+                                    <input type="text" id="nome" class="form-control" name="nome">
                                     <label class="form-label" for="nome">Nome del mezzo</label>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                             <div class="col-6 d-flex justify-content-end">
                                 <div class="def-number-input number-input">
                                     <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                    <input class="quantity form-control" min="0" value="0" type="number" id="equip_min" name="num_mezzo">
+                                    <input class="quantity form-control" min="0" value="0" type="number" id="num_mezzo" name="num_mezzo">
                                     <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                 </div>
                             </div>

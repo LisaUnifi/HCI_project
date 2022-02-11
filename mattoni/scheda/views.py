@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .forms import MezziCreationForm, MissionCreationForm, UserRegistrationForm
-from .models import MyUser, Mezzo
+from .models import Missione, MyUser, Mezzo
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
 import datetime
@@ -61,6 +61,8 @@ class GestioneMezzi(generic.View):
         return render(request, template_name, context={'mezzi':mezzi})
 
     def mezzi_creation_form(request):
+        mezzi = Mezzo.objects.filter(username=request.user.id)
+        template_name = 'gestione_mezzi.html'
         form = MezziCreationForm(request.POST or None, request.FILES or None)
         if request.method == 'POST':
             if form.is_valid():
@@ -73,11 +75,7 @@ class GestioneMezzi(generic.View):
                 messages.success(request, 'Mezzo creato con successo!')
                 return redirect('gestione_mezzi')
             else:
-                print(form.errors)
-                #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
-                #return HttpResponse('<h1>Form Not valid</h1>')
-        mezzi = Mezzo.objects.filter(username=request.user.id)
-        template_name = 'gestione_mezzi.html'
+                return render(request, template_name, {'form': form, 'mezzi':mezzi})
         return render(request, template_name, {'form': form, 'mezzi':mezzi})
 
 
@@ -148,3 +146,13 @@ class AccettaMissione(generic.View):
     def get(self, request):
         template_name = 'accetta_missione.html'
         return render(request, template_name)
+
+
+class GestioneMissioni(generic.View):
+
+    def get(self, request):
+        missione = Missione.objects.filter(username=request.user.id)
+        template_name = 'gestione_missioni.html'
+        return render(request, template_name, context={'missione': missione})
+
+    """ APRI MISSIONE DA FARE """

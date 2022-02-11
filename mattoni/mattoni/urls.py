@@ -40,7 +40,7 @@ urlpatterns = [
     path('accetta_missione/', scheda.AccettaMissione.as_view(), name='accetta_missione'),
 
     path('dati/', TemplateView.as_view(template_name='dati.html'), name='dati'),
-    path('gestione_missioni/', TemplateView.as_view(template_name='gestione_missioni.html'), name='gestione_missioni'),
+    path('gestione_missioni/', scheda.GestioneMissioni.as_view(), name='gestione_missioni'),
     path('protocolli/', TemplateView.as_view(template_name='protocolli.html'), name='protocolli'),
     path('dati_mezzo/', TemplateView.as_view(template_name='dati_mezzo.html'), name='dati_mezzo'),
     

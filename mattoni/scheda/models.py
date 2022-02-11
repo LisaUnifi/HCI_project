@@ -205,6 +205,8 @@ class Missione(models.Model):
 
     #capire come gestire esito
     esito = models.CharField(max_length = 20, blank=True,null=True)
+    
+    #chiusa = models.BooleanField(default = False)
 
 
 class Intervento(models.Model):
