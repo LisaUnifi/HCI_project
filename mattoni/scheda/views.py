@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 from .forms import MezziCreationForm, MissionCreationForm, UserRegistrationForm
-from .models import MyUser, Mezzo
+from .models import Missione, MyUser, Mezzo
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
 import datetime
@@ -157,3 +157,13 @@ class AccettaMissione(generic.View):
     def get(self, request):
         template_name = 'accetta_missione.html'
         return render(request, template_name)
+
+
+class GestioneMissioni(generic.View):
+
+    def get(self, request):
+        missione = Missione.objects.filter(username=request.user.id)
+        template_name = 'gestione_missioni.html'
+        return render(request, template_name, context={'missione': missione})
+
+    """ APRI MISSIONE DA FARE """
