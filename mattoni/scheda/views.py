@@ -53,10 +53,32 @@ class HomeSocieta(generic.View):
 
 
 class GestioneMezzi(generic.View):
+    
+
     def get(self, request):
-        template_name = 'gestione_mezzi.html'
         mezzi = Mezzo.objects.filter(username=request.user.id)
+        template_name = 'gestione_mezzi.html'
         return render(request, template_name, context={'mezzi':mezzi})
+
+    def mezzi_creation_form(request):
+        form = MezziCreationForm(request.POST or None, request.FILES or None)
+        if request.method == 'POST':
+            if form.is_valid():
+                mezzo = form.save(commit=False)
+
+                user = MyUser.objects.get(username=request.user.username)
+                mezzo.username = user
+                
+                mezzo.save()
+                messages.success(request, 'Mezzo creato con successo!')
+                return redirect('gestione_mezzi')
+            else:
+                print(form.errors)
+                #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
+                #return HttpResponse('<h1>Form Not valid</h1>')
+        mezzi = Mezzo.objects.filter(username=request.user.id)
+        template_name = 'gestione_mezzi.html'
+        return render(request, template_name, {'form': form, 'mezzi':mezzi})
 
 
 class Operativo(generic.View):
@@ -88,12 +110,6 @@ def registration_request(request):
     if request.method == 'POST':
         if form.is_valid():
             user = form.save(commit=False)
-
-            user_type = form.cleaned_data['user_type']
-            if user_type == 'staff':
-                user.staff = True
-            elif user_type == 'operator':
-                user.is_operator = True
             
             user.save()
             return render(request, 'regist_success.html')
@@ -103,25 +119,6 @@ def registration_request(request):
             #return HttpResponse('<h1>Form Not valid</h1>')
     return render(request, 'registration.html', {'form': form})
 
-
-
-def mezzi_creation_form(request):
-    form = MezziCreationForm(request.POST or None, request.FILES or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            mezzo = form.save(commit=False)
-
-            user = MyUser.objects.get(username=request.user.username)
-            mezzo.username = user
-            
-            mezzo.save()
-            messages.success(request, 'Mezzo creato con successo!')
-            return redirect('gestione_mezzi')
-        else:
-            print(form.errors)
-            #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
-            #return HttpResponse('<h1>Form Not valid</h1>')
-    return render(request, '', {'form': form})
 
 
 def delete_mezzo(request, pk):

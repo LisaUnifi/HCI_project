@@ -30,13 +30,13 @@
           <div class="row mb-4">
             <div class="col">
               <div class="form-outline">
-                <input type="text" id="name" class="form-control" name="first_name" />
+                <input type="text" id="name" class="form-control" name="first_name" required oninvalid="this.setCustomValidity('Inserisci il nome')" oninput="setCustomValidity('')">
                 <label class="form-label" for="name">Nome</label>
               </div>
             </div>
             <div class="col">
               <div class="form-outline">
-                <input type="text" id="last_name" class="form-control" name="last_name"/>
+                <input type="text" id="last_name" class="form-control" name="last_name"required oninvalid="this.setCustomValidity('Inserisci il cognome')" oninput="setCustomValidity('')">
                 <label class="form-label" for="last_name">Cognome</label>
               </div>
             </div>
@@ -44,49 +44,37 @@
 
           <!-- Username -->
           <div class="form-outline mb-4">
-            <input type="text" id="username" class="form-control" name="username"/>
+            <input type="text" id="username" class="form-control" name="username"required oninvalid="this.setCustomValidity('Scegli uno username')" oninput="setCustomValidity('')">
             <label class="form-label" for="username">Username</label>
           </div>
 
           <!-- Email -->
           <div class="form-outline mb-4">
-            <input type="email" id="email" class="form-control" name="email"/>
+            <input type="email" id="email" class="form-control" name="email"required oninvalid="this.setCustomValidity('Inserisci email')" oninput="setCustomValidity('')">
             <label class="form-label" for="email">Email</label>
           </div>
           
           <!-- Password -->
           <div class="form-outline mb-4">
-            <input id="password1" type=password  class="form-control" name="password1" required>
+            <input id="password1" type=password  class="form-control" name="password1" required oninvalid="this.setCustomValidity('Scegli la password')" oninput="setCustomValidity('')">
             <label class="form-label" for="password1">Password</label>
           </div>
           <div class="form-outline mb-4">
-            <input id="password2" type=password  class="form-control" name="password2" required>
+            <input id="password2" type=password  class="form-control" name="password2" required oninvalid="this.setCustomValidity('La password è diversa da quella scelta')" oninput="setCustomValidity('')">
             <label class="form-label" for="password2">Conferma password</label>
           </div>
 
           <!-- Numero Telefono -->
           <div class="form-outline mb-4">
-            <input type="tel" id="phone" class="form-control" name="phone" />
+            <input type="tel" id="phone" class="form-control" name="phone" required oninvalid="this.setCustomValidity('Inserisci il numero di cellulare')" oninput="setCustomValidity('')">
             <label class="form-label" for="phone">Cellulare</label>
           </div>
 
           <!-- Associazione -->
           <div class="form-outline mb-4">
-            <input type="text" id="corporation" class="form-control" name="corporation" />
+            <input type="text" id="corporation" class="form-control" name="corporation" required oninvalid="this.setCustomValidity('Inserisci associazione di appartenenza')" oninput="setCustomValidity('')">
             <label class="form-label" for="corporation">Associazione</label>
           </div>
-
-            <!-- Menù selezione-->
-            <div class="container mb-4">
-              <h4>Seleziona ruolo:</h4>
-              <p>Si ricorda che...</p>
-              <select class="form-select" id="user_type" aria-label="Default select example" name="user_type">
-                <option selected value="staff">Formazione</option>
-                <option value="corp">Associazione</option>
-                <option value="operator">Operatore Centrale 118</option>
-              </select>
-            </div>
-            
           
             <!-- Submit button -->
             <div class="row">
@@ -94,6 +82,11 @@
                     <input class="btn btn-primary w-75" type="submit" value="Registrati">
                 </div>
             </div> 
+
+            <!-- Register buttons -->
+            <div class="text-center mt-2 mb-2">
+              <p>Vuoi annullare la registrazione? <a href="{% url 'home' %}">Torna alla home</a></p>
+            </div>
              
           </form>
       

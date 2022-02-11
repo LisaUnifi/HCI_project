@@ -33,7 +33,7 @@ urlpatterns = [
     path('home_sc/', scheda.HomeSocieta.as_view(), name='home_sc'),
     path('mattoni/', TemplateView.as_view(template_name='mattoni.html'), name='mattoni'),
     path('gestione_mezzi/', scheda.GestioneMezzi.as_view(), name='gestione_mezzi'),
-    path('crea_mezzo/', scheda.mezzi_creation_form, name='crea_mezzo'),
+    path('crea_mezzo/', scheda.GestioneMezzi.mezzi_creation_form, name='crea_mezzo'),
     path('delete_mezzo/<int:pk>/', scheda.delete_mezzo, name='delete_mezzo'),
     path('operativo/', scheda.Operativo.as_view(), name='operativo'),
     path('invia_missione/', scheda.missione_creation_form, name='invia_missione'),
