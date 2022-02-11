@@ -3,6 +3,10 @@
 
 {% block title %}Scheda Intervento{% endblock %}
 
+{% block css %}
+<link href="{% static 'css/gestione_mezzi.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 
 <div class="d-flex flex-column" style="height: 100vh">
@@ -82,37 +86,65 @@
                         {% csrf_token %}
                         <p class="slogan">Inserisci i dati del nuovo mezzo:</p>
                     
+                        {% if form.errors %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
 
                         <!-- Dati mezzo -->
                         <div class="row mb-4">
                             <div class="col">
                                 <div class="form-outline">
-                                    <input type="text" id="nome" class="form-control" name="nome"/>
+                                    <input type="text" id="nome" class="form-control" name="nome" oninvalid="this.setCustomValidity('Inserisci il nome del mezzo')" oninput="setCustomValidity('')">
                                     <label class="form-label" for="nome">Nome del mezzo</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-4">
-                            <div class="col">
+                            <div class="col-6 d-flex align-items-end">
                                 <div class="form-outline">
-                                    <input type="text" id="equip_min" class="form-control" name="equip_min"/>
                                     <label class="form-label" for="equip_min">Numero Minimo Equipaggio</label>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-6 d-flex justify-content-end">
+                                <div class="def-number-input number-input">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                    <input class="quantity form-control" min="0" value="3" type="number" id="equip_min" name="equip_min">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-6 d-flex align-items-end">
                                 <div class="form-outline">
-                                    <input type="text" id="num_mezzo" class="form-control" name="num_mezzo"/>
                                     <label class="form-label" for="num_mezzo">Numero Mezzo</label>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end">
+                                <div class="def-number-input number-input">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                    <input class="quantity form-control" min="0" value="0" type="number" id="equip_min" name="num_mezzo">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Tipologia mezzi -->
-                        <select id="mezzi" class="selectpicker w-75 mb-4" multiple data-live-search="true" title="Seleziona tipologia mezzo" name="tipologia">
-                        <option value="INDIA">INDIA</option>
-                        <option value="BLSD">BLSD</option>
-                        <option value="BLS">BLS</option>
-                        <option value="Ordinaria">Ordinaria</option>
+                        <select id="mezzi" class="selectpicker w-75 mb-4" data-live-search="true" title="Seleziona tipologia mezzo" name="tipologia" value="">
+                            <option value="INDIA">INDIA</option>
+                            <option value="BLSD">BLSD</option>
+                            <option value="BLS">BLS</option>
+                            <option value="Ordinaria">Ordinaria</option>
                         </select>
 
                         <div class="custom-control custom-checkbox">

@@ -114,7 +114,6 @@ class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True, label='email')
     corporation = forms.CharField(max_length=30, required=True, label='corporation')
     phone = forms.CharField(max_length=30, label='phone')
-    user_type = forms.CharField(max_length=30, label='user_type')
 
     class Meta:
         model = MyUser
@@ -161,6 +160,23 @@ class MezziCreationForm(forms.ModelForm):
     class Meta:
         model = Mezzo
         fields = ['nome','tipologia','all_day','num_mezzo','equip_min']
+
+    def __init__(self, *args, **kwargs):
+        super(MezziCreationForm, self).__init__(*args, **kwargs)
+        self.fields['nome'].error_messages = {'required':'Nome del mezzo richiesto!'}
+        self.fields['tipologia'].error_messages = {'required':'Tipologia del mezzo richiesta!'}
+
+    def clean_nome(self):
+        '''
+        Verify nome is available.
+        '''
+        nome = self.cleaned_data.get('nome')
+        qs = Mezzo.objects.filter(nome=nome)
+        if qs.exists():
+            raise forms.ValidationError("Mezzo già in uso")
+        return nome
+        
+
 
 class MissionCreationForm(forms.ModelForm):
     """
