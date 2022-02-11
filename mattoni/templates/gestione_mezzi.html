@@ -94,7 +94,7 @@
                         <div class="row mb-4">
                             <div class="col">
                                 <div class="form-outline">
-                                    <input type="text" id="nome" class="form-control" name="nome">
+                                    <input type="text" id="nome" class="form-control" name="nome" oninvalid="this.setCustomValidity('Inserisci il nome del mezzo')" oninput="setCustomValidity('')">
                                     <label class="form-label" for="nome">Nome del mezzo</label>
                                 </div>
                             </div>
@@ -180,7 +180,10 @@ $(document).ready(function () {
               type: 'POST',
               data: form.serialize(),
               success: function (result) {
-                  
+                  for(const [key,value] in result)
+                  {
+                      $("#errors").append('<div class="alert alert-danger"><strong>'+value+'</strong></div');
+                  }
               },
 
           });
