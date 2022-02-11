@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Gestione Missioni{% endblock %}
-<!--
-{% block css %}
-<link href="{% static 'css/gestione_mezzi.css' %}" rel="stylesheet">
-{% endblock %}
- -->
+{% block title %}Scheda Intervento{% endblock %}
 
 {% block content %}
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
     <ul class="navbar-nav ml-auto">
@@ -80,60 +76,30 @@
     </ul>
 </nav>
 
-<div class="d-flex flex-column" style="height: 85vh">
-
-    <div class="container p-5 mt-5 text-center bg-white">
-          
-
-        {% if messages %}
-            <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-
-    </div>
-
-    <div class="container mb-auto text-center bg-white" style="height: 50vh; overflow: auto;">
-        <div class="table-wrapper-scroll-y my-custom-scrollbar"> 
-            <table class="table-responsive w-100 align-middle">
-                <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Codice</th>
-                    <th scope="col">Paziente</th>
-                    <th scope="col">Lugo intervento</th>
-                    <th scope="col">Apri</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {% for m in missione %}
-                       
-                            <tr>
-                                <th scope="row">{{ m.id_missione }}</th>
-                                <td>{{ m.luogo }} C{{ m.patologia }} {{ m.criticita }}</td>
-                                <td>{{ m.cognome_p }} {{ m.nome_p }}</td>
-                                <td>{{ m.luogo_intervento }}, {{ m.civico_intervento }}</td>
-                                <td>
-                                    <form action="{% url 'dettagli_missione' m.id_missione %}" method='get'>
-                                        {% csrf_token %}
-                                        <input type="submit" class="btn btn-danger btn-sm px-3 fas fa-times" value='x'>
-                                    </form> 
-                                </td>
-                            </tr>
-                    {% endfor %}            
-                </tbody>
-            </table>
+<div class="container mt-1 mb-auto p-0 bg-white">
+    <div class="row ">
+      <div class="col-md-12 p-5 d-flex flex-column" style="height: 85vh">
+        <div class="col-sm-12 text-center p-1">
+            <a href="{% url 'gestione_missioni' %}" class="btn btn-primary w-100 pull-bottom-right m-4" role="button" type="submit">Gestione Missioni</a>
         </div>
+
+        <ul class="list-unstyled font-small mt-5 mb-0">
+          <li>
+            <p class="text-uppercase mb-2"><strong>Missione</strong></p>
+            <p class="text-muted mb-4">{{missione.id_missione}}</p>
+          </li>
+
+          <li>
+            <p class="text-uppercase mb-2"><strong>Scheda</strong></p>
+            <p class="text-muted mb-4">{{scheda.id_scheda}}</p>
+          </li>
+
+        </ul>
+
+      </div>
+      
     </div>
-
-
-    
-
-    
-
-</div>
+  </div>
 
 {% endblock %}
 {% block scripts %}
