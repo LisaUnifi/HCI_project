@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home Intervento{% endblock %}
+
+{% block css %}
+<link href="{% static 'css/missione_protocolli.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<!--Navbar-->
+<nav class="navbar navbar-light light-blue lighten-4">
+    <div class="row">
+        <div class="col-4">
+            <p class="text-uppercase mb-2"><strong>Id missione</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.id_missione}}</p>
+        </div>
+        <div class="col-4">
+            <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}</p>
+        </div>
+        <div class="col-4">
+            <p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}</p>
+            <p class="text-muted mb-4">{{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
+        </div>
+    </div>
+  
+
+
+    <div>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+        aria-expanded="false" aria-controls="collapseExample">
+        Button with data-target
+        </button>
+    </div>
+    <!-- / Collapse buttons -->
+    
+    <!-- Collapsible element -->
+    <div class="collapse" id="collapseExample">
+        <div class="mt-3">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
+        keffiyeh helvetica,
+        craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+    </div>
+  <!-- / Collapsible element -->
+
+    <!-- Navbar brand -->
+    <div class="row">
+        <div class="col-4">
+            <p class="text-uppercase mb-2"><strong>Id missione</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.id_missione}}</p>
+        </div>
+        <div class="col-4">
+            <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}</p>
+        </div>
+        <div class="col-4">
+            <p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}</p>
+            <p class="text-muted mb-4">{{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
+        </div>
+    </div>
+  
+    <!-- Collapse button -->
+    <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+      aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
+          class="fas fa-bars fa-1x"></i></span></button>
+  
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+  
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+      </ul>
+      <!-- Links -->
+  
+    </div>
+    <!-- Collapsible content -->
+  
+</nav>
+ 
+<div class="container mt-5 text-center bg-white">
+    <h1 class="m-3">Missione in carico</h1>
+  </div>
+  <div class="container pt-2 ps-5 pe-5">
+    <div class="p-5 m-0 bg-light">
+      <div class="col-12 d-flex flex-column">
+  
+        <ul class="list-unstyled font-small m-4 ">
+          <li>
+            <p class="text-uppercase mb-2"><strong>Id missione</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.id_missione}}</p>
+          </li>
+  
+          <li>
+            <p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
+          </li>
+  
+          <li>
+            <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}</p>
+          </li>
+  
+          <li>
+            <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}</p>
+            <p class="text-muted mb-4">{{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
+          </li>
+          <li>
+            <p class="text-uppercase mb-2"><strong>Note</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.note}}</p>
+          </li>
+          <li>
+            <p class="text-uppercase mb-2"><strong>Avvisi da centrale 118</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.avvisi}}</p>
+          </li>
+        
+        </ul>
+  
+      </div>
+      
+      
+    </div>
+    <div class="position-absolute bottom-0 end-0 m-4">
+        <div class="container p-5">
+          <button type="button" class="btn btn-primary btn-lg">
+            Partenza per missione
+          </button>
+        </div>
+      </div>
+  </div>
+
+{% endblock %}
+{% block scripts %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="{% static 'js/functions.js' %}"></script>
+{% endblock %}

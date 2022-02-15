@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home Intervento{% endblock %}
+
+{% block content %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <div class="container m-auto p-3">
+                <a class="navbar-brand" href="#">
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+                    height="20"
+                    alt="MDB Logo"
+                    loading="lazy"
+                  />
+                </a>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <div class="container p-3">
+                <h3>Misericordia Galluzzo</h3>
+            </div>
+        </li>
+        
+    </ul>
+</nav>
+<div class="container mt-5 text-center bg-white">
+    <h1 class="m-3">Missione in carico</h1>
+  </div>
+  <div class="container pt-2 ps-5 pe-5">
+    <div class="p-5 m-0 bg-light">
+      <div class="col-12 d-flex flex-column">
+  
+        <ul class="list-unstyled font-small m-4 ">
+          <li>
+            <p class="text-uppercase mb-2"><strong>Id missione</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.id_missione}}</p>
+          </li>
+  
+          <li>
+            <p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
+          </li>
+  
+          <li>
+            <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}</p>
+          </li>
+  
+          <li>
+            <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}</p>
+            <p class="text-muted mb-4">{{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
+          </li>
+          <li>
+            <p class="text-uppercase mb-2"><strong>Note</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.note}}</p>
+          </li>
+          <li>
+            <p class="text-uppercase mb-2"><strong>Avvisi da centrale 118</strong></p>
+            <p class="text-muted mb-4">{{request.session.missione.avvisi}}</p>
+          </li>
+        
+        </ul>
+  
+      </div>
+      
+      
+    </div>
+    <div class="position-absolute bottom-0 end-0 m-4">
+        <div class="container p-5">
+          <button type="button" class="btn btn-primary btn-lg">
+            Partenza per missione
+          </button>
+        </div>
+      </div>
+  </div>
+
+{% endblock %}
+{% block scripts %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="{% static 'js/functions.js' %}"></script>
+{% endblock %}

@@ -29,6 +29,32 @@
         
     </ul>
 </nav>
+<div class="container mt-1 mb-auto p-0 bg-white w-75 d-flex justify-content-center align-items-center" style="height: 85vh">
+    <div class="card m-5 p-5 text-center">
+
+        <!-- Card image -->
+        <img class="card-img-top rounded-circle img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.webp" alt="Card image cap">
+      
+        <!-- Card content -->
+        <div class="card-body">
+      
+          <!-- Title -->
+          {% if request.session.missione.patologia < 10 %}
+          <h1 class="card-title">{{request.session.missione.luogo}} C0{{request.session.missione.patologia}} {{request.session.missione.criticita}}</h1>
+          {% else %}
+          <h1 class="card-title">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</h1>
+          {% endif %}
+        </div>
+      
+      </div>
+    <div class="position-absolute bottom-0 end-0 m-4">
+      <div class="container p-5">
+        <a type="submit" class="btn btn-primary btn-lg" href="{% url 'partenza_missione' %}">
+          Accetta missione
+        </a>
+      </div>
+    </div>
+</div>
 
 {% endblock %}
 {% block scripts %}

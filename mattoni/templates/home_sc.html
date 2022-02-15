@@ -5,83 +5,86 @@
 
 
 {% block content %}
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <div class="container m-auto p-3">
+                <a class="navbar-brand" href="#">
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+                    height="20"
+                    alt="MDB Logo"
+                    loading="lazy"
+                  />
+                </a>
+            </div>
+        </li>
 
-<div class="container-sm p-3 rounded bg-white text-center" >
-    <img src="https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png" class="logo p-3" />
-    <h1>Benvenuto ...!</h1>
-    <p class="slogan">Seleziona il mezzo</p>
-    <form action="{% url 'mezzo_scelto' %}" method="get">
+        <li class="nav-item">
+            <div class="container p-3">
+                <h3>{{request.user.corporation}}</h3>
+            </div>
+        </li>
+        
+
+    </ul>
+</nav>
+
+<div class="container-sm p-3 rounded bg-white text-center d-flex flex-column">
+    <div class="container mt-5 text-center bg-white">
+        <h1 class="m-3">Seleziona mezzo</h1>
+    </div>
     
-            <div class="container-sm p-3 rounded bg-white text-center" >
-                <p class="slogan">Mezzi H/24</p>
+    <form action="{% url 'mezzo_scelto' %}" method="get">
+        <div class="container pt-2 ps-5 pe-5 mb-auto bg-white" style="overflow: auto;">
+            {% if messages %}
+            <ul class="alert alert-danger" style="list-style: none;">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <div class="container-sm p-3 rounded text-center bg-light" >
+                <!--<p class="slogan">Mezzi H/24</p>-->
                 {% for m in mezzi %}
                     {% if m.all_day %}
                         <div class="row">
-                            <div class="col-3">
-                                
-                            </div>
-                            <div class="col-9 mb-4">
-
+                            <div class="col m-2">
                                 <input type="radio" class="btn-check btn-lg float-start" name="mezzoscelto" id="{{ m.nome }}" value="{{ m.id_mezzo }}" autocomplete="off">
-                                <label class="btn btn-primary" for="{{ m.nome }}">{{ m.nome }}</label>
-                                <!--
-                                <button type="radio" name="mezzoscelto" value="{{m.id}}" class="btn btn-light btn-lg float-start" data-mdb-toggle="button" data-mdb-ripple-color="dark">{{ m.nome }}</button>
-                                -->
+                                <label class="btn btn-primary btn-lg w-50" for="{{ m.nome }}">{{ m.nome }}</label>
                             </div>
                         </div>
-                        
                     {% endif %}
                 {% endfor %}  
                 
-                <p class="slogan">Mezzi non H/24</p>
+                <!--<p class="slogan">Mezzi non H/24</p>-->
                 {% for m in mezzitemp %}
-                    
                     <div class="row">
-                        <div class="col-3">
-                            
-                        </div>
-                        <div class="col-9 mb-4">
+                        <div class="col m-2">
                             <input type="radio" class="btn-check btn-lg float-start" name="mezzoscelto" id="{{ m.nome }}" value="{{ m.id_mezzo }}" autocomplete="off">
-                            <label class="btn btn-secondary" for="{{ m.nome }}">{{ m.nome }}</label>
-                            
+                            <label class="btn btn-secondary btn-lg w-50" for="{{ m.nome }}">{{ m.nome }}</label>
                         </div>
-                    </div>
-                        
+                    </div>   
                     {% empty %}
-                    
-                        <p>Nessun mezzo non h/24 registrato</p>
-
+                        <!--<p>Nessun mezzo non h/24 registrato</p>-->
                 {% endfor %}  
             </div>
                             
-                 
-           
-        
-
-        
-
-        
-        <!-- Submit button -->
-        <div class="d-flex justify-content-between">
-            <div class="row align-self-start">
-                <div class="col-sm-12 text-center p-1">
-                    <a href="{% url 'gestione_mezzi' %}" class="btn btn-primary w-100 pull-bottom-right m-4" role="button" type="submit">Gestione Mezzi</a>
-                </div>
-            </div>
-            <div class="row align-self-start">
-                <div class="col-sm-12 text-center p-1">
-                    <input type="submit" class="btn btn-primary w-100 pull-right m-4" value='Avanti'>
+            <div class="container p-5 mt-auto mb-5 me-5 text-center bg-white position-absolute bottom-0 end-0">
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <a href="{% url 'gestione_mezzi' %}" role="button" class="btn p-3 btn-primary m-2 btn-lg" type="submit">
+                            Gestione mezzi
+                        </a>
+                        <input type="submit" class="btn p-3 btn-primary btn-lg m-2" value='Avanti'>
+                    </div>
                 </div>
             </div>
         </div>
-
-
     </form>
     
 </div>
-
-
-
 
 {% endblock %}
 

@@ -9,10 +9,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 from .forms import MezziCreationForm, MissionCreationForm, UserRegistrationForm
-from .models import Missione, MyUser, Mezzo, Scheda, Intervento
+from .models import Missione, MyUser, Mezzo, Scheda, Intervento, TestaPiedi
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
+from django.forms.models import model_to_dict
 import datetime
+import json
 
 
 import pdb
@@ -78,7 +80,6 @@ def mezzi_creation_form(self, request):
             messages.success(request, 'Mezzo creato con successo!')
             return redirect('gestione_mezzi')
         else:
-            breakpoint()
             errors = form.errors
             
             return JsonResponse(errors)
@@ -95,7 +96,7 @@ class Operativo(generic.View):
         template_name = 'operativo.html'
         return render(request, template_name)
 
-
+'''
 def mezzo_scelto(request):
     if request.method == 'GET':
             m = Mezzo.objects.get(id_mezzo=request.GET.get('mezzoscelto'))
@@ -109,6 +110,27 @@ def mezzo_scelto(request):
             request.session['mezzo'] = mezzo
             return redirect('operativo')
 
+'''
+def mezzo_scelto(request):
+    if request.method == 'GET':
+        id = request.GET.get('mezzoscelto')
+        if id is None:
+            messages.error(request, 'Seleziona un mezzo!')
+            return HttpResponseRedirect(reverse('home_sc'))
+        else:
+            m = Mezzo.objects.get(id_mezzo=id)
+            mezzo = {'id_mezzo': m.id_mezzo, 
+            'nome': m.nome,
+            'tipologia': m.tipologia,
+            'all_day': m.all_day,
+            'num_mezzo': m.num_mezzo,
+            'equip_min': m.equip_min,
+            }
+            request.session['mezzo'] = mezzo
+            return redirect('operativo')
+
+  #  nell'HTML:
+    
 
 
 
@@ -151,16 +173,29 @@ def missione_creation_form(request):
             
             missione.save()
             scheda = Scheda()
+            tp = TestaPiedi()
+            tp.save()
+            scheda.testa_piedi = tp
             scheda.save()
+            dictMissione = model_to_dict(missione)
+            dictScheda = model_to_dict(scheda)
             m = request.session['mezzo']
             intervento = Intervento(id_scheda = scheda, id_missione = missione, id_mezzo = Mezzo.objects.get(id_mezzo=m['id_mezzo']))
             intervento.save()
+            request.session['missione'] = dictMissione
+            request.session['scheda'] = dictScheda
             return redirect('accetta_missione')
         else:
             print(form.errors)
             #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
             #return HttpResponse('<h1>Form Not valid</h1>')
     return render(request, '', {'form': form})
+
+
+# TODO: fix il problema con la pagina
+def partenza_missione(request):
+    template_name = 'partenza_missione.html'
+    return render(request, template_name)
 
 
 class AccettaMissione(generic.View):
@@ -193,3 +228,12 @@ def dettagli_missione(request, pk):
 def visualizza_protocollo(request, pk):
     template_name = 'visualizza_protocollo.html'
     return render(request, template_name, context={'nome': pk})
+
+
+def dati_mezzo(request):
+    template_name = 'dati_mezzo.html'
+    if request.method == 'GET':
+        mezzo = request.session['mezzo']
+        return render(request, template_name, context={'mezzo': mezzo})
+
+

@@ -101,6 +101,12 @@ class MyUser(AbstractUser):
         return self.admin
 
 
+class TestaPiedi(models.Model):
+    id_testa_piedi = models.AutoField(primary_key=True)
+    front = models.ImageField(upload_to = '', blank=True, null=True)
+    back = models.ImageField(upload_to = '', blank=True, null=True)
+
+
 class Scheda(models.Model):
     id_scheda = models.AutoField(primary_key = True)
 
@@ -154,8 +160,7 @@ class Scheda(models.Model):
     farmaci = models.TextField(blank=True, null=True)
     pasto = models.TextField(blank=True, null=True)
     #setta immagini 
-    testa_piedi_front = models.ImageField(upload_to = '', blank=True, null=True)
-    testa_piedi_back = models.ImageField(upload_to = '', blank=True, null=True)
+    testa_piedi = models.ForeignKey(TestaPiedi, on_delete=models.CASCADE)
 
     note = models.TextField(blank=True, null=True)
 
