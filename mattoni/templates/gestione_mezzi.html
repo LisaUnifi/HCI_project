@@ -37,11 +37,11 @@
     <div class="container mt-5 text-center bg-white">
         <h1 class="m-3">Gestione mezzi</h1>
         {% if messages %}
-            <ul>
+        <ul class="alert alert-info" style="list-style: none;">
             {% for message in messages %}
-                <li>{{ message }}</li>
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
             {% endfor %}
-            </ul>
+        </ul>
         {% endif %}
     </div>
 
@@ -97,12 +97,14 @@
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <form class="text-center" method="post"> <!--action="{% url 'registration_user' %}"-->
+                <form class="text-center" id="creazione_mezzo_form" method="post"> <!--action="{% url 'registration_user' %}"-->
                     {% csrf_token %}
                     <p class="slogan">Inserisci i dati del nuovo mezzo:</p>
                 
-                    <div class='text-center' id='errors'>
-
+                    <div class='text-center'>
+                        <ul class="alert alert-danger" id='errors' style="list-style: none;" hidden>
+                            
+                        </ul>
                     </div>
 
                     <!-- Dati mezzo -->

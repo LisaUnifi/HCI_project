@@ -77,6 +77,7 @@ def mezzi_creation_form(request):
             messages.success(request, 'Mezzo creato con successo!')
             return JsonResponse(data)
         else:
+            
             errors = form.errors
             data['errors'] = errors
             data['status'] = 'error'
