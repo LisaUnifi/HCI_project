@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Gestione Missioni{% endblock %}
-<!--
-{% block css %}
-<link href="{% static 'css/gestione_mezzi.css' %}" rel="stylesheet">
-{% endblock %}
- -->
+{% block title %}Scheda Intervento{% endblock %}
 
 {% block content %}
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
     <ul class="navbar-nav ml-auto">
@@ -27,7 +23,7 @@
 
         <li class="nav-item">
             <div class="container p-3">
-                <h3>{{request.user.corporation}}</h3>
+                <h3>Misericordia Galluzzo</h3>
             </div>
         </li>
         
@@ -80,46 +76,37 @@
     </ul>
 </nav>
 
-<div class="d-flex flex-column" style="height: 85vh">
-  <div class="container mt-5 text-center bg-white">
-    <h1 class="m-3">Gestione missioni</h1>
+<div class="row mt-5 bg-white">
+  <div class="col-6 d-flex justify-content-end">
+    <h1 class="m-3">Dettagli missione</h1>
   </div>
-
-  <div class="container pt-2 ps-5 pe-5 mb-auto bg-white" style="height: 70vh; overflow: auto;">
-      <div class="table-wrapper-scroll-y my-custom-scrollbar p-5 m-0 bg-light"> 
-          <table class="table-responsive w-100 align-middle">
-              <thead>
-              <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Codice</th>
-                  <th scope="col">Paziente</th>
-                  <th scope="col">Lugo intervento</th>
-                  <th scope="col">Apri</th>
-              </tr>
-              </thead>
-              <tbody>
-                  {% for m in missione %}
-                      
-                          <tr>
-                              <td scope="row">{{ m.id_missione }}</td>
-                              <td>{{ m.luogo }} C{{ m.patologia }} {{ m.criticita }}</td>
-                              <td>{{ m.cognome_p }} {{ m.nome_p }}</td>
-                              <td>{{ m.luogo_intervento }}, {{ m.civico_intervento }}</td>
-                              <td>
-                                  <form action="{% url 'dettagli_missione' m.id_missione %}" method='get'>
-                                      {% csrf_token %}
-                                      <input type="submit" class="btn btn-primary btn-sm px-3" value='+'>
-                                      
-                                  </form> 
-                              </td>
-                          </tr>
-                  {% endfor %}            
-              </tbody>
-          </table>
-      </div>
+  <div class="col-6 d-flex justify-content-start">
+    <a href="{% url 'gestione_missioni' %}" class="btn btn-primary m-4" role="button" type="submit">Torna a gestione missioni</a>
   </div>
-
 </div>
+
+<div class="container pt-2 ps-5 pe-5">
+    <div class="p-5 m-0 bg-light">
+      <div class="col-12 d-flex flex-column">
+        
+
+        <ul class="list-unstyled font-small  m-4">
+          <li>
+            <p class="text-uppercase mb-2"><strong>Missione</strong></p>
+            <p class="text-muted mb-4">{{missione.id_missione}}</p>
+          </li>
+
+          <li>
+            <p class="text-uppercase mb-2"><strong>Scheda</strong></p>
+            <p class="text-muted mb-4">{{scheda.id_scheda}}</p>
+          </li>
+
+        </ul>
+
+      </div>
+      
+    </div>
+  </div>
 
 {% endblock %}
 {% block scripts %}
@@ -128,8 +115,3 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script src="{% static 'js/functions.js' %}"></script>
 {% endblock %}
-
-
-
-    
-  

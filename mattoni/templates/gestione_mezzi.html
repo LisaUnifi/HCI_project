@@ -9,12 +9,33 @@
 
 {% block content %}
 
-<div class="d-flex flex-column" style="height: 100vh">
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <div class="container m-auto p-3">
+                <a class="navbar-brand" href="#">
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+                    height="20"
+                    alt="MDB Logo"
+                    loading="lazy"
+                  />
+                </a>
+            </div>
+        </li>
 
-    <div class="container p-5 mt-5 text-center bg-white">
-        <h1 class="m-3">Benvenuta</h1>
-        <h4 class="mb-3">{{ request.user.corporation }}</h4>  
+        <li class="nav-item">
+            <div class="container p-3">
+                <h3>{{request.user.corporation}}</h3>
+            </div>
+        </li>
 
+    </ul>
+</nav>
+
+<div class="d-flex flex-column" style="height: 70vh">
+    <div class="container mt-5 text-center bg-white">
+        <h1 class="m-3">Gestione mezzi</h1>
         {% if messages %}
             <ul>
             {% for message in messages %}
@@ -22,12 +43,11 @@
             {% endfor %}
             </ul>
         {% endif %}
-
     </div>
 
-    <div class="container mb-auto text-center bg-white" style="height: 50vh; overflow: auto;">
-        <div class="table-wrapper-scroll-y my-custom-scrollbar"> 
-            <table class="table-responsive w-100 align-middle">
+    <div class="container pt-2 ps-5 pe-5 mb-auto bg-white" style="height: 70vh; overflow: auto;">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar p-5 m-0 bg-light"> 
+            <table class="table-responsive w-100 text-center">
                 <thead>
                 <tr>
                     <th scope="col">Nome</th>
@@ -39,7 +59,7 @@
                 <tbody>
                     {% for m in mezzi %}
                         <tr>
-                            <th scope="row">{{ m.nome }}</th>
+                            <td scope="row">{{ m.nome }}</td>
                             <td>{{ m.tipologia }}</td>
                             <td>{{ m.all_day }}</td>
                             <td>
@@ -54,112 +74,97 @@
             </table>
         </div>
     </div>
+</div>
 
-    <div class="container p-5 mt-auto mb-5 text-center bg-white">
-        <div class="row">
-            <div class="col-4">
-            </div>
-            <div class="col-2">
-            </div>
-            <div class="col-6">
-                <a href="{% url 'home_sc' %}" role="button" class="btn p-3 btn-primary btn-lg">
-                    Home 
-                </a>
-                <button type="button" class="btn p-3 btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#nuovomezzo" id="modalbutton">
-                    Nuovo Mezzo
-                </button>
-            </div>
+<div class="container p-5 mt-auto mb-5 me-5 text-center bg-white position-absolute bottom-0 end-0">
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            <a href="{% url 'home_sc' %}" role="button" class="btn p-3 btn-primary m-2 btn-lg">
+                Torna a selezione mezzo 
+            </a>
+            <button type="button" class="btn p-3 btn-primary btn-lg m-2" data-mdb-toggle="modal" data-mdb-target="#nuovomezzo" id="modalbutton">
+                Nuovo Mezzo
+            </button>
         </div>
     </div>
+</div>
 
-    
-    
-    <div class="modal fade" id="nuovomezzo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nuovo Mezzo</h5>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <form class="text-center" id="creazione_mezzo_form" method="post">
-                        {% csrf_token %}
-                        <p class="slogan">Inserisci i dati del nuovo mezzo:</p>
-                    
-                        <div class='text-center'>
-                            <div class="alert alert-danger" id='errors' hidden><strong>
-
-                            </strong></div>
-
-                        </div>
-
-                        <!-- Dati mezzo -->
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="form-outline">
-                                    <input type="text" id="nome" class="form-control" name="nome" oninvalid="this.setCustomValidity('Inserisci il nome del mezzo')" oninput="setCustomValidity('')">
-                                    <label class="form-label" for="nome">Nome del mezzo</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-6 d-flex align-items-end">
-                                <div class="form-outline">
-                                    <label class="form-label" for="equip_min">Numero Minimo Equipaggio</label>
-                                </div>
-                            </div>
-                            <div class="col-6 d-flex justify-content-end">
-                                <div class="def-number-input number-input">
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                    <input class="quantity form-control" min="0" value="3" type="number" id="equip_min" name="equip_min">
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-6 d-flex align-items-end">
-                                <div class="form-outline">
-                                    <label class="form-label" for="num_mezzo">Numero Mezzo</label>
-                                </div>
-                            </div>
-                            <div class="col-6 d-flex justify-content-end">
-                                <div class="def-number-input number-input">
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                    <input class="quantity form-control" min="0" value="0" type="number" id="num_mezzo" name="num_mezzo">
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tipologia mezzi -->
-                        <select id="mezzi" class="selectpicker w-75 mb-4" data-live-search="true" title="Seleziona tipologia mezzo" name="tipologia" value="">
-                            <option value="INDIA">INDIA</option>
-                            <option value="BLSD">BLSD</option>
-                            <option value="BLS">BLS</option>
-                            <option value="Ordinaria">Ordinaria</option>
-                        </select>
-
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="all_day" name="all_day">
-                            <label class="custom-control-label" for="all_day"> Mezzo attivo H24</label>
-                        </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
-                            <button type="button" id="invio_post" class="btn btn-primary">Submit</button>
-                            
-                        </div>
-                        
-                    </form>
-                    
+<div class="modal fade" id="nuovomezzo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nuovo Mezzo</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <form class="text-center" method="post"> <!--action="{% url 'registration_user' %}"-->
+                    {% csrf_token %}
+                    <p class="slogan">Inserisci i dati del nuovo mezzo:</p>
                 
-            </div>
+                    <div class='text-center' id='errors'>
+
+                    </div>
+
+                    <!-- Dati mezzo -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <input type="text" id="nome" class="form-control" name="nome">
+                                <label class="form-label" for="nome">Nome del mezzo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-6 d-flex align-items-end">
+                            <div class="form-outline">
+                                <label class="form-label" for="equip_min">Numero Minimo Equipaggio</label>
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <div class="def-number-input number-input">
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                <input class="quantity form-control" min="0" value="3" type="number" id="equip_min" name="equip_min">
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-6 d-flex align-items-end">
+                            <div class="form-outline">
+                                <label class="form-label" for="num_mezzo">Numero Mezzo</label>
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <div class="def-number-input number-input">
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                <input class="quantity form-control" min="0" value="0" type="number" id="num_mezzo" name="num_mezzo">
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tipologia mezzi -->
+                    <select id="mezzi" class="selectpicker w-75 mb-4" data-live-search="true" title="Seleziona tipologia mezzo" name="tipologia" value="">
+                        <option value="INDIA">INDIA</option>
+                        <option value="BLSD">BLSD</option>
+                        <option value="BLS">BLS</option>
+                        <option value="Ordinaria">Ordinaria</option>
+                    </select>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="all_day" name="all_day">
+                        <label class="custom-control-label" for="all_day"> Mezzo attivo H24</label>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
+                        <button type="submit" id="invio_post" class="btn btn-primary">Aggiungi mezzo</button>
+                    </div>
+                    
+                </form>
+            
         </div>
     </div>
-
-
-    
-
 </div>
 
 {% endblock %}

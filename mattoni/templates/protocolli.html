@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gestione Missioni{% endblock %}
+<!--
+{% block css %}
+<link href="{% static 'css/gestione_mezzi.css' %}" rel="stylesheet">
+{% endblock %}
+ -->
+
+{% block content %}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <div class="container m-auto p-3">
+                <a class="navbar-brand" href="#">
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+                    height="20"
+                    alt="MDB Logo"
+                    loading="lazy"
+                  />
+                </a>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <div class="container p-3">
+                <h3>{{request.user.corporation}}</h3>
+            </div>
+        </li>
+        
+        <li class="nav-item">
+            <div class="container-fluid">
+                <ul class="navbar-nav">
+                  <!-- Avatar -->
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle d-flex align-items-center"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-mdb-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+                        class="square"
+                        height="50"
+                        alt="Personale Image"
+                        loading="lazy"
+                      />
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li>
+                        <a class="dropdown-item" href="{% url 'operativo' %}">Home</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'dati' %}">I miei dati</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'protocolli' %}">Protocolli</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+            </div>
+        </li>
+
+    </ul>
+</nav>
+
+<div class="d-flex flex-column" style="height: 85vh">
+    <div class="container mt-5 text-center bg-white">
+        <h1 class="m-3">Protocolli operativi</h1>
+    </div>
+
+    <div class="container pt-2 ps-5 pe-5 mb-auto bg-white" style="height: 70vh; overflow: auto;">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar p-5 m-0 bg-light"> 
+            <table class="table-responsive w-100 align-middle">
+                <thead>
+                <tr>
+                    <th scope="col">Protocollo</th>
+                    <th scope="col">Livello</th>
+                    <th scope="col">Apri</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">BLS-D</td>
+                        <td>Base</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'blsd' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td scope="row">PBLS-D</td>
+                        <td>Avanzato</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'pblsd' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td scope="row">Emergenza COVID-19</td>
+                        <td>Base</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'covid' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Uso C-PAP</td>
+                        <td>Avanzato</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'c-pap' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td scope="row">Codici intervento</td>
+                        <td>Base</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'codici' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td scope="row">Posizione elettrodi ECG</td>
+                        <td>Avanzato</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'ecg' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td scope="row">Metodo Triage START</td>
+                        <td>Avanzato</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'start' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Gestione ICTUS - Protocollo STROKE</td>
+                        <td>Avanzato</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'stroke' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td scope="row">Protocollo SVT paziente traumatizzato </td>
+                        <td>Avanzato</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'svt' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Protocolli intubazione</td>
+                        <td>Avanzato</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'tubi' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td scope="row">Protocollo accesso venoso</td>
+                        <td>Avanzato</td>
+                        <td>
+                            <a href="{% url 'visualizza_protocollo' 'vena' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                        </td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    
+
+    
+
+</div>
+
+{% endblock %}
+{% block scripts %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="{% static 'js/functions.js' %}"></script>
+{% endblock %}

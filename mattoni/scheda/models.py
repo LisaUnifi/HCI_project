@@ -101,63 +101,68 @@ class MyUser(AbstractUser):
         return self.admin
 
 
+class TestaPiedi(models.Model):
+    id_testa_piedi = models.AutoField(primary_key=True)
+    front = models.ImageField(upload_to = '', blank=True, null=True)
+    back = models.ImageField(upload_to = '', blank=True, null=True)
+
+
 class Scheda(models.Model):
     id_scheda = models.AutoField(primary_key = True)
 
-    scenario = models.CharField(max_length = 20)
+    scenario = models.CharField(max_length = 20, blank=True, null=True)
 
-    cosciente = models.BooleanField()
-    respiraBLS = models.BooleanField()
-    circoloBLS = models.BooleanField()
-    dae = models.BooleanField()
+    cosciente = models.BooleanField(blank=True, null=True)
+    respiraBLS = models.BooleanField(blank=True, null=True)
+    circoloBLS = models.BooleanField(blank=True, null=True)
+    dae = models.BooleanField(blank=True, null=True)
     cicli = models.IntegerField(default = 0)
-    noteBLS = models.TextField()
-    pervieta = models.BooleanField()
-    ostruzione = models.BooleanField()
+    noteBLS = models.TextField(blank=True, null=True)
+    pervieta = models.BooleanField(blank=True, null=True)
+    ostruzione = models.BooleanField(blank=True, null=True)
 
-    dispnea = models.BooleanField()
-    osservo = models.CharField(max_length = 20)
-    palpo = models.CharField(max_length = 20)
-    ascolto = models.BooleanField()
-    conto = models.IntegerField()
-    saturazione = models.IntegerField()
-    saturazione_oss = models.IntegerField()
-    ossigeno = models.IntegerField()
+    dispnea = models.BooleanField(blank=True, null=True)
+    osservo = models.CharField(max_length = 20, blank=True, null=True)
+    palpo = models.CharField(max_length = 20, blank=True, null=True)
+    ascolto = models.BooleanField(blank=True, null=True)
+    conto = models.IntegerField(blank=True, null=True)
+    saturazione = models.IntegerField(blank=True, null=True)
+    saturazione_oss = models.IntegerField(blank=True, null=True)
+    ossigeno = models.IntegerField(blank=True, null=True)
 
-    pressione_massima = models.IntegerField()
-    pressione_minima = models.IntegerField()
-    temperatura = models.IntegerField()
-    emorragie = models.CharField(max_length = 20)
-    polso = models.BooleanField()
-    regolare_polso = models.BooleanField()
-    cute = models.CharField(max_length = 20)
-    sudato = models.BooleanField()
-    dolore_toracico = models.BooleanField()
-    ora_dolore = models.DateTimeField(auto_now = False, auto_now_add = False)
-    tipo_dolore = models.BooleanField()
+    pressione_massima = models.IntegerField(blank=True, null=True)
+    pressione_minima = models.IntegerField(blank=True, null=True)
+    temperatura = models.IntegerField(blank=True, null=True)
+    emorragie = models.CharField(max_length = 20, blank=True, null=True)
+    polso = models.BooleanField(blank=True, null=True)
+    regolare_polso = models.BooleanField(blank=True, null=True)
+    cute = models.CharField(max_length = 20, blank=True, null=True)
+    sudato = models.BooleanField(blank=True, null=True)
+    dolore_toracico = models.BooleanField(blank=True, null=True)
+    ora_dolore = models.DateTimeField(blank=True, null=True)
+    tipo_dolore = models.BooleanField(blank=True, null=True)
 
-    avpu = models.CharField(max_length = 1)
-    tempo = models.BooleanField()
-    spazio = models.BooleanField()
-    mimica_c = models.CharField(max_length = 10)
-    braccia_c = models.CharField(max_length = 10)
-    linguaggio_c = models.BooleanField()
-    forza_sup = models.CharField(max_length = 10)
-    forza_inf = models.CharField(max_length = 10)
-    sens_sup = models.CharField(max_length = 10)
-    sens_inf = models.CharField(max_length = 10)
+    avpu = models.CharField(max_length = 1, blank=True, null=True)
+    tempo = models.BooleanField(blank=True, null=True)
+    spazio = models.BooleanField(blank=True, null=True)
+    mimica_c = models.CharField(max_length = 10, blank=True, null=True)
+    braccia_c = models.CharField(max_length = 10, blank=True, null=True)
+    linguaggio_c = models.BooleanField(blank=True, null=True)
+    forza_sup = models.CharField(max_length = 10, blank=True, null=True)
+    forza_inf = models.CharField(max_length = 10, blank=True, null=True)
+    sens_sup = models.CharField(max_length = 10, blank=True, null=True)
+    sens_inf = models.CharField(max_length = 10, blank=True, null=True)
 
-    posizione = models.CharField(max_length = 20)
-    allergie = models.TextField()
-    patologie = models.TextField()
-    glicemia = models.IntegerField()
-    farmaci = models.TextField()
-    pasto = models.TextField()
+    posizione = models.CharField(max_length = 20, blank=True, null=True)
+    allergie = models.TextField(blank=True, null=True)
+    patologie = models.TextField(blank=True, null=True)
+    glicemia = models.IntegerField(blank=True, null=True)
+    farmaci = models.TextField(blank=True, null=True)
+    pasto = models.TextField(blank=True, null=True)
     #setta immagini 
-    testa_piedi_front = models.ImageField(upload_to = '')
-    testa_piedi_back = models.ImageField(upload_to = '')
+    testa_piedi = models.ForeignKey(TestaPiedi, on_delete=models.CASCADE)
 
-    note = models.TextField()
+    note = models.TextField(blank=True, null=True)
 
 
 class Mezzo(models.Model):
@@ -206,11 +211,11 @@ class Missione(models.Model):
     #capire come gestire esito
     esito = models.CharField(max_length = 20, blank=True,null=True)
     
-    #chiusa = models.BooleanField(default = False)
+    chiusa = models.BooleanField(default = False)
 
 
 class Intervento(models.Model):
-    id_scheda = models.OneToOneField(Scheda, on_delete = models.CASCADE)
-    id_mezzo = models.OneToOneField(Mezzo, on_delete = models.CASCADE)
-    id_missione = models.OneToOneField(Missione, on_delete = models.CASCADE)
+    id_scheda = models.ForeignKey(Scheda, on_delete = models.CASCADE)
+    id_mezzo = models.ForeignKey(Mezzo, on_delete = models.CASCADE)
+    id_missione = models.ForeignKey(Missione, on_delete = models.CASCADE)
 
