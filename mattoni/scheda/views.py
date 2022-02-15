@@ -53,41 +53,33 @@ class HomeSocieta(generic.View):
 
 
 class GestioneMezzi(generic.View):
-    
-
     def get(self, request):
         mezzi = Mezzo.objects.filter(username=request.user.id)
         template_name = 'gestione_mezzi.html'
         return render(request, template_name, context={'mezzi':mezzi})
-    '''
-    def post(self, request, *args, **kwargs):
-        
-        return self.mezzi_creation_form(request)
-        '''
 
-def mezzi_creation_form(self, request):
+
+def mezzi_creation_form(request):
     form = MezziCreationForm(request.POST or None, request.FILES or None)
     if request.method == 'POST':
+        data = {}
         if form.is_valid():
             mezzo = form.save(commit=False)
 
             user = MyUser.objects.get(username=request.user.username)
             mezzo.username = user
-            
             mezzo.save()
-            messages.success(request, 'Mezzo creato con successo!')
-            return redirect('gestione_mezzi')
-        else:
-            breakpoint()
             errors = form.errors
-            
-            return JsonResponse(errors)
-            #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
-            #return HttpResponse('<h1>Form Not valid</h1>')
-    
-    errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'success'
+            messages.success(request, 'Mezzo creato con successo!')
+            return JsonResponse(data)
+        else:
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'error'
+            return JsonResponse(data)
 
-    return JsonResponse(errors)
 
 
 class Operativo(generic.View):
