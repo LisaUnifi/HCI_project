@@ -93,11 +93,11 @@
 
                 <h1 id="A" class="text-center mt-4 border-bottom border-top">A - Airway</h1>
                 <div class="row p-1 ">
-                    <div class="col-7 d-flex align-items-end">
+                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
                         <h6>Cosciente?</h6>
                     </div>
-                    <div class="col-5 d-flex justify-content-end">
-                        <div class="btn-group" role="group" aria-label="Basic example">
+                    <div class="col-5 col-md-3 col-lg-2">
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
                             <input type="radio" class="btn-check" id="cosciente_si" name="cosciente" value="True" autocomplete="off">
                             <label class="btn btn-light" for="cosciente_si">SI</label>
                             <input type="radio" class="btn-check" id="cosciente_no" name="cosciente" value="False" autocomplete="off">
@@ -105,15 +105,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="row p-1 d-flex align-items-end">
-                    <div class="col-7">
+                <div class="row p-1">
+                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
                         <h6>Vie aeree pervie?</h6>
                     </div>
-                    <div class="col-5 d-flex justify-content-end">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="pervieta_si" name="pervieta" value="True" autocomplete="off">
+                    <div class="col-5 col-md-3 col-lg-2">
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <input type="radio" class="btn-check" id="pervieta_si" name="pervieta" value="True">
                             <label class="btn btn-light" for="pervieta_si">SI</label>
-                            <input type="radio" class="btn-check" id="pervieta_no" name="pervieta" value="False" autocomplete="off" data-toggle="collapse" data-target="#ostruzione" aria-expanded="false" aria-controls="collapseExample">
+                            <input type="radio" class="btn-check" id="pervieta_no" name="pervieta" value="False">
                             <label class="btn btn-light" for="pervieta_no">NO</label>
                         </div>
                     </div>
@@ -122,138 +122,169 @@
                 <div class="collapse" id="ostruzione">
                     <div class="row mt-2 m-0 p-0">
                         <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-light">Ostruzione parziale</button>
-                            <button type="button" class="btn btn-light">Ostruzione totale</button>
+                            <input type="radio" class="btn-check" id="ostruzione_si" name="ostruzione" value="True" autocomplete="off">
+                            <label class="btn btn-light" for="ostruzione_si">Ostruzione parziale</label>
+                            <input type="radio" class="btn-check" id="ostruzione_no" name="ostruzione" value="False" autocomplete="off">
+                            <label class="btn btn-light" for="ostruzione_no">Ostruzione totale</label>
                         </div>
                     </div>
                 </div>
 
                 <h1 id="B" class="text-center mt-4 border-bottom border-top">B - Breathing</h1>
                 <div class="row p-1 mb-2">
-                    <div class="col-7 d-flex align-items-end">
+                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
                         <h6>Respira?</h6>
                     </div>
-                    <div class="col-5 d-flex justify-content-end">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-light">SI</button>
-                            <button type="button" class="btn btn-light">NO</button>
+                    <div class="col-5 col-md-3 col-lg-2">
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <input type="radio" class="btn-check" id="respira_si" name="respira" value="True" autocomplete="off">
+                            <label class="btn btn-light" for="respira_si">SI</label>
+                            <input type="radio" class="btn-check" id="respira_no" name="respira" value="False" autocomplete="off">
+                            <label class="btn btn-light" for="respira_no">NO</label>
                         </div>
                     </div>
                 </div>
-                <div class="md-form input-group mt-0 mb-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">Frequenza respiratoria:</span>
+                <div class="row p-1 mb-2">
+                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                        <h6>Frequenza respiratoria:</h6>
                     </div>
-                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">atti/min</span>
+                    <div class="col-2 d-flex justify-content-end align-items-end">
+                        <h6>atti/min</h6>
+                    </div>
+                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                        <input type="number" class="form-control" id="conto" name="conto">
                     </div>
                 </div>
                 <div class="row p-1 ">
-                    <div class="col-7 d-flex align-items-end">
+                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
                         <h6>Respirazione dispneica?</h6>
                     </div>
-                    <div class="col-5 d-flex justify-content-end">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-light">SI</button>
-                            <button type="button" class="btn btn-light">NO</button>
+                    <div class="col-5 col-md-3 col-lg-2">
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <input type="radio" class="btn-check" id="dispnea_si" name="dispnea" value="True" autocomplete="off">
+                            <label class="btn btn-light" for="dispnea_si">SI</label>
+                            <input type="radio" class="btn-check" id="dispnea_no" name="dispnea" value="False" autocomplete="off">
+                            <label class="btn btn-light" for="dispnea_no">NO</label>
                         </div>
                     </div>
                 </div>
                 <div class="row p-1 ">
-                    <div class="col-7 d-flex align-items-end">
+                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
                         <h6>Respiro rumoroso?</h6>
                     </div>
-                    <div class="col-5 d-flex justify-content-end">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-light">SI</button>
-                            <button type="button" class="btn btn-light">NO</button>
+                    <div class="col-5 col-md-3 col-lg-2">
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <input type="radio" class="btn-check" id="ascolto_si" name="ascolto" value="True" autocomplete="off">
+                            <label class="btn btn-light" for="ascolto_si">SI</label>
+                            <input type="radio" class="btn-check" id="ascolto_no" name="ascolto" value="False" autocomplete="off">
+                            <label class="btn btn-light" for="ascolto_no">NO</label>
                         </div>
                     </div>
                 </div>
                 <div class="row p-1 ">
-                    <select id="mezzi" class="selectpicker w-100 mb-2" title="Palpazione torace:">
+                    <select id="mezzi" class="selectpicker w-100 mb-2" name="palpo" title="Palpazione torace:">
                         <option value="Normale">Normale</option>
                         <option value="Anormale a destra">Anormale a destra</option>
                         <option value="Anormale a sinistra">Anormale a sinistra</option>
                         <option value="Anormale da entrabi i lati">Anormale da entrambi i lati</option>
                     </select>
                 </div>
-                <div class="md-form input-group mt-0 mb-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">Saturazione in aria:</span>
+                <div class="row p-1 mb-2">
+                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                        <h6>Saturazione in aria:</h6>
                     </div>
-                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">%</span>
+                    <div class="col-2 d-flex justify-content-end align-items-end">
+                        <h6>%</h6>
+                    </div>
+                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                        <input type="number" class="form-control" id="saturazione" name="saturazione">
                     </div>
                 </div>
+
                 <div class="container text-center bg-light border mb-2 w-100">
                     <h6 class="mt-2">Somministrazione ossigeno:</h6>
-                    <div class="md-form input-group mt-0 mb-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text md-addon" id="sat">Saturazione con ossigeno:</span>
+                    <div class="row p-1 mb-2">
+                        <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                            <h6>Saturazione con ossigeno:</h6>
                         </div>
-                        <input type="text" class="form-control" id="material-url" aria-describedby="sat">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text md-addon" id="sat">%</span>
+                        <div class="col-2 d-flex justify-content-end align-items-end">
+                            <h6>%</h6>
+                        </div>
+                        <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                            <input type="number" class="form-control" id="saturazione_oss" name="saturazione_oss">
                         </div>
                     </div>
-                    <div class="md-form input-group mt-0 mb-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text md-addon" id="sat">Ossigeno:</span>
+                    <div class="row p-1 mb-2">
+                        <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                            <h6>Ossigeno:</h6>
                         </div>
-                        <input type="text" class="form-control" id="material-url" aria-describedby="sat">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text md-addon" id="sat">L/min</span>
+                        <div class="col-2 d-flex justify-content-end align-items-end">
+                            <h6>L/min</h6>
+                        </div>
+                        <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                            <input type="number" class="form-control" id="ossigeno" name="ossigeno">
                         </div>
                     </div>
                 </div>
                 
 
                 <h1 id="C" class="text-center mt-4 border-bottom border-top">C - Circulation</h1>
-                <div class="md-form input-group mt-0 mb-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">Pressione arteriosa:</span>
+                <div class="row p-1 mb-2">
+                    <div class="col-5 col-md-5 col-lg-5 d-flex justify-content-start align-items-end">
+                        <h6>Pressione arteriosa:</h6>
                     </div>
-                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">/</span>
+                    <div class="col-2 d-flex justify-content-end align-items-end">
+                        <h6>mmHg</h6>
                     </div>
-                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">mmHg</span>
+                    <div class="col-2 col-md-2 col-lg-2 d-flex flex-fill">
+                        <input type="number" class="form-control" id="pressione_massima" name="pressione_massima">
                     </div>
-                </div>
-                <div class="md-form input-group mt-0 mb-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">Frequenza circolatoria:</span>
+                    <div class="col-1 d-flex justify-content-middle align-items-end">
+                        <h6>/</h6>
                     </div>
-                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">batt/min</span>
+                    <div class="col-2 col-md-2 col-lg-2 d-flex flex-fill">
+                        <input type="number" class="form-control" id="pressione_minima" name="pressione_minima">
                     </div>
                 </div>
-                <div class="md-form input-group mt-0 mb-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">Temperatura corporea:</span>
+                <div class="row p-1 mb-2">
+                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                        <h6>Frequenza circolatoria:</h6>
                     </div>
-                    <input type="text" class="form-control" id="material-url" aria-describedby="sat">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text md-addon" id="sat">°C</span>
+                    <div class="col-2 d-flex justify-content-end align-items-end">
+                        <h6>batt/min</h6>
+                    </div>
+                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                        <input type="number" class="form-control" id="frequenza" name="frequenza">
+                    </div>
+                </div>
+                <div class="row p-1 mb-2">
+                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                        <h6>Temperatura corporea:</h6>
+                    </div>
+                    <div class="col-2 d-flex justify-content-end align-items-end">
+                        <h6>°C</h6>
+                    </div>
+                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                        <input type="number" class="form-control" id="temperatura" name="temperatura">
                     </div>
                 </div>
                 <div class="row p-1 ">
-                    <div class="col-7 d-flex align-items-end">
+                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
                         <h6>Emorragie?</h6>
                     </div>
-                    <div class="col-5 d-flex justify-content-end">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-light">SI</button>
-                            <button type="button" class="btn btn-light">NO</button>
+                    <div class="col-5 col-md-3 col-lg-2">
+                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                            <input type="radio" class="btn-check" id="emorragie_si" name="emorragie" value="True" autocomplete="off">
+                            <label class="btn btn-light" for="emorragie_si">SI</label>
+                            <input type="radio" class="btn-check" id="emorragie_no" name="emorragie" value="False" autocomplete="off">
+                            <label class="btn btn-light" for="emorragie_no">NO</label>
                         </div>
                     </div>
                 </div>
+
+
+                <!-- CONTINUA DA QUI -->
+                
                 <div class="row p-1 ">
                     <div class="col-7 d-flex align-items-end">
                         <h6>Polso radiale?</h6>
@@ -574,4 +605,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script src="{% static 'js/functions.js' %}"></script>
+<script src="{% static 'js/mattoni.js' %}"></script>
 {% endblock %}
