@@ -3,9 +3,14 @@
 
 {% block title %}Protocollo{% endblock %}
 
+<!-- ABBELLISCI -->
+
 {% block content %}
     {% with 'pdf/'|add:nome|add:'.pdf' as pdf_static %}
-    <embed src="{% static pdf_static %}" frameborder="0" style="min-height:100vh;width:100%">
+    <object data="{% static pdf_static %}" frameborder="0" style="min-height:100vh; width:100%;">
+        <p>Oops! Your browser doesn't support PDFs!</p>
+        <p><a href="{% static pdf_static %}">Download Instead</a></p>
+    </object>
     {% endwith %}
 
 {% endblock %}

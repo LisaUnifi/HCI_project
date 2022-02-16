@@ -29,6 +29,8 @@
 
     </div>
 
+<form id="compilazione_scheda" method="post">
+    {% csrf_token %}
     <div class="container mt-1 mb-auto p-0 bg-white">
        
         <div class="row">
@@ -46,24 +48,25 @@
             </div>
           
             <div class="col-sm-9">
+                
               <div data-spy="scroll" class="scrollspy-example z-depth-1 mt-4" data-target="#navbar-example3"
               data-offset="0" style="height: 70vh; overflow: auto;">
                 <h1 id="scenario" class="text-center border-bottom border-top">Scenario all'arrivo</h1>
                 <h6>Dinamica riferita:</h6>
                 <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="groupOfDefaultRadios" checked>
-                    <label class="custom-control-label" for="defaultGroupExample1">Soccorso a persona</label>
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="scenario" value="Soccorso a persona" checked>
+                    <label class="custom-control-label" for="defaultGroupExample1" >Soccorso a persona</label>
                 </div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="groupOfDefaultRadios">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="scenario" value="Trauma">
                     <label class="custom-control-label" for="defaultGroupExample2">Trauma</label>
                 </div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="groupOfDefaultRadios" data-toggle="modal" data-target="#centrale">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="scenario"  value="Trauma maggiore" data-toggle="modal" data-target="#centrale">
                     <label class="custom-control-label" for="defaultGroupExample3">Trauma maggiore</label>
                 </div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample4" name="groupOfDefaultRadios">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample4" name="scenario" value="Non definita">
                     <label class="custom-control-label" for="defaultGroupExample4">Non definita</label>
                 </div>
                 <!-- Modal -->
@@ -95,8 +98,10 @@
                     </div>
                     <div class="col-5 d-flex justify-content-end">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-light">SI</button>
-                            <button type="button" class="btn btn-light">NO</button>
+                            <input type="radio" class="btn-check" id="cosciente_si" name="cosciente" value="True" autocomplete="off">
+                            <label class="btn btn-light" for="cosciente_si">SI</label>
+                            <input type="radio" class="btn-check" id="cosciente_no" name="cosciente" value="False" autocomplete="off">
+                            <label class="btn btn-light" for="cosciente_no">NO</label>
                         </div>
                     </div>
                 </div>
@@ -106,8 +111,10 @@
                     </div>
                     <div class="col-5 d-flex justify-content-end">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-light">SI</button>
-                            <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#ostruzione" aria-expanded="false" aria-controls="collapseExample">NO</button>
+                            <input type="radio" class="btn-check" id="pervieta_si" name="pervieta" value="True" autocomplete="off">
+                            <label class="btn btn-light" for="pervieta_si">SI</label>
+                            <input type="radio" class="btn-check" id="pervieta_no" name="pervieta" value="False" autocomplete="off" data-toggle="collapse" data-target="#ostruzione" aria-expanded="false" aria-controls="collapseExample">
+                            <label class="btn btn-light" for="pervieta_no">NO</label>
                         </div>
                     </div>
                 </div>
@@ -492,7 +499,9 @@
                 </select>
 
               </div>
+                
             </div>
+        
 
         </div>
     
@@ -508,18 +517,59 @@
                 <button type="button" class="btn p-3 btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#nuovomezzo">
                     Stati
                 </button>
-                <a href="{% url 'home_sc' %}" role="button" class="btn p-3 btn-primary btn-lg ">
-                    Invia Dati 
-                </a>
+                <button type="submit" id="invio_post" class="btn p-3 btn-primary btn-lg">Invia Dati</button>
             </div>
         </div>
     </div>
+</form>
 
 </div>
 
 {% endblock %}
 
 {% block scripts %}
+<script>
+    $(document).ready(function () {
+        var token = '{{ csrf_token }}';
+    
+    
+        $('#invio_post').click(function (e) {
+            e.preventDefault();
+            formData = $('#compilazione_scheda').serialize();
+            
+            
+              $.ajax({
+                  headers: {
+                      "X-CSRFToken": token,
+                  },
+                  url: '{% url "invia_scheda" %}',
+                  dataType: 'json', 
+                  type: 'POST',
+                  data: formData,
+                  success: function (result) {
+                      if(result['status']=='error'){
+                            $('#errors').empty();
+                            errors = result['errors']
+                            for(const item in errors)
+                            {
+                                $('#errors').removeAttr('hidden');
+                                $("#errors").prepend('<p>'+errors[item]+'</p>');
+                            }
+                    }
+                    else{
+                        
+                    }
+                  },
+    
+              });
+            
+    
+    
+    
+      });
+    
+});
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

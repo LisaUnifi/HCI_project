@@ -8,7 +8,7 @@ from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
-from .forms import MezziCreationForm, MissionCreationForm, UserModificaForm, UserRegistrationForm
+from .forms import MezziCreationForm, MissionCreationForm, SchedaMissioneForm, UserModificaForm, UserRegistrationForm
 from .models import Missione, MyUser, Mezzo, Scheda, Intervento, TestaPiedi
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
@@ -229,10 +229,18 @@ class GestioneMissioni(generic.View):
         template_name = 'gestione_missioni.html'
         return render(request, template_name, context={'missione': missione})
 
+
 class MissioneProtocolli(generic.View):
 
     def get(self, request):
         template_name = 'missione_protocolli.html'
+        return render(request, template_name)
+
+
+class CompilazioneScheda(generic.View):
+
+    def get(self, request):
+        template_name = 'mattoni.html'
         return render(request, template_name)
 
 
@@ -257,3 +265,24 @@ def dati_mezzo(request):
         return render(request, template_name, context={'mezzo': mezzo})
 
 
+def invia_scheda(request):
+    form = SchedaMissioneForm(request.POST or None, instance=Scheda.objects.get(id_scheda=request.session['scheda']['id_scheda']))
+    if request.method == 'POST':
+        data = {}
+        if form.is_valid():
+            scheda = form.save(commit=False)
+            breakpoint()
+            
+            scheda.save()
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'success'
+            messages.success(request, 'Scheda salvata!')
+            return JsonResponse(data)
+        else:
+            breakpoint()
+
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'error'
+            return JsonResponse(data)

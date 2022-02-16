@@ -1,7 +1,10 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
-from .models import Mezzo, Missione
+from .models import Mezzo, Missione, Scheda, TestaPiedi
+
+
+
 
 MyUser = get_user_model()
 
@@ -224,3 +227,35 @@ class UserModificaForm(forms.ModelForm):
             if qs.exists() and self.instance.username!=username:
                 raise forms.ValidationError("Username già preso!")
             return username
+
+
+class SchedaMissioneForm(forms.ModelForm):
+    """
+    Registration Form
+    """
+
+    
+
+    class Meta:
+        model = Scheda
+        fields = ['cosciente']
+    '''
+    def clean_testa_piedi(self):
+            
+            testa_piedi = self.instance.testa_piedi
+            return testa_piedi
+    '''
+        
+
+    def clean_cosciente(self):
+            '''
+            Verify username is available.
+            '''
+            c = self.cleaned_data.get('cosciente')
+            if c == 'True':
+                cosciente = True
+            elif c == 'False':
+                cosciente = False
+            else:
+                cosciente = None
+            return cosciente

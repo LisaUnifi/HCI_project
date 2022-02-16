@@ -31,7 +31,6 @@ urlpatterns = [
     #TODO: da togliere
     path('home_op/', TemplateView.as_view(template_name='home_op.html'), name='home_op'),
     path('home_sc/', scheda.HomeSocieta.as_view(), name='home_sc'),
-    path('mattoni/', TemplateView.as_view(template_name='mattoni.html'), name='mattoni'),
     path('gestione_mezzi/', scheda.GestioneMezzi.as_view(), name='gestione_mezzi'),
     path('crea_mezzo/', scheda.mezzi_creation_form, name='crea_mezzo'),
     path('mezzo_scelto/', scheda.mezzo_scelto, name='mezzo_scelto'),
@@ -49,4 +48,6 @@ urlpatterns = [
     path('dati_mezzo/', scheda.dati_mezzo, name='dati_mezzo'),
     path('partenza_missione/', scheda.partenza_missione, name='partenza_missione'),
     path('missione_protocolli/', scheda.MissioneProtocolli.as_view(), name='missione_protocolli'),
+    path('mattoni/', scheda.CompilazioneScheda.as_view(), name='mattoni'),
+    path('invia_scheda/', scheda.invia_scheda, name='invia_scheda'),
 ]
