@@ -9,151 +9,174 @@
 
 {% block content %}
 
-<!--Navbar-->
-<nav class="navbar navbar-light light-blue lighten-4">
-    <div class="row">
-        <div class="col-4">
-            <p class="text-uppercase mb-2"><strong>Id missione</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.id_missione}}</p>
-        </div>
-        <div class="col-4">
-            <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}</p>
-        </div>
-        <div class="col-4">
-            <p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}</p>
-            <p class="text-muted mb-4">{{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
-        </div>
-    </div>
-  
+<!--Accordion wrapper-->
+<div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
 
+  <!-- Accordion card -->
+  <div class="card">
 
-    <div>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-        aria-expanded="false" aria-controls="collapseExample">
-        Button with data-target
-        </button>
-    </div>
-    <!-- / Collapse buttons -->
-    
-    <!-- Collapsible element -->
-    <div class="collapse" id="collapseExample">
-        <div class="mt-3">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
-        keffiyeh helvetica,
-        craft beer labore wes anderson cred nesciunt sapiente ea proident.
-        </div>
-    </div>
-  <!-- / Collapsible element -->
-
-    <!-- Navbar brand -->
-    <div class="row">
-        <div class="col-4">
-            <p class="text-uppercase mb-2"><strong>Id missione</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.id_missione}}</p>
-        </div>
-        <div class="col-4">
-            <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}</p>
-        </div>
-        <div class="col-4">
-            <p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}</p>
-            <p class="text-muted mb-4">{{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
-        </div>
-    </div>
-  
-    <!-- Collapse button -->
-    <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
-      aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
-          class="fas fa-bars fa-1x"></i></span></button>
-  
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
-  
-      <!-- Links -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+    <!-- Card header -->
+    <div class="card-header" role="tab" id="headingOne1">
+      <ul class="list-unstyled font-small m-4 ">
+        <li>
+          <p class="text-uppercase mb-2"><strong>Id missione</strong></p>
+          <p class="text-muted mb-4">{{request.session.missione.id_missione}}</p>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+
+        <li>
+          <p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
+          <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+
+        <li>
+          <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
+          <p class="text-muted mb-4">{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}</p>
+        </li>
+
+        <li>
+          <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
+          <p class="text-muted mb-4">{{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}</p>
+          <p class="text-muted mb-4">{{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
+        </li>
+      
+      </ul>
+      <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+        aria-controls="collapseOne1">
+        <h5 class="mb-0">
+          Giù <i class="fas fa-angle-down rotate-icon"></i>
+        </h5>
+      </a>
+    </div>
+
+    <!-- Card body -->
+    <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
+      <ul class="list-unstyled font-small m-4 "></ul>
+        <li>
+          <p class="text-uppercase mb-2"><strong>Note</strong></p>
+          <p class="text-muted mb-4">{{request.session.missione.note}}</p>
+        </li>
+        <li>
+          <p class="text-uppercase mb-2"><strong>Avvisi da centrale 118</strong></p>
+          <p class="text-muted mb-4">{{request.session.missione.avvisi}}</p>
         </li>
       </ul>
-      <!-- Links -->
-  
     </div>
-    <!-- Collapsible content -->
-  
-</nav>
+
+  </div>
+  <!-- Accordion card -->
+
+
+</div>
+<!-- Accordion wrapper -->
  
-<div class="container mt-5 text-center bg-white">
-    <h1 class="m-3">Missione in carico</h1>
+<div class="d-flex flex-column" style="height: 85vh">
+  <div class="container mt-5 text-center bg-white">
+      <h1 class="m-3">Protocolli operativi</h1>
   </div>
-  <div class="container pt-2 ps-5 pe-5">
-    <div class="p-5 m-0 bg-light">
-      <div class="col-12 d-flex flex-column">
-  
-        <ul class="list-unstyled font-small m-4 ">
-          <li>
-            <p class="text-uppercase mb-2"><strong>Id missione</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.id_missione}}</p>
-          </li>
-  
-          <li>
-            <p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
-          </li>
-  
-          <li>
-            <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}</p>
-          </li>
-  
-          <li>
-            <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}</p>
-            <p class="text-muted mb-4">{{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
-          </li>
-          <li>
-            <p class="text-uppercase mb-2"><strong>Note</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.note}}</p>
-          </li>
-          <li>
-            <p class="text-uppercase mb-2"><strong>Avvisi da centrale 118</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.avvisi}}</p>
-          </li>
-        
-        </ul>
-  
+
+  <div class="container pt-2 ps-5 pe-5 mb-auto bg-white" style="height: 70vh; overflow: auto;">
+      <div class="table-wrapper-scroll-y my-custom-scrollbar p-5 m-0 bg-light"> 
+          <table class="table-responsive w-100 align-middle">
+              <thead>
+              <tr>
+                  <th scope="col">Protocollo</th>
+                  <th scope="col">Livello</th>
+                  <th scope="col">Apri</th>
+              </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td scope="row">BLS-D</td>
+                      <td>Base</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'blsd' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr>   
+                  <tr>
+                      <td scope="row">PBLS-D</td>
+                      <td>Avanzato</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'pblsd' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr>  
+                  <tr>
+                      <td scope="row">Emergenza COVID-19</td>
+                      <td>Base</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'covid' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr> 
+                  <tr>
+                      <td scope="row">Uso C-PAP</td>
+                      <td>Avanzato</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'c-pap' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr>  
+                  <tr>
+                      <td scope="row">Codici intervento</td>
+                      <td>Base</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'codici' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr>  
+                  <tr>
+                      <td scope="row">Posizione elettrodi ECG</td>
+                      <td>Avanzato</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'ecg' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr>  
+                  <tr>
+                      <td scope="row">Metodo Triage START</td>
+                      <td>Avanzato</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'start' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr> 
+                  <tr>
+                      <td scope="row">Gestione ICTUS - Protocollo STROKE</td>
+                      <td>Avanzato</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'stroke' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr>  
+                  <tr>
+                      <td scope="row">Protocollo SVT paziente traumatizzato </td>
+                      <td>Avanzato</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'svt' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr> 
+                  <tr>
+                      <td scope="row">Protocolli intubazione</td>
+                      <td>Avanzato</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'tubi' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr> 
+                  <tr>
+                      <td scope="row">Protocollo accesso venoso</td>
+                      <td>Avanzato</td>
+                      <td>
+                          <a href="{% url 'visualizza_protocollo' 'vena' %}" class="btn btn-primary btn-sm px-3" role="button" type="submit" >+</a>
+                      </td>
+                  </tr> 
+              </tbody>
+          </table>
       </div>
-      
-      
+  </div>
+
+</div>
+
+<div class="position-absolute bottom-0 end-0 m-4">
+    <div class="container p-5">
+      <button type="button" class="btn btn-primary btn-lg">
+        Arrivo sul posto
+      </button>
     </div>
-    <div class="position-absolute bottom-0 end-0 m-4">
-        <div class="container p-5">
-          <button type="button" class="btn btn-primary btn-lg">
-            Partenza per missione
-          </button>
-        </div>
-      </div>
-  </div>
+</div>
+  
 
 {% endblock %}
 {% block scripts %}

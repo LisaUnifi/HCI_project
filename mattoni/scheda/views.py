@@ -8,7 +8,7 @@ from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
-from .forms import MezziCreationForm, MissionCreationForm, UserRegistrationForm
+from .forms import MezziCreationForm, MissionCreationForm, UserModificaForm, UserRegistrationForm
 from .models import Missione, MyUser, Mezzo, Scheda, Intervento, TestaPiedi
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
@@ -39,8 +39,28 @@ class LoginView(generic.View):
             login(request,user)
             return redirect('home_sc')
         else:
-            return HttpResponse('<h1>User not found</h1>')
+            errors = True
+            return render(request, 'login.html', context={'errors':errors})
 
+
+def modifica_dati(request):
+    usr = MyUser.objects.get(username=request.user.username)
+    form = UserModificaForm(request.POST or None, instance=usr)
+    if request.method == 'POST':
+        data = {}
+        if form.is_valid():
+
+            user = form.save()
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'success'
+            messages.success(request, 'Modifiche apportate con successo!')
+            return JsonResponse(data)
+        else:
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'error'
+            return JsonResponse(data)
 
 
 class HomeSocieta(generic.View):

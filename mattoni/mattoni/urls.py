@@ -41,6 +41,7 @@ urlpatterns = [
     path('accetta_missione/', scheda.AccettaMissione.as_view(), name='accetta_missione'),
 
     path('dati/', TemplateView.as_view(template_name='dati.html'), name='dati'),
+    path('modifica_dati/', scheda.modifica_dati, name='modifica_dati'),
     path('gestione_missioni/', scheda.GestioneMissioni.as_view(), name='gestione_missioni'),
     path('dettagli_missione/<int:pk>/', scheda.dettagli_missione, name='dettagli_missione'),
     path('visualizza_protocollo/<str:pk>/', scheda.visualizza_protocollo, name='visualizza_protocollo'),

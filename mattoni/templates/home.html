@@ -1,21 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-<!-- 
-
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'loginpage' %}">Log In</a>
-
-
-{% endif %}
-
-<h1 class="m-3">You need to add this card into the grid or add styles as me here below</h1>
--->
-
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -26,7 +11,7 @@
   <div class="container-sm p-3 w-30 rounded" style="width: 550px; background: rgba(255, 255, 255, 0.85);">
     <div class="row">
       <div class="col-sm-12 text-center p-3">
-        <img src="{% static 'img/covid.jpeg' %}" class="rounded" alt="Covid" style="height: 30vh">    
+        <img src="{% static 'img/logoHCI.png' %}" class="rounded" alt="Covid" style="height: 30vh">    
       </div>
     </div>
     <div class="row">

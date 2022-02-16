@@ -113,7 +113,7 @@ class UserRegistrationForm(UserCreationForm):
     password2 = forms.CharField(required=True, label='password2')
     email = forms.EmailField(required=True, label='email')
     corporation = forms.CharField(max_length=30, required=True, label='corporation')
-    phone = forms.CharField(max_length=30, label='phone')
+    phone = forms.CharField(required=True,max_length=30, label='phone')
 
     class Meta:
         model = MyUser
@@ -188,3 +188,39 @@ class MissionCreationForm(forms.ModelForm):
         fields = ['nome_p','cognome_p','luogo','patologia','criticita',
             'luogo_intervento', 'comune_intervento', 'cap_intervento', 'provincia_intervento', 
             'civico_intervento', 'cellulare', 'note', 'avvisi']
+
+
+class UserModificaForm(forms.ModelForm):
+    """
+    Registration Form
+    """
+
+    first_name = forms.CharField(required=True, max_length=30, label='first_name')
+    last_name = forms.CharField(required=True, max_length=30, label='last_name')
+    email = forms.EmailField(required=True, label='email')
+    corporation = forms.CharField(max_length=30, required=True, label='corporation')
+    phone = forms.CharField(required=True,max_length=30, label='phone')
+
+    class Meta:
+        model = MyUser
+        fields = ['username', 'first_name', 'last_name', 'corporation', 'email', 'phone']
+
+    def __init__(self, *args, **kwargs):
+        super(UserModificaForm, self).__init__(*args, **kwargs)
+        self.fields['username'].error_messages = {'required':'Username richiesto!'}
+        self.fields['first_name'].error_messages = {'required':'Nome utente richiesto!'}
+        self.fields['last_name'].error_messages = {'required':'Cognome utente richiesto!'}
+        self.fields['email'].error_messages = {'required':'Email richiesta!'}
+        self.fields['phone'].error_messages = {'required':'Numero di cellulare richiesto!'}
+        self.fields['corporation'].error_messages = {'required':'Associazione di appartenenza richiesa!'}
+        
+
+    def clean_username(self):
+            '''
+            Verify username is available.
+            '''
+            username = self.cleaned_data.get('username')
+            qs = MyUser.objects.filter(username=username)
+            if qs.exists() and self.instance.username!=username:
+                raise forms.ValidationError("Username già preso!")
+            return username
