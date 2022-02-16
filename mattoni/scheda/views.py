@@ -209,6 +209,12 @@ class GestioneMissioni(generic.View):
         template_name = 'gestione_missioni.html'
         return render(request, template_name, context={'missione': missione})
 
+class MissioneProtocolli(generic.View):
+
+    def get(self, request):
+        template_name = 'missione_protocolli.html'
+        return render(request, template_name)
+
 
 def dettagli_missione(request, pk):
     template_name = 'dettagli_missione.html'
