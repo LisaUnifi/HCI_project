@@ -238,7 +238,11 @@ class SchedaMissioneForm(forms.ModelForm):
 
     class Meta:
         model = Scheda
-        fields = ['cosciente']
+        fields = [
+            'scenario', 'cosciente','pervieta','ostruzione','dispnea','conto', 'respira', 'ascolto', 'palpo',
+            
+        ]
+
     '''
     def clean_testa_piedi(self):
             
@@ -249,13 +253,79 @@ class SchedaMissioneForm(forms.ModelForm):
 
     def clean_cosciente(self):
             '''
-            Verify username is available.
+            Set cosciente to True or False
             '''
-            c = self.cleaned_data.get('cosciente')
-            if c == 'True':
+            data = self.cleaned_data.get('cosciente')
+            if data == 'True':
                 cosciente = True
-            elif c == 'False':
+            elif data == 'False':
                 cosciente = False
             else:
                 cosciente = None
             return cosciente
+
+    def clean_pervieta(self):
+            '''
+            Set pervieta to True or False
+            '''
+            data = self.cleaned_data.get('pervieta')
+            if data == 'True':
+                pervieta = True
+            elif data == 'False':
+                pervieta = False
+            else:
+                pervieta = None
+            return pervieta
+
+    def clean_ostruzione(self):
+            '''
+            Set ostruzione to True or False
+            '''
+            data = self.cleaned_data.get('ostruzione')
+            if data == 'True':
+                ostruzione = True
+            elif data == 'False':
+                ostruzione = False
+            else:
+                ostruzione = None
+            return ostruzione
+
+
+    def clean_dispnea(self):
+            '''
+            Set dispnea to True or False
+            '''
+            data = self.cleaned_data.get('dispnea')
+            if data == 'True':
+                dispnea = True
+            elif data == 'False':
+                dispnea = False
+            else:
+                dispnea = None
+            return dispnea
+
+    def clean_respira(self):
+            '''
+            Set respira to True or False
+            '''
+            data = self.cleaned_data.get('respira')
+            if data == 'True':
+                respira = True
+            elif data == 'False':
+                respira = False
+            else:
+                respira = None
+            return respira
+
+    def clean_ascolto(self):
+            '''
+            Set ascolto to True or False
+            '''
+            data = self.cleaned_data.get('ascolto')
+            if data == 'True':
+                ascolto = True
+            elif data == 'False':
+                ascolto = False
+            else:
+                ascolto = None
+            return ascolto

@@ -121,8 +121,8 @@ class Scheda(models.Model):
     pervieta = models.BooleanField(blank=True, null=True)
     ostruzione = models.BooleanField(blank=True, null=True)
 
+    respira = models.BooleanField(blank=True, null=True)
     dispnea = models.BooleanField(blank=True, null=True)
-    osservo = models.CharField(max_length = 20, blank=True, null=True)
     palpo = models.CharField(max_length = 20, blank=True, null=True)
     ascolto = models.BooleanField(blank=True, null=True)
     conto = models.IntegerField(blank=True, null=True)
@@ -132,6 +132,7 @@ class Scheda(models.Model):
 
     pressione_massima = models.IntegerField(blank=True, null=True)
     pressione_minima = models.IntegerField(blank=True, null=True)
+    frequenza = models.IntegerField(blank=True, null=True)
     temperatura = models.IntegerField(blank=True, null=True)
     emorragie = models.CharField(max_length = 20, blank=True, null=True)
     polso = models.BooleanField(blank=True, null=True)
