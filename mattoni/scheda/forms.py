@@ -1,3 +1,4 @@
+from datetime import datetime
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
@@ -240,7 +241,11 @@ class SchedaMissioneForm(forms.ModelForm):
         model = Scheda
         fields = [
             'scenario', 'cosciente','pervieta','ostruzione','dispnea','conto', 'respira', 'ascolto', 'palpo',
-            
+            'frequenza', 'saturazione', 'saturazione_oss', 'ossigeno', 'pressione_massima', 'pressione_minima',
+            'temperatura', 'emorragie', 'polso', 'regolare_polso', 'cute', 'sudato', 'dolore_toracico', 'ora_dolore',
+            'tipo_dolore', 'avpu', 'tempo', 'spazio', 'mimica_c', 'braccia_c', 'linguaggio_c', 'forza_sup',
+            'forza_inf', 'sens_sup', 'sens_inf', 'posizione', 'allergie', 'patologie', 'glicemia', 'farmaci',
+            'pasto', 'note'
         ]
 
     '''
@@ -329,3 +334,147 @@ class SchedaMissioneForm(forms.ModelForm):
             else:
                 ascolto = None
             return ascolto
+
+    def clean_emorragie(self):
+            '''
+            Set emorragie to True or False
+            '''
+            data = self.cleaned_data.get('emorragie')
+            if data == 'True':
+                emorragie = True
+            elif data == 'False':
+                emorragie = False
+            else:
+                emorragie = None
+            return emorragie
+
+
+    def clean_polso(self):
+            '''
+            Set polso to True or False
+            '''
+            data = self.cleaned_data.get('polso')
+            if data == 'True':
+                polso = True
+            elif data == 'False':
+                polso = False
+            else:
+                polso = None
+            return polso
+
+
+    def clean_regolare_polso(self):
+            '''
+            Set regolare_polso to True or False
+            '''
+            data = self.cleaned_data.get('regolare_polso')
+            if data == 'True':
+                regolare_polso = True
+            elif data == 'False':
+                regolare_polso = False
+            else:
+                regolare_polso = None
+            return regolare_polso
+
+
+    def clean_sudato(self):
+            '''
+            Set sudato to True or False
+            '''
+            data = self.cleaned_data.get('sudato')
+            if data == 'True':
+                sudato = True
+            elif data == 'False':
+                sudato = False
+            else:
+                sudato = None
+            return sudato
+    
+
+    def clean_dolore_toracico(self):
+            '''
+            Set dolore_toracico to True or False
+            '''
+            data = self.cleaned_data.get('dolore_toracico')
+            if data == 'True':
+                dolore_toracico = True
+            elif data == 'False':
+                dolore_toracico = False
+            else:
+                dolore_toracico = None
+            return dolore_toracico
+
+
+    def clean_ora_dolore(self):
+            '''
+            Set ora_dolore to DateTimeField
+            '''
+            ora = self.cleaned_data.get('ora_dolore')
+            data = self.cleaned_data.get('data_dolore')
+            if ora == None and data == None:
+                ora_dolore = None
+            elif data == None:
+                d = datetime.now().date()
+                h = datetime.strptime(ora,'%H:%M').time()
+                ora_dolore = datetime.combine(d,h)
+            else:
+                d = datetime.strptime(data,'%m/%d/%Y').date()
+                h = datetime.strptime(ora,'%H:%M').time()
+                ora_dolore = datetime.combine(d,h)
+            return ora_dolore
+
+    
+    def clean_tipo_dolore(self):
+            '''
+            Set tipo_dolore to True or False
+            '''
+            data = self.cleaned_data.get('tipo_dolore')
+            if data == 'True':
+                tipo_dolore = True
+            elif data == 'False':
+                tipo_dolore = False
+            else:
+                tipo_dolore = None
+            return tipo_dolore
+    
+
+    def clean_tempo(self):
+            '''
+            Set tempo to True or False
+            '''
+            data = self.cleaned_data.get('tempo')
+            if data == 'True':
+                tempo = True
+            elif data == 'False':
+                tempo = False
+            else:
+                tempo = None
+            return tempo
+
+
+    def clean_spazio(self):
+            '''
+            Set spazio to True or False
+            '''
+            data = self.cleaned_data.get('spazio')
+            if data == 'True':
+                spazio = True
+            elif data == 'False':
+                spazio = False
+            else:
+                spazio = None
+            return spazio
+
+
+    def clean_linguaggio_c(self):
+            '''
+            Set linguaggio_c to True or False
+            '''
+            data = self.cleaned_data.get('linguaggio_c')
+            if data == 'True':
+                linguaggio_c = True
+            elif data == 'False':
+                linguaggio_c = False
+            else:
+                linguaggio_c = None
+            return linguaggio_c

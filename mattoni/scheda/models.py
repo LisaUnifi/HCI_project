@@ -134,7 +134,7 @@ class Scheda(models.Model):
     pressione_minima = models.IntegerField(blank=True, null=True)
     frequenza = models.IntegerField(blank=True, null=True)
     temperatura = models.IntegerField(blank=True, null=True)
-    emorragie = models.CharField(max_length = 20, blank=True, null=True)
+    emorragie = models.BooleanField(blank=True, null=True)
     polso = models.BooleanField(blank=True, null=True)
     regolare_polso = models.BooleanField(blank=True, null=True)
     cute = models.CharField(max_length = 20, blank=True, null=True)
