@@ -76,7 +76,7 @@
     </ul>
 </nav>
 
-<div class="row mt-5 bg-white">
+<div class="row mt-5 m-0 bg-white">
   <div class="col-6 d-flex justify-content-end">
     <h1 class="m-3">Dettagli missione</h1>
   </div>
@@ -86,27 +86,366 @@
 </div>
 
 <div class="container pt-2 ps-5 pe-5">
-    <div class="p-5 m-0 bg-light">
-      <div class="col-12 d-flex flex-column">
-        
-
-        <ul class="list-unstyled font-small  m-4">
-          <li>
-            <p class="text-uppercase mb-2"><strong>Missione</strong></p>
-            <p class="text-muted mb-4">{{missione.id_missione}}</p>
-          </li>
-
-          <li>
-            <p class="text-uppercase mb-2"><strong>Scheda</strong></p>
-            <p class="text-muted mb-4">{{scheda.id_scheda}}</p>
-          </li>
-
-        </ul>
-
+  <div class="p-5 m-0 bg-light">
+    <div class="row">
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Missione</strong></p>
+        <p class="text-muted mb-4">{{missione.id_missione}}</p>
       </div>
-      
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Scheda</strong></p>
+        <p class="text-muted mb-4">{{scheda.id_scheda}}</p>
+      </div>
     </div>
+    
+
+    <div class="row">
+      <div class="col-12">
+        <h4 class="text-uppercase mb-4 text-center"><strong>Scenario</strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Dinamica riferita</strong></p>
+        <p class="text-muted mb-4">{{scheda.scenario}}</p>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <h4 class="text-uppercase mb-4 text-center"><strong>Fase A - Airway</strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      <!-- DA MODIFICARE TUTTO! -->
+      {% if scheda.cosciente is not None %}
+        {% if scheda.cosciente %}
+          <div class="col-12">
+            <p class="text-uppercase mb-2"><strong>Cosciente</strong></p>
+            <p class="text-muted mb-4">SI</p>
+          </div>
+        {% else %}
+          <div class="col-12">
+            <p class="text-uppercase mb-2"><strong>Cosciente</strong></p>
+            <p class="text-muted mb-4">NO</p>
+          </div>
+        {% endif %}
+      {% endif %}
+      {% if scheda.pervieta %}
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Pervietà vie aeree</strong></p>
+          <p class="text-muted mb-4">SI</p>
+        </div>
+        {% else %}
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Pervietà vie aeree</strong></p>
+          <p class="text-muted mb-4">NO</p>
+        </div>
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Tipologia ostruzione</strong></p>
+          {% if scheda.ostruzione %}
+            <p class="text-muted mb-4">Ostruzione parziale</p>
+          {% else %}
+            <p class="text-muted mb-4">Ostruzione totale</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <h4 class="text-uppercase mb-4 text-center"><strong>Fase B - Breathing</strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Respira</strong></p>
+        {% if scheda.respira %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Frequnza respiratoria</strong></p>
+        {% if scheda.conto > 0 %}
+          <p class="text-muted mb-4">{{scheda.conto}} atti/min</p>
+        {% else %}
+          <p class="text-muted mb-4">--- atti/min</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Respirazione dispneica</strong></p>
+        {% if scheda.dispnea %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Respiro rumoroso</strong></p>
+        {% if scheda.ascolto %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Palpazione torace</strong></p>
+        <p class="text-muted mb-4">{{scheda.palpo}}</p>
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Saturazione</strong></p>
+        {% if scheda.saturazione > 0 %}
+          <p class="text-muted mb-4">{{scheda.saturazione}} %</p>
+        {% else %}
+          <p class="text-muted mb-4">--- %</p>
+        {% endif %}
+      </div>
+      {% if scheda.saturazione_oss > 0 %}
+      <div class="col-12">
+        <h6 class="text-uppercase text-center mb-2"><strong>Somministrazione ossigeno</strong></h6>
+        <p class="text-uppercase mb-2"><strong>Saturazione con ossigeno</strong></p>
+        <p class="text-muted mb-4">{{scheda.saturazione_oss}} %</p>
+        <p class="text-uppercase mb-2"><strong>Ossigeno</strong></p>
+        <p class="text-muted mb-4">{{scheda.ossigeno}} L/min</p>
+      </div>
+      {% endif %}
+    </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <h4 class="text-uppercase mb-4 text-center"><strong>Fase C - Circulation</strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Pressione arteriosa</strong></p>
+        {% if scheda.pressione_massima > 0 and scheda.pressione_minima > 0 %}
+          <p class="text-muted mb-4">{{scheda.pressione_massima}} / {{scheda.pressione_minima}} mmHg</p>
+        {% else %}
+          <p class="text-muted mb-4">--- / --- mmHg</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Frequnza circolatoria</strong></p>
+        {% if scheda.frequenza > 0 %}
+          <p class="text-muted mb-4">{{scheda.frequenza}} batt/min</p>
+        {% else %}
+          <p class="text-muted mb-4">--- batt/min</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Temperatura corporea</strong></p>
+        {% if scheda.temperatura > 0 %}
+          <p class="text-muted mb-4">{{scheda.temperatura}} °C</p>
+        {% else %}
+          <p class="text-muted mb-4">--- °C</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Emorragie</strong></p>
+        {% if scheda.emorragie %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Polso radiale</strong></p>
+        {% if scheda.polso %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Polso regolare</strong></p>
+        {% if scheda.polso_regolare %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Colorito cutaneo</strong></p>
+        <p class="text-muted mb-4">{{scheda.cute}}</p>
+      </div>
+      {% if scheda.sudato %}
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Sudato</strong></p>
+          <p class="text-muted mb-4">SI</p>
+        </div>
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Tipologia sudorazione</strong></p>
+          {% if scheda.sudato_freddo %}
+            <p class="text-muted mb-4">Fredda</p>
+          {% else %}
+            <p class="text-muted mb-4">Calda</p>
+          {% endif %}
+        </div>
+        {% else %}
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Sudato</strong></p>
+          <p class="text-muted mb-4">NO</p>
+        </div>
+      {% endif %}
+      {% if scheda.dolore_toracico %}
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Dolore toracico</strong></p>
+          <p class="text-muted mb-4">SI</p>
+        </div>
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Data insorgenza sintomi</strong></p>
+          <p class="text-muted mb-4">{{scheda.data_dolore}}</p>
+        </div>
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Ora insorgenza sintomi</strong></p>
+          <p class="text-muted mb-4">{{scheda.ora_dolore}}</p>
+        </div>
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Tipologia dolore</strong></p>
+          {% if scheda.tipo_dolore %}
+            <p class="text-muted mb-4">Dolore a spilli</p>
+          {% else %}
+            <p class="text-muted mb-4">Dolore oppressivo</p>
+          {% endif %}
+        </div>
+        {% else %}
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Dolore toracico</strong></p>
+          <p class="text-muted mb-4">NO</p>
+        </div>
+      {% endif %}
+    </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <h4 class="text-uppercase mb-4 text-center"><strong>Fase D - Disability</strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Valutazione neurologica</strong></p>
+        <p class="text-muted mb-4">{{scheda.avpu}}</p>
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Orientato nel tempo</strong></p>
+        {% if scheda.tempo %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Orientato nello spazio</strong></p>
+        {% if scheda.spazio %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+      </div>
+      {% if scheda.mimica_c is not None or scheda.braccia_c is not None or scheda.linguaggio_c is not None %}
+        <div class="col-12">
+          <h6 class="text-uppercase text-center mb-2"><strong>Cincinnaty</strong></h6>
+          {% if scheda.mimica_c is not None %}
+          <p class="text-uppercase mb-2"><strong>Mimica facciale</strong></p>
+          <p class="text-muted mb-4">{{scheda.mimica_c}}</p>
+          {% endif %}
+          {% if scheda.braccia_c is not None %}
+          <p class="text-uppercase mb-2"><strong>Movimento delle braccia</strong></p>
+          <p class="text-muted mb-4">{{scheda.braccia_c}}</p>
+          {% endif %}
+          {% if scheda.linguaggio_c is not None %}
+          <p class="text-uppercase mb-2"><strong>Linguaggio</strong></p>
+          {% if scheda.linguaggio_c %}
+            <p class="text-muted mb-4">Normale</p>
+          {% else %}
+            <p class="text-muted mb-4">Anormale</p>
+          {% endif %}
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if scheda.forza_sup is not None or scheda.forza_inf is not None or scheda.sens_sup is not None or scheda.sens_inf is not None %}
+        <div class="col-12">
+          <h6 class="text-uppercase text-center mb-2"><strong>Cincinnaty</strong></h6>
+          {% if scheda.forza_sup is not None %}
+          <p class="text-uppercase mb-2"><strong>Forza sugli arti superiori</strong></p>
+          <p class="text-muted mb-4">{{scheda.forza_sup}}</p>
+          {% endif %}
+          {% if scheda.forza_inf is not None %}
+          <p class="text-uppercase mb-2"><strong>Forza sugli arti inferiori</strong></p>
+          <p class="text-muted mb-4">{{scheda.forza_inf}}</p>
+          {% endif %}
+          {% if scheda.sens_sup is not None %}
+          <p class="text-uppercase mb-2"><strong>Sensibilità sugli arti superiori</strong></p>
+          <p class="text-muted mb-4">{{scheda.sens_sup}}</p>
+          {% endif %}
+          {% if scheda.sens_inf is not None %}
+          <p class="text-uppercase mb-2"><strong>Sensibilità sugli arti inferiori</strong></p>
+          <p class="text-muted mb-4">{{scheda.sens_inf}}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <h4 class="text-uppercase mb-4 text-center"><strong>Fase E - Exposure</strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Posizione all'arrivo</strong></p>
+        <p class="text-muted mb-4">{{scheda.posizione}}</p>
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Allergie riferite</strong></p>
+        <p class="text-muted mb-4">{{scheda.allergie}}</p>
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Patologie riferite</strong></p>
+        <p class="text-muted mb-4">{{scheda.patologie}}</p>
+      </div>
+      {% if scheda.glicemia > 0 %}
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Glicemia riferita</strong></p>
+          <p class="text-muted mb-4">{{scheda.glicemia}}</p>
+        </div>
+      {% endif %}
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Riferita assunzione di farmaci</strong></p>
+        <p class="text-muted mb-4">{{scheda.farmaci}}</p>
+      </div>
+      <div class="col-12">
+        <p class="text-uppercase mb-2"><strong>Ultimo pasto riferito</strong></p>
+        <p class="text-muted mb-4">{{scheda.pasto}}</p>
+      </div>
+      <!-- IMPLEMENTA TESTA-PIEDI -->
+    </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <h4 class="text-uppercase mb-4 text-center"><strong>Note aggiuntive</strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="text-muted mb-4">{{scheda.note}}</p>
+      </div>
+    </div>
+
+
+    <!-- IMPLEMENTA ESITO -->
+    
   </div>
+</div>
 
 {% endblock %}
 {% block scripts %}

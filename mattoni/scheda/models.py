@@ -139,6 +139,7 @@ class Scheda(models.Model):
     regolare_polso = models.BooleanField(blank=True, null=True)
     cute = models.CharField(max_length = 20, blank=True, null=True)
     sudato = models.BooleanField(blank=True, null=True)
+    sudore_freddo = models.BooleanField(blank=True, null=True)
     dolore_toracico = models.BooleanField(blank=True, null=True)
     ora_dolore = models.TimeField(blank=True, null=True)
     data_dolore = models.DateField(blank=True, null=True)

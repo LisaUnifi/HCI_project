@@ -64,7 +64,7 @@ class SchedaAdmin(admin.ModelAdmin):
         'scenario', 
         'cosciente', 'respiraBLS', 'circoloBLS', 'dae', 'cicli', 'noteBLS', 'pervieta', 'ostruzione', 
         'respira', 'dispnea', 'palpo', 'ascolto', 'conto', 'saturazione', 'saturazione_oss', 'ossigeno', 
-        'pressione_massima', 'pressione_minima', 'temperatura', 'emorragie', 'polso', 'regolare_polso', 'cute', 'sudato', 'dolore_toracico', 'ora_dolore', 'tipo_dolore', 
+        'pressione_massima', 'pressione_minima', 'temperatura', 'emorragie', 'polso', 'regolare_polso', 'cute', 'sudato','sudore_freddo', 'dolore_toracico', 'ora_dolore', 'tipo_dolore', 
         'avpu', 'tempo', 'spazio', 'mimica_c', 'braccia_c', 'linguaggio_c', 'forza_sup', 'forza_inf', 'sens_sup', 'sens_inf', 
         'posizione', 'allergie', 'patologie', 'glicemia', 'farmaci', 'pasto', 'testa_piedi', 
         'note'
