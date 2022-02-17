@@ -184,9 +184,9 @@
                 <div class="row p-1 ">
                     <select id="mezzi" class="selectpicker w-100 mb-2" name="palpo" title="Palpazione torace:">
                         <option value="Normale">Normale</option>
-                        <option value="Anormale a destra">Anormale a destra</option>
-                        <option value="Anormale a sinistra">Anormale a sinistra</option>
-                        <option value="Anormale da entrabi i lati">Anormale da entrambi i lati</option>
+                        <option value="Anor.dx">Anormale a destra</option>
+                        <option value="Anor.sx">Anormale a sinistra</option>
+                        <option value="Anor.dx/sx">Anormale da entrambi i lati</option>
                     </select>
                 </div>
                 <div class="row p-1 mb-2">
@@ -404,22 +404,22 @@
                         <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
                             <input type="radio" class="btn-check" id="mimica_n" name="mimica_c" value="Normale" autocomplete="off">
                             <label class="btn btn-light" for="mimica_n">Normale</label>
-                            <input type="radio" class="btn-check" id="mimica_ad" name="mimica_c" value="Anormale a dx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="mimica_ad" name="mimica_c" value="Anor.dx" autocomplete="off">
                             <label class="btn btn-light" for="mimica_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="mimica_as" name="mimica_c" value="Anormale a sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="mimica_as" name="mimica_c" value="Anor.sx" autocomplete="off">
                             <label class="btn btn-light" for="mimica_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="mimica_ads" name="mimica_c" value="Anormale a dx e sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="mimica_ads" name="mimica_c" value="Anor.dx/sx" autocomplete="off">
                             <label class="btn btn-light" for="mimica_ads">Anor. dx e sx</label>
                         </div>
                         <h6 class="mt-2">Spostamento delle braccia:</h6>
                         <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
                             <input type="radio" class="btn-check" id="braccia_n" name="braccia_c" value="Normale" autocomplete="off">
                             <label class="btn btn-light" for="braccia_n">Normale</label>
-                            <input type="radio" class="btn-check" id="braccia_ad" name="braccia_c" value="Anormale a dx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="braccia_ad" name="braccia_c" value="Anor.dx" autocomplete="off">
                             <label class="btn btn-light" for="braccia_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="braccia_as" name="braccia_c" value="Anormale a sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="braccia_as" name="braccia_c" value="Anor.sx" autocomplete="off">
                             <label class="btn btn-light" for="braccia_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="braccia_ads" name="braccia_c" value="Anormale a dx e sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="braccia_ads" name="braccia_c" value="Anor.dx/sx" autocomplete="off">
                             <label class="btn btn-light" for="braccia_ads">Anor. dx e sx</label>
                         </div>
                         <h6 class="mt-2">Linguaggio:</h6>
@@ -438,44 +438,44 @@
                         <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
                             <input type="radio" class="btn-check" id="forza_sup_n" name="forza_sup" value="Normale" autocomplete="off">
                             <label class="btn btn-light" for="forza_sup_n">Normale</label>
-                            <input type="radio" class="btn-check" id="forza_sup_ad" name="forza_sup" value="Anormale a dx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="forza_sup_ad" name="forza_sup" value="Anor.dx" autocomplete="off">
                             <label class="btn btn-light" for="forza_sup_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="forza_sup_as" name="forza_sup" value="Anormale a sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="forza_sup_as" name="forza_sup" value="Anor.sx" autocomplete="off">
                             <label class="btn btn-light" for="forza_sup_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="forza_sup_ads" name="forza_sup" value="Anormale a dx e sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="forza_sup_ads" name="forza_sup" value="Anor.dx/sx" autocomplete="off">
                             <label class="btn btn-light" for="forza_sup_ads">Anor. dx e sx</label>
                         </div>
                         <h6 class="mt-2">Sensibilità arti superiori:</h6>
                         <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
                             <input type="radio" class="btn-check" id="forza_inf_n" name="forza_inf" value="Normale" autocomplete="off">
                             <label class="btn btn-light" for="forza_inf_n">Normale</label>
-                            <input type="radio" class="btn-check" id="forza_inf_ad" name="forza_inf" value="Anormale a dx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="forza_inf_ad" name="forza_inf" value="Anor.dx" autocomplete="off">
                             <label class="btn btn-light" for="forza_inf_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="forza_inf_as" name="forza_inf" value="Anormale a sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="forza_inf_as" name="forza_inf" value="Anor.sx" autocomplete="off">
                             <label class="btn btn-light" for="forza_inf_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="forza_inf_ads" name="forza_inf" value="Anormale a dx e sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="forza_inf_ads" name="forza_inf" value="Anor.dx/sx" autocomplete="off">
                             <label class="btn btn-light" for="forza_inf_ads">Anor. dx e sx</label>
                         </div>
                         <h6 class="mt-2">Forza arti inferiori:</h6>
                         <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
                             <input type="radio" class="btn-check" id="sens_sup_n" name="sens_sup" value="Normale" autocomplete="off">
                             <label class="btn btn-light" for="sens_sup_n">Normale</label>
-                            <input type="radio" class="btn-check" id="sens_sup_ad" name="sens_sup" value="Anormale a dx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="sens_sup_ad" name="sens_sup" value="Anor.dx" autocomplete="off">
                             <label class="btn btn-light" for="sens_sup_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="sens_sup_as" name="sens_sup" value="Anormale a sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="sens_sup_as" name="sens_sup" value="Anor.sx" autocomplete="off">
                             <label class="btn btn-light" for="sens_sup_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="sens_sup_ads" name="sens_sup" value="Anormale a dx e sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="sens_sup_ads" name="sens_sup" value="Anor.dx/sx" autocomplete="off">
                             <label class="btn btn-light" for="sens_sup_ads">Anor. dx e sx</label>
                         </div>
                         <h6 class="mt-2">Sensibilità arti inferiori:</h6>
                         <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
                             <input type="radio" class="btn-check" id="sens_inf_n" name="sens_inf" value="Normale" autocomplete="off">
                             <label class="btn btn-light" for="sens_inf_n">Normale</label>
-                            <input type="radio" class="btn-check" id="sens_inf_ad" name="sens_inf" value="Anormale a dx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="sens_inf_ad" name="sens_inf" value="Anor.dx" autocomplete="off">
                             <label class="btn btn-light" for="sens_inf_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="sens_inf_as" name="sens_inf" value="Anormale a sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="sens_inf_as" name="sens_inf" value="Anor.sx" autocomplete="off">
                             <label class="btn btn-light" for="sens_inf_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="sens_inf_ads" name="sens_inf" value="Anormale a dx e sx" autocomplete="off">
+                            <input type="radio" class="btn-check" id="sens_inf_ads" name="sens_inf" value="Anor.dx/sx" autocomplete="off">
                             <label class="btn btn-light" for="sens_inf_ads">Anor. dx e sx</label>
                         </div>
                     </div>
@@ -632,7 +632,7 @@
                             }
                     }
                     else{
-                        
+                        window.location = '{% url "operativo_rientro" %}'
                     }
                   },
     

@@ -110,21 +110,13 @@ class Operativo(generic.View):
         template_name = 'operativo.html'
         return render(request, template_name)
 
-'''
-def mezzo_scelto(request):
-    if request.method == 'GET':
-            m = Mezzo.objects.get(id_mezzo=request.GET.get('mezzoscelto'))
-            mezzo = {'id_mezzo': m.id_mezzo, 
-            'nome': m.nome,
-            'tipologia': m.tipologia,
-            'all_day': m.all_day,
-            'num_mezzo': m.num_mezzo,
-            'equip_min': m.equip_min,
-            }
-            request.session['mezzo'] = mezzo
-            return redirect('operativo')
 
-'''
+class OperativoRientro(generic.View):
+    def get(self, request):
+        template_name = 'operativo_rientro.html'
+        return render(request, template_name)
+
+
 def mezzo_scelto(request):
     if request.method == 'GET':
         id = request.GET.get('mezzoscelto')
@@ -271,7 +263,6 @@ def invia_scheda(request):
         data = {}
         if form.is_valid():
             scheda = form.save(commit=False)
-            breakpoint()
             
             scheda.save()
             errors = form.errors
@@ -280,7 +271,6 @@ def invia_scheda(request):
             messages.success(request, 'Scheda salvata!')
             return JsonResponse(data)
         else:
-            breakpoint()
 
             errors = form.errors
             data['errors'] = errors

@@ -50,4 +50,5 @@ urlpatterns = [
     path('missione_protocolli/', scheda.MissioneProtocolli.as_view(), name='missione_protocolli'),
     path('mattoni/', scheda.CompilazioneScheda.as_view(), name='mattoni'),
     path('invia_scheda/', scheda.invia_scheda, name='invia_scheda'),
+    path('operativo_rientro/', scheda.OperativoRientro.as_view(), name='operativo_rientro'),
 ]
