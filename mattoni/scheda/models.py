@@ -204,12 +204,26 @@ class Missione(models.Model):
     cap_residenza = models.IntegerField(blank=True,null=True)
 
     invio = models.DateTimeField(auto_now_add = True)
-    inizio = models.DateTimeField(blank=True, null=True)
-    arrivo = models.DateTimeField(blank=True,null=True)
+    accetta_missione = models.DateTimeField(blank=True, null=True)
     partenza = models.DateTimeField(blank=True,null=True)
+    arrivo = models.DateTimeField(blank=True,null=True)
+    conferma_trasporto = models.DateTimeField(blank=True,null=True)
+    rifiuto_trasporto = models.DateTimeField(blank=True,null=True)
     pronto_socc = models.DateTimeField(blank=True,null=True)
-    fine = models.DateTimeField(blank=True,null=True)
-    sede = models.DateTimeField(blank=True,null=True)
+    libero = models.DateTimeField(blank=True,null=True)
+    rientro_sede = models.DateTimeField(blank=True,null=True)
+
+    #se trasporto ospedale
+    criticita_trasporto = models.CharField(max_length = 1, blank=True,null=True)
+    patologia_trasporto = models.CharField(max_length = 5, blank=True,null=True)
+    ospedale = models.CharField(max_length = 20, blank=True,null=True)
+    reparto = models.CharField(max_length = 20, blank=True,null=True)
+
+    #se rifiuto trasporto
+    nome_s = models.CharField(max_length = 20, blank=True,null=True)
+    cognome_s = models.CharField(max_length = 20, blank=True,null=True)
+    nome_t = models.CharField(max_length = 20, blank=True,null=True)
+    cognome_t = models.CharField(max_length = 20, blank=True,null=True)
 
     #capire come gestire esito
     esito = models.CharField(max_length = 20, blank=True,null=True)

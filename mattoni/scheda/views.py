@@ -176,13 +176,15 @@ def missione_creation_form(request):
     if request.method == 'POST':
         if form.is_valid():
             missione = form.save(commit=False)
-            
+            missione.invio = datetime.datetime.now()
             missione.save()
+
             scheda = Scheda()
             tp = TestaPiedi()
             tp.save()
             scheda.testa_piedi = tp
             scheda.save()
+
             dictMissione = model_to_dict(missione)
             dictScheda = model_to_dict(scheda)
             m = request.session['mezzo']
@@ -201,6 +203,8 @@ def missione_creation_form(request):
 # TODO: fix il problema con la pagina
 def partenza_missione(request):
     template_name = 'partenza_missione.html'
+    missione = Missione.objects.get(id_scheda=request.session['missione']['id_missione'])
+    missione.accetta_missione = datetime.datetime.now()
     return render(request, template_name)
 
 
@@ -226,6 +230,8 @@ class MissioneProtocolli(generic.View):
 
     def get(self, request):
         template_name = 'missione_protocolli.html'
+        missione = Missione.objects.get(id_scheda=request.session['missione']['id_missione'])
+        missione.partenza = datetime.datetime.now()
         return render(request, template_name)
 
 
@@ -233,6 +239,8 @@ class CompilazioneScheda(generic.View):
 
     def get(self, request):
         template_name = 'mattoni.html'
+        missione = Missione.objects.get(id_scheda=request.session['missione']['id_missione'])
+        missione.arrivo = datetime.datetime.now()
         return render(request, template_name)
 
 
