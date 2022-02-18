@@ -291,6 +291,16 @@ def dettagli_missione(request, pk):
         return render(request, template_name, context={'missione': query, 'scheda': scheda})
 
 
+class RiepilogoMissione(generic.View):
+
+    def get(self, request):
+        template_name = 'dettagli_missione.html'
+        if request.method == 'GET':
+            missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
+            scheda = Scheda.objects.get(id_scheda =request.session['scheda']['id_scheda'])
+            return render(request, template_name, context={'missione': missione, 'scheda': scheda})
+
+
 def visualizza_protocollo(request, pk):
     template_name = 'visualizza_protocollo.html'
     return render(request, template_name, context={'nome': pk})
@@ -368,7 +378,7 @@ def invia_rifiuto(request):
             dict = {'invio' : datetime.datetime.now()}
             d = json.dumps(dict['invio'], default=myconverter)
             d.replace('"', '')
-            missione.rientro_sede = d[1:17]
+            missione.rifiuto_trasporto = d[1:17]
             missione.chiusa = True
             missione.esito = False
             
@@ -393,13 +403,12 @@ def invia_trasporto(request):
             d = json.dumps(dict['invio'], default=myconverter)
             d.replace('"', '')
             missione.rientro_sede = d[1:17]
-            missione.chiusa = True
             missione.esito = True
             
             request.session['missione']['criticita_trasporto'] = missione.criticita_trasporto
             request.session['missione']['patologia_trasporto'] = missione.patologia_trasporto
             request.session['missione']['ospedale'] = missione.ospedale
-            request.session['missione']['reparto'] = missione.trasporto
+            request.session['missione']['reparto'] = missione.reparto
 
             missione.save()
             

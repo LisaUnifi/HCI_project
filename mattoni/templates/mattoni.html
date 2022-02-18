@@ -513,25 +513,25 @@
                 <button type="button" class="btn btn-primary btn-lg w-100 mb-2" data-mdb-toggle="modal" data-mdb-target="#testapiedi">
                     Esame testa-piedi
                 </button>
-                <div class="container border rounded mb-2">
+                <div class="container mb-2">
                     <div class="form-floating mb-4">
                         <textarea class="form-control" id="allergie" name="allergie" rows="2"></textarea>
                         <label class="form-label" for="allergie">Allergie riferite</label>
                     </div>
                 </div>
-                <div class="container border rounded mb-2">
+                <div class="container mb-2">
                     <div class="form-floating mb-4">
                         <textarea class="form-control" id="patologie" name="patologie" rows="2"></textarea>
                         <label class="form-label" for="patologie">Patologie riferite</label>
                     </div>
                 </div>
-                <div class="container border rounded mb-2">
+                <div class="container mb-2">
                     <div class="form-floating mb-4">
                         <textarea class="form-control" id="farmaci" name="farmaci" rows="2"></textarea>
                         <label class="form-label" for="farmaci">Riferita assunzione di farmaci</label>
                     </div>
                 </div>
-                <div class="container border rounded mb-2">
+                <div class="container mb-2">
                     <div class="form-floating mb-4">
                         <textarea class="form-control" id="pasto" name="pasto" rows="2"></textarea>
                         <label class="form-label" for="pasto">Ultimo pasto riferito</label>
@@ -550,8 +550,8 @@
                 </div>
 
                 <h1 id="note_menu" class="text-center mt-4 border-bottom border-top">Note</h1>
-                <div class="container border rounded">
-                    <div class="form-outline mb-4">
+                <div class="container">
+                    <div class="form-floating mb-4">
                         <textarea class="form-control" id="note" name="note" rows="4"></textarea>
                         <label class="form-label" for="note">Note del soccorritore</label>
                     </div>
@@ -582,7 +582,8 @@
                 <button type="button" id="rifiuto_trasporto" class="btn p-3 btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modal_rifiuto">
                     Rifiuto trasporto
                 </button>
-                <button type="button" id="trasporto_ospedale" class="btn p-3 btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modal_trasporto">Trasporto in ospedale</button>
+                <button type="button" id="trasporto_ospedale" class="btn p-3 btn-primary btn-lg">Trasporto in ospedale</button>
+                <button type="button" id="conclusione" class="btn p-3 btn-primary btn-lg" hidden>Arrivo in reparto</button>
             </div>
         </div>
     </div>
@@ -740,7 +741,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
-                    <button type="submit" id="" class="btn btn-primary">Conferma</button>
+                    <button type="submit" id="submit_rifiuto" class="btn btn-primary">Conferma</button>
                 </div>
                     
             </form>
@@ -814,7 +815,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
-                    <button type="submit" id="" class="btn btn-primary">Conferma</button>
+                    <button type="submit" id="submit_trasporto" class="btn btn-primary">Conferma</button>
                 </div>
                     
             </form>
@@ -903,7 +904,7 @@
                             
                     }
                     else{
-                        $('modal_rifiuto').modal('show');
+                        $('#modal_rifiuto').modal('show');
                     }
                   },
     
@@ -954,7 +955,7 @@
                             
                     }
                     else{
-                        $('modal_trasporto').modal('show');
+                        $('#modal_trasporto').modal('show');
                     }
                   },
     
@@ -972,6 +973,33 @@
                       "X-CSRFToken": token,
                   },
                   url: '{% url "invia_trasporto" %}',
+                  dataType: 'json', 
+                  type: 'POST',
+                  data: formData,
+                  success: function (result) {
+                      if(result['status']=='error'){
+                            
+                    }
+                    else{
+                        $('#modal_trasporto').modal('hide');
+                        $('#trasporto_ospedale').attr('hidden',true);
+                        $('#conclusione').attr('hidden',false);
+                    }
+                  },
+    
+              });
+      });
+
+      $('#conclusione').click(function (e) {
+            e.preventDefault();
+            formData = $('#compilazione_scheda').serialize();
+            
+            
+              $.ajax({
+                  headers: {
+                      "X-CSRFToken": token,
+                  },
+                  url: '{% url "invia_scheda" %}',
                   dataType: 'json', 
                   type: 'POST',
                   data: formData,

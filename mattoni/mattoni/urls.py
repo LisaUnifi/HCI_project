@@ -51,7 +51,9 @@ urlpatterns = [
     path('mattoni/', scheda.CompilazioneScheda.as_view(), name='mattoni'),
     path('invia_scheda/', scheda.invia_scheda, name='invia_scheda'),
     path('invia_rifiuto/', scheda.invia_rifiuto, name='invia_rifiuto'),
+    path('invia_trasporto/', scheda.invia_trasporto, name='invia_trasporto'),
     path('modifica_paziente/', scheda.modifica_paziente, name='modifica_paziente'),
     path('rientro_sede/', scheda.rientro_sede, name='rientro_sede'),
     path('operativo_rientro/', scheda.OperativoRientro.as_view(), name='operativo_rientro'),
+    path('riepilogo_missione/', scheda.RiepilogoMissione.as_view(), name='riepilogo_missione'),
 ]
