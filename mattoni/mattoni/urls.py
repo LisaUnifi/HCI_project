@@ -53,4 +53,5 @@ urlpatterns = [
     path('modifica_paziente/', scheda.modifica_paziente, name='modifica_paziente'),
     path('rientro_sede/', scheda.rientro_sede, name='rientro_sede'),
     path('operativo_rientro/', scheda.OperativoRientro.as_view(), name='operativo_rientro'),
+    path('riepilogo_missione/', TemplateView.as_view(template_name='riepilogo_missione.html'), name='riepilogo_missione'),
 ]

@@ -98,11 +98,6 @@
         <p class="text-uppercase mb-2"><strong>Missione</strong></p>
         <p class="text-muted mb-4">{{missione.id_missione}}</p>
       </div>
-      <!-- Scheda -->
-      <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Scheda</strong></p>
-        <p class="text-muted mb-4">{{scheda.id_scheda}}</p>
-      </div>
       <!-- Codice intervento -->
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Codice intervento</strong></p>
@@ -648,7 +643,7 @@
 
 
     <!-- IMPLEMENTA ESITO magari esito=true -->
-    {% if esito %}
+    {% if missione.esito %}
     <div class="row">
       <div class="col-12">
         <h4 class="text-uppercase mb-4 text-center"><strong>Trasporto in ospedale</strong></h4>
