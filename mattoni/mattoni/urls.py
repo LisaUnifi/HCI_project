@@ -54,6 +54,7 @@ urlpatterns = [
     path('invia_trasporto/', scheda.invia_trasporto, name='invia_trasporto'),
     path('modifica_paziente/', scheda.modifica_paziente, name='modifica_paziente'),
     path('rientro_sede/', scheda.rientro_sede, name='rientro_sede'),
+    path('partenza_luogo_intervento/', scheda.partenza_luogo_intervento, name='partenza_luogo_intervento'),
     path('operativo_rientro/', scheda.OperativoRientro.as_view(), name='operativo_rientro'),
     path('riepilogo_missione/', scheda.RiepilogoMissione.as_view(), name='riepilogo_missione'),
 ]

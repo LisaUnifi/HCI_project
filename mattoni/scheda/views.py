@@ -294,10 +294,22 @@ def dettagli_missione(request, pk):
 class RiepilogoMissione(generic.View):
 
     def get(self, request):
-        template_name = 'dettagli_missione.html'
+        template_name = 'riepilogo_missione.html'
         if request.method == 'GET':
             missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
             scheda = Scheda.objects.get(id_scheda =request.session['scheda']['id_scheda'])
+            missione.chiusa = True
+            if request.session['missione']['esito'] == True:
+                
+
+                dict = {'invio' : datetime.datetime.now()}
+                d = json.dumps(dict['invio'], default=myconverter)
+                d.replace('"', '')
+                missione.pronto_socc = d[1:17]
+                missione.save()
+                request.session['missione']['pronto_socc'] = d[1:17]
+            else:
+                missione.save()
             return render(request, template_name, context={'missione': missione, 'scheda': scheda})
 
 
@@ -369,6 +381,19 @@ def rientro_sede(request):
         return JsonResponse(data)
 
 
+def partenza_luogo_intervento(request):
+    if request.method == 'GET':
+        missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
+        
+        dict = {'invio' : datetime.datetime.now()}
+        d = json.dumps(dict['invio'], default=myconverter)
+        d.replace('"', '')
+        missione.conferma_trasporto = d[1:17]
+        missione.save()
+        data = {}
+        return JsonResponse(data)
+
+
 def invia_rifiuto(request):
     form = MissioneRifiutoForm(request.POST or None, instance=Missione.objects.get(id_missione=request.session['missione']['id_missione']))
     if request.method == 'POST':
@@ -379,8 +404,8 @@ def invia_rifiuto(request):
             d = json.dumps(dict['invio'], default=myconverter)
             d.replace('"', '')
             missione.rifiuto_trasporto = d[1:17]
-            missione.chiusa = True
             missione.esito = False
+            request.session['missione']['esito'] = False
             
             missione.save()
             data['status'] = 'success'
@@ -409,6 +434,7 @@ def invia_trasporto(request):
             request.session['missione']['patologia_trasporto'] = missione.patologia_trasporto
             request.session['missione']['ospedale'] = missione.ospedale
             request.session['missione']['reparto'] = missione.reparto
+            request.session['missione']['esito'] = True
 
             missione.save()
             

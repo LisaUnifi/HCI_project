@@ -584,6 +584,7 @@
                 </button>
                 <button type="button" id="trasporto_ospedale" class="btn p-3 btn-primary btn-lg">Trasporto in ospedale</button>
                 <button type="button" id="conclusione" class="btn p-3 btn-primary btn-lg" hidden>Arrivo in reparto</button>
+                <button type="button" id="partenza" class="btn p-3 btn-primary btn-lg" hidden>Partenza da intervento</button>
             </div>
         </div>
     </div>
@@ -831,31 +832,6 @@
     $(document).ready(function () {
         var token = '{{ csrf_token }}';
     
-    
-        $('#invio_post').click(function (e) {
-            e.preventDefault();
-            formData = $('#compilazione_scheda').serialize();
-            
-            
-              $.ajax({
-                  headers: {
-                      "X-CSRFToken": token,
-                  },
-                  url: '{% url "invia_scheda" %}',
-                  dataType: 'json', 
-                  type: 'POST',
-                  data: formData,
-                  success: function (result) {
-                      if(result['status']=='error'){
-                            
-                    }
-                    else{
-                        window.location = '{% url "operativo_rientro" %}';
-                    }
-                  },
-    
-              });
-      });
 
       $('#paziente_submit').click(function (e) {
             e.preventDefault();
@@ -929,7 +905,7 @@
                             
                     }
                     else{
-                        window.location = '{% url "operativo_rientro" %}';
+                        window.location = '{% url "riepilogo_missione" %}';
                     }
                   },
     
@@ -983,6 +959,32 @@
                     else{
                         $('#modal_trasporto').modal('hide');
                         $('#trasporto_ospedale').attr('hidden',true);
+                        $('#partenza').attr('hidden',false);
+                    }
+                  },
+    
+              });
+      });
+
+
+      $('#partenza').click(function (e) {
+            e.preventDefault();
+            
+            
+              $.ajax({
+                  headers: {
+                      "X-CSRFToken": token,
+                  },
+                  url: '{% url "partenza_luogo_intervento" %}',
+                  dataType: 'json', 
+                  type: 'GET',
+                  data: formData,
+                  success: function (result) {
+                      if(result['status']=='error'){
+                            
+                    }
+                    else{
+                        $('#partenza').attr('hidden',true);
                         $('#conclusione').attr('hidden',false);
                     }
                   },
@@ -1008,7 +1010,7 @@
                             
                     }
                     else{
-                        window.location = '{% url "operativo_rientro" %}';
+                        window.location = '{% url "riepilogo_missione" %}';
                     }
                   },
     
