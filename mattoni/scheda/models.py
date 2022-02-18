@@ -216,7 +216,7 @@ class Missione(models.Model):
     criticita_trasporto = models.CharField(max_length = 1, blank=True,null=True)
     patologia_trasporto = models.CharField(max_length = 5, blank=True,null=True)
     ospedale = models.CharField(max_length = 50, blank=True,null=True)
-    reparto = models.CharField(max_length = 20, blank=True,null=True)
+    reparto = models.CharField(max_length = 30, blank=True,null=True)
 
     #se rifiuto trasporto
     nome_t = models.CharField(max_length = 20, blank=True,null=True)
