@@ -557,16 +557,13 @@
                     </div>
                 </div>
 
+                
                 <h1 id="esito_menu" class="text-center mt-4 border-bottom border-top">Esito</h1>
-                <select id="mezzi" class="selectpicker w-100 mb-4" multiple data-live-search="true"  name="esito" title="Seleziona esito missione">
-                    <option value="1">Trasporto in ospedale</option>
-                    <option value="2">Rendez vous</option>
-                    <option value="3">Rifiuto trasporto</option>
-                    <option value="4">Intervento con ALS</option>
-                    <option value="5">Missione annullata</option>
-                </select>
-
-              </div>
+                <p class="text-center text-muted mb-4">In attesa di informazioni sul trasporto</p>
+                <div hidden>
+                    
+                </div>  
+                </div>
                 
             </div>
         
@@ -582,10 +579,10 @@
             <div class="col-2">
             </div>
             <div class="col-6">
-                <button type="button" class="btn p-3 btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#nuovomezzo">
-                    Stati
+                <button type="button" id="rifiuto_trasporto" class="btn p-3 btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modal_rifiuto">
+                    Rifiuto trasporto
                 </button>
-                <button type="submit" id="invio_post" class="btn p-3 btn-primary btn-lg">Invia Dati</button>
+                <button type="button" id="trasporto_ospedale" class="btn p-3 btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modal_trasporto">Trasporto in ospedale</button>
             </div>
         </div>
     </div>
@@ -593,7 +590,7 @@
 
 </div>
 
-<!-- Modal -->
+<!-- Modal Paziente -->
 <div class="modal fade" id="paziente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -685,6 +682,139 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
                     <button type="submit" id="paziente_submit" class="btn btn-primary">Conferma</button>
+                </div>
+                    
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Rifiuto-->
+<div class="modal fade" id="modal_rifiuto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dati rifiuto trasporto</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="text-center" id="form_rifiuto" method="post"> 
+                {% csrf_token %}
+                <div class="modal-body">
+                    <p class="slogan">Inserisci i dati per il rifiuto trasporto:</p>
+                    <p class="slogan">Nel caso non sia presente nessun parente o conosciente del paziente, inserire i dati di uno dei soccorritori.</p>
+
+                    <!-- Nome e Cognome -->
+                    <div class="row mb-4">
+                        <div class="col">
+                        <div class="form-floating">
+                            <input type="text" id="nome_t" class="form-control border" name="nome_t">
+                            <label class="form-label" for="nome_t">Nome</label>
+                        </div>
+                        </div>
+                        <div class="col">
+                        <div class="form-floating">
+                            <input type="text" id="cognome_t" class="form-control" name="cognome_t">
+                            <label class="form-label" for="cognome_t">Cognome</label>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col w-75">
+                            <select id="mezzi" class="selectpicker w-100" title="Tipologia testimone" name="parentela">
+                            <option value="Coniuge">Coniuge</option>
+                            <option value="Figlio/a">Figlio/a</option>
+                            <option value="Genitore">Genitore</option>
+                            <option value="Nonno/a">Nonno/a</option>
+                            <option value="Parente 2° grado">Parente 2° grado</option>
+                            <option value="Parente 3° grado">Parente 3° grado</option>
+                            <option value="Conoscente">Conoscente</option>
+                            <option value="Soccorritore">Soccorritore</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
+                    <button type="submit" id="" class="btn btn-primary">Conferma</button>
+                </div>
+                    
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Trasporto-->
+<div class="modal fade" id="modal_trasporto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dati ospedale di destinazione</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="text-center" id="form_trasporto" method="post"> 
+                {% csrf_token %}
+                <div class="modal-body">
+                    <p class="slogan">Inserisci i dati per il trasporto:</p>
+
+                    <!-- criticita_trasporto = models.CharField(max_length = 1, blank=True,null=True)
+                            patologia_trasporto = models.CharField(max_length = 5, blank=True,null=True)
+                            ospedale = models.CharField(max_length = 20, blank=True,null=True)
+                            reparto = models.CharField(max_length = 20, blank=True,null=True) -->
+                    <div class="row mb-4">
+                        <div class="col-12 mb-4">
+                            <select id="mezzi" class="selectpicker w-100" title="Criticità" name="criticita_trasporto">
+                                <option value="B">Bianco</option>
+                                <option value="V">Verde</option>
+                                <option value="G">Giallo</option>
+                                <option value="R">Rosso</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" id="patologia_trasporto" class="form-control" name="patologia_trasporto">
+                            <label class="form-label" for="patologia_trasporto">Patologia ipotizzata da CO</label>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col w-75">
+                            <select id="mezzi" class="selectpicker w-100" title="Luogo destinazione" name="ospedale">
+                            <option value="S. Giovanni di Dio - Torregalli">S. Giovanni di Dio - Torregalli</option>
+                            <option value="S. Maria Nuova">S. Maria Nuova</option>
+                            <option value="Palagi - IOT">Palagi - IOT</option>
+                            <option value="Azienda Osp. Universitaria Careggi">Azienda Osp. Universitaria Careggi</option>
+                            <option value="S. Maria Annunziata - OSMA">S. Maria Annunziata - OSMA</option>
+                            <option value="RSA Veranella">RSA Veranella</option>
+                            <option value="RSA Bobolino">RSA Bobolino</option>
+                            <option value="RSA Le Terme">RSA Le Terme</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col w-75">
+                            <select id="mezzi" class="selectpicker w-100" title="Reparto destinazione" name="reparto">
+                            <option value="Pronto soccorso - DEA">Pronto soccorso - DEA</option>
+                            <option value="Emodinamica">Emodinamica</option>
+                            <option value="Ostetricia">Ostetricia</option>
+                            <option value="Infettivo - BOLLA">Infettivo - BOLLA</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
+                    <button type="submit" id="" class="btn btn-primary">Conferma</button>
                 </div>
                     
             </form>
