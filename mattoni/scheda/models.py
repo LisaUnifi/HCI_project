@@ -196,7 +196,6 @@ class Missione(models.Model):
 
     data_nascita = models.DateField(blank=True ,null=True)
     dove_nato = models.CharField(max_length = 25, blank=True,null=True)
-    eta = models.IntegerField(blank=True,null=True)
     residenza = models.CharField(max_length = 100, blank=True,null=True)
     comune_residenza = models.CharField(max_length = 20, blank=True,null=True)
     civico_residenza = models.CharField(max_length = 5, blank=True,null=True)

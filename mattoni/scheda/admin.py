@@ -48,7 +48,7 @@ class MissioneAdmin(admin.ModelAdmin):
         'id_missione',
         'luogo', 'patologia', 'criticita',
         'nome_p', 'cognome_p', 'luogo_intervento', 'civico_intervento', 'comune_intervento', 'provincia_intervento', 'cap_intervento', 'cellulare', 'note', 'avvisi',
-        'data_nascita', 'dove_nato', 'eta', 'residenza', 'comune_residenza', 'civico_residenza', 'provincia_residenza', 'cap_residenza', 
+        'data_nascita', 'dove_nato', 'residenza', 'comune_residenza', 'civico_residenza', 'provincia_residenza', 'cap_residenza', 
         'invio', 'accetta_missione', 'partenza', 'arrivo', 'conferma_trasporto', 'rifiuto_trasporto', 'pronto_socc', 'libero', 'rientro_sede', 
         'criticita_trasporto', 'patologia_trasporto', 'ospedale', 'reparto', 
         'nome_t', 'cognome_t', 'parentela',

@@ -265,6 +265,6 @@ class MissioneModificaForm(forms.ModelForm):
         model = Missione
         fields = [
             'nome_p', 'cognome_p',  'cellulare', 
-            'data_nascita', 'dove_nato', 'eta',
+            'data_nascita', 'dove_nato',
             'residenza', 'comune_residenza', 'civico_residenza', 'provincia_residenza', 'cap_residenza',
         ]
