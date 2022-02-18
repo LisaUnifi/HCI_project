@@ -716,16 +716,10 @@
                   data: formData,
                   success: function (result) {
                       if(result['status']=='error'){
-                            $('#errors').empty();
-                            errors = result['errors']
-                            for(const item in errors)
-                            {
-                                $('#errors').removeAttr('hidden');
-                                $("#errors").prepend('<p>'+errors[item]+'</p>');
-                            }
+                            
                     }
                     else{
-                        window.location = '{% url "operativo_rientro" %}'
+                        window.location = '{% url "operativo_rientro" %}';
                     }
                   },
     
@@ -747,13 +741,7 @@
                   data: formData,
                   success: function (result) {
                       if(result['status']=='error'){
-                            $('#errors').empty();
-                            errors = result['errors']
-                            for(const item in errors)
-                            {
-                                $('#errors').removeAttr('hidden');
-                                $("#errors").prepend('<p>'+errors[item]+'</p>');
-                            }
+                            
                     }
                     else{
                         $('#paziente').modal('toggle');
@@ -765,7 +753,112 @@
     
     
     
+    });
+
+    $('#rifiuto_trasporto').click(function (e) {
+            e.preventDefault();
+            formData = $('#compilazione_scheda').serialize();
+            
+            
+              $.ajax({
+                  headers: {
+                      "X-CSRFToken": token,
+                  },
+                  url: '{% url "invia_scheda" %}',
+                  dataType: 'json', 
+                  type: 'POST',
+                  data: formData,
+                  success: function (result) {
+                      if(result['status']=='error'){
+                            
+                    }
+                    else{
+                        $('modal_rifiuto').modal('show');
+                    }
+                  },
+    
+              });
       });
+
+      $('#submit_rifiuto').click(function (e) {
+            e.preventDefault();
+            formData = $('#form_rifiuto').serialize();
+            
+            
+              $.ajax({
+                  headers: {
+                      "X-CSRFToken": token,
+                  },
+                  url: '{% url "invia_rifiuto" %}',
+                  dataType: 'json', 
+                  type: 'POST',
+                  data: formData,
+                  success: function (result) {
+                      if(result['status']=='error'){
+                            
+                    }
+                    else{
+                        window.location = '{% url "operativo_rientro" %}';
+                    }
+                  },
+    
+              });
+      });
+
+
+      $('#trasporto_ospedale').click(function (e) {
+            e.preventDefault();
+            formData = $('#compilazione_scheda').serialize();
+            
+            
+              $.ajax({
+                  headers: {
+                      "X-CSRFToken": token,
+                  },
+                  url: '{% url "invia_scheda" %}',
+                  dataType: 'json', 
+                  type: 'POST',
+                  data: formData,
+                  success: function (result) {
+                      if(result['status']=='error'){
+                            
+                    }
+                    else{
+                        $('modal_trasporto').modal('show');
+                    }
+                  },
+    
+              });
+      });
+
+
+      $('#submit_trasporto').click(function (e) {
+            e.preventDefault();
+            formData = $('#form_trasporto').serialize();
+            
+            
+              $.ajax({
+                  headers: {
+                      "X-CSRFToken": token,
+                  },
+                  url: '{% url "invia_trasporto" %}',
+                  dataType: 'json', 
+                  type: 'POST',
+                  data: formData,
+                  success: function (result) {
+                      if(result['status']=='error'){
+                            
+                    }
+                    else{
+                        window.location = '{% url "operativo_rientro" %}';
+                    }
+                  },
+    
+              });
+      });
+
+
+      
     
 });
 </script>

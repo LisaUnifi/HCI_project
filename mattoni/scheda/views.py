@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
-from .forms import MezziCreationForm, MissionCreationForm, MissioneModificaForm, SchedaMissioneForm, UserModificaForm, UserRegistrationForm
+from .forms import MezziCreationForm, MissionCreationForm, MissioneModificaForm, SchedaMissioneForm, UserModificaForm, UserRegistrationForm, MissioneRifiutoForm, MissioneTrasportoForm
 from .models import Missione, MyUser, Mezzo, Scheda, Intervento, TestaPiedi
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
@@ -59,8 +59,7 @@ def modifica_dati(request):
         if form.is_valid():
 
             user = form.save()
-            errors = form.errors
-            data['errors'] = errors
+
             data['status'] = 'success'
             messages.success(request, 'Modifiche apportate con successo!')
             return JsonResponse(data)
@@ -99,8 +98,7 @@ def mezzi_creation_form(request):
             user = MyUser.objects.get(username=request.user.username)
             mezzo.username = user
             mezzo.save()
-            errors = form.errors
-            data['errors'] = errors
+
             data['status'] = 'success'
             messages.success(request, 'Mezzo creato con successo!')
             return JsonResponse(data)
@@ -313,8 +311,7 @@ def invia_scheda(request):
             scheda = form.save(commit=False)
             
             scheda.save()
-            errors = form.errors
-            data['errors'] = errors
+
             data['status'] = 'success'
             #messages.success(request, 'Scheda salvata!')
             return JsonResponse(data)
@@ -334,8 +331,7 @@ def modifica_paziente(request):
             missione = form.save(commit=False)
             
             missione.save()
-            errors = form.errors
-            data['errors'] = errors
+
             data['status'] = 'success'
             #messages.success(request, 'Scheda salvata!')
             return JsonResponse(data)
@@ -361,3 +357,61 @@ def rientro_sede(request):
         request.session.modified = True
         data = {}
         return JsonResponse(data)
+
+
+def invia_rifiuto(request):
+    form = MissioneRifiutoForm(request.POST or None, instance=Missione.objects.get(id_missione=request.session['missione']['id_missione']))
+    if request.method == 'POST':
+        data = {}
+        if form.is_valid():
+            missione = form.save(commit=False)
+            dict = {'invio' : datetime.datetime.now()}
+            d = json.dumps(dict['invio'], default=myconverter)
+            d.replace('"', '')
+            missione.rientro_sede = d[1:17]
+            missione.chiusa = True
+            missione.esito = False
+            
+            missione.save()
+            data['status'] = 'success'
+            return JsonResponse(data)
+        else:
+
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'error'
+            return JsonResponse(data)
+
+
+def invia_trasporto(request):
+    form = MissioneTrasportoForm(request.POST or None, instance=Missione.objects.get(id_missione=request.session['missione']['id_missione']))
+    if request.method == 'POST':
+        data = {}
+        if form.is_valid():
+            missione = form.save(commit=False)
+            dict = {'invio' : datetime.datetime.now()}
+            d = json.dumps(dict['invio'], default=myconverter)
+            d.replace('"', '')
+            missione.rientro_sede = d[1:17]
+            missione.chiusa = True
+            missione.esito = True
+            
+            request.session['missione']['criticita_trasporto'] = missione.criticita_trasporto
+            request.session['missione']['patologia_trasporto'] = missione.patologia_trasporto
+            request.session['missione']['ospedale'] = missione.ospedale
+            request.session['missione']['reparto'] = missione.trasporto
+
+            missione.save()
+            
+
+
+            data['status'] = 'success'
+            return JsonResponse(data)
+        else:
+
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'error'
+            return JsonResponse(data)
+        
+    

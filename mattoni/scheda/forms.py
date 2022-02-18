@@ -268,3 +268,24 @@ class MissioneModificaForm(forms.ModelForm):
             'data_nascita', 'dove_nato',
             'residenza', 'comune_residenza', 'civico_residenza', 'provincia_residenza', 'cap_residenza',
         ]
+
+
+
+class MissioneTrasportoForm(forms.ModelForm):
+
+    class Meta:
+        model = Missione
+        fields = [
+            'criticita_trasporto','patologia_trasporto',
+            'ospedale', 'reparto',
+        ]
+
+
+
+class MissioneRifiutoForm(forms.ModelForm):
+
+    class Meta:
+        model = Missione
+        fields = [
+            'nome_t', 'cognome_t', 'parentela'
+        ]
