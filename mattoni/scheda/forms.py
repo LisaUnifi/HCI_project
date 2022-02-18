@@ -185,6 +185,8 @@ class MezziCreationForm(forms.ModelForm):
 class MissionCreationForm(forms.ModelForm):
     """
         Creazione missioni
+
+        , 'invio'
     """
 
     class Meta:
@@ -192,6 +194,8 @@ class MissionCreationForm(forms.ModelForm):
         fields = ['nome_p','cognome_p','luogo','patologia','criticita',
             'luogo_intervento', 'comune_intervento', 'cap_intervento', 'provincia_intervento', 
             'civico_intervento', 'cellulare', 'note', 'avvisi']
+
+
 
 
 class UserModificaForm(forms.ModelForm):
@@ -253,3 +257,14 @@ class SchedaMissioneForm(forms.ModelForm):
             return testa_piedi
     '''
     
+
+
+class MissioneModificaForm(forms.ModelForm):
+
+    class Meta:
+        model = Missione
+        fields = [
+            'nome_p', 'cognome_p',  'cellulare', 
+            'data_nascita', 'dove_nato', 'eta',
+            'residenza', 'comune_residenza', 'civico_residenza', 'provincia_residenza', 'cap_residenza',
+        ]

@@ -37,7 +37,6 @@
       
         <!-- Card content -->
         <div class="card-body">
-      
           <!-- Title -->
           {% if request.session.missione.patologia < 10 %}
           <h1 class="card-title">{{request.session.missione.luogo}} C0{{request.session.missione.patologia}} {{request.session.missione.criticita}}</h1>

@@ -44,14 +44,16 @@ class MezzoAdmin(admin.ModelAdmin):
     
 
 class MissioneAdmin(admin.ModelAdmin):
-    list_display = ('id_missione', 'nome_p','cognome_p','luogo','patologia','criticita',
-            'luogo_intervento', 'comune_intervento', 'cap_intervento', 'provincia_intervento', 
-            'civico_intervento', 'cellulare', 'note', 'avvisi',
-            'data_nascita', 'dove_nato', 'eta', 'residenza', 'comune_residenza', 'civico_residenza', 'provincia_residenza', 'cap_residenza', 
-            'invio', 'inizio', 'arrivo', 'partenza', 'pronto_socc', 'fine', 'sede',
-            'esito',
-            'chiusa'
-            )
+    list_display = (
+        'id_missione',
+        'luogo', 'patologia', 'criticita',
+        'nome_p', 'cognome_p', 'luogo_intervento', 'civico_intervento', 'comune_intervento', 'provincia_intervento', 'cap_intervento', 'cellulare', 'note', 'avvisi',
+        'data_nascita', 'dove_nato', 'eta', 'residenza', 'comune_residenza', 'civico_residenza', 'provincia_residenza', 'cap_residenza', 
+        'invio', 'accetta_missione', 'partenza', 'arrivo', 'conferma_trasporto', 'rifiuto_trasporto', 'pronto_socc', 'libero', 'rientro_sede', 
+        'criticita_trasporto', 'patologia_trasporto', 'ospedale', 'reparto', 
+        'nome_t', 'cognome_t', 'parentela',
+        'esito', 'chiusa'
+        )
 
 
 class TestaPiediAdmin(admin.ModelAdmin):
@@ -64,7 +66,7 @@ class SchedaAdmin(admin.ModelAdmin):
         'scenario', 
         'cosciente', 'respiraBLS', 'circoloBLS', 'dae', 'cicli', 'noteBLS', 'pervieta', 'ostruzione', 
         'respira', 'dispnea', 'palpo', 'ascolto', 'conto', 'saturazione', 'saturazione_oss', 'ossigeno', 
-        'pressione_massima', 'pressione_minima', 'temperatura', 'emorragie', 'polso', 'regolare_polso', 'cute', 'sudato','sudore_freddo', 'dolore_toracico', 'ora_dolore', 'tipo_dolore', 
+        'pressione_massima', 'pressione_minima', 'frequenza', 'temperatura', 'emorragie', 'polso', 'regolare_polso', 'cute', 'sudato', 'sudore_freddo', 'dolore_toracico', 'ora_dolore', 'data_dolore', 'tipo_dolore', 
         'avpu', 'tempo', 'spazio', 'mimica_c', 'braccia_c', 'linguaggio_c', 'forza_sup', 'forza_inf', 'sens_sup', 'sens_inf', 
         'posizione', 'allergie', 'patologie', 'glicemia', 'farmaci', 'pasto', 'testa_piedi', 
         'note'

@@ -7,27 +7,9 @@
 
 <div class="d-flex flex-column" style="height: 100vh">
 
-    <div class="container text-center bg-light mt-4">
-        <div class="row m-4">
-            <div class="col-4">
-                <p class="text-uppercase mb-2"><strong>ID MISSIONE</strong></p>
-            </div>
-            <div class="col-4">
-                <p class="text-uppercase mb-2"><strong>K C01 R</strong></p>
-            </div>
-            <div class="col-4">
-                <a href="{% url 'home_sc' %}" role="button" class="btn p-3 btn-primary btn-lg ">
-                    MODIFICA 
-                </a>
-            </div>
-        </div>
-        <div class="row m-4 mb-0">
-            <div class="col-12">
-                <p class="text-muted mb-4">Luogo di intervento</p>
-            </div>
-        </div>
-
-    </div>
+<button type="button" class="btn btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#paziente" id="modalbutton">
+    Modifica
+</button>
 
 <form id="compilazione_scheda" method="post">
     {% csrf_token %}
@@ -332,9 +314,9 @@
                 <div class="collapse" id="freddo">
                     <div class="row mt-2 m-0 p-0">
                         <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="sudato_freddo_si" name="sudato_freddo" value="True" autocomplete="off">
+                            <input type="radio" class="btn-check" id="sudato_freddo_si" name="sudore_freddo" value="True" autocomplete="off">
                             <label class="btn btn-light" for="sudato_freddo_si">Sudato freddo</label>
-                            <input type="radio" class="btn-check" id="sudato_freddo_no" name="sudato_freddo" value="False" autocomplete="off">
+                            <input type="radio" class="btn-check" id="sudato_freddo_no" name="sudore_freddo" value="False" autocomplete="off">
                             <label class="btn btn-light" for="sudato_freddo_no">Sudato caldo</label>
                         </div>
                     </div>
@@ -532,25 +514,25 @@
                     Esame testa-piedi
                 </button>
                 <div class="container border rounded mb-2">
-                    <div class="form-outline mb-4">
+                    <div class="form-floating mb-4">
                         <textarea class="form-control" id="allergie" name="allergie" rows="2"></textarea>
                         <label class="form-label" for="allergie">Allergie riferite</label>
                     </div>
                 </div>
                 <div class="container border rounded mb-2">
-                    <div class="form-outline mb-4">
+                    <div class="form-floating mb-4">
                         <textarea class="form-control" id="patologie" name="patologie" rows="2"></textarea>
                         <label class="form-label" for="patologie">Patologie riferite</label>
                     </div>
                 </div>
                 <div class="container border rounded mb-2">
-                    <div class="form-outline mb-4">
+                    <div class="form-floating mb-4">
                         <textarea class="form-control" id="farmaci" name="farmaci" rows="2"></textarea>
                         <label class="form-label" for="farmaci">Riferita assunzione di farmaci</label>
                     </div>
                 </div>
                 <div class="container border rounded mb-2">
-                    <div class="form-outline mb-4">
+                    <div class="form-floating mb-4">
                         <textarea class="form-control" id="pasto" name="pasto" rows="2"></textarea>
                         <label class="form-label" for="pasto">Ultimo pasto riferito</label>
                     </div>
@@ -611,6 +593,106 @@
 
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="paziente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modifica dati paziente</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="text-center" id="modifica_paziente" method="post"> 
+                {% csrf_token %}
+                <div class="modal-body">
+                    <p class="slogan">Inserisci tutti i dati relativi al paziente:</p>
+
+                    <!-- Nome e Cognome -->
+                    <div class="row mb-4">
+                        <div class="col">
+                        <div class="form-floating">
+                            <input type="text" id="nome_p" class="form-control border"  value="{{request.session.missione.nome_p}}" name="nome_p">
+                            <label class="form-label" for="nome_p">Nome</label>
+                        </div>
+                        </div>
+                        <div class="col">
+                        <div class="form-floating">
+                            <input type="text" id="cognome_p" class="form-control" value="{{request.session.missione.cognome_p}}" name="cognome_p">
+                            <label class="form-label" for="cognome_p">Cognome</label>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- Compleanno -->
+                    <div class="row mb-4">
+                        <div class="col-5">
+                            <div class="form-floating input-with-post-icon datepicker">
+                                <input placeholder="Seleziona giorno" type="date" id="data_nascita" name="data_nascita" class="form-control">
+                                <label class="form-label" for="data_nascita">Data di nascita</label>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-floating">
+                                <input type="text" id="dove_nato" class="form-control" name="dove_nato">
+                                <label class="form-label" for="dove_nato">Nato a</label>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Numero Telefono -->
+                    <div class="form-floating mb-4">
+                        <input type="tel" id="cellulare" class="form-control" value="{{request.session.missione.cellulare}}" name="cellulare" mdInput>
+                        <label class="form-label" for="cellulare">Cellulare</label>
+                    </div>
+
+                    <p class="slogan">Indirizzo di residenza</p>
+        
+                    <!-- Indirizzo -->
+                    <div class="row mb-4">
+                        <div class="col-9">
+                        <div class="form-floating">
+                            <input type="text" id="residenza" class="form-control" value="{{request.session.missione.luogo_intervento}}" name="residenza">
+                            <label class="form-label" for="residenza">Indirizzo</label>
+                        </div>
+                        </div>
+                        <div class="col-3">
+                        <div class="form-floating">
+                            <input type="text" id="civico_residenza" class="form-control" value="{{request.session.missione.civico_intervento}}" name="civico_residenza">
+                            <label class="form-label" for="civico_residenza">Civico</label>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-5">
+                        <div class="form-floating">
+                            <input type="text" id="comune_residenza" class="form-control" value="{{request.session.missione.comune_intervento}}" name="comune_residenza">
+                            <label class="form-label" for="comune_residenza">Comune</label>
+                        </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-floating">
+                                <input type="text" id="provincia_residenza" class="form-control" value="{{request.session.missione.provincia_intervento}}" name="provincia_residenza">
+                                <label class="form-label" for="provincia_residenza">Provincia</label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-floating">
+                                <input type="text" id="cap_residenza" class="form-control" value="{{request.session.missione.cap_intervento}}" name="cap_residenza">
+                                <label class="form-label" for="cap_residenza">CAP</label>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
+                    <button type="submit" id="paziente_submit" class="btn btn-primary">Conferma</button>
+                </div>
+                    
+            </form>
+            
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -644,6 +726,37 @@
                     }
                     else{
                         window.location = '{% url "operativo_rientro" %}'
+                    }
+                  },
+    
+              });
+      });
+
+      $('#paziente_submit').click(function (e) {
+            e.preventDefault();
+            formData = $('#modifica_paziente').serialize();
+            
+            
+              $.ajax({
+                  headers: {
+                      "X-CSRFToken": token,
+                  },
+                  url: '{% url "modifica_paziente" %}',
+                  dataType: 'json', 
+                  type: 'POST',
+                  data: formData,
+                  success: function (result) {
+                      if(result['status']=='error'){
+                            $('#errors').empty();
+                            errors = result['errors']
+                            for(const item in errors)
+                            {
+                                $('#errors').removeAttr('hidden');
+                                $("#errors").prepend('<p>'+errors[item]+'</p>');
+                            }
+                    }
+                    else{
+                        $('#paziente').modal('toggle');
                     }
                   },
     

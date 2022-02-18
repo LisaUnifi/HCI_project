@@ -8,7 +8,9 @@ from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
-from .forms import MezziCreationForm, MissionCreationForm, SchedaMissioneForm, UserModificaForm, UserRegistrationForm
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
+from .forms import MezziCreationForm, MissionCreationForm, MissioneModificaForm, SchedaMissioneForm, UserModificaForm, UserRegistrationForm
 from .models import Missione, MyUser, Mezzo, Scheda, Intervento, TestaPiedi
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
@@ -18,6 +20,12 @@ import json
 
 
 import pdb
+
+
+
+def myconverter(o):
+    if isinstance(o, datetime.datetime):
+        return o.__str__()
 
 
 def operator_check(user):
@@ -114,6 +122,14 @@ class Operativo(generic.View):
 class OperativoRientro(generic.View):
     def get(self, request):
         template_name = 'operativo_rientro.html'
+        missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
+
+        dict = {'invio' : datetime.datetime.now()}
+        d = json.dumps(dict['invio'], default=myconverter)
+        d.replace('"', '')
+        missione.libero = d[1:17]
+        missione.save()
+        request.session['missione']['libero'] = d[1:17]
         return render(request, template_name)
 
 
@@ -162,7 +178,6 @@ def registration_request(request):
     return render(request, 'registration.html', {'form': form})
 
 
-
 def delete_mezzo(request, pk):
     if request.method == 'POST':
         query = Mezzo.objects.get(id_mezzo=pk)
@@ -176,14 +191,18 @@ def missione_creation_form(request):
     if request.method == 'POST':
         if form.is_valid():
             missione = form.save(commit=False)
-            missione.invio = datetime.datetime.now()
-            missione.save()
 
             scheda = Scheda()
             tp = TestaPiedi()
             tp.save()
             scheda.testa_piedi = tp
             scheda.save()
+            
+            dict = {'invio' : datetime.datetime.now()}
+            d = json.dumps(dict['invio'], default=myconverter)
+            d.replace('"', '')
+            missione.invio = d[1:17]
+            missione.save()
 
             dictMissione = model_to_dict(missione)
             dictScheda = model_to_dict(scheda)
@@ -203,8 +222,15 @@ def missione_creation_form(request):
 # TODO: fix il problema con la pagina
 def partenza_missione(request):
     template_name = 'partenza_missione.html'
-    missione = Missione.objects.get(id_scheda=request.session['missione']['id_missione'])
-    missione.accetta_missione = datetime.datetime.now()
+    missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
+
+    dict = {'invio' : datetime.datetime.now()}
+    d = json.dumps(dict['invio'], default=myconverter)
+    d.replace('"', '')
+    missione.accetta_missione = d[1:17]
+    missione.save()
+    request.session['missione']['accetta_missione'] = d[1:17]
+
     return render(request, template_name)
 
 
@@ -230,8 +256,15 @@ class MissioneProtocolli(generic.View):
 
     def get(self, request):
         template_name = 'missione_protocolli.html'
-        missione = Missione.objects.get(id_scheda=request.session['missione']['id_missione'])
-        missione.partenza = datetime.datetime.now()
+        missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
+        
+        dict = {'invio' : datetime.datetime.now()}
+        d = json.dumps(dict['invio'], default=myconverter)
+        d.replace('"', '')
+        missione.partenza = d[1:17]
+        missione.save()
+        request.session['missione']['partenza'] = d[1:17]
+
         return render(request, template_name)
 
 
@@ -239,8 +272,15 @@ class CompilazioneScheda(generic.View):
 
     def get(self, request):
         template_name = 'mattoni.html'
-        missione = Missione.objects.get(id_scheda=request.session['missione']['id_missione'])
-        missione.arrivo = datetime.datetime.now()
+        missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
+
+        dict = {'invio' : datetime.datetime.now()}
+        d = json.dumps(dict['invio'], default=myconverter)
+        d.replace('"', '')
+        missione.arrivo = d[1:17]
+        missione.save()
+        request.session['missione']['arrivo'] = d[1:17]
+
         return render(request, template_name)
 
 
@@ -276,7 +316,7 @@ def invia_scheda(request):
             errors = form.errors
             data['errors'] = errors
             data['status'] = 'success'
-            messages.success(request, 'Scheda salvata!')
+            #messages.success(request, 'Scheda salvata!')
             return JsonResponse(data)
         else:
 
@@ -284,3 +324,40 @@ def invia_scheda(request):
             data['errors'] = errors
             data['status'] = 'error'
             return JsonResponse(data)
+
+
+def modifica_paziente(request):
+    form = MissioneModificaForm(request.POST or None, instance=Missione.objects.get(id_missione=request.session['missione']['id_missione']))
+    if request.method == 'POST':
+        data = {}
+        if form.is_valid():
+            missione = form.save(commit=False)
+            
+            missione.save()
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'success'
+            #messages.success(request, 'Scheda salvata!')
+            return JsonResponse(data)
+        else:
+
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'error'
+            return JsonResponse(data)
+
+def rientro_sede(request):
+    if request.method == 'GET':
+        missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
+        
+        dict = {'invio' : datetime.datetime.now()}
+        d = json.dumps(dict['invio'], default=myconverter)
+        d.replace('"', '')
+        missione.rientro_sede = d[1:17]
+        missione.chiusa = True
+        missione.save()
+        del request.session['missione']
+        del request.session['scheda']
+        request.session.modified = True
+        data = {}
+        return JsonResponse(data)

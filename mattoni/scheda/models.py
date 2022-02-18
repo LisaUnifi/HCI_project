@@ -203,7 +203,7 @@ class Missione(models.Model):
     provincia_residenza = models.CharField(max_length = 2, blank=True,null=True)
     cap_residenza = models.IntegerField(blank=True,null=True)
 
-    invio = models.DateTimeField(auto_now_add = True)
+    invio = models.DateTimeField(blank=True, null=True)
     accetta_missione = models.DateTimeField(blank=True, null=True)
     partenza = models.DateTimeField(blank=True,null=True)
     arrivo = models.DateTimeField(blank=True,null=True)
@@ -220,13 +220,12 @@ class Missione(models.Model):
     reparto = models.CharField(max_length = 20, blank=True,null=True)
 
     #se rifiuto trasporto
-    nome_s = models.CharField(max_length = 20, blank=True,null=True)
-    cognome_s = models.CharField(max_length = 20, blank=True,null=True)
     nome_t = models.CharField(max_length = 20, blank=True,null=True)
     cognome_t = models.CharField(max_length = 20, blank=True,null=True)
+    parentela = models.CharField(max_length = 20, blank=True,null=True)
 
     #capire come gestire esito
-    esito = models.CharField(max_length = 20, blank=True,null=True)
+    esito = models.BooleanField(default = True)
     
     chiusa = models.BooleanField(default = False)
 
