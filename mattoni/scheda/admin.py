@@ -62,9 +62,7 @@ class TestaPiediAdmin(admin.ModelAdmin):
 
 class SchedaAdmin(admin.ModelAdmin):
     list_display = (
-        'id_scheda',
-        'scenario', 
-        'cosciente', 'respiraBLS', 'circoloBLS', 'dae', 'cicli', 'noteBLS', 'pervieta', 'ostruzione', 
+        'id_scheda', 'scenario', 'cosciente', 'respiraBLS', 'circoloBLS', 'dae', 'cicli', 'pervieta', 'ostruzione', 
         'respira', 'dispnea', 'palpo', 'ascolto', 'conto', 'saturazione', 'saturazione_oss', 'ossigeno', 
         'pressione_massima', 'pressione_minima', 'frequenza', 'temperatura', 'emorragie', 'polso', 'regolare_polso', 'cute', 'sudato', 'sudore_freddo', 'dolore_toracico', 'ora_dolore', 'data_dolore', 'tipo_dolore', 
         'avpu', 'tempo', 'spazio', 'mimica_c', 'braccia_c', 'linguaggio_c', 'forza_sup', 'forza_inf', 'sens_sup', 'sens_inf', 

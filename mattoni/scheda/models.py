@@ -117,7 +117,7 @@ class Scheda(models.Model):
     circoloBLS = models.BooleanField(blank=True, null=True)
     dae = models.BooleanField(blank=True, null=True)
     cicli = models.IntegerField(default = 0)
-    noteBLS = models.TextField(blank=True, null=True)
+    
     pervieta = models.BooleanField(blank=True, null=True)
     ostruzione = models.BooleanField(blank=True, null=True)
 
@@ -211,6 +211,8 @@ class Missione(models.Model):
     pronto_socc = models.DateTimeField(blank=True,null=True)
     libero = models.DateTimeField(blank=True,null=True)
     rientro_sede = models.DateTimeField(blank=True,null=True)
+
+    #TODO:inserire meccanica di tempistiche di arresto?
 
     #se trasporto ospedale
     criticita_trasporto = models.CharField(max_length = 1, blank=True,null=True)
