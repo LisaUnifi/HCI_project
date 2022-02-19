@@ -3,6 +3,10 @@
 
 {% block title %}Scheda Intervento{% endblock %}
 
+{% block css %}
+<link href="{% static 'css/gestione_mezzi.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 
 <div class="d-flex flex-column" style="height: 100vh">
@@ -44,32 +48,12 @@
                     <label class="custom-control-label" for="defaultGroupExample2">Trauma</label>
                 </div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="scenario"  value="Trauma maggiore" data-toggle="modal" data-target="#centrale">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="scenario"  value="Trauma maggiore">
                     <label class="custom-control-label" for="defaultGroupExample3">Trauma maggiore</label>
                 </div>
                 <div class="custom-control custom-radio">
                     <input type="radio" class="custom-control-input" id="defaultGroupExample4" name="scenario" value="Non definita">
                     <label class="custom-control-label" for="defaultGroupExample4">Non definita</label>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="centrale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header d-flex justify-content-end">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body text-center">
-                                <h5 class="modal-title" id="exampleModalLabel">Avverto la centrale?</h5>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">SI</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
 
@@ -87,6 +71,82 @@
                         </div>
                     </div>
                 </div>
+                <!-- Elemento nascosto -->
+                <div class="collapse" id="blsd">
+                    <div class="container text-center bg-light border mb-2 w-100">
+                        <h4 class="mt-2 mb-2">BLS-D</h4>
+                        <p class="slogan m-0">Posiziona il paziente su un piano rigido</p>
+                        <p class="slogan m-0">Allinea gli arti e scopri il torace</p>
+                        <p class="slogan m-0">Posiziona il capo in iperestensione</p>
+                        <p class="slogan m-0 mb-2">Valuta la pervietà delle vie aeree</p>
+                        <div class="row p-1 ">
+                            <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                <h6>Respira?</h6>
+                            </div>
+                            <div class="col-5 col-md-3 col-lg-2">
+                                <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                    <input type="radio" class="btn-check" id="respiraBLS_si" value="True" name="respiraBLS" autocomplete="off">
+                                    <label class="btn btn-light" for="respiraBLS_si">SI</label>
+                                    <input type="radio" class="btn-check" id="respiraBLS_no" value="False" name="respiraBLS" autocomplete="off">
+                                    <label class="btn btn-light" for="respiraBLS_no">NO</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-1 ">
+                            <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                <h6>Circolo?</h6>
+                            </div>
+                            <div class="col-5 col-md-3 col-lg-2">
+                                <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                    <input type="radio" class="btn-check" id="circoloBLS_si" value="True" name="circoloBLS" autocomplete="off">
+                                    <label class="btn btn-light" for="circoloBLS_si">SI</label>
+                                    <input type="radio" class="btn-check" id="circoloBLS_no" value="False" name="circoloBLS" autocomplete="off">
+                                    <label class="btn btn-light" for="circoloBLS_no">NO</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="msg_respiro" hidden>
+                            <p class="slogan m-0">Condurre 1 insufflazione ogni 5 secondi</p>
+                            <p class="slogan m-0 mb-2">Rivalutare dopo 1 minuto</p>
+                        </div>
+                        <div id="msg_circolo" hidden>
+                            <p class="slogan m-0">RCP con rapporto 30:2</p>
+                            <p class="slogan m-0 mb-2">Dopo il primo ciclo se possibile inserisci la cannula</p>
+                        </div>
+                        <div class="row p-1 mb-2">
+                            <div class="col-7 col-md-9 col-lg-10 d-flex justify-content-start align-items-end">
+                                <h6>Numero cicli insufflazioni-massaggio</h6>
+                            </div>
+                            <div class="col-5 col-md-3 col-lg-2 d-flex justify-content-end">
+                                <div class="def-number-input number-input">
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus" id="minus" disabled></button>
+                                    <input class="quantity form-control" min="0" value="0" type="number" name="cicli" id="msg_cicli" disabled>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" id="plus" disabled></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-1 mb-2">
+                            <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                <h6>Defibrillatore</h6>
+                            </div>
+                            <div class="col-5 col-md-3 col-lg-2">
+                                <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                    <input type="radio" class="btn-check" id="dae_si" value="True" name="dae" autocomplete="off">
+                                    <label class="btn btn-light" for="dae_si">SI</label>
+                                    <input type="radio" class="btn-check" id="dae_no" value="False" name="dae" autocomplete="off">
+                                    <label class="btn btn-light" for="dae_no">NO</label>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="slogan">Continuare la raccolta dati solo se il paziente è stabile!</p>
+                    </div>
+                </div>
+
+
+
+
+
+
                 <div class="row p-1">
                     <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
                         <h6>Vie aeree pervie?</h6>
@@ -582,14 +642,34 @@
                 <button type="button" id="rifiuto_trasporto" class="btn p-3 btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modal_rifiuto">
                     Rifiuto trasporto
                 </button>
+                <button type="button" id="libero" class="btn p-3 btn-primary btn-lg" hidden>Liberi dal servizio</button>
                 <button type="button" id="trasporto_ospedale" class="btn p-3 btn-primary btn-lg">Trasporto in ospedale</button>
                 <button type="button" id="conclusione" class="btn p-3 btn-primary btn-lg" hidden>Arrivo in reparto</button>
                 <button type="button" id="partenza" class="btn p-3 btn-primary btn-lg" hidden>Partenza da intervento</button>
+                
             </div>
         </div>
     </div>
 </form>
 
+</div>
+
+<!-- Centrale -->
+<div class="modal fade" id="centrale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Attivazione chiamata in centrale!</h5>
+            </div>
+            <div class="modal-body text-center">
+                <h5 class="modal-title" id="exampleModalLabel">Avverto la centrale?</h5>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="annulla_cosciente">NO</button>
+            <button type="button" id="allerta" class="btn btn-primary" data-dismiss="modal">SI</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Paziente -->
@@ -682,7 +762,7 @@
                 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
+                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                     <button type="submit" id="paziente_submit" class="btn btn-primary">Conferma</button>
                 </div>
                     
@@ -861,6 +941,69 @@
     
     
     });
+
+
+    $('#allerta').click(function (e) {
+            e.preventDefault();
+            formData = $('#compilazione_scheda').serialize();
+            
+            
+              $.ajax({
+                  headers: {
+                      "X-CSRFToken": token,
+                  },
+                  url: '{% url "invia_scheda" %}',
+                  dataType: 'json', 
+                  type: 'POST',
+                  data: formData,
+                  success: function (result) {
+                      if(result['status']=='error'){
+                            
+                    }
+                    else{
+                        $('#blsd').collapse('show');
+                        $('#centrale').modal('hide');
+                        $('#rifiuto_trasporto').attr('hidden',true);
+                        $('#libero').attr('hidden',false);
+                    }
+                  },
+    
+              });
+      });
+
+
+      $('#libero').click(function (e) {
+            e.preventDefault();
+            formData = $('#compilazione_scheda').serialize();
+            
+            
+              $.ajax({
+                  headers: {
+                      "X-CSRFToken": token,
+                  },
+                  url: '{% url "invia_scheda" %}',
+                  dataType: 'json', 
+                  type: 'POST',
+                  data: formData,
+                  success: function (result) {
+                      if(result['status']=='error'){
+                            
+                    }
+                    else{
+                        window.location = '{% url "riepilogo_missione" %}';
+                    }
+                  },
+    
+              });
+      });
+
+      $('#annulla_cosciente').click(function () {
+
+            $('#cosciente_no').prop('checked', false);
+            $('#cosciente_si').prop('checked', true);
+            $('#centrale').modal('hide');
+      });
+
 
     $('#rifiuto_trasporto').click(function (e) {
             e.preventDefault();
