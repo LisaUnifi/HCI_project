@@ -1,4 +1,50 @@
 $(document).ready(function () {
+    $('#cosciente_no').click(function () {
+        $('#centrale').modal('show');
+        $('#cosciente_no').prop('checked', true);
+        $('#cosciente_si').prop('checked', false);
+    });
+    $('#cosciente_si').click(function () {
+        $('#blsd').collapse('hide');
+        $('#cosciente_no').prop('checked', false);
+        $('#cosciente_si').prop('checked', true);
+        $('#respiraBLS_no').prop('checked', false);
+        $('#respiraBLS_si').prop('checked', false);
+        $('#circoloBLS_no').prop('checked', false);
+        $('#circoloBLS_si').prop('checked', false);
+        $('#dae_no').prop('checked', false);
+        $('#dae_si').prop('checked', false);
+    });
+
+    $('#respiraBLS_si').click(function () {
+        if($('#circoloBLS_no').prop('checked')){
+            $('#msg_respiro').prop('hidden', true);
+            $('#msg_circolo').prop('hidden', true);
+            $('#msg_cicli').prop('disabled', true);
+            $('#plus').prop('disabled', true);
+            $('#minus').prop('disabled', true);
+            $('#circoloBLS_no').prop('checked', false);
+            $('#circoloBLS_si').prop('checked', true);
+        }
+    });
+
+    $('#circoloBLS_si').click(function () {
+        $('#msg_cicli').prop('disabled', true);
+        $('#plus').prop('disabled', true);
+        $('#minus').prop('disabled', true);
+        $('#msg_respiro').prop('hidden', false);
+        $('#msg_circolo').prop('hidden', true);
+    });
+    $('#circoloBLS_no').click(function () {
+        $('#msg_cicli').prop('disabled', false);
+        $('#plus').prop('disabled', false);
+        $('#minus').prop('disabled', false);
+        $('#msg_circolo').prop('hidden', false);
+        $('#msg_respiro').prop('hidden', true);
+        $('#respiraBLS_no').prop('checked', true);
+        $('#respiraBLS_si').prop('checked', false);
+    });
+
     $('#pervieta_no').click(function () {
         $('#ostruzione').collapse('show');
         $('#pervieta_no').prop('checked', true);
