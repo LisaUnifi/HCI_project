@@ -99,5 +99,18 @@ $(document).ready(function () {
         $('#forza_sensibilita_scheda').collapse('toggle');
     });
 
+    $('#tp_front').click(function (e) {
+        e.preventDefault();
+        
+        $('#tp_scheda_front').collapse('toggle');
+        $('#tp_scheda_back').collapse('hide');
+    });
+    $('#tp_back').click(function (e) {
+        e.preventDefault();
+        
+        $('#tp_scheda_front').collapse('hide');
+        $('#tp_scheda_back').collapse('toggle');
+    });
+
 });
 

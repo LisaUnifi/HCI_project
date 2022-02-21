@@ -5,6 +5,7 @@
 
 {% block css %}
 <link href="{% static 'css/gestione_mezzi.css' %}" rel="stylesheet">
+<link href="{% static 'css/mattoni.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -570,9 +571,63 @@
                     <option value="Sul fianco sx">Sul fianco sx</option>
                     <option value="Sul fianco dx">Sul fianco dx</option>
                 </select>
-                <button type="button" class="btn btn-primary btn-lg w-100 mb-2" data-mdb-toggle="modal" data-mdb-target="#testapiedi">
-                    Esame testa-piedi
-                </button>
+                
+                
+
+                <div class="row p-1 ">
+                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                        <input type="radio" class="btn-check" id="tp_front" name="tp_front" autocomplete="off">
+                        <label class="btn btn-light" for="tp_front">Testa-Piedi - Parte Anteriore</label>
+                        <input type="radio" class="btn-check" id="tp_back" name="tp_back" autocomplete="off">
+                        <label class="btn btn-light" for="tp_back">Testa-Piedi - Parte Posteriore</label>
+                    </div>
+                </div>
+                <!-- Elemento nascosto -->
+                <div class="collapse" id="tp_scheda_front">
+                    <div class="row p-1">
+                        <div class="col-7 col-md-6 col-lg-6" id="stack">
+                            <img src="{% static 'img/man.png' %}" class="img-fluid" alt="Responsive image" id="img_front">
+                            <canvas id="canvas_front"></canvas>
+                        </div>
+                        </div>
+                        <div class="col-5 col-md-6 col-lg-6 d-flex flex-column justify-content-center text-center" id="img_buttons">
+                            <h6>Tipologia:</h6>
+                            <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
+                                <button type="radio" class="btn btn-primary" id="Dolore_f">Dolore</button>
+                                <button type="radio" class="btn btn-primary" id="Ustione_f">Ustione</button>
+                                <button type="radio" class="btn btn-primary" id="Emorragia_f">Emorragia</button>
+                            </div>
+                            <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
+                                <button type="radio" class="btn btn-primary" id="Cancella_f" value="Cancella">Cancella</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id="tp_scheda_back">
+                    <div class="row p-1 ">
+                        <div class="col-7 col-md-6 col-lg-6">
+                            <img src="{% static 'img/man.png' %}" class="img-fluid" alt="Responsive image" id="img_back">
+                            <canvas id="canvas_back"></canvas>
+                        </div>
+                        <div class="col-5 col-md-6 col-lg-6 d-flex flex-column justify-content-center text-center">
+                            <h6>Tipologia:</h6>
+                            <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
+                                <button type="radio" class="btn btn-primary" id="Dolore_b">Dolore</button>
+                                <button type="radio" class="btn btn-primary" id="Ustione_b">Ustione</button>
+                                <button type="radio" class="btn btn-primary" id="Emorragia_b">Emorragia</button>
+                            </div>
+                            <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
+                                <button type="radio" class="btn btn-primary" id="Cancella_b" value="Cancella">Cancella</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img src="{% static 'img/circle.png' %}" class="img-fluid" alt="Responsive image" id="circle" hidden>
+                <img src="{% static 'img/ecs.png' %}" class="img-fluid" alt="Responsive image" id="ecs" hidden>
+                <img src="{% static 'img/hashtag.png' %}" class="img-fluid" alt="Responsive image" id="hashtag" hidden>
+
+
+
                 <div class="container mb-2">
                     <div class="form-floating mb-4">
                         <textarea class="form-control" id="allergie" name="allergie" rows="2"></textarea>
@@ -1169,5 +1224,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script src="{% static 'js/functions.js' %}"></script>
+<script src="{% static 'js/testapiedi.js' %}"></script>
 <script src="{% static 'js/mattoni.js' %}"></script>
 {% endblock %}
