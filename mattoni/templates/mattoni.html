@@ -583,48 +583,55 @@
                     </div>
                 </div>
                 <!-- Elemento nascosto -->
+                <img src="{% static 'img/circle.png' %}" id="circle" hidden>
+                <img src="{% static 'img/ecs.png' %}" class="img-fluid" alt="Responsive image" id="ecs" hidden>
+                <img src="{% static 'img/hashtag.png' %}" class="img-fluid" alt="Responsive image" id="hashtag" hidden>
                 <div class="collapse" id="tp_scheda_front">
                     <div class="row p-1">
-                        <div class="col-7 col-md-6 col-lg-6" id="stack">
+                        <div class="col-7 col-md-6 col-lg-6" id="stack_f">
                             <img src="{% static 'img/man.png' %}" class="img-fluid" alt="Responsive image" id="img_front">
                             <canvas id="canvas_front"></canvas>
-                        </div>
                         </div>
                         <div class="col-5 col-md-6 col-lg-6 d-flex flex-column justify-content-center text-center" id="img_buttons">
                             <h6>Tipologia:</h6>
                             <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
-                                <button type="radio" class="btn btn-primary" id="Dolore_f">Dolore</button>
-                                <button type="radio" class="btn btn-primary" id="Ustione_f">Ustione</button>
-                                <button type="radio" class="btn btn-primary" id="Emorragia_f">Emorragia</button>
+                                <input type="radio" class="btn-check" id="Dolore_f">
+                                <label class="btn btn-light" for="Dolore_f">Dolore</label>
+                                <input type="radio" class="btn-check" id="Ustione_f">
+                                <label class="btn btn-light" for="Ustione_f">Ustione</label>
+                                <input type="radio" class="btn-check" id="Emorragia_f">
+                                <label class="btn btn-light" for="Emorragia_f">Emorragia</label>
                             </div>
                             <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
-                                <button type="radio" class="btn btn-primary" id="Cancella_f" value="Cancella">Cancella</button>
+                                <input type="radio" class="btn-check" id="Cancella_f">
+                                <label class="btn btn-light" for="Cancella_f">Cancella</label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="collapse" id="tp_scheda_back">
                     <div class="row p-1 ">
-                        <div class="col-7 col-md-6 col-lg-6">
+                        <div class="col-7 col-md-6 col-lg-6" id="stack_b">
                             <img src="{% static 'img/man.png' %}" class="img-fluid" alt="Responsive image" id="img_back">
                             <canvas id="canvas_back"></canvas>
                         </div>
                         <div class="col-5 col-md-6 col-lg-6 d-flex flex-column justify-content-center text-center">
                             <h6>Tipologia:</h6>
                             <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
-                                <button type="radio" class="btn btn-primary" id="Dolore_b">Dolore</button>
-                                <button type="radio" class="btn btn-primary" id="Ustione_b">Ustione</button>
-                                <button type="radio" class="btn btn-primary" id="Emorragia_b">Emorragia</button>
+                                <input type="radio" class="btn-check" id="Dolore_b">
+                                <label class="btn btn-light" for="Dolore_b">Dolore</label>
+                                <input type="radio" class="btn-check" id="Ustione_b">
+                                <label class="btn btn-light" for="Ustione_b">Ustione</label>
+                                <input type="radio" class="btn-check" id="Emorragia_b">
+                                <label class="btn btn-light" for="Emorragia_b">Emorragia</label>
                             </div>
                             <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
-                                <button type="radio" class="btn btn-primary" id="Cancella_b" value="Cancella">Cancella</button>
+                                <input type="radio" class="btn-check" id="Cancella_b">
+                                <label class="btn btn-light" for="Cancella_b">Cancella</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <img src="{% static 'img/circle.png' %}" class="img-fluid" alt="Responsive image" id="circle" hidden>
-                <img src="{% static 'img/ecs.png' %}" class="img-fluid" alt="Responsive image" id="ecs" hidden>
-                <img src="{% static 'img/hashtag.png' %}" class="img-fluid" alt="Responsive image" id="hashtag" hidden>
 
 
 
