@@ -1,15 +1,32 @@
-#stack {
+#stack_f {
     position: relative;
-    height: 45vh;
+    height: calc(var(--mdb-gutter-x)*22);
 }
 
-#stack > canvas {
+#stack_f > canvas {
     position: absolute;
     top: 0;
     left: 0;
 }
 
-#stack > img {
+#stack_f > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#stack_b {
+    position: relative;
+    height: calc(var(--mdb-gutter-x)*22);
+}
+
+#stack_b > canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#stack_b > img {
     position: absolute;
     top: 0;
     left: 0;
