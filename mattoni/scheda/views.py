@@ -335,6 +335,7 @@ def invia_scheda(request):
             scheda.save()
 
             data['status'] = 'success'
+            
             #messages.success(request, 'Scheda salvata!')
             return JsonResponse(data)
         else:
@@ -342,6 +343,7 @@ def invia_scheda(request):
             errors = form.errors
             data['errors'] = errors
             data['status'] = 'error'
+            breakpoint()
             return JsonResponse(data)
 
 

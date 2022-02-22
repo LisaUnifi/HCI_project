@@ -116,7 +116,7 @@ class Scheda(models.Model):
     respiraBLS = models.BooleanField(blank=True, null=True)
     circoloBLS = models.BooleanField(blank=True, null=True)
     dae = models.BooleanField(blank=True, null=True)
-    cicli = models.IntegerField(default = 0)
+    cicli = models.IntegerField(default = 0, blank=True, null=True)
     
     pervieta = models.BooleanField(blank=True, null=True)
     ostruzione = models.BooleanField(blank=True, null=True)

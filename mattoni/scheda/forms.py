@@ -247,7 +247,7 @@ class SchedaMissioneForm(forms.ModelForm):
             'temperatura', 'emorragie', 'polso', 'regolare_polso', 'cute', 'sudato', 'sudore_freddo', 'dolore_toracico', 'ora_dolore','data_dolore',
             'tipo_dolore', 'avpu', 'tempo', 'spazio', 'mimica_c', 'braccia_c', 'linguaggio_c', 'forza_sup',
             'forza_inf', 'sens_sup', 'sens_inf', 'posizione', 'allergie', 'patologie', 'glicemia', 'farmaci',
-            'pasto', 'note', 'respiraBLS', 'circoloBLS', 'dae', 'cicli'
+            'pasto', 'note', 'respiraBLS', 'circoloBLS', 'dae', 'cicli',
         ]
 
     '''
