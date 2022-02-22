@@ -86,7 +86,9 @@
   </div>
   <div class="col-6 d-flex justify-content-start">
     <a href="{% url 'gestione_missioni' %}" class="btn btn-primary m-4" role="button" type="submit">Torna a gestione missioni</a>
-    <a class="btn btn-primary m-4" role="button" type="submit" id="scarica_pdf">Scarica</a>
+
+    <button class="btn btn-primary m-4" role="button" id="scarica_pdf">Scarica</button>
+
   </div>
 </div>
 
@@ -777,6 +779,14 @@
 
 {% endblock %}
 {% block scripts %}
+<script>
+$(document).ready(function(){
+  $('#scarica_pdf').click(function(){
+    window.open('{% url "scarica_pdf" missione.id_missione %}');
+  });
+});
+  
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

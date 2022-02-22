@@ -26,7 +26,7 @@ import base64
 import os
 import io
 from django.http import FileResponse
-from reportlab.pdfgen import canvas
+from scheda.utils import render_to_pdf #created in step 4
 
 
 import pdb
@@ -507,11 +507,30 @@ def invia_trasporto(request):
             data['status'] = 'error'
             return JsonResponse(data)
         
-def scarica_pdf(request):
-    if request.method == 'GET':
-        buffer = io.BytesIO()
-        p = canvas.Canvas(buffer)
-        p.showPage()
-        p.save()
-        buffer.seek(0)
-        return FileResponse(buffer, as_attachment=True, filename='report.pdf')
+class GeneratePdf(generic.View):
+    def get(self, request, pk):
+        query = Missione.objects.get(id_missione=pk)
+        intervento = Intervento.objects.get(id_missione=query)
+        scheda = Scheda.objects.get(id_scheda = intervento.id_scheda.id_scheda)
+        tp = scheda.testa_piedi
+
+        front = str(tp.front)
+        fsplit = front.split('/')
+        f = fsplit[len(fsplit)-2] + '/' + fsplit[len(fsplit)-1]
+        
+        back = str(tp.back)
+        bsplit = back.split('/')
+        b = bsplit[len(bsplit)-2] + '/' + bsplit[len(bsplit)-1]
+        data = {'missione': query, 'scheda': scheda, 'front': f, 'back': b, 'corp':request.user.corporation}
+        
+        pdf = render_to_pdf('pdf/dettagli.html', data)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = "Invoice_%s.pdf" %("12341231")
+            content = "inline; filename='%s'" %(filename)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename='%s'" %(filename)
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse(pdf, content_type='application/pdf')
