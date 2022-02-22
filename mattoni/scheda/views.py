@@ -24,6 +24,9 @@ import datetime
 import json
 import base64
 import os
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
 
 
 import pdb
@@ -504,4 +507,11 @@ def invia_trasporto(request):
             data['status'] = 'error'
             return JsonResponse(data)
         
-    
+def scarica_pdf(request):
+    if request.method == 'GET':
+        buffer = io.BytesIO()
+        p = canvas.Canvas(buffer)
+        p.showPage()
+        p.save()
+        buffer.seek(0)
+        return FileResponse(buffer, as_attachment=True, filename='report.pdf')
