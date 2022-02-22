@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView 
 import scheda.views as scheda
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     #path include nella prima parte il nome della pagina e nella seconda il contenuto 
@@ -50,6 +52,7 @@ urlpatterns = [
     path('missione_protocolli/', scheda.MissioneProtocolli.as_view(), name='missione_protocolli'),
     path('mattoni/', scheda.CompilazioneScheda.as_view(), name='mattoni'),
     path('invia_scheda/', scheda.invia_scheda, name='invia_scheda'),
+    path('invia_tp/', scheda.invia_tp, name='invia_tp'),
     path('invia_rifiuto/', scheda.invia_rifiuto, name='invia_rifiuto'),
     path('invia_trasporto/', scheda.invia_trasporto, name='invia_trasporto'),
     path('modifica_paziente/', scheda.modifica_paziente, name='modifica_paziente'),
@@ -58,3 +61,5 @@ urlpatterns = [
     path('operativo_rientro/', scheda.OperativoRientro.as_view(), name='operativo_rientro'),
     path('riepilogo_missione/', scheda.RiepilogoMissione.as_view(), name='riepilogo_missione'),
 ]
+
+

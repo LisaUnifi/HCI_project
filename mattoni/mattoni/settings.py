@@ -68,6 +68,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -144,7 +145,5 @@ AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
 
-MEDIA_ROOT = [
-    os.path.join(BASE_DIR, 'scheda/upload/'),
-]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
 

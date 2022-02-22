@@ -10,13 +10,20 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.files.base import ContentFile
+from django.core.files.storage import FileSystemStorage
+from django.core.files import File
 from .forms import MezziCreationForm, MissionCreationForm, MissioneModificaForm, SchedaMissioneForm, UserModificaForm, UserRegistrationForm, MissioneRifiutoForm, MissioneTrasportoForm
 from .models import Missione, MyUser, Mezzo, Scheda, Intervento, TestaPiedi
 from django.contrib import messages 
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.forms.models import model_to_dict
+from django.conf import settings
+
 import datetime
 import json
+import base64
+import os
 
 
 import pdb
@@ -288,7 +295,17 @@ def dettagli_missione(request, pk):
         query = Missione.objects.get(id_missione=pk)
         intervento = Intervento.objects.get(id_missione=query)
         scheda = Scheda.objects.get(id_scheda = intervento.id_scheda.id_scheda)
-        return render(request, template_name, context={'missione': query, 'scheda': scheda})
+        tp = scheda.testa_piedi
+
+        front = str(tp.front)
+        fsplit = front.split('/')
+        f = fsplit[len(fsplit)-2] + '/' + fsplit[len(fsplit)-1]
+        
+        back = str(tp.back)
+        bsplit = back.split('/')
+        b = bsplit[len(bsplit)-2] + '/' + bsplit[len(bsplit)-1]
+
+        return render(request, template_name, context={'missione': query, 'scheda': scheda, 'front': f, 'back': b})
 
 
 class RiepilogoMissione(generic.View):
@@ -345,6 +362,38 @@ def invia_scheda(request):
             data['status'] = 'error'
             breakpoint()
             return JsonResponse(data)
+
+
+def invia_tp(request):
+    if request.method == 'POST':
+        data = {}
+
+        image_data = request.POST.get('front')
+        format, imgstr = image_data.split(';base64,')
+        ext = format.split('/')[-1]
+        dataf = ContentFile(base64.b64decode(imgstr))
+        front = "front"+str(request.session['scheda']['id_scheda'])+"." + ext
+        fs = FileSystemStorage()
+        frontname = fs.save(front, dataf)
+
+        scheda = Scheda.objects.get(id_scheda = request.session['scheda']['id_scheda'])
+        tp = scheda.testa_piedi
+        tp.front = os.path.join(settings.MEDIA_ROOT, frontname)
+
+        image_data = request.POST.get('back')
+        format, imgstr = image_data.split(';base64,')
+        ext = format.split('/')[-1]
+        datab = ContentFile(base64.b64decode(imgstr))
+        back = "back"+str(request.session['scheda']['id_scheda'])+"." + ext
+        fs = FileSystemStorage()
+        backname = fs.save(back, datab)
+
+        tp.back = os.path.join(settings.MEDIA_ROOT, backname)
+
+        tp.save()
+
+        
+        return JsonResponse(data)
 
 
 def modifica_paziente(request):
@@ -440,7 +489,11 @@ def invia_trasporto(request):
 
             missione.save()
             
-
+            data['criticita_trasporto'] = missione.criticita_trasporto
+            data['patologia_trasporto'] = missione.patologia_trasporto
+            data['ospedale'] = missione.ospedale
+            data['reparto'] = missione.reparto
+            
 
             data['status'] = 'success'
             return JsonResponse(data)

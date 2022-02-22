@@ -112,5 +112,10 @@ $(document).ready(function () {
         $('#tp_scheda_back').collapse('toggle');
     });
 
+    $('#presa_visione').click(function () {
+        $('#risposta_centrale').modal('hide');
+        window.location.href = '#esito_menu';
+    });
+
 });
 

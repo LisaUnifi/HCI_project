@@ -3,6 +3,10 @@
 
 {% block title %}Scheda Intervento{% endblock %}
 
+{% block css %}
+<link href="{% static 'css/dettagli_missione.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 
 <!-- Navbar -->
@@ -572,6 +576,29 @@
         {% else %}
           <p class="text-muted mb-4">{{scheda.posizione}}</p>
         {% endif %}
+      </div>
+
+      <!-- Testa Piedi -->
+      <div class="col-12">
+        <h6 class="text-uppercase text-center mb-2"><strong>Esame Testa-Piedi</strong></h6>
+        <div class="row p-1">
+            <div class="col-6 d-flex justify-content-center">
+              <div class='product-holder'>
+                {% with nomef=front %}
+                <img src="{% static 'img/man.png' %}" class="img-fluid product-image" alt="Responsive image" id="img_front">
+                <img src="{% static nomef %}" class="img-fluid plus-image" alt="Responsive image" id="tp_front_result">
+                {% endwith %}
+              </div>
+            </div>
+            <div class="col-6 d-flex justify-content-center">
+              <div class='product-holder'>
+                {% with nomeb=back %}
+                <img src="{% static 'img/man.png' %}" class="img-fluid product-image" alt="Responsive image" id="img_back">
+                <img src="{% static nomeb %}" class="img-fluid plus-image" alt="Responsive image" id="tp_back_result">
+                {% endwith %}
+              </div>
+            </div>
+        </div>
       </div>
 
       <!-- Allergie -->
