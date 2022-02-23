@@ -100,9 +100,9 @@
                   {% for m in missione %}
                       {% if m.chiusa %}
                           <tr>
-                              <td scope="row">{{ m.id_missione }}</td>
-                              <td>{{ m.luogo }} C{{ m.patologia }} {{ m.criticita }}</td>
-                              <td>{{ m.cognome_p }} {{ m.nome_p }}</td>
+                              <td class="text-nowrap" scope="row">{{ m.id_missione }}</td>
+                              <td class="text-nowrap">{{ m.luogo }} C{{ m.patologia }} {{ m.criticita }}</td>
+                              <td class="text-nowrap">{{ m.cognome_p }} {{ m.nome_p }}</td>
                               <td>{{ m.luogo_intervento }}, {{ m.civico_intervento }}</td>
                               <td>
                                   <form action="{% url 'dettagli_missione' m.id_missione %}" method='get'>

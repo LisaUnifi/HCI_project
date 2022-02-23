@@ -8,16 +8,14 @@
 {% endblock %}
 
 {% block content %}
-
-<nav class="navbar navbar-expand-sm bg-light navbar-light">
+<nav class="navbar navbar-expand-sm">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <div class="container m-auto p-3">
+            <div class="container">
                 <a class="navbar-brand" href="#">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-                    height="20"
-                    alt="MDB Logo"
+                    <img
+                    src="{% static 'img/logoHCI.png' %}"
+                    height="50"
                     loading="lazy"
                   />
                 </a>
@@ -25,12 +23,12 @@
         </li>
 
         <li class="nav-item">
-            <div class="container p-3">
+            <div class="container ms-0 p-3">
                 <h3>{{request.user.corporation}}</h3>
             </div>
         </li>
-
     </ul>
+    <a href="{% url 'logout' %}" class="btn btn-primary m-4" style="position: absolute; right: 0; top: 0;">Log out</a>
 </nav>
 
 <div class="d-flex flex-column" style="height: 70vh">
@@ -65,7 +63,7 @@
                             <td>
                             <form action="{% url 'delete_mezzo' m.id_mezzo %}" method='post'>
                                 {% csrf_token %}
-                                <input type="submit" class="btn btn-danger btn-sm px-3 fas fa-times" value='x' onclick='return confirm("Vuoi veramente eliminare il mezzo?");'>
+                                <input type="submit" class="btn btn-info btn-sm px-3 fas fa-times" value='x' onclick='return confirm("Vuoi veramente eliminare il mezzo?");'>
                             </form> 
                             </td>
                         </tr>
@@ -79,7 +77,7 @@
 <div class="container p-5 mt-auto mb-5 me-5 text-center bg-white position-absolute bottom-0 end-0">
     <div class="row">
         <div class="col d-flex justify-content-end">
-            <a href="{% url 'home_sc' %}" role="button" class="btn p-3 btn-primary m-2 btn-lg">
+            <a href="{% url 'home_sc' %}" role="button" class="btn p-3 btn-secondary m-2 btn-lg">
                 Torna a selezione mezzo 
             </a>
             <button type="button" class="btn p-3 btn-primary btn-lg m-2" data-mdb-toggle="modal" data-mdb-target="#nuovomezzo" id="modalbutton">

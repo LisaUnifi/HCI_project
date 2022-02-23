@@ -4,51 +4,48 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<!-- Background image -->
-<div class="bg-image d-flex justify-content-center align-items-center" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/fluid/nature/015.webp'); height: 100vh;">
-    <!-- Container form -->
-    <div class="container-sm p-3 w-30 rounded bg-white text-center" style="width: 550px">
-        <img src="{% static 'img/hciLogo.png' %}" class="logo p-3 img-fluid" />
-        <p class="slogan">Accedi con le tue credenziali</p>
-        <form id="login-form" method="get" action="{% url 'access' %}">
-            {% csrf_token %}
-            {% if errors %}
-                <ul class="alert alert-danger" style="list-style: none;">
-                  <li>Lo username e/o la password non sono corretti.</li>
-                  <li>Per favore riprova!</li>
-              </ul>
-            {% endif %}
-            <!-- Username -->
-            <div class="form-outline mb-4">
-              <input type="text" id="id_username" name="username" class="form-control" />
-              <label class="form-label" for="id_username">Username</label>
-            </div>
-          
-            <!-- Password input -->
-            <div class="form-outline mb-4">
-              <input id="id_password" name="password" type="password" class="form-control"/>
-              <label class="form-label" for="id_password">Password</label>
-            </div>
-          
-          
-            <!-- Submit button -->
-            <div class="row">
-                <div class="col-sm-12 text-center p-1">
-                    <input type="submit" value="Accedi" class="btn btn-primary w-75" />
-                </div>
-            </div>            
+<div class="container">
+  <div class="container w-30 rounded text-center" style="width: 550px; margin-top: 20vh">
+    <div class="container text-center w-75">
+      <img src="{% static 'img/hciLogo.png' %}" class="w-75 logo mb-4 img-fluid"/>
+    </div>
+    <p class="slogan mb-4">Accedi con le tue credenziali</p>
+      <form id="login-form" method="get" action="{% url 'access' %}">
+          {% csrf_token %}
 
+          <!-- Messaggi di errore -->
+          {% if errors %}
+            <ul class="alert alert-danger" style="list-style: none;">
+              <li><strong>Lo username e/o la password non sono corretti.</strong> </li>
+              <li><strong>Per favore riprova!</strong></li>
+            </ul>
+          {% endif %}
 
-            <!-- Register buttons -->
-            <div class="text-center">
-              <p>Non sei ancora registrato? <a href="{% url 'registration_user' %}">Registrati</a></p>
+          <!-- Username -->
+          <div class="form-outline mb-4">
+            <input type="text" id="id_username" name="username" class="form-control" />
+            <label class="form-label" for="id_username">Username</label>
+          </div>
+        
+          <!-- Password -->
+          <div class="form-outline mb-4">
+            <input id="id_password" name="password" type="password" class="form-control"/>
+            <label class="form-label" for="id_password">Password</label>
+          </div>
+        
+          <!-- Submit -->
+          <div class="row">
+            <div class="col-sm-12 text-center p-1">
+                <input type="submit" value="Accedi" class="btn btn-primary w-75" />
             </div>
-          </form>
-      
+          </div>            
+
+          <!-- Registrati -->
+          <div class="text-center">
+            <p>Non sei ancora registrato? <a href="{% url 'registration_user' %}">Registrati</a></p>
+          </div>
+      </form>
     </div>
   </div>
-
-
-
 {% endblock %}
 

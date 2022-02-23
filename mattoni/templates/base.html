@@ -40,7 +40,8 @@
     {% block content %}
     {% endblock %}
   </main>
-
+  {% block footer %}
+  {% endblock %}
   
   <!-- jQuery -->
   <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
@@ -55,4 +56,6 @@
   {% block scripts %}
   {% endblock %}
 </body>
+
+
 </html>

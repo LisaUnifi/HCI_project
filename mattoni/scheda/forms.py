@@ -124,6 +124,18 @@ class UserRegistrationForm(UserCreationForm):
         fields = ['username', 'first_name', 'last_name', 'corporation', 'email', 'phone']
 
 
+    def __init__(self, *args, **kwargs):
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].error_messages = {'required':'Username richiesto!'}
+        self.fields['first_name'].error_messages = {'required':'Nome utente richiesto!'}
+        self.fields['last_name'].error_messages = {'required':'Cognome utente richiesto!'}
+        self.fields['password1'].error_messages = {'required':'Password richiesta!'}
+        self.fields['password2'].error_messages = {'required':'Conferma password richiesta!'}
+        self.fields['email'].error_messages = {'required':'Email richiesta!'}
+        self.fields['phone'].error_messages = {'required':'Numero di cellulare richiesto!'}
+        self.fields['corporation'].error_messages = {'required':'Associazione di appartenenza richiesa!'}
+
+
     def clean_username(self):
         '''
         Verify username is available.
@@ -153,8 +165,9 @@ class UserRegistrationForm(UserCreationForm):
         password1 = cleaned_data.get("password1")
         password2 = cleaned_data.get("password2")
         if password1 is not None and password1 != password2:
-            self.add_error("password_2", "Your passwords must match")
+            self.add_error("password2", "Le password devono essere uguali!")
         return cleaned_data
+
 
 class MezziCreationForm(forms.ModelForm):
     """
