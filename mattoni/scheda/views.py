@@ -5,7 +5,7 @@ from django.http import Http404
 from django.template import loader, RequestContext
 from django.utils import timezone
 from django.views import generic
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 from django.core.serializers import serialize
@@ -13,10 +13,10 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
 from django.core.files import File
-from .forms import MezziCreationForm, MissionCreationForm, MissioneModificaForm, SchedaMissioneForm, UserModificaForm, UserRegistrationForm, MissioneRifiutoForm, MissioneTrasportoForm
+from .forms import MezziCreationForm, MissionCreationForm, MissioneModificaForm, SchedaMissioneForm, UserChangePass, UserModificaForm, UserRegistrationForm, MissioneRifiutoForm, MissioneTrasportoForm
 from .models import Missione, MyUser, Mezzo, Scheda, Intervento, TestaPiedi
 from django.contrib import messages 
-from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.forms.models import model_to_dict
 from django.conf import settings
 
@@ -184,6 +184,26 @@ def registration_request(request):
             #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
             #return HttpResponse('<h1>Form Not valid</h1>')
     return render(request, 'registration.html', {'form': form})
+
+
+def change_password(request):
+    form = UserChangePass(request.user, request.POST)
+    if request.method == 'POST':
+        data = {}
+        
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            data['status'] = 'success' 
+            messages.success(request, 'La password è stata cambiata correttamente')
+
+            return JsonResponse(data)
+        else:
+
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'error'
+            return JsonResponse(data)
 
 
 def delete_mezzo(request, pk):

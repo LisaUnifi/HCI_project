@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView 
 import scheda.views as scheda
 from django.conf import settings
@@ -43,6 +44,7 @@ urlpatterns = [
 
     path('dati/', TemplateView.as_view(template_name='dati.html'), name='dati'),
     path('modifica_dati/', scheda.modifica_dati, name='modifica_dati'),
+    path('change_password/', scheda.change_password, name='change_password'),
     path('gestione_missioni/', scheda.GestioneMissioni.as_view(), name='gestione_missioni'),
     path('dettagli_missione/<int:pk>/', scheda.dettagli_missione, name='dettagli_missione'),
     path('visualizza_protocollo/<str:pk>/', scheda.visualizza_protocollo, name='visualizza_protocollo'),

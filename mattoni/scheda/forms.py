@@ -1,7 +1,7 @@
 from datetime import datetime
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm, PasswordChangeForm
 from .models import Mezzo, Missione, Scheda, TestaPiedi
 
 
@@ -103,6 +103,21 @@ class UserAdminChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+
+
+class UserChangePass(PasswordChangeForm):
+    
+    
+    def __init__(self, *args, **kwargs):
+        super(UserChangePass, self).__init__(*args, **kwargs)
+        
+        self.fields['new_password1'].error_messages = {'required':'Nuova password richiesta!'}
+        self.fields['new_password2'].error_messages = {'required':'Conferma password richiesta!'}
+        self.fields['old_password'].error_messages = {'required':'Vecchia password richiesta!'}
+        
+
+
 
 
 class UserRegistrationForm(UserCreationForm):

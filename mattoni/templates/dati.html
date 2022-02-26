@@ -89,27 +89,8 @@
   {% endif %}
   <div class="p-5 pb-3 m-0 bg-light">
     <div class="col-12 d-flex flex-column" >
-
-      <ul class="list-unstyled font-small m-4 " >
-        <!-- MIGLIORA -->
-        <li>
-          <form class="md-form">
-            <div class="file-field ">
-              <div class="mb-4 d-flex justify-content-end">
-                <img src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.webp"
-                  class="rounded-circle z-depth-1-half avatar-pic" style="width: 150px" alt="example placeholder avatar">
-              </div>
-              <div class="d-flex justify-content-end">
-                <div class="btn btn-mdb-color btn-rounded float-left">
-                  <span>Add photo</span>
-                  <input type="file">
-                </div>
-              </div>
-            </div>
-          </form>
-        </li>
         
-
+      <ul class="list-unstyled font-small m-4">
         <li>
           <p class="text-uppercase mb-2"><strong>Nome e Cognone</strong></p>
           <p class="text-muted mb-4">{{ request.user.first_name }} {{ request.user.last_name }}</p>
@@ -137,7 +118,12 @@
         <li>
             <div class="container p-5 d-flex justify-content-end">
               <button type="button" class="btn btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modificautente" id="modalbutton">
-                Modifica
+                Modifica dati
+            </button>
+            </div>
+            <div class="container p-5 d-flex justify-content-end">
+              <button type="button" class="btn btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#mod_password" id="modalpassword">
+                Modifica password
             </button>
             </div>
         </li>
@@ -221,6 +207,61 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="mod_password" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modifica password</h5>
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+              <form class="text-center" id="modifica_password" method="post"> 
+                  {% csrf_token %}
+                  <p class="slogan">Inserisci la vecchia password e la nuova password:</p>
+              
+                  <div class='text-center'>
+                      <ul class="alert alert-danger" id='errors_password' style="list-style: none;" hidden>
+                          
+                      </ul>
+                  </div>
+
+                  <!-- Vecchia password -->
+                  <div class="form-outline mb-4">
+
+                    <input type="password" id="id_old_password" class="form-control" name="old_password" required>
+                    <label class="form-label" for="id_old_password">Vecchia password</label>
+
+                  </div>
+
+                  <!-- Password e conferma -->
+                  <div class="row mb-4">
+                    <div class="col">
+                      <div class="form-outline">
+                        <input type="password" id="id_new_password1" class="form-control" name="new_password1" required>
+                        <label class="form-label" for="id_new_password1">Nuova password</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-outline">
+                        <input type="password" id="id_new_password2" class="form-control" name="new_password2" required>
+                        <label class="form-label" for="id_new_password2">Conferma password</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
+                      <button type="submit" id="invio_password" class="btn btn-primary">Conferma</button>
+                  </div>
+                  
+              </form>
+          
+      </div>
+  </div>
+</div>
+
 {% endblock %}
 {% block scripts %}
 <script>
@@ -257,10 +298,41 @@
                 },
   
             });
+
+    });
+
+
+
+    $('#invio_password').click(function (e) {
+          e.preventDefault();
+          formData = $('#modifica_password').serialize();
           
+          
+            $.ajax({
+                headers: {
+                    "X-CSRFToken": token,
+                },
+                url: '{% url "change_password" %}',
+                dataType: 'json', 
+                type: 'POST',
+                data: formData,
+                success: function (result) {
+                    if(result['status']=='error'){
+                      $('#errors_password').empty();
+                      errors = result['errors']
+                      for(const item in errors)
+                      {
+                          $('#errors_password').removeAttr('hidden');
+                          $("#errors_password").prepend('<p>'+errors[item]+'</p>');
+                      }
+                  }
+                  else{
+                      window.location = '{% url "dati" %}'
+                  }
+                },
   
-  
-  
+            });
+
     });
   
 });
