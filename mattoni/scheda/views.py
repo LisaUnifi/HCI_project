@@ -208,14 +208,15 @@ def change_password(request):
 
 def delete_mezzo(request, pk):
     if request.method == 'POST':
-        query = Mezzo.objects.get(id_mezzo=pk)
+        query = Mezzo.objects.get(id_mezzo=request.POST.get('id_mezzo'))
         query.delete()
         messages.success(request, 'Mezzo eliminato correttamente')
-        return redirect('gestione_mezzi')
+        return JsonResponse({})
 
 
 def missione_creation_form(request):
     form = MissionCreationForm(request.POST or None, request.FILES or None)
+    data={}
     if request.method == 'POST':
         if form.is_valid():
             missione = form.save(commit=False)
@@ -239,12 +240,15 @@ def missione_creation_form(request):
             intervento.save()
             request.session['missione'] = dictMissione
             request.session['scheda'] = dictScheda
-            return redirect('accetta_missione')
+            data['status'] = 'success'
+            messages.success(request, 'Mezzo creato con successo!')
+            return JsonResponse(data)
         else:
-            print(form.errors)
-            #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
-            #return HttpResponse('<h1>Form Not valid</h1>')
-    return render(request, '', {'form': form})
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'error'
+        return JsonResponse(data)
+    
 
 
 # TODO: fix il problema con la pagina

@@ -6,49 +6,47 @@
 {% block content %}
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-sm bg-light navbar-light">
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <div class="container m-auto p-3">
-                <a class="navbar-brand" href="#">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-                    height="20"
-                    alt="MDB Logo"
-                    loading="lazy"
-                  />
-                </a>
-            </div>
-        </li>
-
-        <li class="nav-item">
-            <div class="container p-3">
-                <h3>{{request.user.corporation}}</h3>
-            </div>
-        </li>
-        
-    </ul>
+<nav class="navbar navbar-light d-flex justify-content-start">
+  <a class="navbar-brand ms-3" href="#">
+    <img
+      src="{% static 'img/logoHCI.png' %}"
+      height="50"
+      loading="lazy"
+    />
+  </a>
+  <div class="nav-item ms-0 p-3">
+      <h3><strong>{{request.user.corporation}}</strong></h3>
+  </div>
 </nav>
-<div class="container mt-1 mb-auto p-0 bg-white w-75 d-flex justify-content-center align-items-center" style="height: 85vh">
-    <div class="card m-5 p-5 text-center">
 
+<div class="container mt-1 mb-auto p-0 w-75 d-flex justify-content-center align-items-center" style="height: 85vh">
+    <div class="card m-5 p-5 bg-light text-center">
+      <a href="{% url 'partenza_missione' %}">
         <!-- Card image -->
-        <img class="card-img-top rounded-circle img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.webp" alt="Card image cap">
-      
+        {% if request.session.missione.criticita == 'B' %}
+          <img class="card-img-top rounded-circle img-fluid" src="{% static 'img/sirena_bianca.png' %}" style="height: 400px; width: 400px;">
+        {% elif request.session.missione.criticita == 'V' %}
+          <img class="card-img-top rounded-circle img-fluid" src="{% static 'img/sirena_verde.png' %}" style="height: 400px; width: 400px;">
+        {% elif request.session.missione.criticita == 'G' %}
+          <img class="card-img-top rounded-circle img-fluid" src="{% static 'img/sirena_gialla.png' %}" style="height: 400px; width: 400px;">
+        {% else %}
+          <img class="card-img-top rounded-circle img-fluid" src="{% static 'img/sirena_rossa.png' %}" style="height: 400px; width: 400px;">
+        {% endif %}
+      </a>  
         <!-- Card content -->
-        <div class="card-body">
+        <div class="card-body p-0 m-0">
           <!-- Title -->
           {% if request.session.missione.patologia < 10 %}
-          <h1 class="card-title">{{request.session.missione.luogo}} C0{{request.session.missione.patologia}} {{request.session.missione.criticita}}</h1>
+          <h1 class="card-title display-1"><strong>{{request.session.missione.luogo}} C0{{request.session.missione.patologia}} {{request.session.missione.criticita}}</strong></h1>
           {% else %}
-          <h1 class="card-title">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</h1>
+          <h1 class="card-title display-1"><strong>{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</strong></h1>
           {% endif %}
         </div>
       
       </div>
     <div class="position-absolute bottom-0 end-0 m-4">
       <div class="container p-5">
-        <a type="submit" class="btn btn-primary btn-lg" href="{% url 'partenza_missione' %}">
+        <a type="submit" class="btn p-3 btn-primary btn-lg m-2 w-100" href="{% url 'partenza_missione' %}">
           Accetta missione
         </a>
       </div>
