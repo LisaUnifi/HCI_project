@@ -1,6 +1,6 @@
 #stack_f {
     position: relative;
-    height: calc(var(--mdb-gutter-x)*22);
+    height: calc(var(--mdb-gutter-x)*25);
 }
 
 #stack_f > canvas {
@@ -17,7 +17,7 @@
 
 #stack_b {
     position: relative;
-    height: calc(var(--mdb-gutter-x)*22);
+    height: calc(var(--mdb-gutter-x)*25);
 }
 
 #stack_b > canvas {

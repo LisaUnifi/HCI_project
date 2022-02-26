@@ -208,6 +208,17 @@ class MissionCreationForm(forms.ModelForm):
             'luogo_intervento', 'comune_intervento', 'cap_intervento', 'provincia_intervento', 
             'civico_intervento', 'cellulare', 'note', 'avvisi']
 
+    def __init__(self, *args, **kwargs):
+        super(MissionCreationForm, self).__init__(*args, **kwargs)
+        self.fields['luogo'].error_messages = {'required':'Codice luogo richiesto!'}
+        self.fields['patologia'].error_messages = {'required':'Codice patologia richiesta!'}
+        self.fields['criticita'].error_messages = {'required':'Codice criticità richiesta!'}
+        self.fields['luogo_intervento'].error_messages = {'required':'Luogo intervento richiesto!'}
+        self.fields['comune_intervento'].error_messages = {'required':'Comune intervento richiesto!'}
+        self.fields['cap_intervento'].error_messages = {'required':'CAP intervento richiesto!'}
+        self.fields['civico_intervento'].error_messages = {'required':'Civico intervento richiesto!'}
+        self.fields['provincia_intervento'].error_messages = {'required':'Provincia intervento richiesto!'}
+
 
 
 

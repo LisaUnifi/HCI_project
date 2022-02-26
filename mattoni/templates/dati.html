@@ -6,73 +6,35 @@
 {% block content %}
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-sm bg-light navbar-light">
-  <ul class="navbar-nav">
-      <li class="nav-item">
-          <div class="container">
-              <a class="navbar-brand" href="#">
-                <img
-                  src="{% static 'img/logoHCI.png' %}"
-                  height="50"
-                  loading="lazy"
-                />
-              </a>
-          </div>
-      </li> 
+<nav class="navbar navbar-light d-flex justify-content-start">
+  <a class="navbar-brand ms-3" href="#">
+    <img
+      src="{% static 'img/logoHCI.png' %}"
+      height="50"
+      loading="lazy"
+    />
+  </a>
+  <div class="nav-item ms-0 p-3">
+      <h3><strong>{{request.user.corporation}}</strong></h3>
+  </div>
 
-      <li class="nav-item">
-          <div class="container ms-0 p-3">
-              <h3>{{request.user.corporation}}</h3>
-          </div>
-      </li>
-      
-      <li class="nav-item">
-          <div class="container-fluid">
-              <ul class="navbar-nav">
-                <!-- Avatar -->
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle d-flex align-items-center"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
-                      class="square"
-                      height="50"
-                      alt="Personale Image"
-                      loading="lazy"
-                    />
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li>
-                      <a class="dropdown-item" href="{% url 'operativo' %}">Home</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="{% url 'dati' %}">I miei dati</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="{% url 'protocolli' %}">Protocolli</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-          </div>
-      </li>
-
-  </ul>
+  <!--Dropdown primary-->
+  <div class="dropdown" style="position: absolute; right: 0; top: 0;">
+    <!--Trigger-->
+    <button class="btn btn-primary mt-4 me-4" type="button" id="dropdownMenu1" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false"><span class="dark-blue-text"><i
+        class="fas fa-bars fa-1x"></i></span></button>
+    <!--Menu-->
+    <div class="dropdown-menu" style="right: 1.5em;">
+      <a class="dropdown-item" href="{% url 'operativo' %}">Home</a>
+      <a class="dropdown-item" href="{% url 'dati' %}">I miei dati</a>
+      <a class="dropdown-item" href="{% url 'protocolli' %}">Protocolli</a>
+      <a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
+      <a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+    </div>
+  </div>
 </nav>
 
 <div class="container mt-5 text-center bg-white">
@@ -91,25 +53,6 @@
     <div class="col-12 d-flex flex-column" >
 
       <ul class="list-unstyled font-small m-4 " >
-        <!-- MIGLIORA -->
-        <li>
-          <form class="md-form">
-            <div class="file-field ">
-              <div class="mb-4 d-flex justify-content-end">
-                <img src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.webp"
-                  class="rounded-circle z-depth-1-half avatar-pic" style="width: 150px" alt="example placeholder avatar">
-              </div>
-              <div class="d-flex justify-content-end">
-                <div class="btn btn-mdb-color btn-rounded float-left">
-                  <span>Add photo</span>
-                  <input type="file">
-                </div>
-              </div>
-            </div>
-          </form>
-        </li>
-        
-
         <li>
           <p class="text-uppercase mb-2"><strong>Nome e Cognone</strong></p>
           <p class="text-muted mb-4">{{ request.user.first_name }} {{ request.user.last_name }}</p>
@@ -150,6 +93,7 @@
   </div>
 </div>
 
+<!-- Modal Cambio Dati -->
 <div class="modal fade" id="modificautente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
@@ -171,13 +115,13 @@
                   <!-- Nome e Cognome -->
                   <div class="row mb-4">
                     <div class="col">
-                      <div class="form-outline">
+                      <div class="form-floating">
                         <input type="text" id="name" class="form-control" value="{{request.user.first_name}}" name="first_name" required oninvalid="this.setCustomValidity('Inserisci il nome')" oninput="setCustomValidity('')">
                         <label class="form-label" for="name">Nome</label>
                       </div>
                     </div>
                     <div class="col">
-                      <div class="form-outline">
+                      <div class="form-floating">
                         <input type="text" id="last_name" class="form-control" value="{{request.user.last_name}}" name="last_name"required oninvalid="this.setCustomValidity('Inserisci il cognome')" oninput="setCustomValidity('')">
                         <label class="form-label" for="last_name">Cognome</label>
                       </div>
@@ -185,26 +129,26 @@
                   </div>
 
                   <!-- Username -->
-                  <div class="form-outline mb-4">
+                  <div class="form-floating mb-4">
                     <input type="text" id="username" class="form-control" value="{{request.user.username}}" name="username"required oninvalid="this.setCustomValidity('Scegli uno username')" oninput="setCustomValidity('')">
                     <label class="form-label" for="username">Username</label>
                   </div>
 
                   <!-- Email -->
-                  <div class="form-outline mb-4">
+                  <div class="form-floating mb-4">
                     <input type="email" id="email" class="form-control" value="{{request.user.email}}" name="email"required oninvalid="this.setCustomValidity('Inserisci email')" oninput="setCustomValidity('')">
                     <label class="form-label" for="email">Email</label>
                   </div>
                   
 
                   <!-- Numero Telefono -->
-                  <div class="form-outline mb-4">
+                  <div class="form-floating mb-4">
                     <input type="tel" id="phone" class="form-control" value="{{request.user.phone}}" name="phone" required oninvalid="this.setCustomValidity('Inserisci il numero di cellulare')" oninput="setCustomValidity('')">
                     <label class="form-label" for="phone">Cellulare</label>
                   </div>
 
                   <!-- Associazione -->
-                  <div class="form-outline mb-4">
+                  <div class="form-floating mb-4">
                     <input type="text" id="corporation" class="form-control" value="{{request.user.corporation}}" name="corporation" required oninvalid="this.setCustomValidity('Inserisci associazione di appartenenza')" oninput="setCustomValidity('')">
                     <label class="form-label" for="corporation">Associazione</label>
                   </div>

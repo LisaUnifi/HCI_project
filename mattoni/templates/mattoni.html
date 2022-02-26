@@ -9,735 +9,762 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="d-flex flex-column" style="height: 100vh">
-
-<button type="button" class="btn btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#paziente" id="modalbutton">
-    Modifica
-</button>
-
-<form id="compilazione_scheda" method="post">
-    {% csrf_token %}
-    <div class="container mt-1 mb-auto p-0 bg-white">
-       
-        <div class="row">
-            <div class="col-sm-3 m-0">
-                <nav class="nav nav-pills flex-column fixed-left nav-fill" style="height: 70vh">
-                    <a class="nav-link d-flex align-items-center justify-content-center active" href="#scenario">Scenario</a>
-                    <a class="nav-link d-flex align-items-center justify-content-center" href="#A">A</a>
-                    <a class="nav-link d-flex align-items-center justify-content-center" href="#B">B</a>
-                    <a class="nav-link d-flex align-items-center justify-content-center" href="#C">C</a>
-                    <a class="nav-link d-flex align-items-center justify-content-center" href="#D">D</a>
-                    <a class="nav-link d-flex align-items-center justify-content-center" href="#E">E</a>
-                    <a class="nav-link d-flex align-items-center justify-content-center" href="#note_menu">Note</a>
-                    <a class="nav-link d-flex align-items-center justify-content-center" href="#esito_menu">Esito</a>
-                </nav>
+<div class="row bg-light p-0 m-0">
+    <div class="col-12">
+        <div class="bg-light sticky-top p-4">
+            <div class="row text-center d-flex justify-content-center">
+                <div class="col-3">
+                    <p class="mb-3"><strong class="text-uppercase">Id:</strong> {{request.session.missione.id_missione}}</p>
+                </div>
+                <div class="col-3">
+                    <p class="mb-3"><strong class="text-uppercase">Codice:</strong> {{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
+                </div>
+                <div class="col-6">
+                    <p class="mb-4"><strong class="text-uppercase">Nome Cognome:</strong>
+                        {% if request.session.missione.cognome_p is None %}
+                        NON DEFINITO
+                        {% else %}
+                        {{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}
+                        {% endif %}
+                    </p>
+                </div>
             </div>
-          
-            <div class="col-sm-9 m-0">
+            <div class="row text-center d-flex justify-content-center">
+                <div class="col-8">
+                    <p class="mb-2"><strong class="text-uppercase">Luogo intervento:</strong> {{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}, {{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#paziente" id="modalbutton">
+                        Modifica
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row p-0 m-0">
+    <div class="col-12">
+        <form id="compilazione_scheda" method="post">
+            {% csrf_token %}
+            <div class="container mt-1 mb-1 p-0 bg-white">
+            
+                <div class="row">
+                    <div class="col-sm-3 m-0 d-flex align-items-stretch" style="height: 75vh;">
+                        <nav class="nav nav-pills flex-column fixed-left nav-fill" >
+                            <a class="nav-link d-flex align-items-center justify-content-center" href="#scenario">Scenario</a>
+                            <a class="nav-link d-flex align-items-center justify-content-center" href="#A">A</a>
+                            <a class="nav-link d-flex align-items-center justify-content-center" href="#B">B</a>
+                            <a class="nav-link d-flex align-items-center justify-content-center" href="#C">C</a>
+                            <a class="nav-link d-flex align-items-center justify-content-center" href="#D">D</a>
+                            <a class="nav-link d-flex align-items-center justify-content-center" href="#E">E</a>
+                            <a class="nav-link d-flex align-items-center justify-content-center" href="#note_menu">Note</a>
+                            <a class="nav-link d-flex align-items-center justify-content-center" href="#esito_menu">Esito</a>
+                        </nav>
+                    </div>
                 
-              <div data-spy="scroll" class="scrollspy-example z-depth-1 mt-4" data-target="#navbar-example3"
-              data-offset="0" style="height: 70vh; overflow: auto;">
-                <h1 id="scenario" class="text-center border-bottom border-top">Scenario all'arrivo</h1>
-                <h6>Dinamica riferita:</h6>
-                <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="scenario" value="Soccorso a persona" checked>
-                    <label class="custom-control-label" for="defaultGroupExample1" >Soccorso a persona</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="scenario" value="Trauma">
-                    <label class="custom-control-label" for="defaultGroupExample2">Trauma</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="scenario"  value="Trauma maggiore">
-                    <label class="custom-control-label" for="defaultGroupExample3">Trauma maggiore</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="defaultGroupExample4" name="scenario" value="Non definita">
-                    <label class="custom-control-label" for="defaultGroupExample4">Non definita</label>
-                </div>
+                    <div class="col-sm-9 m-0 d-flex align-items-stretch" style="height: 75vh; overflow: auto;">
+                        
+                        <div data-spy="scroll" class="scrollspy-example z-depth-1 mt-4" data-offset="0">
 
-
-                <h1 id="A" class="text-center mt-4 border-bottom border-top">A - Airway</h1>
-                <div class="row p-1 ">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Cosciente?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="cosciente_si" name="cosciente" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="cosciente_si">SI</label>
-                            <input type="radio" class="btn-check" id="cosciente_no" name="cosciente" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="cosciente_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- Elemento nascosto -->
-                <div class="collapse" id="blsd">
-                    <div class="container text-center bg-light border mb-2 w-100">
-                        <h4 class="mt-2 mb-2">BLS-D</h4>
-                        <p class="slogan m-0">Posiziona il paziente su un piano rigido</p>
-                        <p class="slogan m-0">Allinea gli arti e scopri il torace</p>
-                        <p class="slogan m-0">Posiziona il capo in iperestensione</p>
-                        <p class="slogan m-0 mb-2">Valuta la pervietà delle vie aeree</p>
-                        <div class="row p-1 ">
-                            <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                <h6>Respira?</h6>
+                            <!-- Scenario -->
+                            <h1 id="scenario" class="text-center border-bottom border-top">Scenario all'arrivo</h1>
+                            <h6>Dinamica riferita:</h6>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="scenario" value="Soccorso a persona" checked>
+                                <label class="custom-control-label" for="defaultGroupExample1" >Soccorso a persona</label>
                             </div>
-                            <div class="col-5 col-md-3 col-lg-2">
-                                <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                    <input type="radio" class="btn-check" id="respiraBLS_si" value="True" name="respiraBLS" autocomplete="off">
-                                    <label class="btn btn-light" for="respiraBLS_si">SI</label>
-                                    <input type="radio" class="btn-check" id="respiraBLS_no" value="False" name="respiraBLS" autocomplete="off">
-                                    <label class="btn btn-light" for="respiraBLS_no">NO</label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="scenario" value="Trauma">
+                                <label class="custom-control-label" for="defaultGroupExample2">Trauma</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="scenario"  value="Trauma maggiore">
+                                <label class="custom-control-label" for="defaultGroupExample3">Trauma maggiore</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="defaultGroupExample4" name="scenario" value="Non definita">
+                                <label class="custom-control-label" for="defaultGroupExample4">Non definita</label>
+                            </div>
+            
+                            <!-- Airway -->
+                            <h1 id="A" class="text-center mt-4 border-bottom border-top">A - Airway</h1>
+                            <div class="row p-1 ">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Cosciente?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="cosciente_si" name="cosciente" value="True">
+                                        <label class="btn btn-light" for="cosciente_si">SI</label>
+                                        <input type="radio" class="btn-check" id="cosciente_no" name="cosciente" value="False">
+                                        <label class="btn btn-light" for="cosciente_no">NO</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row p-1 ">
-                            <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                <h6>Circolo?</h6>
-                            </div>
-                            <div class="col-5 col-md-3 col-lg-2">
-                                <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                    <input type="radio" class="btn-check" id="circoloBLS_si" value="True" name="circoloBLS" autocomplete="off">
-                                    <label class="btn btn-light" for="circoloBLS_si">SI</label>
-                                    <input type="radio" class="btn-check" id="circoloBLS_no" value="False" name="circoloBLS" autocomplete="off">
-                                    <label class="btn btn-light" for="circoloBLS_no">NO</label>
+                            <!-- Elemento nascosto -->
+                            <div class="collapse" id="blsd">
+                                <div class="container text-center bg-light border mb-2 w-100">
+                                    <h4 class="mt-2 mb-2">BLS-D</h4>
+                                    <p class="slogan m-0">Posiziona il paziente su un piano rigido</p>
+                                    <p class="slogan m-0">Allinea gli arti e scopri il torace</p>
+                                    <p class="slogan m-0">Posiziona il capo in iperestensione</p>
+                                    <p class="slogan m-0 mb-2">Valuta la pervietà delle vie aeree</p>
+                                    <div class="row p-1 ">
+                                        <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                            <h6>Respira?</h6>
+                                        </div>
+                                        <div class="col-5 col-md-3 col-lg-2">
+                                            <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                                <input type="radio" class="btn-check" id="respiraBLS_si" value="True" name="respiraBLS" autocomplete="off">
+                                                <label class="btn btn-light" for="respiraBLS_si">SI</label>
+                                                <input type="radio" class="btn-check" id="respiraBLS_no" value="False" name="respiraBLS" autocomplete="off">
+                                                <label class="btn btn-light" for="respiraBLS_no">NO</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row p-1 ">
+                                        <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                            <h6>Circolo?</h6>
+                                        </div>
+                                        <div class="col-5 col-md-3 col-lg-2">
+                                            <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                                <input type="radio" class="btn-check" id="circoloBLS_si" value="True" name="circoloBLS" autocomplete="off">
+                                                <label class="btn btn-light" for="circoloBLS_si">SI</label>
+                                                <input type="radio" class="btn-check" id="circoloBLS_no" value="False" name="circoloBLS" autocomplete="off">
+                                                <label class="btn btn-light" for="circoloBLS_no">NO</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="msg_respiro" hidden>
+                                        <p class="slogan m-0">Condurre 1 insufflazione ogni 5 secondi</p>
+                                        <p class="slogan m-0 mb-2">Rivalutare dopo 1 minuto</p>
+                                    </div>
+                                    <div id="msg_circolo" hidden>
+                                        <p class="slogan m-0">RCP con rapporto 30:2</p>
+                                        <p class="slogan m-0 mb-2">Dopo il primo ciclo se possibile inserisci la cannula</p>
+                                    </div>
+                                    <div class="row p-1 mb-2">
+                                        <div class="col-7 col-md-9 col-lg-10 d-flex justify-content-start align-items-end">
+                                            <h6>Numero cicli insufflazioni-massaggio</h6>
+                                        </div>
+                                        <div class="col-5 col-md-3 col-lg-2 d-flex justify-content-end">
+                                            <div class="def-number-input number-input">
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus" id="minus" disabled></button>
+                                                <input class="quantity form-control" min="0" value="0" type="number" name="cicli" id="msg_cicli" disabled>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" id="plus" disabled></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row p-1 mb-2">
+                                        <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                            <h6>Defibrillatore</h6>
+                                        </div>
+                                        <div class="col-5 col-md-3 col-lg-2">
+                                            <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                                <input type="radio" class="btn-check" id="dae_si" value="True" name="dae" autocomplete="off">
+                                                <label class="btn btn-light" for="dae_si">SI</label>
+                                                <input type="radio" class="btn-check" id="dae_no" value="False" name="dae" autocomplete="off">
+                                                <label class="btn btn-light" for="dae_no">NO</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="slogan">Continuare la raccolta dati solo se il paziente è stabile!</p>
                                 </div>
                             </div>
-                        </div>
-                        <div id="msg_respiro" hidden>
-                            <p class="slogan m-0">Condurre 1 insufflazione ogni 5 secondi</p>
-                            <p class="slogan m-0 mb-2">Rivalutare dopo 1 minuto</p>
-                        </div>
-                        <div id="msg_circolo" hidden>
-                            <p class="slogan m-0">RCP con rapporto 30:2</p>
-                            <p class="slogan m-0 mb-2">Dopo il primo ciclo se possibile inserisci la cannula</p>
-                        </div>
-                        <div class="row p-1 mb-2">
-                            <div class="col-7 col-md-9 col-lg-10 d-flex justify-content-start align-items-end">
-                                <h6>Numero cicli insufflazioni-massaggio</h6>
-                            </div>
-                            <div class="col-5 col-md-3 col-lg-2 d-flex justify-content-end">
-                                <div class="def-number-input number-input">
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus" id="minus" disabled></button>
-                                    <input class="quantity form-control" min="0" value="0" type="number" name="cicli" id="msg_cicli" disabled>
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" id="plus" disabled></button>
+            
+                            <div class="row p-1">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Vie aeree pervie?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="pervieta_si" name="pervieta" value="True">
+                                        <label class="btn btn-light" for="pervieta_si">SI</label>
+                                        <input type="radio" class="btn-check" id="pervieta_no" name="pervieta" value="False">
+                                        <label class="btn btn-light" for="pervieta_no">NO</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row p-1 mb-2">
-                            <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                <h6>Defibrillatore</h6>
-                            </div>
-                            <div class="col-5 col-md-3 col-lg-2">
-                                <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                    <input type="radio" class="btn-check" id="dae_si" value="True" name="dae" autocomplete="off">
-                                    <label class="btn btn-light" for="dae_si">SI</label>
-                                    <input type="radio" class="btn-check" id="dae_no" value="False" name="dae" autocomplete="off">
-                                    <label class="btn btn-light" for="dae_no">NO</label>
+                            <!-- Elemento nascosto -->
+                            <div class="collapse" id="ostruzione">
+                                <div class="row mt-2 m-0 p-0">
+                                    <div class="btn-group p-0 d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="ostruzione_si" name="ostruzione" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="ostruzione_si">Ostruzione parziale</label>
+                                        <input type="radio" class="btn-check" id="ostruzione_no" name="ostruzione" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="ostruzione_no">Ostruzione totale</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <p class="slogan">Continuare la raccolta dati solo se il paziente è stabile!</p>
-                    </div>
-                </div>
 
 
-
-
-
-
-                <div class="row p-1">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Vie aeree pervie?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="pervieta_si" name="pervieta" value="True">
-                            <label class="btn btn-light" for="pervieta_si">SI</label>
-                            <input type="radio" class="btn-check" id="pervieta_no" name="pervieta" value="False">
-                            <label class="btn btn-light" for="pervieta_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- Elemento nascosto -->
-                <div class="collapse" id="ostruzione">
-                    <div class="row mt-2 m-0 p-0">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="ostruzione_si" name="ostruzione" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="ostruzione_si">Ostruzione parziale</label>
-                            <input type="radio" class="btn-check" id="ostruzione_no" name="ostruzione" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="ostruzione_no">Ostruzione totale</label>
-                        </div>
-                    </div>
-                </div>
-
-                <h1 id="B" class="text-center mt-4 border-bottom border-top">B - Breathing</h1>
-                <div class="row p-1 mb-2">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Respira?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="respira_si" name="respira" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="respira_si">SI</label>
-                            <input type="radio" class="btn-check" id="respira_no" name="respira" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="respira_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-1 mb-2">
-                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                        <h6>Frequenza respiratoria:</h6>
-                    </div>
-                    <div class="col-2 d-flex justify-content-end align-items-end">
-                        <h6>atti/min</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                        <input type="number" class="form-control" id="conto" name="conto">
-                    </div>
-                </div>
-                <div class="row p-1 ">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Respirazione dispneica?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="dispnea_si" name="dispnea" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="dispnea_si">SI</label>
-                            <input type="radio" class="btn-check" id="dispnea_no" name="dispnea" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="dispnea_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-1 ">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Respiro rumoroso?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="ascolto_si" name="ascolto" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="ascolto_si">SI</label>
-                            <input type="radio" class="btn-check" id="ascolto_no" name="ascolto" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="ascolto_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-1 ">
-                    <select id="mezzi" class="selectpicker w-100 mb-2" name="palpo" title="Palpazione torace:">
-                        <option value="Normale">Normale</option>
-                        <option value="Anor.dx">Anormale a destra</option>
-                        <option value="Anor.sx">Anormale a sinistra</option>
-                        <option value="Anor.dx/sx">Anormale da entrambi i lati</option>
-                    </select>
-                </div>
-                <div class="row p-1 mb-2">
-                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                        <h6>Saturazione in aria:</h6>
-                    </div>
-                    <div class="col-2 d-flex justify-content-end align-items-end">
-                        <h6>%</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                        <input type="number" class="form-control" id="saturazione" name="saturazione">
-                    </div>
-                </div>
-
-                <div class="container text-center bg-light border mb-2 w-100">
-                    <h6 class="mt-2">Somministrazione ossigeno:</h6>
-                    <div class="row p-1 mb-2">
-                        <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                            <h6>Saturazione con ossigeno:</h6>
-                        </div>
-                        <div class="col-2 d-flex justify-content-end align-items-end">
-                            <h6>%</h6>
-                        </div>
-                        <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                            <input type="number" class="form-control" id="saturazione_oss" name="saturazione_oss">
-                        </div>
-                    </div>
-                    <div class="row p-1 mb-2">
-                        <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                            <h6>Ossigeno:</h6>
-                        </div>
-                        <div class="col-2 d-flex justify-content-end align-items-end">
-                            <h6>L/min</h6>
-                        </div>
-                        <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                            <input type="number" class="form-control" id="ossigeno" name="ossigeno">
-                        </div>
-                    </div>
-                </div>
-                
-
-                <h1 id="C" class="text-center mt-4 border-bottom border-top">C - Circulation</h1>
-                <div class="row p-1 mb-2">
-                    <div class="col-5 col-md-5 col-lg-5 d-flex justify-content-start align-items-end">
-                        <h6>Pressione arteriosa:</h6>
-                    </div>
-                    <div class="col-2 d-flex justify-content-end align-items-end">
-                        <h6>mmHg</h6>
-                    </div>
-                    <div class="col-2 col-md-2 col-lg-2 d-flex flex-fill">
-                        <input type="number" class="form-control" id="pressione_massima" name="pressione_massima">
-                    </div>
-                    <div class="col-1 d-flex justify-content-middle align-items-end">
-                        <h6>/</h6>
-                    </div>
-                    <div class="col-2 col-md-2 col-lg-2 d-flex flex-fill">
-                        <input type="number" class="form-control" id="pressione_minima" name="pressione_minima">
-                    </div>
-                </div>
-                <div class="row p-1 mb-2">
-                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                        <h6>Frequenza circolatoria:</h6>
-                    </div>
-                    <div class="col-2 d-flex justify-content-end align-items-end">
-                        <h6>batt/min</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                        <input type="number" class="form-control" id="frequenza" name="frequenza">
-                    </div>
-                </div>
-                <div class="row p-1 mb-2">
-                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                        <h6>Temperatura corporea:</h6>
-                    </div>
-                    <div class="col-2 d-flex justify-content-end align-items-end">
-                        <h6>°C</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                        <input type="number" class="form-control" id="temperatura" name="temperatura">
-                    </div>
-                </div>
-                <div class="row p-1 ">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Emorragie?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="emorragie_si" name="emorragie" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="emorragie_si">SI</label>
-                            <input type="radio" class="btn-check" id="emorragie_no" name="emorragie" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="emorragie_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-1 ">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Polso radiale?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="polso_si" name="polso" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="polso_si">SI</label>
-                            <input type="radio" class="btn-check" id="polso_no" name="polso" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="polso_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-1 ">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Regolare?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="regolare_polso_si" name="regolare_polso" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="regolare_polso_si">SI</label>
-                            <input type="radio" class="btn-check" id="regolare_polso_no" name="regolare_polso" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="regolare_polso_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-1 ">
-                    <select id="mezzi" class="selectpicker w-100 mb-2" name="cute" title="Colorito cutaneo:">
-                        <option value="Normale">Normale</option>
-                        <option value="Cianotico">Cianotico</option>
-                        <option value="Rossastro">Rossastro</option>
-                        <option value="Pallido">Pallido</option>
-                    </select>
-                </div>
-                <div class="row p-1 ">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Sudato?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="sudato_si" name="sudato" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="sudato_si">SI</label>
-                            <input type="radio" class="btn-check" id="sudato_no" name="sudato" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="sudato_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- Elemento nascosto -->
-                <div class="collapse" id="freddo">
-                    <div class="row mt-2 m-0 p-0">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="sudato_freddo_si" name="sudore_freddo" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="sudato_freddo_si">Sudato freddo</label>
-                            <input type="radio" class="btn-check" id="sudato_freddo_no" name="sudore_freddo" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="sudato_freddo_no">Sudato caldo</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-1">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Dolore toracico?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="dolore_toracico_si" name="dolore_toracico" value="True">
-                            <label class="btn btn-light" for="dolore_toracico_si">SI</label>
-                            <input type="radio" class="btn-check" id="dolore_toracico_no" name="dolore_toracico" value="False">
-                            <label class="btn btn-light" for="dolore_toracico_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- Elemento nascosto -->
-                <div class="collapse" id="torace">
-                    <div class="container text-center bg-light border mb-2 w-100">
-                        <div class="row p-1 mt-2">
-                            <div class="col-7 d-flex align-items-end">
-                                <h6>Data insorgenza sintomi:</h6>
-                            </div>
-                            <div class="col-5 d-flex justify-content-end">
-                                <div class="md-form md-outline input-with-post-icon datepicker">
-                                    <input placeholder="Seleziona giorno" type="date" id="data_dolore" name="data_dolore" class="form-control">
+                            <!-- Breathing -->
+                            <h1 id="B" class="text-center mt-4 border-bottom border-top">B - Breathing</h1>
+                            <div class="row p-1 mb-2">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Respira?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="respira_si" name="respira" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="respira_si">SI</label>
+                                        <input type="radio" class="btn-check" id="respira_no" name="respira" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="respira_no">NO</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row p-1 ">
-                            <div class="col-7 d-flex align-items-end">
-                                <h6>Ora insorgenza sintomi:</h6>
-                            </div>
-                            <div class="col-5 d-flex justify-content-end">
-                                <div class="md-form md-outline" >
-                                    <input type="time" class="form-control" id="ora_dolore" name="ora_dolore" placeholder="Seleziona ora">
+                            <div class="row p-1 mb-2">
+                                <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                                    <h6>Frequenza respiratoria:</h6>
+                                </div>
+                                <div class="col-2 d-flex justify-content-end align-items-end">
+                                    <h6>atti/min</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                                    <input type="number" class="form-control" id="conto" name="conto">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row m-0 p-0 mb-2">
-                            <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                <input type="radio" class="btn-check" id="tipo_dolore_si" name="tipo_dolore" value="True" autocomplete="off">
-                                <label class="btn btn-light" for="tipo_dolore_si">Dolore a spilli</label>
-                                <input type="radio" class="btn-check" id="tipo_dolore_no" name="tipo_dolore" value="False" autocomplete="off">
-                                <label class="btn btn-light" for="tipo_dolore_no">Dolore oppressivo</label>
+                            <div class="row p-1 ">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Respirazione dispneica?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="dispnea_si" name="dispnea" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="dispnea_si">SI</label>
+                                        <input type="radio" class="btn-check" id="dispnea_no" name="dispnea" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="dispnea_no">NO</label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                            <div class="row p-1 ">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Respiro rumoroso?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="ascolto_si" name="ascolto" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="ascolto_si">SI</label>
+                                        <input type="radio" class="btn-check" id="ascolto_no" name="ascolto" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="ascolto_no">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-1 ">
+                                <select id="mezzi" class="selectpicker w-100 mb-2" name="palpo" title="Palpazione torace:">
+                                    <option value="Normale">Normale</option>
+                                    <option value="Anor.dx">Anormale a destra</option>
+                                    <option value="Anor.sx">Anormale a sinistra</option>
+                                    <option value="Anor.dx/sx">Anormale da entrambi i lati</option>
+                                </select>
+                            </div>
+                            <div class="row p-1 mb-2">
+                                <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                                    <h6>Saturazione in aria:</h6>
+                                </div>
+                                <div class="col-2 d-flex justify-content-end align-items-end">
+                                    <h6>%</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                                    <input type="number" class="form-control" id="saturazione" name="saturazione">
+                                </div>
+                            </div>
+            
+                            <div class="container text-center bg-light border mb-2 w-100">
+                                <h6 class="mt-2">Somministrazione ossigeno:</h6>
+                                <div class="row p-1 mb-2">
+                                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                                        <h6>Saturazione con ossigeno:</h6>
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-end align-items-end">
+                                        <h6>%</h6>
+                                    </div>
+                                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                                        <input type="number" class="form-control" id="saturazione_oss" name="saturazione_oss">
+                                    </div>
+                                </div>
+                                <div class="row p-1 mb-2">
+                                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                                        <h6>Ossigeno:</h6>
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-end align-items-end">
+                                        <h6>L/min</h6>
+                                    </div>
+                                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                                        <input type="number" class="form-control" id="ossigeno" name="ossigeno">
+                                    </div>
+                                </div>
+                            </div>
+                            
 
-                <h1 id="D" class="text-center mt-4 border-bottom border-top">D - Disability</h1>
-                <div class="row p-1">
-                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                        <input type="radio" class="btn-check" id="avpu_a" name="avpu" value="A" autocomplete="off">
-                        <label class="btn btn-light" for="avpu_a">A</label>
-                        <input type="radio" class="btn-check" id="avpu_v" name="avpu" value="V" autocomplete="off">
-                        <label class="btn btn-light" for="avpu_v">V</label>
-                        <input type="radio" class="btn-check" id="avpu_p" name="avpu" value="P" autocomplete="off">
-                        <label class="btn btn-light" for="avpu_p">P</label>
-                        <input type="radio" class="btn-check" id="avpu_u" name="avpu" value="U" autocomplete="off">
-                        <label class="btn btn-light" for="avpu_u">U</label>
-                    </div>
-                </div>
-                <div class="row p-1 ">
-                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                        <input type="radio" class="btn-check" id="cincinnaty" name="cincinnaty" autocomplete="off">
-                        <label class="btn btn-light" for="cincinnaty">Cincinnaty</label>
-                        <input type="radio" class="btn-check" id="forza_sensibilita" name="forza_sensibilita" value="False" autocomplete="off">
-                        <label class="btn btn-light" for="forza_sensibilita">Forza e sensibilità</label>
-                    </div>
-                </div>
-                <!-- Elemento nascosto -->
-                <div class="collapse" id="cincinnaty_scheda">
-                    <div class="container text-center bg-light border mb-2 w-100">
-                        <h4 class="mt-2">Cincinnaty</h4>
-                        <h6 class="mt-2">Mimica facciale:</h6>
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="mimica_n" name="mimica_c" value="Normale" autocomplete="off">
-                            <label class="btn btn-light" for="mimica_n">Normale</label>
-                            <input type="radio" class="btn-check" id="mimica_ad" name="mimica_c" value="Anor.dx" autocomplete="off">
-                            <label class="btn btn-light" for="mimica_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="mimica_as" name="mimica_c" value="Anor.sx" autocomplete="off">
-                            <label class="btn btn-light" for="mimica_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="mimica_ads" name="mimica_c" value="Anor.dx/sx" autocomplete="off">
-                            <label class="btn btn-light" for="mimica_ads">Anor. dx e sx</label>
-                        </div>
-                        <h6 class="mt-2">Spostamento delle braccia:</h6>
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="braccia_n" name="braccia_c" value="Normale" autocomplete="off">
-                            <label class="btn btn-light" for="braccia_n">Normale</label>
-                            <input type="radio" class="btn-check" id="braccia_ad" name="braccia_c" value="Anor.dx" autocomplete="off">
-                            <label class="btn btn-light" for="braccia_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="braccia_as" name="braccia_c" value="Anor.sx" autocomplete="off">
-                            <label class="btn btn-light" for="braccia_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="braccia_ads" name="braccia_c" value="Anor.dx/sx" autocomplete="off">
-                            <label class="btn btn-light" for="braccia_ads">Anor. dx e sx</label>
-                        </div>
-                        <h6 class="mt-2">Linguaggio:</h6>
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="linguaggio_n" name="linguaggio_c" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="linguaggio_n">Normale</label>
-                            <input type="radio" class="btn-check" id="linguaggio_a" name="linguaggio_c" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="linguaggio_a">Anormale</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="collapse" id="forza_sensibilita_scheda">
-                    <div class="container text-center bg-light border mb-2 w-100">
-                        <h4 class="mt-2">Forza e sensibilità</h4>
-                        <h6 class="mt-2">Forza arti superiori:</h6>
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="forza_sup_n" name="forza_sup" value="Normale" autocomplete="off">
-                            <label class="btn btn-light" for="forza_sup_n">Normale</label>
-                            <input type="radio" class="btn-check" id="forza_sup_ad" name="forza_sup" value="Anor.dx" autocomplete="off">
-                            <label class="btn btn-light" for="forza_sup_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="forza_sup_as" name="forza_sup" value="Anor.sx" autocomplete="off">
-                            <label class="btn btn-light" for="forza_sup_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="forza_sup_ads" name="forza_sup" value="Anor.dx/sx" autocomplete="off">
-                            <label class="btn btn-light" for="forza_sup_ads">Anor. dx e sx</label>
-                        </div>
-                        <h6 class="mt-2">Sensibilità arti superiori:</h6>
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="forza_inf_n" name="forza_inf" value="Normale" autocomplete="off">
-                            <label class="btn btn-light" for="forza_inf_n">Normale</label>
-                            <input type="radio" class="btn-check" id="forza_inf_ad" name="forza_inf" value="Anor.dx" autocomplete="off">
-                            <label class="btn btn-light" for="forza_inf_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="forza_inf_as" name="forza_inf" value="Anor.sx" autocomplete="off">
-                            <label class="btn btn-light" for="forza_inf_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="forza_inf_ads" name="forza_inf" value="Anor.dx/sx" autocomplete="off">
-                            <label class="btn btn-light" for="forza_inf_ads">Anor. dx e sx</label>
-                        </div>
-                        <h6 class="mt-2">Forza arti inferiori:</h6>
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="sens_sup_n" name="sens_sup" value="Normale" autocomplete="off">
-                            <label class="btn btn-light" for="sens_sup_n">Normale</label>
-                            <input type="radio" class="btn-check" id="sens_sup_ad" name="sens_sup" value="Anor.dx" autocomplete="off">
-                            <label class="btn btn-light" for="sens_sup_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="sens_sup_as" name="sens_sup" value="Anor.sx" autocomplete="off">
-                            <label class="btn btn-light" for="sens_sup_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="sens_sup_ads" name="sens_sup" value="Anor.dx/sx" autocomplete="off">
-                            <label class="btn btn-light" for="sens_sup_ads">Anor. dx e sx</label>
-                        </div>
-                        <h6 class="mt-2">Sensibilità arti inferiori:</h6>
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="sens_inf_n" name="sens_inf" value="Normale" autocomplete="off">
-                            <label class="btn btn-light" for="sens_inf_n">Normale</label>
-                            <input type="radio" class="btn-check" id="sens_inf_ad" name="sens_inf" value="Anor.dx" autocomplete="off">
-                            <label class="btn btn-light" for="sens_inf_ad">Anor. dx</label>
-                            <input type="radio" class="btn-check" id="sens_inf_as" name="sens_inf" value="Anor.sx" autocomplete="off">
-                            <label class="btn btn-light" for="sens_inf_as">Anor. sx</label>
-                            <input type="radio" class="btn-check" id="sens_inf_ads" name="sens_inf" value="Anor.dx/sx" autocomplete="off">
-                            <label class="btn btn-light" for="sens_inf_ads">Anor. dx e sx</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-1 ">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Orientato nel tempo?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="tempo_si" name="tempo" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="tempo_si">SI</label>
-                            <input type="radio" class="btn-check" id="tempo_no" name="tempo" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="tempo_no">NO</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-1 ">
-                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                        <h6>Orientato nello spazio?</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2">
-                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                            <input type="radio" class="btn-check" id="spazio_si" name="spazio" value="True" autocomplete="off">
-                            <label class="btn btn-light" for="spazio_si">SI</label>
-                            <input type="radio" class="btn-check" id="spazio_no" name="spazio" value="False" autocomplete="off">
-                            <label class="btn btn-light" for="spazio_no">NO</label>
-                        </div>
-                    </div>
-                </div>
+                            <!-- Circulation -->
+                            <h1 id="C" class="text-center mt-4 border-bottom border-top">C - Circulation</h1>
+                            <div class="row p-1 mb-2">
+                                <div class="col-5 col-md-5 col-lg-5 d-flex justify-content-start align-items-end">
+                                    <h6>Pressione arteriosa:</h6>
+                                </div>
+                                <div class="col-2 d-flex justify-content-end align-items-end">
+                                    <h6>mmHg</h6>
+                                </div>
+                                <div class="col-2 col-md-2 col-lg-2 d-flex flex-fill">
+                                    <input type="number" class="form-control" id="pressione_massima" name="pressione_massima">
+                                </div>
+                                <div class="col-1 d-flex justify-content-middle align-items-end">
+                                    <h6>/</h6>
+                                </div>
+                                <div class="col-2 col-md-2 col-lg-2 d-flex flex-fill">
+                                    <input type="number" class="form-control" id="pressione_minima" name="pressione_minima">
+                                </div>
+                            </div>
+                            <div class="row p-1 mb-2">
+                                <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                                    <h6>Frequenza circolatoria:</h6>
+                                </div>
+                                <div class="col-2 d-flex justify-content-end align-items-end">
+                                    <h6>batt/min</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                                    <input type="number" class="form-control" id="frequenza" name="frequenza">
+                                </div>
+                            </div>
+                            <div class="row p-1 mb-2">
+                                <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                                    <h6>Temperatura corporea:</h6>
+                                </div>
+                                <div class="col-2 d-flex justify-content-end align-items-end">
+                                    <h6>°C</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                                    <input type="number" class="form-control" id="temperatura" name="temperatura">
+                                </div>
+                            </div>
+                            <div class="row p-1 ">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Emorragie?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="emorragie_si" name="emorragie" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="emorragie_si">SI</label>
+                                        <input type="radio" class="btn-check" id="emorragie_no" name="emorragie" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="emorragie_no">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-1 ">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Polso radiale?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="polso_si" name="polso" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="polso_si">SI</label>
+                                        <input type="radio" class="btn-check" id="polso_no" name="polso" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="polso_no">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-1 ">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Regolare?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="regolare_polso_si" name="regolare_polso" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="regolare_polso_si">SI</label>
+                                        <input type="radio" class="btn-check" id="regolare_polso_no" name="regolare_polso" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="regolare_polso_no">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-1 ">
+                                <select id="mezzi" class="selectpicker w-100 mb-2" name="cute" title="Colorito cutaneo:">
+                                    <option value="Normale">Normale</option>
+                                    <option value="Cianotico">Cianotico</option>
+                                    <option value="Rossastro">Rossastro</option>
+                                    <option value="Pallido">Pallido</option>
+                                </select>
+                            </div>
+                            <div class="row p-1 ">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Sudato?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="sudato_si" name="sudato" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="sudato_si">SI</label>
+                                        <input type="radio" class="btn-check" id="sudato_no" name="sudato" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="sudato_no">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Elemento nascosto -->
+                            <div class="collapse" id="freddo">
+                                <div class="row mt-2 mb-2 m-0 p-0">
+                                    <div class="btn-group p-0 d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="sudato_freddo_si" name="sudore_freddo" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="sudato_freddo_si">Sudato freddo</label>
+                                        <input type="radio" class="btn-check" id="sudato_freddo_no" name="sudore_freddo" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="sudato_freddo_no">Sudato caldo</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Dolore toracico?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="dolore_toracico_si" name="dolore_toracico" value="True">
+                                        <label class="btn btn-light" for="dolore_toracico_si">SI</label>
+                                        <input type="radio" class="btn-check" id="dolore_toracico_no" name="dolore_toracico" value="False">
+                                        <label class="btn btn-light" for="dolore_toracico_no">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Elemento nascosto -->
+                            <div class="collapse" id="torace">
+                                <div class="container text-center bg-light border mb-2 w-100">
+                                    <div class="row p-1 mt-2">
+                                        <div class="col-7 d-flex align-items-end">
+                                            <h6>Data insorgenza sintomi:</h6>
+                                        </div>
+                                        <div class="col-5 d-flex justify-content-end">
+                                            <div class="md-form md-outline input-with-post-icon datepicker">
+                                                <input placeholder="Seleziona giorno" type="date" id="data_dolore" name="data_dolore" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row p-1 ">
+                                        <div class="col-7 d-flex align-items-end">
+                                            <h6>Ora insorgenza sintomi:</h6>
+                                        </div>
+                                        <div class="col-5 d-flex justify-content-end">
+                                            <div class="md-form md-outline" >
+                                                <input type="time" class="form-control" id="ora_dolore" name="ora_dolore" placeholder="Seleziona ora">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-0 p-0 mb-2">
+                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                            <input type="radio" class="btn-check" id="tipo_dolore_si" name="tipo_dolore" value="True" autocomplete="off">
+                                            <label class="btn btn-light" for="tipo_dolore_si">Dolore a spilli</label>
+                                            <input type="radio" class="btn-check" id="tipo_dolore_no" name="tipo_dolore" value="False" autocomplete="off">
+                                            <label class="btn btn-light" for="tipo_dolore_no">Dolore oppressivo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
 
-                <h1 id="E" class="text-center mt-4 border-bottom border-top">E - Eventually</h1>
-                <select id="mezzi" class="selectpicker w-100 mb-2" name="posizione" title="Posizione all'arrivo">
-                    <option value="In piedi">In piedi</option>
-                    <option value="Seduto">Seduto</option>
-                    <option value="Supino">Supino</option>
-                    <option value="Prono">Prono</option>
-                    <option value="Incastrato">Incastrato</option>
-                    <option value="Sul fianco sx">Sul fianco sx</option>
-                    <option value="Sul fianco dx">Sul fianco dx</option>
-                </select>
+                            <!-- Disability -->
+                            <h1 id="D" class="text-center mt-4 border-bottom border-top">D - Disability</h1>
+                            <div class="row p-1">
+                                <div class="btn-group d-flex flex-fill p-0 me-3" role="group" aria-label="Basic example">
+                                    <input type="radio" class="btn-check" id="avpu_a" name="avpu" value="A" autocomplete="off">
+                                    <label class="btn btn-light" for="avpu_a">A</label>
+                                    <input type="radio" class="btn-check" id="avpu_v" name="avpu" value="V" autocomplete="off">
+                                    <label class="btn btn-light" for="avpu_v">V</label>
+                                    <input type="radio" class="btn-check" id="avpu_p" name="avpu" value="P" autocomplete="off">
+                                    <label class="btn btn-light" for="avpu_p">P</label>
+                                    <input type="radio" class="btn-check" id="avpu_u" name="avpu" value="U" autocomplete="off">
+                                    <label class="btn btn-light" for="avpu_u">U</label>
+                                </div>
+                            </div>
+                            <div class="row p-1 ">
+                                <div class="btn-group d-flex flex-fill p-0 me-3" role="group" aria-label="Basic example">
+                                    <input type="radio" class="btn-check" id="cincinnaty" name="cincinnaty" autocomplete="off">
+                                    <label class="btn btn-light" for="cincinnaty">Cincinnaty</label>
+                                    <input type="radio" class="btn-check" id="forza_sensibilita" name="forza_sensibilita" value="False" autocomplete="off">
+                                    <label class="btn btn-light" for="forza_sensibilita">Forza e sensibilità</label>
+                                </div>
+                            </div>
+                            <!-- Elemento nascosto -->
+                            <div class="collapse" id="cincinnaty_scheda">
+                                <div class="container text-center bg-light border mb-2 w-100">
+                                    <h4 class="mt-2">Cincinnaty</h4>
+                                    <h6 class="mt-2">Mimica facciale:</h6>
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="mimica_n" name="mimica_c" value="Normale" autocomplete="off">
+                                        <label class="btn btn-light" for="mimica_n">Normale</label>
+                                        <input type="radio" class="btn-check" id="mimica_ad" name="mimica_c" value="Anor.dx" autocomplete="off">
+                                        <label class="btn btn-light" for="mimica_ad">Anor. dx</label>
+                                        <input type="radio" class="btn-check" id="mimica_as" name="mimica_c" value="Anor.sx" autocomplete="off">
+                                        <label class="btn btn-light" for="mimica_as">Anor. sx</label>
+                                        <input type="radio" class="btn-check" id="mimica_ads" name="mimica_c" value="Anor.dx/sx" autocomplete="off">
+                                        <label class="btn btn-light" for="mimica_ads">Anor. dx e sx</label>
+                                    </div>
+                                    <h6 class="mt-2">Spostamento delle braccia:</h6>
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="braccia_n" name="braccia_c" value="Normale" autocomplete="off">
+                                        <label class="btn btn-light" for="braccia_n">Normale</label>
+                                        <input type="radio" class="btn-check" id="braccia_ad" name="braccia_c" value="Anor.dx" autocomplete="off">
+                                        <label class="btn btn-light" for="braccia_ad">Anor. dx</label>
+                                        <input type="radio" class="btn-check" id="braccia_as" name="braccia_c" value="Anor.sx" autocomplete="off">
+                                        <label class="btn btn-light" for="braccia_as">Anor. sx</label>
+                                        <input type="radio" class="btn-check" id="braccia_ads" name="braccia_c" value="Anor.dx/sx" autocomplete="off">
+                                        <label class="btn btn-light" for="braccia_ads">Anor. dx e sx</label>
+                                    </div>
+                                    <h6 class="mt-2">Linguaggio:</h6>
+                                    <div class="btn-group d-flex flex-fill mb-2" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="linguaggio_n" name="linguaggio_c" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="linguaggio_n">Normale</label>
+                                        <input type="radio" class="btn-check" id="linguaggio_a" name="linguaggio_c" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="linguaggio_a">Anormale</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="collapse" id="forza_sensibilita_scheda">
+                                <div class="container text-center bg-light border mb-2 w-100">
+                                    <h4 class="mt-2">Forza e sensibilità</h4>
+                                    <h6 class="mt-2">Forza arti superiori:</h6>
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="forza_sup_n" name="forza_sup" value="Normale" autocomplete="off">
+                                        <label class="btn btn-light" for="forza_sup_n">Normale</label>
+                                        <input type="radio" class="btn-check" id="forza_sup_ad" name="forza_sup" value="Anor.dx" autocomplete="off">
+                                        <label class="btn btn-light" for="forza_sup_ad">Anor. dx</label>
+                                        <input type="radio" class="btn-check" id="forza_sup_as" name="forza_sup" value="Anor.sx" autocomplete="off">
+                                        <label class="btn btn-light" for="forza_sup_as">Anor. sx</label>
+                                        <input type="radio" class="btn-check" id="forza_sup_ads" name="forza_sup" value="Anor.dx/sx" autocomplete="off">
+                                        <label class="btn btn-light" for="forza_sup_ads">Anor. dx e sx</label>
+                                    </div>
+                                    <h6 class="mt-2">Sensibilità arti superiori:</h6>
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="forza_inf_n" name="forza_inf" value="Normale" autocomplete="off">
+                                        <label class="btn btn-light" for="forza_inf_n">Normale</label>
+                                        <input type="radio" class="btn-check" id="forza_inf_ad" name="forza_inf" value="Anor.dx" autocomplete="off">
+                                        <label class="btn btn-light" for="forza_inf_ad">Anor. dx</label>
+                                        <input type="radio" class="btn-check" id="forza_inf_as" name="forza_inf" value="Anor.sx" autocomplete="off">
+                                        <label class="btn btn-light" for="forza_inf_as">Anor. sx</label>
+                                        <input type="radio" class="btn-check" id="forza_inf_ads" name="forza_inf" value="Anor.dx/sx" autocomplete="off">
+                                        <label class="btn btn-light" for="forza_inf_ads">Anor. dx e sx</label>
+                                    </div>
+                                    <h6 class="mt-2">Forza arti inferiori:</h6>
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="sens_sup_n" name="sens_sup" value="Normale" autocomplete="off">
+                                        <label class="btn btn-light" for="sens_sup_n">Normale</label>
+                                        <input type="radio" class="btn-check" id="sens_sup_ad" name="sens_sup" value="Anor.dx" autocomplete="off">
+                                        <label class="btn btn-light" for="sens_sup_ad">Anor. dx</label>
+                                        <input type="radio" class="btn-check" id="sens_sup_as" name="sens_sup" value="Anor.sx" autocomplete="off">
+                                        <label class="btn btn-light" for="sens_sup_as">Anor. sx</label>
+                                        <input type="radio" class="btn-check" id="sens_sup_ads" name="sens_sup" value="Anor.dx/sx" autocomplete="off">
+                                        <label class="btn btn-light" for="sens_sup_ads">Anor. dx e sx</label>
+                                    </div>
+                                    <h6 class="mt-2">Sensibilità arti inferiori:</h6>
+                                    <div class="btn-group d-flex flex-fill mb-2" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="sens_inf_n" name="sens_inf" value="Normale" autocomplete="off">
+                                        <label class="btn btn-light" for="sens_inf_n">Normale</label>
+                                        <input type="radio" class="btn-check" id="sens_inf_ad" name="sens_inf" value="Anor.dx" autocomplete="off">
+                                        <label class="btn btn-light" for="sens_inf_ad">Anor. dx</label>
+                                        <input type="radio" class="btn-check" id="sens_inf_as" name="sens_inf" value="Anor.sx" autocomplete="off">
+                                        <label class="btn btn-light" for="sens_inf_as">Anor. sx</label>
+                                        <input type="radio" class="btn-check" id="sens_inf_ads" name="sens_inf" value="Anor.dx/sx" autocomplete="off">
+                                        <label class="btn btn-light" for="sens_inf_ads">Anor. dx e sx</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-1 ">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Orientato nel tempo?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="tempo_si" name="tempo" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="tempo_si">SI</label>
+                                        <input type="radio" class="btn-check" id="tempo_no" name="tempo" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="tempo_no">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row p-1 ">
+                                <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+                                    <h6>Orientato nello spazio?</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2">
+                                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+                                        <input type="radio" class="btn-check" id="spazio_si" name="spazio" value="True" autocomplete="off">
+                                        <label class="btn btn-light" for="spazio_si">SI</label>
+                                        <input type="radio" class="btn-check" id="spazio_no" name="spazio" value="False" autocomplete="off">
+                                        <label class="btn btn-light" for="spazio_no">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+
+                            <!-- Eventually -->
+                            <h1 id="E" class="text-center mt-4 border-bottom border-top">E - Eventually</h1>
+                            <select id="mezzi" class="selectpicker w-100 mb-2" name="posizione" title="Posizione all'arrivo">
+                                <option value="In piedi">In piedi</option>
+                                <option value="Seduto">Seduto</option>
+                                <option value="Supino">Supino</option>
+                                <option value="Prono">Prono</option>
+                                <option value="Incastrato">Incastrato</option>
+                                <option value="Sul fianco sx">Sul fianco sx</option>
+                                <option value="Sul fianco dx">Sul fianco dx</option>
+                            </select>
+            
+                            <div class="row p-1 mb-2">
+                                <div class="btn-group d-flex flex-fill p-0 me-2 ms-2" role="group" aria-label="Basic example">
+                                    <input type="radio" class="btn-check" id="tp_front" name="tp_front" autocomplete="off">
+                                    <label class="btn btn-light" for="tp_front">Testa-Piedi - Parte Anteriore</label>
+                                    <input type="radio" class="btn-check" id="tp_back" name="tp_back" autocomplete="off">
+                                    <label class="btn btn-light" for="tp_back">Testa-Piedi - Parte Posteriore</label>
+                                </div>
+                            </div>
+                            <!-- Elemento nascosto -->
+                            <img src="{% static 'img/circle.png' %}" id="circle" hidden>
+                            <img src="{% static 'img/ecs.png' %}" class="img-fluid" alt="Responsive image" id="ecs" hidden>
+                            <img src="{% static 'img/hashtag.png' %}" class="img-fluid" alt="Responsive image" id="hashtag" hidden>
+                            <div class="collapse" id="tp_scheda_front">
+                                <div class="row p-1">
+                                    <div class="col-7 col-md-6 col-lg-6 d-flex justify-content-center" id="stack_f">
+                                        <img src="{% static 'img/man.png' %}" class="img-fluid" alt="Responsive image" id="img_front">
+                                        <canvas id="canvas_front"></canvas>
+                                    </div>
+                                    <div class="col-5 col-md-6 col-lg-6 text-center" id="img_buttons">
+                                        <h6>Tipologia:</h6>
+                                        <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
+                                            <input type="radio" class="btn-check" id="Dolore_f">
+                                            <label class="btn btn-light" for="Dolore_f">Dolore</label>
+                                            <input type="radio" class="btn-check" id="Ustione_f">
+                                            <label class="btn btn-light" for="Ustione_f">Ustione</label>
+                                            <input type="radio" class="btn-check" id="Emorragia_f">
+                                            <label class="btn btn-light" for="Emorragia_f">Emorragia</label>
+                                        </div>
+                                        <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
+                                            <input type="radio" class="btn-check" id="Cancella_f">
+                                            <label class="btn btn-light" for="Cancella_f">Cancella</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="collapse" id="tp_scheda_back">
+                                <div class="row p-1 ">
+                                    <div class="col-7 col-md-6 col-lg-6 d-flex justify-content-center" id="stack_b">
+                                        <img src="{% static 'img/man.png' %}" class="img-fluid" alt="Responsive image" id="img_back">
+                                        <canvas id="canvas_back"></canvas>
+                                    </div>
+                                    <div class="col-5 col-md-6 col-lg-6 text-center">
+                                        <h6>Tipologia:</h6>
+                                        <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
+                                            <input type="radio" class="btn-check" id="Dolore_b">
+                                            <label class="btn btn-light" for="Dolore_b">Dolore</label>
+                                            <input type="radio" class="btn-check" id="Ustione_b">
+                                            <label class="btn btn-light" for="Ustione_b">Ustione</label>
+                                            <input type="radio" class="btn-check" id="Emorragia_b">
+                                            <label class="btn btn-light" for="Emorragia_b">Emorragia</label>
+                                        </div>
+                                        <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
+                                            <input type="radio" class="btn-check" id="Cancella_b">
+                                            <label class="btn btn-light" for="Cancella_b">Cancella</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+            
+                            <div class="container mb-2 p-0">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="allergie" name="allergie" rows="2"></textarea>
+                                    <label class="form-label" for="allergie">Allergie riferite</label>
+                                </div>
+                            </div>
+                            <div class="container mb-2 p-0">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="patologie" name="patologie" rows="2"></textarea>
+                                    <label class="form-label" for="patologie">Patologie riferite</label>
+                                </div>
+                            </div>
+                            <div class="container mb-2 p-0">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="farmaci" name="farmaci" rows="2"></textarea>
+                                    <label class="form-label" for="farmaci">Riferita assunzione di farmaci</label>
+                                </div>
+                            </div>
+                            <div class="container mb-2 p-0">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="pasto" name="pasto" rows="2"></textarea>
+                                    <label class="form-label" for="pasto">Ultimo pasto riferito</label>
+                                </div>
+                            </div>
+                            <div class="row p-1 mb-2">
+                                <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+                                    <h6>Glicemia riferita:</h6>
+                                </div>
+                                <div class="col-2 d-flex justify-content-end align-items-end">
+                                    <h6>mg/dl</h6>
+                                </div>
+                                <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+                                    <input type="number" class="form-control" id="glicemia" name="glicemia">
+                                </div>
+                            </div>
+            
+                            <h1 id="note_menu" class="text-center mt-4 border-bottom border-top">Note</h1>
+                            <div class="container p-0">
+                                <div class="form-floating mb-4">
+                                    <textarea class="form-control" id="note" name="note" rows="4"></textarea>
+                                    <label class="form-label" for="note">Note del soccorritore</label>
+                                </div>
+                            </div>
+            
+                            
+                            <h1 id="esito_menu" class="text-center mt-4 border-bottom border-top">Esito</h1>
+                            <p id="attesa" class="text-center text-muted mb-4">In attesa di informazioni sul trasporto</p>
+                            <div id="risposta" hidden>
+                                <p class="text-center text-muted mb-4">Indicazioni dalla centrale:</p>
+                                <div class="row p-1 ">
+                                    <div class="col-6 d-flex">
+                                        <h6>Destinazione</h6>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <p id="osp" class="text-center text-muted mb-4"></p>
+                                    </div>
+                                </div>
+                                <div class="row p-1 ">
+                                    <div class="col-6 d-flex">
+                                        <h6>Reparto</h6>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <p id="rep" class="text-center text-muted mb-4"></p>
+                                    </div>
+                                </div>
+                                <div class="row p-1 ">
+                                    <div class="col-6 d-flex">
+                                        <h6>Classe patologia ipotizzata</h6>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <p id="pat" class="text-center text-muted mb-4"></p>
+                                        <p id="cri" class="text-center text-muted mb-4"></p>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                        
+                    </div>
                 
-                
-
-                <div class="row p-1 mb-2">
-                    <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                        <input type="radio" class="btn-check" id="tp_front" name="tp_front" autocomplete="off">
-                        <label class="btn btn-light" for="tp_front">Testa-Piedi - Parte Anteriore</label>
-                        <input type="radio" class="btn-check" id="tp_back" name="tp_back" autocomplete="off">
-                        <label class="btn btn-light" for="tp_back">Testa-Piedi - Parte Posteriore</label>
-                    </div>
+        
                 </div>
-                <!-- Elemento nascosto -->
-                <img src="{% static 'img/circle.png' %}" id="circle" hidden>
-                <img src="{% static 'img/ecs.png' %}" class="img-fluid" alt="Responsive image" id="ecs" hidden>
-                <img src="{% static 'img/hashtag.png' %}" class="img-fluid" alt="Responsive image" id="hashtag" hidden>
-                <div class="collapse" id="tp_scheda_front">
-                    <div class="row p-1">
-                        <div class="col-7 col-md-6 col-lg-6" id="stack_f">
-                            <img src="{% static 'img/man.png' %}" class="img-fluid" alt="Responsive image" id="img_front">
-                            <canvas id="canvas_front"></canvas>
-                        </div>
-                        <div class="col-5 col-md-6 col-lg-6 d-flex flex-column justify-content-center text-center" id="img_buttons">
-                            <h6>Tipologia:</h6>
-                            <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
-                                <input type="radio" class="btn-check" id="Dolore_f">
-                                <label class="btn btn-light" for="Dolore_f">Dolore</label>
-                                <input type="radio" class="btn-check" id="Ustione_f">
-                                <label class="btn btn-light" for="Ustione_f">Ustione</label>
-                                <input type="radio" class="btn-check" id="Emorragia_f">
-                                <label class="btn btn-light" for="Emorragia_f">Emorragia</label>
-                            </div>
-                            <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
-                                <input type="radio" class="btn-check" id="Cancella_f">
-                                <label class="btn btn-light" for="Cancella_f">Cancella</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="collapse" id="tp_scheda_back">
-                    <div class="row p-1 ">
-                        <div class="col-7 col-md-6 col-lg-6" id="stack_b">
-                            <img src="{% static 'img/man.png' %}" class="img-fluid" alt="Responsive image" id="img_back">
-                            <canvas id="canvas_back"></canvas>
-                        </div>
-                        <div class="col-5 col-md-6 col-lg-6 d-flex flex-column justify-content-center text-center">
-                            <h6>Tipologia:</h6>
-                            <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
-                                <input type="radio" class="btn-check" id="Dolore_b">
-                                <label class="btn btn-light" for="Dolore_b">Dolore</label>
-                                <input type="radio" class="btn-check" id="Ustione_b">
-                                <label class="btn btn-light" for="Ustione_b">Ustione</label>
-                                <input type="radio" class="btn-check" id="Emorragia_b">
-                                <label class="btn btn-light" for="Emorragia_b">Emorragia</label>
-                            </div>
-                            <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
-                                <input type="radio" class="btn-check" id="Cancella_b">
-                                <label class="btn btn-light" for="Cancella_b">Cancella</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="container mb-2">
-                    <div class="form-floating mb-4">
-                        <textarea class="form-control" id="allergie" name="allergie" rows="2"></textarea>
-                        <label class="form-label" for="allergie">Allergie riferite</label>
-                    </div>
-                </div>
-                <div class="container mb-2">
-                    <div class="form-floating mb-4">
-                        <textarea class="form-control" id="patologie" name="patologie" rows="2"></textarea>
-                        <label class="form-label" for="patologie">Patologie riferite</label>
-                    </div>
-                </div>
-                <div class="container mb-2">
-                    <div class="form-floating mb-4">
-                        <textarea class="form-control" id="farmaci" name="farmaci" rows="2"></textarea>
-                        <label class="form-label" for="farmaci">Riferita assunzione di farmaci</label>
-                    </div>
-                </div>
-                <div class="container mb-2">
-                    <div class="form-floating mb-4">
-                        <textarea class="form-control" id="pasto" name="pasto" rows="2"></textarea>
-                        <label class="form-label" for="pasto">Ultimo pasto riferito</label>
-                    </div>
-                </div>
-                <div class="row p-1 mb-2">
-                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                        <h6>Glicemia riferita:</h6>
-                    </div>
-                    <div class="col-2 d-flex justify-content-end align-items-end">
-                        <h6>mg/dl</h6>
-                    </div>
-                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                        <input type="number" class="form-control" id="glicemia" name="glicemia">
-                    </div>
-                </div>
-
-                <h1 id="note_menu" class="text-center mt-4 border-bottom border-top">Note</h1>
-                <div class="container">
-                    <div class="form-floating mb-4">
-                        <textarea class="form-control" id="note" name="note" rows="4"></textarea>
-                        <label class="form-label" for="note">Note del soccorritore</label>
-                    </div>
-                </div>
-
-                
-                <h1 id="esito_menu" class="text-center mt-4 border-bottom border-top">Esito</h1>
-                <p id="attesa" class="text-center text-muted mb-4">In attesa di informazioni sul trasporto</p>
-                <div id="risposta" hidden>
-                    <p class="text-center text-muted mb-4">Indicazioni dalla centrale:</p>
-                    <div class="row p-1 ">
-                        <div class="col-6 d-flex">
-                            <h6>Destinazione</h6>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <p id="osp" class="text-center text-muted mb-4"></p>
-                        </div>
-                    </div>
-                    <div class="row p-1 ">
-                        <div class="col-6 d-flex">
-                            <h6>Reparto</h6>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <p id="rep" class="text-center text-muted mb-4"></p>
-                        </div>
-                    </div>
-                    <div class="row p-1 ">
-                        <div class="col-6 d-flex">
-                            <h6>Classe patologia ipotizzata</h6>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <p id="pat" class="text-center text-muted mb-4"></p>
-                            <p id="cri" class="text-center text-muted mb-4"></p>
-                        </div>
-                    </div>
-                </div>  
-                </div>
-                
+            
             </div>
         
-
-        </div>
-    
+        </form>
     </div>
+</div>
 
-    <div class="container p-5 mt-auto mb-5 text-center bg-white">
-        <div class="row">
-            <div class="col-4">
-            </div>
-            <div class="col-2">
-            </div>
-            <div class="col-6">
-                <button type="button" id="rifiuto_trasporto" class="btn p-3 btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modal_rifiuto">
-                    Rifiuto trasporto
-                </button>
-                <button type="button" id="libero" class="btn p-3 btn-primary btn-lg" hidden>Liberi dal servizio</button>
-                <button type="button" id="trasporto_ospedale" class="btn p-3 btn-primary btn-lg">Trasporto in ospedale</button>
-                <button type="button" id="conclusione" class="btn p-3 btn-primary btn-lg" hidden>Arrivo in reparto</button>
-                <button type="button" id="partenza" class="btn p-3 btn-primary btn-lg" hidden>Partenza da intervento</button>
-                
-            </div>
+<div class="row bg-light p-0 m-0">
+    <div class="col-12">
+        <div class="fixed-bottom p-4 d-flex justify-content-end">
+            <button type="button" id="rifiuto_trasporto" class="btn p-3 me-2 btn-secondary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modal_rifiuto">
+                Rifiuto trasporto
+            </button>
+            <button type="button" id="libero" class="btn p-3 me-2 btn-secondary btn-lg" hidden>Liberi dal servizio</button>
+            <button type="button" id="trasporto_ospedale" class="btn p-3 me-2 btn-primary btn-lg">Trasporto in ospedale</button>
+            <button type="button" id="conclusione" class="btn p-3 me-2 btn-primary btn-lg" hidden>Arrivo in reparto</button>
+            <button type="button" id="partenza" class="btn p-3 me-2 btn-primary btn-lg" hidden>Partenza da intervento</button>
         </div>
     </div>
-</form>
-
 </div>
 
 <!-- Centrale -->
@@ -751,8 +778,8 @@
                 <h5 class="modal-title" id="exampleModalLabel">Avverto la centrale?</h5>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" id="annulla_cosciente">NO</button>
-            <button type="button" id="allerta" class="btn btn-primary" data-dismiss="modal">SI</button>
+            <button type="button" class="btn btn-secondary w-25" id="annulla_cosciente">NO</button>
+            <button type="button" id="allerta" class="btn btn-primary w-25" data-dismiss="modal">SI</button>
             </div>
         </div>
     </div>
@@ -769,7 +796,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Esito missione aggiornato</h5>
             </div>
             <div class="modal-footer">
-            <button type="button" id="presa_visione" class="btn btn-primary" data-mdb-dismiss="modal">OK</button>
+            <button type="button" id="presa_visione" class="btn btn-primary w-25" data-mdb-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
@@ -792,14 +819,24 @@
                     <div class="row mb-4">
                         <div class="col">
                         <div class="form-floating">
+                            {% if request.session.missione.cognome_p is None %}
+                            <input type="text" id="nome_p" class="form-control border"  value="NON DEFINITO" name="nome_p">
+                            <label class="form-label" for="nome_p">Nome</label>
+                            {% else %}
                             <input type="text" id="nome_p" class="form-control border"  value="{{request.session.missione.nome_p}}" name="nome_p">
                             <label class="form-label" for="nome_p">Nome</label>
+                            {% endif %}
                         </div>
                         </div>
                         <div class="col">
                         <div class="form-floating">
-                            <input type="text" id="cognome_p" class="form-control" value="{{request.session.missione.cognome_p}}" name="cognome_p">
+                            {% if request.session.missione.cognome_p is None %}
+                            <input type="text" id="cognome_p" class="form-control border"  value="NON DEFINITO" name="nome_p">
                             <label class="form-label" for="cognome_p">Cognome</label>
+                            {% else %}
+                            <input type="text" id="cognome_p" class="form-control border"  value="{{request.session.missione.nome_p}}" name="nome_p">
+                            <label class="form-label" for="cognome_p">Cognome</label>
+                            {% endif %}
                         </div>
                         </div>
                     </div>
@@ -821,8 +858,13 @@
         
                     <!-- Numero Telefono -->
                     <div class="form-floating mb-4">
+                        {% if request.session.missione.cognome_p is None %}
+                        <input type="tel" id="cellulare" class="form-control" value=" " name="cellulare" mdInput>
+                        <label class="form-label" for="cellulare">Cellulare</label>
+                        {% else %}
                         <input type="tel" id="cellulare" class="form-control" value="{{request.session.missione.cellulare}}" name="cellulare" mdInput>
                         <label class="form-label" for="cellulare">Cellulare</label>
+                        {% endif %}
                     </div>
 
                     <p class="slogan">Indirizzo di residenza</p>
@@ -865,8 +907,8 @@
                 
                 </div>
                 <div class="modal-footer">
-                    <button type="button"  class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                    <button type="submit" id="paziente_submit" class="btn btn-primary">Conferma</button>
+                    <button type="button" id="paziente_chiudi" class="btn btn-secondary w-25" data-dismiss="modal">Annulla</button>
+                    <button type="submit" id="paziente_submit" class="btn btn-primary w-25">Conferma</button>
                 </div>
                     
             </form>
@@ -874,7 +916,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal Rifiuto-->
 <div class="modal fade" id="modal_rifiuto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -924,8 +965,8 @@
                 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
-                    <button type="submit" id="submit_rifiuto" class="btn btn-primary">Conferma</button>
+                    <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
+                    <button type="submit" id="submit_rifiuto" class="btn btn-primary w-25">Conferma</button>
                 </div>
                     
             </form>
@@ -933,7 +974,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal Trasporto-->
 <div class="modal fade" id="modal_trasporto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -994,8 +1034,8 @@
                 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
-                    <button type="submit" id="submit_trasporto" class="btn btn-primary">Conferma</button>
+                    <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
+                    <button type="submit" id="submit_trasporto" class="btn btn-primary w-25">Conferma</button>
                 </div>
                     
             </form>
@@ -1003,7 +1043,6 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 
 {% block scripts %}
@@ -1035,10 +1074,11 @@
                   },
     
               });
-            
     
-    
-    
+    });
+
+    $('#paziente_chiudi').click(function () {
+        $('#paziente').modal('hide');
     });
 
 

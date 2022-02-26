@@ -6,28 +6,17 @@
 {% block content %}
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-sm bg-light navbar-light">
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <div class="container m-auto p-3">
-                <a class="navbar-brand" href="#">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-                    height="20"
-                    alt="MDB Logo"
-                    loading="lazy"
-                  />
-                </a>
-            </div>
-        </li>
-
-        <li class="nav-item">
-            <div class="container p-3">
-                <h3>{{request.user.corporation}}</h3>
-            </div>
-        </li>
-        
-    </ul>
+<nav class="navbar navbar-light d-flex justify-content-start">
+  <a class="navbar-brand ms-3" href="#">
+    <img
+      src="{% static 'img/logoHCI.png' %}"
+      height="50"
+      loading="lazy"
+    />
+  </a>
+  <div class="nav-item ms-0 p-3">
+      <h3><strong>{{request.user.corporation}}</strong></h3>
+  </div>
 </nav>
 
 <div class="container mt-1 mb-auto p-0 bg-white" style="height: 85vh">
@@ -42,7 +31,7 @@
     </div>
     <div class="position-absolute bottom-0 end-0 m-4">
       <div class="container p-5">
-        <a type="button" id="invio_get" class="btn btn-primary btn-lg">
+        <a type="button" id="invio_get" class="btn p-3 btn-primary btn-lg m-2 w-100">
           Rientro in sede
         </a>
       </div>

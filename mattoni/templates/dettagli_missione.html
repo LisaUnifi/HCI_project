@@ -10,74 +10,35 @@
 {% block content %}
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-sm bg-light navbar-light">
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <div class="container m-auto p-3">
-                <a class="navbar-brand" href="#">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-                    height="20"
-                    alt="MDB Logo"
-                    loading="lazy"
-                  />
-                </a>
-            </div>
-        </li>
+<nav class="navbar navbar-light d-flex justify-content-start">
+  <a class="navbar-brand ms-3" href="#">
+    <img
+      src="{% static 'img/logoHCI.png' %}"
+      height="50"
+      loading="lazy"
+    />
+  </a>
+  <div class="nav-item ms-0 p-3">
+      <h3><strong>{{request.user.corporation}}</strong></h3>
+  </div>
 
-        <li class="nav-item">
-            <div class="container p-3">
-                <h3>Misericordia Galluzzo</h3>
-            </div>
-        </li>
-        
-        <li class="nav-item">
-            <div class="container-fluid">
-                <ul class="navbar-nav">
-                  <!-- Avatar -->
-                  <li class="nav-item dropdown">
-                    <a
-                      class="nav-link dropdown-toggle d-flex align-items-center"
-                      href="#"
-                      id="navbarDropdownMenuLink"
-                      role="button"
-                      data-mdb-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
-                        class="square"
-                        height="50"
-                        alt="Personale Image"
-                        loading="lazy"
-                      />
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <li>
-                        <a class="dropdown-item" href="{% url 'operativo' %}">Home</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="{% url 'dati' %}">I miei dati</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="{% url 'protocolli' %}">Protocolli</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-            </div>
-        </li>
-
-    </ul>
+  <!--Dropdown primary-->
+  <div class="dropdown" style="position: absolute; right: 0; top: 0;">
+    <!--Trigger-->
+    <button class="btn btn-primary mt-4 me-4" type="button" id="dropdownMenu1" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false"><span class="dark-blue-text"><i
+        class="fas fa-bars fa-1x"></i></span></button>
+    <!--Menu-->
+    <div class="dropdown-menu" style="right: 1.5em;">
+      <a class="dropdown-item" href="{% url 'operativo' %}">Home</a>
+      <a class="dropdown-item" href="{% url 'dati' %}">I miei dati</a>
+      <a class="dropdown-item" href="{% url 'protocolli' %}">Protocolli</a>
+      <a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
+      <a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+    </div>
+  </div>
 </nav>
 
 <div class="row mt-5 m-0 bg-white">
@@ -85,10 +46,8 @@
     <h1 class="m-3">Dettagli missione</h1>
   </div>
   <div class="col-6 d-flex justify-content-start">
-    <a href="{% url 'gestione_missioni' %}" class="btn btn-primary m-4" role="button" type="submit">Torna a gestione missioni</a>
-
-    <button class="btn btn-primary m-4" role="button" id="scarica_pdf">Scarica</button>
-
+    <a href="{% url 'gestione_missioni' %}" class="btn btn-primary mt-3 mb-3 ms-2" role="button" type="submit">Torna a missioni</a>
+    <a class="btn btn-primary mt-3 mb-3 ms-2" role="button" id="scarica_pdf">Scarica</a>
   </div>
 </div>
 
@@ -139,15 +98,10 @@
       </div>
     </div>
     <div class="row">
-      <!-- Cognome -->
+      <!-- Cognome Nome -->
       <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Cognome</strong></p>
-        <p class="text-muted mb-4">{{missione.cognome_p}}</p>
-      </div>
-      <!-- Nome -->
-      <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Nome</strong></p>
-        <p class="text-muted mb-4">{{missione.nome_p}}</p>
+        <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
+        <p class="text-muted mb-4">{{missione.cognome_p}} {{missione.nome_p}}</p>
       </div>
       <!-- Cellulare -->
       <div class="col-12">
@@ -156,19 +110,31 @@
       </div>
       <!-- Luogo intervento -->
       <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
+        <p class="text-uppercase mb-2"><strong>Residenza</strong></p>
+        {% if missione.residenza is not None %}
         <p class="text-muted mb-0">{{missione.residenza}}, {{missione.civico_residenza}}</p>
         <p class="text-muted mb-4">{{missione.cap_residenza}}, {{missione.comune_residenza}} ( {{missione.provincia_residenza}} )</p>
+        {% else %}
+        <p class="text-muted mb-0">Non specificato</p>
+        {% endif %}
       </div>
       <!-- Data nascita -->
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Data nascita</strong></p>
+        {% if missione.data_nascita is not None %}
         <p class="text-muted mb-4">{{missione.data_nascita}}</p>
+        {% else %}
+        <p class="text-muted mb-0">Non specificata</p>
+        {% endif %}
       </div>
       <!-- Dove nascita -->
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Nato a</strong></p>
+        {% if missione.dove_nato is not None %}
         <p class="text-muted mb-4">{{missione.dove_nato}}</p>
+        {% else %}
+        <p class="text-muted mb-0">Non specificato</p>
+        {% endif %}
       </div>
     </div>
     
@@ -226,6 +192,42 @@
             <p class="text-muted mb-4">Ostruzione totale</p>
           {% endif %}
         </div>
+      {% endif %}
+
+      {% if scheda.cosciente is False %}
+      <div class="col-12">
+        <h6 class="text-uppercase text-center mb-2"><strong>BLS-D</strong></h6>
+        <p class="text-uppercase mb-2"><strong>Respiro</strong></p>
+        {% if scheda.respiraBLS is None %}
+         <p class="text-muted mb-4">---</p>
+        {% elif scheda.respiraBLS is True %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+        <p class="text-uppercase mb-2"><strong>Circolo</strong></p>
+        {% if scheda.circoloBLS is None %}
+         <p class="text-muted mb-4">---</p>
+        {% elif scheda.circoloBLS is True %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+        <p class="text-uppercase mb-2"><strong>Defibrillatore</strong></p>
+        {% if scheda.dae is None %}
+         <p class="text-muted mb-4">---</p>
+        {% elif scheda.dae is True %}
+          <p class="text-muted mb-4">SI</p>
+        {% else %}
+          <p class="text-muted mb-4">NO</p>
+        {% endif %}
+        <p class="text-uppercase mb-2"><strong>Numero di cicli di RCP</strong></p>
+        {% if scheda.cicli > 0 %}
+          <p class="text-muted mb-4">{{scheda.cicli}}</p>
+        {% else %}
+          <p class="text-muted mb-4">---</p>
+        {% endif %}
+      </div>
       {% endif %}
     </div>
 

@@ -32,30 +32,30 @@ window.onload = function() {
     });
 
     function draw_f(e) {
-        var posX = e.offsetX-15;
-        var posY = e.offsetY-15;
+        var posX = e.offsetX-12;
+        var posY = e.offsetY-12;
         if ($('#Dolore_f').prop('checked') == true) {
-            ctx_f.drawImage(ec, posX, posY, 30, 30);
+            ctx_f.drawImage(ec, posX, posY, 24, 24);
         };
         if ($('#Ustione_f').prop('checked') == true) {
-            ctx_f.drawImage(h, posX, posY, 30, 30);
+            ctx_f.drawImage(h, posX, posY, 24, 24);
         };
         if ($('#Emorragia_f').prop('checked') == true) {
-            ctx_f.drawImage(c, posX, posY, 30, 30);
+            ctx_f.drawImage(c, posX, posY, 24, 24);
         };
     };
 
     function draw_b(e) {
-        var posX = e.offsetX-15;
-        var posY = e.offsetY-15;
+        var posX = e.offsetX-12;
+        var posY = e.offsetY-12;
         if ($('#Dolore_b').prop('checked') == true) {
-            ctx_b.drawImage(ec, posX, posY, 30, 30);
+            ctx_b.drawImage(ec, posX, posY, 24, 24);
         };
         if ($('#Ustione_b').prop('checked') == true) {
-            ctx_b.drawImage(h, posX, posY, 30, 30);
+            ctx_b.drawImage(h, posX, posY, 24, 24);
         };
         if ($('#Emorragia_b').prop('checked') == true) {
-            ctx_b.drawImage(c, posX, posY, 30, 30);
+            ctx_b.drawImage(c, posX, posY, 24, 24);
         };
     };
 

@@ -4,576 +4,582 @@
 {% block title %}Scheda Intervento{% endblock %}
 
 {% block content %}
+<nav class="navbar navbar-light d-flex justify-content-start">
+  <a class="navbar-brand ms-3" href="#">
+    <img
+      src="{% static 'img/logoHCI.png' %}"
+      height="50"
+      loading="lazy"
+    />
+  </a>
+  <div class="nav-item ms-0 p-3">
+      <h3><strong>{{request.user.corporation}}</strong></h3>
+  </div>
+</nav>
 
-<div class="row mt-5 m-0 bg-white text-center">
-  <div class="col-7 text-center">
-    <h1 class="m-3">Riepilogo missione</h1>
-  </div>
-  <div class="col-5 p-5 d-flex justify-content-end">
-    <a type="button" class="btn btn-primary btn-lg" href='{% url "operativo_rientro" %}'>
-      Libero dal servizio
-    </a>
-  </div>
+<div class="container mt-5 text-center bg-white">
+  <h1 class="m-3">Riepilogo missione</h1>
 </div>
-
 <div class="container pt-2 ps-5 pe-5">
-    <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+  <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
 
-        <!-- Dati missione -->
-        <div class="card bg-light">
+    <!-- Dati missione -->
+    <div class="card bg-light">
 
-        <div class="card-header" role="tab" id="headingOne1">
-            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
-            aria-controls="collapseOne1">
-            <h5 class="mb-0">
-                Dati Missione <i class="fas fa-angle-down rotate-icon"></i>
-            </h5>
-            </a>
+    <div class="card-header" role="tab" id="headingOne1">
+        <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+        aria-controls="collapseOne1">
+        <h5 class="mb-0">
+            Dati Missione 
+        </h5>
+        </a>
+    </div>
+
+    <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
+        <div class="card-body">
+            <div class="row">
+                <!-- Missione -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Missione</strong></p>
+                  <p class="text-muted mb-4">{{missione.id_missione}}</p>
+                </div>
+                <!-- Codice intervento -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Codice intervento</strong></p>
+                  {% if missione.patologia < 10 %}
+                  <p class="text-muted mb-4">{{missione.luogo}} C0{{missione.patologia}} {{missione.criticita}}</p>
+                  {% else %}
+                  <p class="text-muted mb-4">{{missione.luogo}} C{{missione.patologia}} {{missione.criticita}}</p>
+                  {% endif %}
+                </div>
+                <!-- Luogo intervento -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
+                  <p class="text-muted mb-0">{{missione.luogo_intervento}}, {{missione.civico_intervento}}</p>
+                  <p class="text-muted mb-4">{{missione.cap_intervento}}, {{missione.comune_intervento}} ( {{missione.provincia_intervento}} )</p>
+                </div>
+              </div>
         </div>
-    
-        <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
-            <div class="card-body">
-                <div class="row">
-                    <!-- Missione -->
-                    <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Missione</strong></p>
-                      <p class="text-muted mb-4">{{missione.id_missione}}</p>
-                    </div>
-                    <!-- Codice intervento -->
-                    <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Codice intervento</strong></p>
-                      {% if missione.patologia < 10 %}
-                      <p class="text-muted mb-4">{{missione.luogo}} C0{{missione.patologia}} {{missione.criticita}}</p>
-                      {% else %}
-                      <p class="text-muted mb-4">{{missione.luogo}} C{{missione.patologia}} {{missione.criticita}}</p>
-                      {% endif %}
-                    </div>
-                    <!-- Luogo intervento -->
-                    <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
-                      <p class="text-muted mb-0">{{missione.luogo_intervento}}, {{missione.civico_intervento}}</p>
-                      <p class="text-muted mb-4">{{missione.cap_intervento}}, {{missione.comune_intervento}} ( {{missione.provincia_intervento}} )</p>
-                    </div>
-                  </div>
-            </div>
+    </div>
+
+    </div>
+
+    <!-- Dati paziente -->
+    <div class="card bg-light">
+
+    <div class="card-header" role="tab" id="headingTwo2">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
+        aria-expanded="false" aria-controls="collapseTwo2">
+        <h5 class="mb-0">
+            Dati paziente <i class="fas fa-angle-down rotate-icon"></i>
+        </h5>
+        </a>
+    </div>
+
+    <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2" data-parent="#accordionEx">
+        <div class="card-body">
+            <div class="row">
+                <!-- Cognome -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Cognome</strong></p>
+                  <p class="text-muted mb-4">{{missione.cognome_p}}</p>
+                </div>
+                <!-- Nome -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Nome</strong></p>
+                  <p class="text-muted mb-4">{{missione.nome_p}}</p>
+                </div>
+                <!-- Cellulare -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Cellulare</strong></p>
+                  <p class="text-muted mb-4">{{missione.cellulare}}</p>
+                </div>
+                <!-- Luogo intervento -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
+                  <p class="text-muted mb-0">{{missione.residenza}}, {{missione.civico_residenza}}</p>
+                  <p class="text-muted mb-4">{{missione.cap_residenza}}, {{missione.comune_residenza}} ( {{missione.provincia_residenza}} )</p>
+                </div>
+                <!-- Data nascita -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Data nascita</strong></p>
+                  <p class="text-muted mb-4">{{missione.data_nascita}}</p>
+                </div>
+                <!-- Dove nascita -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Nato a</strong></p>
+                  <p class="text-muted mb-4">{{missione.dove_nato}}</p>
+                </div>
+              </div>
         </div>
-    
+    </div>
+
+    </div>
+
+    <!-- Scenario -->
+    <div class="card bg-light">
+
+    <div class="card-header" role="tab" id="headingThree3">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
+        aria-expanded="false" aria-controls="collapseThree3">
+        <h5 class="mb-0">
+            Scenario <i class="fas fa-angle-down rotate-icon"></i>
+        </h5>
+        </a>
+    </div>
+
+    <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Dinamica riferita</strong></p>
+                  <p class="text-muted mb-4">{{scheda.scenario}}</p>
+                </div>
+              </div>
         </div>
-    
-        <!-- Dati paziente -->
-        <div class="card bg-light">
-    
-        <div class="card-header" role="tab" id="headingTwo2">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
-            aria-expanded="false" aria-controls="collapseTwo2">
-            <h5 class="mb-0">
-                Dati paziente <i class="fas fa-angle-down rotate-icon"></i>
-            </h5>
-            </a>
-        </div>
-    
-        <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2" data-parent="#accordionEx">
-            <div class="card-body">
-                <div class="row">
-                    <!-- Cognome -->
-                    <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Cognome</strong></p>
-                      <p class="text-muted mb-4">{{missione.cognome_p}}</p>
-                    </div>
-                    <!-- Nome -->
-                    <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Nome</strong></p>
-                      <p class="text-muted mb-4">{{missione.nome_p}}</p>
-                    </div>
-                    <!-- Cellulare -->
-                    <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Cellulare</strong></p>
-                      <p class="text-muted mb-4">{{missione.cellulare}}</p>
-                    </div>
-                    <!-- Luogo intervento -->
-                    <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
-                      <p class="text-muted mb-0">{{missione.residenza}}, {{missione.civico_residenza}}</p>
-                      <p class="text-muted mb-4">{{missione.cap_residenza}}, {{missione.comune_residenza}} ( {{missione.provincia_residenza}} )</p>
-                    </div>
-                    <!-- Data nascita -->
-                    <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Data nascita</strong></p>
-                      <p class="text-muted mb-4">{{missione.data_nascita}}</p>
-                    </div>
-                    <!-- Dove nascita -->
-                    <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Nato a</strong></p>
-                      <p class="text-muted mb-4">{{missione.dove_nato}}</p>
-                    </div>
-                  </div>
-            </div>
-        </div>
-    
-        </div>
-    
-        <!-- Scenario -->
-        <div class="card bg-light">
-    
+    </div>
+
+    </div>
+
+    <!-- A -->
+    <div class="card bg-light">
+
         <div class="card-header" role="tab" id="headingThree3">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree4"
             aria-expanded="false" aria-controls="collapseThree3">
             <h5 class="mb-0">
-                Scenario <i class="fas fa-angle-down rotate-icon"></i>
+                A - Airway <i class="fas fa-angle-down rotate-icon"></i>
             </h5>
             </a>
         </div>
     
-        <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
+        <div id="collapseThree4" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
+            <div class="row">
+                <!-- Coscienza -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Cosciente</strong></p>
+                  {% if scheda.cosciente is None %}
+                   <p class="text-muted mb-4">---</p>
+                  {% elif scheda.cosciente is True %}
+                    <p class="text-muted mb-4">SI</p>
+                  {% else %}
+                    <p class="text-muted mb-4">NO</p>
+                  {% endif %}
+                </div>
+          
+                <!-- Pervietà viee aeree e ostruzione -->
+                <div class="col-12">
+                  <p class="text-uppercase mb-2"><strong>Pervietà vie aeree</strong></p>
+                  {% if scheda.pervieta is None %}
+                   <p class="text-muted mb-4">---</p>
+                  {% elif scheda.pervieta is True %}
+                    <p class="text-muted mb-4">SI</p>
+                  {% else %}
+                    <p class="text-muted mb-4">NO</p>
+                  {% endif %}
+                </div>
+                {% if scheda.pervieta is False %}
+                  <div class="col-12">
+                    <p class="text-uppercase mb-2"><strong>Tipologia ostruzione</strong></p>
+                    {% if scheda.ostruzione is None %}
+                    <p class="text-muted mb-4">---</p>
+                    {% elif scheda.ostruzione is True %}
+                      <p class="text-muted mb-4">Ostruzione parziale</p>
+                    {% else %}
+                      <p class="text-muted mb-4">Ostruzione totale</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+        </div>
+    
+    </div>
+
+    <!-- B -->
+    <div class="card bg-light">
+
+        <div class="card-header" role="tab" id="headingThree3">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree5"
+            aria-expanded="false" aria-controls="collapseThree3">
+            <h5 class="mb-0">
+                B -Breathing <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+            </a>
+        </div>
+    
+        <div id="collapseThree5" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
             <div class="card-body">
                 <div class="row">
+                    <!-- Respira -->
                     <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Dinamica riferita</strong></p>
-                      <p class="text-muted mb-4">{{scheda.scenario}}</p>
-                    </div>
-                  </div>
-            </div>
-        </div>
-    
-        </div>
-
-        <!-- A -->
-        <div class="card bg-light">
-    
-            <div class="card-header" role="tab" id="headingThree3">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree4"
-                aria-expanded="false" aria-controls="collapseThree3">
-                <h5 class="mb-0">
-                    A - Airway <i class="fas fa-angle-down rotate-icon"></i>
-                </h5>
-                </a>
-            </div>
-        
-            <div id="collapseThree4" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
-                <div class="row">
-                    <!-- Coscienza -->
-                    <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Cosciente</strong></p>
-                      {% if scheda.cosciente is None %}
+                      <p class="text-uppercase mb-2"><strong>Respira</strong></p>
+                      {% if scheda.respira is None %}
                        <p class="text-muted mb-4">---</p>
-                      {% elif scheda.cosciente is True %}
+                      {% elif scheda.respira is True %}
                         <p class="text-muted mb-4">SI</p>
                       {% else %}
                         <p class="text-muted mb-4">NO</p>
                       {% endif %}
                     </div>
               
-                    <!-- Pervietà viee aeree e ostruzione -->
+                    <!-- Frequenza respiratoria -->
                     <div class="col-12">
-                      <p class="text-uppercase mb-2"><strong>Pervietà vie aeree</strong></p>
-                      {% if scheda.pervieta is None %}
+                      <p class="text-uppercase mb-2"><strong>Frequenza respiratoria</strong></p>
+                      {% if scheda.conto > 0 %}
+                        <p class="text-muted mb-4">{{scheda.conto}} atti/min</p>
+                      {% else %}
+                        <p class="text-muted mb-4">--- atti/min</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Dispnea -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Respirazione dispneica</strong></p>
+                      {% if scheda.dispnea is None %}
                        <p class="text-muted mb-4">---</p>
-                      {% elif scheda.pervieta is True %}
+                      {% elif scheda.dispnea is True %}
                         <p class="text-muted mb-4">SI</p>
                       {% else %}
                         <p class="text-muted mb-4">NO</p>
                       {% endif %}
                     </div>
-                    {% if scheda.pervieta is False %}
-                      <div class="col-12">
-                        <p class="text-uppercase mb-2"><strong>Tipologia ostruzione</strong></p>
-                        {% if scheda.ostruzione is None %}
+                    
+                    <!-- Respiro rumoroso -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Respiro rumoroso</strong></p>
+                      {% if scheda.ascolto is None %}
                         <p class="text-muted mb-4">---</p>
-                        {% elif scheda.ostruzione is True %}
-                          <p class="text-muted mb-4">Ostruzione parziale</p>
+                      {% elif scheda.ascolto is True %}
+                        <p class="text-muted mb-4">SI</p>
+                      {% else %}
+                        <p class="text-muted mb-4">NO</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Palpazione -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Palpazione torace</strong></p>
+                      {% if scheda.palpo is None %}
+                        <p class="text-muted mb-4">---</p>
+                      {% else %}
+                        <p class="text-muted mb-4">{{scheda.palpo}}</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Saturazione e saturazione con ossigeno -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Saturazione</strong></p>
+                      {% if scheda.saturazione > 0 %}
+                        <p class="text-muted mb-4">{{scheda.saturazione}} %</p>
+                      {% else %}
+                        <p class="text-muted mb-4">--- %</p>
+                      {% endif %}
+                    </div>
+                    {% if scheda.saturazione_oss > 0 %}
+                    <div class="col-12">
+                      <h6 class="text-uppercase text-center mb-2"><strong>Somministrazione ossigeno</strong></h6>
+                      <p class="text-uppercase mb-2"><strong>Saturazione con ossigeno</strong></p>
+                      <p class="text-muted mb-4">{{scheda.saturazione_oss}} %</p>
+                      <p class="text-uppercase mb-2"><strong>Ossigeno</strong></p>
+                      {% if scheda.ossigeno > 0 %}
+                        <p class="text-muted mb-4">{{scheda.ossigeno}} L/min</p>
+                      {% else %}
+                        <p class="text-muted mb-4">--- L/min</p>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                  </div>
+            </div>
+        </div>
+    
+    </div>
+
+    <!-- C -->
+    <div class="card bg-light">
+
+        <div class="card-header" role="tab" id="headingThree3">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree6"
+            aria-expanded="false" aria-controls="collapseThree3">
+            <h5 class="mb-0">
+                C - Circulation <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+            </a>
+        </div>
+    
+        <div id="collapseThree6" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
+            <div class="card-body">
+                <div class="row">
+                    <!-- Pressione arteriosa -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Pressione arteriosa</strong></p>
+                      {% if scheda.pressione_massima > 0 and scheda.pressione_minima > 0 %}
+                        <p class="text-muted mb-4">{{scheda.pressione_massima}} / {{scheda.pressione_minima}} mmHg</p>
+                      {% else %}
+                        <p class="text-muted mb-4">--- / --- mmHg</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Frequenza circolatoria -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Frequenza circolatoria</strong></p>
+                      {% if scheda.frequenza > 0 %}
+                        <p class="text-muted mb-4">{{scheda.frequenza}} batt/min</p>
+                      {% else %}
+                        <p class="text-muted mb-4">--- batt/min</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Temperatura -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Temperatura corporea</strong></p>
+                      {% if scheda.temperatura > 0 %}
+                        <p class="text-muted mb-4">{{scheda.temperatura}} °C</p>
+                      {% else %}
+                        <p class="text-muted mb-4">--- °C</p>
+                      {% endif %}
+                    </div>
+                    
+                    <!-- Emorragie -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Emorragie</strong></p>
+                      {% if scheda.emorragie is None %}
+                       <p class="text-muted mb-4">---</p>
+                      {% elif scheda.emorragie is True %}
+                        <p class="text-muted mb-4">SI</p>
+                      {% else %}
+                        <p class="text-muted mb-4">NO</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Polso radiale -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Polso radiale</strong></p>
+                      {% if scheda.polso is None %}
+                       <p class="text-muted mb-4">---</p>
+                      {% elif scheda.polso is True %}
+                        <p class="text-muted mb-4">SI</p>
+                      {% else %}
+                        <p class="text-muted mb-4">NO</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Regolare -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Polso regolare</strong></p>
+                      {% if scheda.regolare_polso is None %}
+                       <p class="text-muted mb-4">---</p>
+                      {% elif scheda.regolare_polso is True %}
+                        <p class="text-muted mb-4">SI</p>
+                      {% else %}
+                        <p class="text-muted mb-4">NO</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Colorito cutaneo -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Colorito cutaneo</strong></p>
+                      {% if scheda.cute is None %}
+                        <p class="text-muted mb-4">---</p>
+                      {% else %}
+                        <p class="text-muted mb-4">{{scheda.cute}}</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Sudato e tipologia sudore -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Sudato</strong></p>
+                      {% if scheda.sudato is None %}
+                       <p class="text-muted mb-4">---</p>
+                      {% elif scheda.sudato is True %}
+                        <p class="text-muted mb-4">SI</p>
+                      {% else %}
+                        <p class="text-muted mb-4">NO</p>
+                      {% endif %}
+                    </div>
+                    {% if scheda.sudato is True %}
+                      <div class="col-12">
+                        <p class="text-uppercase mb-2"><strong>Tipologia sudore</strong></p>
+                        {% if scheda.sudore_freddo is None %}
+                        <p class="text-muted mb-4">---</p>
+                        {% elif scheda.sudore_freddo is True %}
+                          <p class="text-muted mb-4">Freddo</p>
                         {% else %}
-                          <p class="text-muted mb-4">Ostruzione totale</p>
+                          <p class="text-muted mb-4">Caldo</p>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+              
+                    <!-- Dolore toracico e dati annessi -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Dolore toracico</strong></p>
+                      {% if scheda.dolore_toracico is None %}
+                       <p class="text-muted mb-4">---</p>
+                      {% elif scheda.dolore_toracico is True %}
+                        <p class="text-muted mb-4">SI</p>
+                      {% else %}
+                        <p class="text-muted mb-4">NO</p>
+                      {% endif %}
+                    </div>
+                    {% if scheda.dolore_toracico is True %}
+                      <div class="col-12">
+                        <p class="text-uppercase mb-2"><strong>Data insorgenza sintomi</strong></p>
+                        {% if scheda.data_dolore is None %}
+                          <p class="text-muted mb-4">---</p>
+                        {% else %}
+                          <p class="text-muted mb-4">{{scheda.data_dolore}}</p>
+                        {% endif %}
+                      </div>
+                      <div class="col-12">
+                        <p class="text-uppercase mb-2"><strong>Ora insorgenza sintomi</strong></p>
+                        {% if scheda.ora_dolore is None %}
+                          <p class="text-muted mb-4">---</p>
+                        {% else %}
+                          <p class="text-muted mb-4">{{scheda.ora_dolore}}</p>
+                        {% endif %}
+                      </div>
+                      <div class="col-12">
+                        <p class="text-uppercase mb-2"><strong>Tipologia dolore</strong></p>
+                        {% if scheda.tipo_dolore is None %}
+                        <p class="text-muted mb-4">---</p>
+                        {% elif scheda.tipo_dolore is True %}
+                          <p class="text-muted mb-4">Dolore a spilli</p>
+                        {% else %}
+                          <p class="text-muted mb-4">Dolore oppressivo</p>
                         {% endif %}
                       </div>
                     {% endif %}
                   </div>
             </div>
-        
         </div>
-
-        <!-- B -->
-        <div class="card bg-light">
     
-            <div class="card-header" role="tab" id="headingThree3">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree5"
-                aria-expanded="false" aria-controls="collapseThree3">
-                <h5 class="mb-0">
-                    B -Breathing <i class="fas fa-angle-down rotate-icon"></i>
-                </h5>
-                </a>
-            </div>
-        
-            <div id="collapseThree5" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
-                <div class="card-body">
-                    <div class="row">
-                        <!-- Respira -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Respira</strong></p>
-                          {% if scheda.respira is None %}
-                           <p class="text-muted mb-4">---</p>
-                          {% elif scheda.respira is True %}
-                            <p class="text-muted mb-4">SI</p>
-                          {% else %}
-                            <p class="text-muted mb-4">NO</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Frequenza respiratoria -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Frequenza respiratoria</strong></p>
-                          {% if scheda.conto > 0 %}
-                            <p class="text-muted mb-4">{{scheda.conto}} atti/min</p>
-                          {% else %}
-                            <p class="text-muted mb-4">--- atti/min</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Dispnea -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Respirazione dispneica</strong></p>
-                          {% if scheda.dispnea is None %}
-                           <p class="text-muted mb-4">---</p>
-                          {% elif scheda.dispnea is True %}
-                            <p class="text-muted mb-4">SI</p>
-                          {% else %}
-                            <p class="text-muted mb-4">NO</p>
-                          {% endif %}
-                        </div>
-                        
-                        <!-- Respiro rumoroso -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Respiro rumoroso</strong></p>
-                          {% if scheda.ascolto is None %}
-                            <p class="text-muted mb-4">---</p>
-                          {% elif scheda.ascolto is True %}
-                            <p class="text-muted mb-4">SI</p>
-                          {% else %}
-                            <p class="text-muted mb-4">NO</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Palpazione -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Palpazione torace</strong></p>
-                          {% if scheda.palpo is None %}
-                            <p class="text-muted mb-4">---</p>
-                          {% else %}
-                            <p class="text-muted mb-4">{{scheda.palpo}}</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Saturazione e saturazione con ossigeno -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Saturazione</strong></p>
-                          {% if scheda.saturazione > 0 %}
-                            <p class="text-muted mb-4">{{scheda.saturazione}} %</p>
-                          {% else %}
-                            <p class="text-muted mb-4">--- %</p>
-                          {% endif %}
-                        </div>
-                        {% if scheda.saturazione_oss > 0 %}
-                        <div class="col-12">
-                          <h6 class="text-uppercase text-center mb-2"><strong>Somministrazione ossigeno</strong></h6>
-                          <p class="text-uppercase mb-2"><strong>Saturazione con ossigeno</strong></p>
-                          <p class="text-muted mb-4">{{scheda.saturazione_oss}} %</p>
-                          <p class="text-uppercase mb-2"><strong>Ossigeno</strong></p>
-                          {% if scheda.ossigeno > 0 %}
-                            <p class="text-muted mb-4">{{scheda.ossigeno}} L/min</p>
-                          {% else %}
-                            <p class="text-muted mb-4">--- L/min</p>
-                          {% endif %}
-                        </div>
+    </div>
+
+    <!-- D -->
+    <div class="card bg-light">
+
+        <div class="card-header" role="tab" id="headingThree3">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree7"
+            aria-expanded="false" aria-controls="collapseThree3">
+            <h5 class="mb-0">
+                D - Disability <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+            </a>
+        </div>
+    
+        <div id="collapseThree7" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
+            <div class="card-body">
+                <div class="row">
+                    <!-- AVPU -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Valutazione neurologica</strong></p>
+                      {% if scheda.avpu is None %}
+                        <p class="text-muted mb-4">---</p>
+                      {% else %}
+                        <p class="text-muted mb-4">{{scheda.avpu}}</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Orientato nel tempo -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Orientato nel tempo</strong></p>
+                      {% if scheda.tempo is None %}
+                       <p class="text-muted mb-4">---</p>
+                      {% elif scheda.tempo is True %}
+                        <p class="text-muted mb-4">SI</p>
+                      {% else %}
+                        <p class="text-muted mb-4">NO</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Orientato nello spazio -->
+                    <div class="col-12">
+                      <p class="text-uppercase mb-2"><strong>Orientato nello spazio</strong></p>
+                      {% if scheda.spazio is None %}
+                       <p class="text-muted mb-4">---</p>
+                      {% elif scheda.spazio is True %}
+                        <p class="text-muted mb-4">SI</p>
+                      {% else %}
+                        <p class="text-muted mb-4">NO</p>
+                      {% endif %}
+                    </div>
+              
+                    <!-- Cincinnaty -->
+                    {% if scheda.mimica_c is not None or scheda.braccia_c is not None or scheda.linguaggio_c is not None %}
+                      <div class="col-12">
+                        <h6 class="text-uppercase text-center mb-2"><strong>Cincinnaty</strong></h6>
+                        <p class="text-uppercase mb-2"><strong>Mimica facciale</strong></p>
+                        {% if scheda.mimica_c is None %}
+                          <p class="text-muted mb-4">---</p>
+                        {% else %}
+                          <p class="text-muted mb-4">{{scheda.mimica_c}}</p>
+                        {% endif %}
+                        <p class="text-uppercase mb-2"><strong>Movimento delle braccia</strong></p>
+                        {% if scheda.braccia_c is None %}
+                          <p class="text-muted mb-4">---</p>
+                        {% else %}
+                          <p class="text-muted mb-4">{{scheda.braccia_c}}</p>
+                        {% endif %}
+                        <p class="text-uppercase mb-2"><strong>Linguaggio</strong></p>
+                        {% if scheda.linguaggio_c is None %}
+                        <p class="text-muted mb-4">---</p>
+                        {% elif scheda.linguaggio_c is True %}
+                          <p class="text-muted mb-4">Normale</p>
+                        {% else %}
+                          <p class="text-muted mb-4">Anormale</p>
                         {% endif %}
                       </div>
-                </div>
-            </div>
-        
-        </div>
-
-        <!-- C -->
-        <div class="card bg-light">
-    
-            <div class="card-header" role="tab" id="headingThree3">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree6"
-                aria-expanded="false" aria-controls="collapseThree3">
-                <h5 class="mb-0">
-                    C - Circulation <i class="fas fa-angle-down rotate-icon"></i>
-                </h5>
-                </a>
-            </div>
-        
-            <div id="collapseThree6" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
-                <div class="card-body">
-                    <div class="row">
-                        <!-- Pressione arteriosa -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Pressione arteriosa</strong></p>
-                          {% if scheda.pressione_massima > 0 and scheda.pressione_minima > 0 %}
-                            <p class="text-muted mb-4">{{scheda.pressione_massima}} / {{scheda.pressione_minima}} mmHg</p>
-                          {% else %}
-                            <p class="text-muted mb-4">--- / --- mmHg</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Frequenza circolatoria -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Frequenza circolatoria</strong></p>
-                          {% if scheda.frequenza > 0 %}
-                            <p class="text-muted mb-4">{{scheda.frequenza}} batt/min</p>
-                          {% else %}
-                            <p class="text-muted mb-4">--- batt/min</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Temperatura -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Temperatura corporea</strong></p>
-                          {% if scheda.temperatura > 0 %}
-                            <p class="text-muted mb-4">{{scheda.temperatura}} °C</p>
-                          {% else %}
-                            <p class="text-muted mb-4">--- °C</p>
-                          {% endif %}
-                        </div>
-                        
-                        <!-- Emorragie -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Emorragie</strong></p>
-                          {% if scheda.emorragie is None %}
-                           <p class="text-muted mb-4">---</p>
-                          {% elif scheda.emorragie is True %}
-                            <p class="text-muted mb-4">SI</p>
-                          {% else %}
-                            <p class="text-muted mb-4">NO</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Polso radiale -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Polso radiale</strong></p>
-                          {% if scheda.polso is None %}
-                           <p class="text-muted mb-4">---</p>
-                          {% elif scheda.polso is True %}
-                            <p class="text-muted mb-4">SI</p>
-                          {% else %}
-                            <p class="text-muted mb-4">NO</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Regolare -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Polso regolare</strong></p>
-                          {% if scheda.regolare_polso is None %}
-                           <p class="text-muted mb-4">---</p>
-                          {% elif scheda.regolare_polso is True %}
-                            <p class="text-muted mb-4">SI</p>
-                          {% else %}
-                            <p class="text-muted mb-4">NO</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Colorito cutaneo -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Colorito cutaneo</strong></p>
-                          {% if scheda.cute is None %}
-                            <p class="text-muted mb-4">---</p>
-                          {% else %}
-                            <p class="text-muted mb-4">{{scheda.cute}}</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Sudato e tipologia sudore -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Sudato</strong></p>
-                          {% if scheda.sudato is None %}
-                           <p class="text-muted mb-4">---</p>
-                          {% elif scheda.sudato is True %}
-                            <p class="text-muted mb-4">SI</p>
-                          {% else %}
-                            <p class="text-muted mb-4">NO</p>
-                          {% endif %}
-                        </div>
-                        {% if scheda.sudato is True %}
-                          <div class="col-12">
-                            <p class="text-uppercase mb-2"><strong>Tipologia sudore</strong></p>
-                            {% if scheda.sudore_freddo is None %}
-                            <p class="text-muted mb-4">---</p>
-                            {% elif scheda.sudore_freddo is True %}
-                              <p class="text-muted mb-4">Freddo</p>
-                            {% else %}
-                              <p class="text-muted mb-4">Caldo</p>
-                            {% endif %}
-                          </div>
+                    {% endif %}
+              
+                    <!-- Forza e sensibilità -->
+                    {% if scheda.forza_sup is not None or scheda.forza_inf is not None or scheda.sens_sup is not None or scheda.sens_inf is not None %}
+                      <div class="col-12">
+                        <h6 class="text-uppercase text-center mb-2"><strong>Forza e sensibilità</strong></h6>
+                        <p class="text-uppercase mb-2"><strong>Forza sugli arti superiori</strong></p>
+                        {% if scheda.forza_sup is None %}
+                          <p class="text-muted mb-4">---</p>
+                        {% else %}
+                          <p class="text-muted mb-4">{{scheda.forza_sup}}</p>
                         {% endif %}
-                  
-                        <!-- Dolore toracico e dati annessi -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Dolore toracico</strong></p>
-                          {% if scheda.dolore_toracico is None %}
-                           <p class="text-muted mb-4">---</p>
-                          {% elif scheda.dolore_toracico is True %}
-                            <p class="text-muted mb-4">SI</p>
-                          {% else %}
-                            <p class="text-muted mb-4">NO</p>
-                          {% endif %}
-                        </div>
-                        {% if scheda.dolore_toracico is True %}
-                          <div class="col-12">
-                            <p class="text-uppercase mb-2"><strong>Data insorgenza sintomi</strong></p>
-                            {% if scheda.data_dolore is None %}
-                              <p class="text-muted mb-4">---</p>
-                            {% else %}
-                              <p class="text-muted mb-4">{{scheda.data_dolore}}</p>
-                            {% endif %}
-                          </div>
-                          <div class="col-12">
-                            <p class="text-uppercase mb-2"><strong>Ora insorgenza sintomi</strong></p>
-                            {% if scheda.ora_dolore is None %}
-                              <p class="text-muted mb-4">---</p>
-                            {% else %}
-                              <p class="text-muted mb-4">{{scheda.ora_dolore}}</p>
-                            {% endif %}
-                          </div>
-                          <div class="col-12">
-                            <p class="text-uppercase mb-2"><strong>Tipologia dolore</strong></p>
-                            {% if scheda.tipo_dolore is None %}
-                            <p class="text-muted mb-4">---</p>
-                            {% elif scheda.tipo_dolore is True %}
-                              <p class="text-muted mb-4">Dolore a spilli</p>
-                            {% else %}
-                              <p class="text-muted mb-4">Dolore oppressivo</p>
-                            {% endif %}
-                          </div>
+                        <p class="text-uppercase mb-2"><strong>Forza sugli arti inferiori</strong></p>
+                        {% if scheda.forza_inf is None %}
+                          <p class="text-muted mb-4">---</p>
+                        {% else %}
+                          <p class="text-muted mb-4">{{scheda.forza_inf}}</p>
+                        {% endif %}
+                        <p class="text-uppercase mb-2"><strong>Sensibilità sugli arti superiori</strong></p>
+                        {% if scheda.sens_sup is None %}
+                          <p class="text-muted mb-4">---</p>
+                        {% else %}
+                          <p class="text-muted mb-4">{{scheda.sens_sup}}</p>
+                        {% endif %}
+                        <p class="text-uppercase mb-2"><strong>Sensibilità sugli arti inferiori</strong></p>
+                        {% if scheda.sens_inf is None %}
+                          <p class="text-muted mb-4">---</p>
+                        {% else %}
+                          <p class="text-muted mb-4">{{scheda.sens_inf}}</p>
                         {% endif %}
                       </div>
-                </div>
+                    {% endif %}
+                  </div>
             </div>
-        
         </div>
-
-        <!-- D -->
-        <div class="card bg-light">
     
-            <div class="card-header" role="tab" id="headingThree3">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree7"
-                aria-expanded="false" aria-controls="collapseThree3">
-                <h5 class="mb-0">
-                    D - Disability <i class="fas fa-angle-down rotate-icon"></i>
-                </h5>
-                </a>
-            </div>
-        
-            <div id="collapseThree7" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
-                <div class="card-body">
-                    <div class="row">
-                        <!-- AVPU -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Valutazione neurologica</strong></p>
-                          {% if scheda.avpu is None %}
-                            <p class="text-muted mb-4">---</p>
-                          {% else %}
-                            <p class="text-muted mb-4">{{scheda.avpu}}</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Orientato nel tempo -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Orientato nel tempo</strong></p>
-                          {% if scheda.tempo is None %}
-                           <p class="text-muted mb-4">---</p>
-                          {% elif scheda.tempo is True %}
-                            <p class="text-muted mb-4">SI</p>
-                          {% else %}
-                            <p class="text-muted mb-4">NO</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Orientato nello spazio -->
-                        <div class="col-12">
-                          <p class="text-uppercase mb-2"><strong>Orientato nello spazio</strong></p>
-                          {% if scheda.spazio is None %}
-                           <p class="text-muted mb-4">---</p>
-                          {% elif scheda.spazio is True %}
-                            <p class="text-muted mb-4">SI</p>
-                          {% else %}
-                            <p class="text-muted mb-4">NO</p>
-                          {% endif %}
-                        </div>
-                  
-                        <!-- Cincinnaty -->
-                        {% if scheda.mimica_c is not None or scheda.braccia_c is not None or scheda.linguaggio_c is not None %}
-                          <div class="col-12">
-                            <h6 class="text-uppercase text-center mb-2"><strong>Cincinnaty</strong></h6>
-                            <p class="text-uppercase mb-2"><strong>Mimica facciale</strong></p>
-                            {% if scheda.mimica_c is None %}
-                              <p class="text-muted mb-4">---</p>
-                            {% else %}
-                              <p class="text-muted mb-4">{{scheda.mimica_c}}</p>
-                            {% endif %}
-                            <p class="text-uppercase mb-2"><strong>Movimento delle braccia</strong></p>
-                            {% if scheda.braccia_c is None %}
-                              <p class="text-muted mb-4">---</p>
-                            {% else %}
-                              <p class="text-muted mb-4">{{scheda.braccia_c}}</p>
-                            {% endif %}
-                            <p class="text-uppercase mb-2"><strong>Linguaggio</strong></p>
-                            {% if scheda.linguaggio_c is None %}
-                            <p class="text-muted mb-4">---</p>
-                            {% elif scheda.linguaggio_c is True %}
-                              <p class="text-muted mb-4">Normale</p>
-                            {% else %}
-                              <p class="text-muted mb-4">Anormale</p>
-                            {% endif %}
-                          </div>
-                        {% endif %}
-                  
-                        <!-- Forza e sensibilità -->
-                        {% if scheda.forza_sup is not None or scheda.forza_inf is not None or scheda.sens_sup is not None or scheda.sens_inf is not None %}
-                          <div class="col-12">
-                            <h6 class="text-uppercase text-center mb-2"><strong>Forza e sensibilità</strong></h6>
-                            <p class="text-uppercase mb-2"><strong>Forza sugli arti superiori</strong></p>
-                            {% if scheda.forza_sup is None %}
-                              <p class="text-muted mb-4">---</p>
-                            {% else %}
-                              <p class="text-muted mb-4">{{scheda.forza_sup}}</p>
-                            {% endif %}
-                            <p class="text-uppercase mb-2"><strong>Forza sugli arti inferiori</strong></p>
-                            {% if scheda.forza_inf is None %}
-                              <p class="text-muted mb-4">---</p>
-                            {% else %}
-                              <p class="text-muted mb-4">{{scheda.forza_inf}}</p>
-                            {% endif %}
-                            <p class="text-uppercase mb-2"><strong>Sensibilità sugli arti superiori</strong></p>
-                            {% if scheda.sens_sup is None %}
-                              <p class="text-muted mb-4">---</p>
-                            {% else %}
-                              <p class="text-muted mb-4">{{scheda.sens_sup}}</p>
-                            {% endif %}
-                            <p class="text-uppercase mb-2"><strong>Sensibilità sugli arti inferiori</strong></p>
-                            {% if scheda.sens_inf is None %}
-                              <p class="text-muted mb-4">---</p>
-                            {% else %}
-                              <p class="text-muted mb-4">{{scheda.sens_inf}}</p>
-                            {% endif %}
-                          </div>
-                        {% endif %}
-                      </div>
-                </div>
-            </div>
-        
+    </div>
+
+    <!-- E -->
+    <div class="card bg-light">
+
+        <div class="card-header" role="tab" id="headingThree3">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree8"
+            aria-expanded="false" aria-controls="collapseThree3">
+            <h5 class="mb-0">
+                E - Exposure <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+            </a>
         </div>
-
-        <!-- E -->
-        <div class="card bg-light">
     
-            <div class="card-header" role="tab" id="headingThree3">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree8"
-                aria-expanded="false" aria-controls="collapseThree3">
-                <h5 class="mb-0">
-                    E - Exposure <i class="fas fa-angle-down rotate-icon"></i>
-                </h5>
-                </a>
-            </div>
-        
+        <div id="collapseThree8" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
+          <div class="card-body">
             <div class="row">
                 <!-- Posizione -->
                 <div class="col-12">
@@ -633,108 +639,116 @@
                   {% endif %}
                 </div> 
                 <!-- IMPLEMENTA TESTA-PIEDI -->
-              </div>
-        
-        </div>
-
-        <!-- Note -->
-        <div class="card bg-light">
-    
-            <div class="card-header" role="tab" id="headingThree3">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree9"
-                aria-expanded="false" aria-controls="collapseThree3">
-                <h5 class="mb-0">
-                    Note <i class="fas fa-angle-down rotate-icon"></i>
-                </h5>
-                </a>
             </div>
-        
-            <div id="collapseThree9" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
-                <div class="card-body">
-                    <div class="row">
-                        <!-- Note aggiuntive -->
-                        <div class="col-12">
-                          {% if scheda.note == '' %}
-                            <p class="text-muted mb-4">---</p>
-                          {% else %}
-                            <p class="text-muted mb-4">{{scheda.note}}</p>
-                          {% endif %}
-                        </div> 
-                      </div>
-                </div>
-            </div>
-        
-        </div>
-
-        <!-- Esito -->
-        <div class="card bg-light">
-    
-            <!-- Card header -->
-            <div class="card-header" role="tab" id="headingThree3">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree10"
-                aria-expanded="false" aria-controls="collapseThree3">
-                <h5 class="mb-0">
-                    Esito <i class="fas fa-angle-down rotate-icon"></i>
-                </h5>
-                </a>
-            </div>
-        
-            <!-- Card body -->
-            <div id="collapseThree10" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
-                <div class="card-body">
-                    {% if missione.esito %}
-                    <div class="row">
-                      <div class="col-12">
-                        <h4 class="text-uppercase mb-4 text-center"><strong>Trasporto in ospedale</strong></h4>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <!-- Criticità trasporto -->
-                      <div class="col-12">
-                        <p class="text-uppercase mb-2"><strong>Criticità trasporto</strong></p>
-                        <p class="text-muted mb-4">{{missione.criticita_trasporto}}</p>
-                      </div>
-                      <!-- Patologia ipotizzata dalla centrale -->
-                      <div class="col-12">
-                        <p class="text-uppercase mb-2"><strong>Patologia ipotizzata dalla centrale</strong></p>
-                        <p class="text-muted mb-4">{{missione.patologia_trasporto}}</p>
-                      </div>
-                      <!-- Ospedale di destinazione -->
-                      <div class="col-12">
-                        <p class="text-uppercase mb-2"><strong>Ospedale di destinazione</strong></p>
-                        <p class="text-muted mb-4">{{missione.ospedale}}</p>
-                      </div>
-                      <!-- Reparto di destinazione -->
-                      <div class="col-12">
-                        <p class="text-uppercase mb-2"><strong>Reparto di destinazione</strong></p>
-                        <p class="text-muted mb-4">{{missione.reparto}}</p>
-                      </div>
-                    </div>
-                    {% else %}
-                    <div class="row">
-                      <div class="col-12">
-                        <h4 class="text-uppercase mb-4 text-center"><strong>Rifiuto trasporto in ospedale</strong></h4>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <!-- Testimone -->
-                      <div class="col-12">
-                        <p class="text-uppercase mb-2"><strong>Cognome Nome</strong></p>
-                        <p class="text-muted mb-4">{{missione.cognome_t}} {{missione.nome_t}}</p>
-                      </div>
-                      <div class="col-12">
-                        <p class="text-uppercase mb-2"><strong>Grado parentela con paziente</strong></p>
-                        <p class="text-muted mb-4">{{missione.parentela}}</p>
-                      </div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        
+          </div>
         </div>
     
     </div>
+
+    <!-- Note -->
+    <div class="card bg-light">
+
+        <div class="card-header" role="tab" id="headingThree3">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree9"
+            aria-expanded="false" aria-controls="collapseThree3">
+            <h5 class="mb-0">
+                Note <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+            </a>
+        </div>
+    
+        <div id="collapseThree9" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
+            <div class="card-body">
+                <div class="row">
+                    <!-- Note aggiuntive -->
+                    <div class="col-12">
+                      {% if scheda.note == '' %}
+                        <p class="text-muted mb-4">---</p>
+                      {% else %}
+                        <p class="text-muted mb-4">{{scheda.note}}</p>
+                      {% endif %}
+                    </div> 
+                  </div>
+            </div>
+        </div>
+    
+    </div>
+
+    <!-- Esito -->
+    <div class="card bg-light">
+
+        <!-- Card header -->
+        <div class="card-header" role="tab" id="headingThree3">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree10"
+            aria-expanded="false" aria-controls="collapseThree3">
+            <h5 class="mb-0">
+                Esito <i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+            </a>
+        </div>
+    
+        <!-- Card body -->
+        <div id="collapseThree10" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
+            <div class="card-body">
+                {% if missione.esito %}
+                <div class="row">
+                  <div class="col-12">
+                    <h4 class="text-uppercase mb-4 text-center"><strong>Trasporto in ospedale</strong></h4>
+                  </div>
+                </div>
+                <div class="row">
+                  <!-- Criticità trasporto -->
+                  <div class="col-12">
+                    <p class="text-uppercase mb-2"><strong>Criticità trasporto</strong></p>
+                    <p class="text-muted mb-4">{{missione.criticita_trasporto}}</p>
+                  </div>
+                  <!-- Patologia ipotizzata dalla centrale -->
+                  <div class="col-12">
+                    <p class="text-uppercase mb-2"><strong>Patologia ipotizzata dalla centrale</strong></p>
+                    <p class="text-muted mb-4">{{missione.patologia_trasporto}}</p>
+                  </div>
+                  <!-- Ospedale di destinazione -->
+                  <div class="col-12">
+                    <p class="text-uppercase mb-2"><strong>Ospedale di destinazione</strong></p>
+                    <p class="text-muted mb-4">{{missione.ospedale}}</p>
+                  </div>
+                  <!-- Reparto di destinazione -->
+                  <div class="col-12">
+                    <p class="text-uppercase mb-2"><strong>Reparto di destinazione</strong></p>
+                    <p class="text-muted mb-4">{{missione.reparto}}</p>
+                  </div>
+                </div>
+                {% else %}
+                <div class="row">
+                  <div class="col-12">
+                    <h4 class="text-uppercase mb-4 text-center"><strong>Rifiuto trasporto in ospedale</strong></h4>
+                  </div>
+                </div>
+                <div class="row">
+                  <!-- Testimone -->
+                  <div class="col-12">
+                    <p class="text-uppercase mb-2"><strong>Cognome Nome</strong></p>
+                    <p class="text-muted mb-4">{{missione.cognome_t}} {{missione.nome_t}}</p>
+                  </div>
+                  <div class="col-12">
+                    <p class="text-uppercase mb-2"><strong>Grado parentela con paziente</strong></p>
+                    <p class="text-muted mb-4">{{missione.parentela}}</p>
+                  </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    
+    </div>
+
+  </div>
+  <div class="position-absolute bottom-0 end-0 m-4">
+      <div class="container p-5">
+        <a type="button" class="btn p-3 btn-primary btn-lg m-2 w-100" href='{% url "operativo_rientro" %}'>Libero dal servizio</a>
+      </div>
+    </div>
 </div>
+
 
 {% endblock %}
 {% block scripts %}
