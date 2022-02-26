@@ -79,12 +79,11 @@
         </li>
         <li>
             <div class="container p-5 d-flex justify-content-end">
-              <button type="button" class="btn btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modificautente" id="modalbutton">
+              <button type="button" class="btn btn-secondary btn-lg me-2" data-mdb-toggle="modal" data-mdb-target="#modificautente" id="modalbutton">
                 Modifica dati
             </button>
-            </div>
-            <div class="container p-5 d-flex justify-content-end">
-              <button type="button" class="btn btn-primary btn-lg" data-mdb-toggle="modal" data-mdb-target="#mod_password" id="modalpassword">
+            
+              <button type="button" class="btn btn-primary btn-lg me-2" data-mdb-toggle="modal" data-mdb-target="#mod_password" id="modalpassword">
                 Modifica password
             </button>
             </div>
@@ -252,7 +251,7 @@
                           for(const item in errors)
                           {
                               $('#errors').removeAttr('hidden');
-                              $("#errors").prepend('<p>'+errors[item]+'</p>');
+                              $("#errors").prepend('<p><strong>'+errors[item]+'</strong></p>');
                           }
                   }
                   else{
@@ -286,7 +285,7 @@
                       for(const item in errors)
                       {
                           $('#errors_password').removeAttr('hidden');
-                          $("#errors_password").prepend('<p>'+errors[item]+'</p>');
+                          $("#errors_password").prepend('<p><strong>'+errors[item]+'</strong></p>');
                       }
                   }
                   else{
