@@ -206,7 +206,7 @@ def change_password(request):
             return JsonResponse(data)
 
 
-def delete_mezzo(request, pk):
+def delete_mezzo(request):
     if request.method == 'POST':
         query = Mezzo.objects.get(id_mezzo=request.POST.get('id_mezzo'))
         query.delete()

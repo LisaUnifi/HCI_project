@@ -40,7 +40,7 @@
         {% if messages %}
         <ul class="alert alert-info text-center" style="list-style: none;">
             {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}><strong>{{ message }}</strong></li>
             {% endfor %}
         </ul>
         {% endif %}
@@ -156,8 +156,8 @@
                     </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
-                        <button type="submit" id="invio_post" class="btn btn-primary">Aggiungi mezzo</button>
+                        <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
+                        <button type="submit" id="invio_post" class="btn btn-primary" style="width: 180px;">Aggiungi mezzo</button>
                     </div>
                     
                 </form>
@@ -177,8 +177,8 @@
                 <h5 class="modal-title" id="exampleModalLabel">Vuoi veramente eliminare il mezzo?</h5>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">NO</button>
-            <button type="button" id="cancella_mezzo" class="btn btn-primary">SI</button>
+            <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">NO</button>
+            <button type="button" id="cancella_mezzo" class="btn btn-primary w-25">SI</button>
             </div>
         </div>
     </div>

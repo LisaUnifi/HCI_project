@@ -31,3 +31,12 @@
     top: 0;
     left: 0;
 }
+
+.nav-pills .nav-link {
+    background: #c1d4d9;
+}
+
+.btn-check:checked+.btn-light {
+    background-color: #c1d4d9;
+    border-color: #c1d4d9;
+}

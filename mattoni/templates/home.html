@@ -9,7 +9,7 @@
 <div class="container">
   <div class="container d-flex justify-content-end" style="position: absolute; right: 0; top: 0;">
     <button class="btn btn-info mt-3 ms-0 me-3">Tema</button>
-    <button class="btn btn-info mt-3 ms-0 me-3">Questionario</button>
+    <a role="button" class="btn btn-info mt-3 ms-0 me-3" onclick="test()">Usability Test</a>
   </div>
   <!-- Contenuto principale -->
   <div class="container w-30 rounded" style="width: 550px; margin-top: 15vh;">
@@ -58,6 +58,10 @@
 <script>
   function github () {
     window.open('https://github.com/LisaUnifi/HCI_project').focus();
+  };
+
+  function test () {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSei1-KxRFB4sA4nVLF2FQ6o7zKAA5VyyBdYlviGgLJ8aJl8ag/viewform?usp=sf_link').focus();
   };
 </script>
 {% endblock %}

@@ -1,9 +1,11 @@
 $(document).ready(function () {
+
     $('#cosciente_no').click(function () {
         $('#centrale').modal('show');
         $('#cosciente_no').prop('checked', true);
         $('#cosciente_si').prop('checked', false);
     });
+
     $('#cosciente_si').click(function () {
         $('#blsd').collapse('hide');
         $('#cosciente_no').prop('checked', false);
@@ -50,6 +52,7 @@ $(document).ready(function () {
         $('#pervieta_no').prop('checked', true);
         $('#pervieta_si').prop('checked', false);
     });
+
     $('#pervieta_si').click(function () {
         $('#ostruzione').collapse('hide');
         $('#pervieta_no').prop('checked', false);
@@ -63,6 +66,7 @@ $(document).ready(function () {
         $('#sudato_no').prop('checked', false);
         $('#sudato_si').prop('checked', true);
     });
+
     $('#sudato_no').click(function () {
         $('#freddo').collapse('hide');
         $('#sudato_no').prop('checked', true);
@@ -76,6 +80,7 @@ $(document).ready(function () {
         $('#dolore_toracico_si').prop('checked', true);
         $('#dolore_toracico_no').prop('checked', false);
     });
+
     $('#dolore_toracico_no').click(function () {
         $('#torace').collapse('hide');
         $('#dolore_toracico_si').prop('checked', false);
@@ -92,6 +97,7 @@ $(document).ready(function () {
         $('#cincinnaty_scheda').collapse('toggle');
         $('#forza_sensibilita_scheda').collapse('hide');
     });
+
     $('#forza_sensibilita').click(function (e) {
         e.preventDefault();
         
@@ -105,6 +111,7 @@ $(document).ready(function () {
         $('#tp_scheda_front').collapse('toggle');
         $('#tp_scheda_back').collapse('hide');
     });
+
     $('#tp_back').click(function (e) {
         e.preventDefault();
         
