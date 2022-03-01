@@ -26,7 +26,7 @@
     <div class="dropdown" style="position: absolute; right: 0; top: 0;">
       <!--Trigger-->
       <button class="btn btn-primary mt-4 me-4" type="button" id="dropdownMenu1" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"><span class="dark-blue-text"><i
+        aria-haspopup="true" aria-expanded="false"><span><i
           class="fas fa-bars fa-1x"></i></span></button>
       <!--Menu-->
       <div class="dropdown-menu" style="right: 1.5em;">
@@ -61,77 +61,88 @@
                         <td scope="row">BLS-D</td>
                         <td>Base</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'blsd' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="blsd" id="blsd" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="blsd">+</label>
                         </td>
                     </tr>   
                     <tr>
                         <td scope="row">PBLS-D</td>
                         <td>Base</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'pblsd' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="pblsd" id="pblsd" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="pblsd">+</label>
                         </td>
                     </tr>  
                     <tr>
                         <td scope="row">Emergenza COVID-19</td>
                         <td>Base</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'covid' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="covid" id="covid" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="covid">+</label>
                         </td>
                     </tr> 
                     <tr>
                         <td scope="row">Uso C-PAP</td>
                         <td>Avanzato</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'c-pap' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="c-pap" id="c-pap" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="c-pap">+</label>
                         </td>
                     </tr>  
                     <tr>
                         <td scope="row">Codici intervento</td>
                         <td>Base</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'codici' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="codici" id="codici" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="codici">+</label>
                         </td>
                     </tr>  
                     <tr>
                         <td scope="row">Posizione elettrodi ECG</td>
                         <td>Avanzato</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'ecg' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="ecg" id="ecg" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="ecg">+</label>
                         </td>
                     </tr>  
                     <tr>
                         <td scope="row">Metodo Triage START</td>
                         <td>Avanzato</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'start' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="start" id="start" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="start">+</label>
                         </td>
                     </tr> 
                     <tr>
                         <td scope="row">Gestione ICTUS - Protocollo STROKE</td>
                         <td>Avanzato</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'stroke' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="stroke" id="stroke" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="stroke">+</label>
                         </td>
                     </tr>  
                     <tr>
                         <td scope="row">Protocollo SVT paziente traumatizzato </td>
                         <td>Avanzato</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'svt' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="svt" id="svt" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="svt">+</label>
                         </td>
                     </tr> 
                     <tr>
                         <td scope="row">Protocolli intubazione</td>
                         <td>Avanzato</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'tubi' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="tubi" id="tubi" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="tubi">+</label>
                         </td>
                     </tr> 
                     <tr>
                         <td scope="row">Protocollo accesso venoso</td>
                         <td>Avanzato</td>
                         <td>
-                            <a href="{% url 'visualizza_protocollo' 'vena' %}" class="btn btn-info btn-sm px-3" role="button" type="submit" >+</a>
+                            <input value="vena" id="vena" class="btn btn-check apri" role="button" type="submit" >
+                            <label class="btn btn-info btn-sm px-3" for="vena">+</label>
                         </td>
                     </tr> 
                 </tbody>
@@ -148,6 +159,54 @@
 
 {% endblock %}
 {% block scripts %}
+<script>
+$(document).ready(function(){
+    $('#blsd').click(function(){  
+    window.open('{% static "pdf/blsd.pdf" %}');
+    });
+
+    $('#pblsd').click(function(){  
+    window.open('{% static "pdf/pblsd.pdf" %}');
+    });
+
+    $('#covid').click(function(){  
+    window.open('{% static "pdf/covid.pdf" %}');
+    });
+
+    $('#c-pap').click(function(){  
+    window.open('{% static "pdf/c-pap.pdf" %}');
+    });
+
+    $('#codici').click(function(){  
+    window.open('{% static "pdf/codici.pdf" %}');
+    });
+
+    $('#ecg').click(function(){  
+    window.open('{% static "pdf/ecg.pdf" %}');
+    });
+
+    $('#start').click(function(){  
+    window.open('{% static "pdf/start.pdf" %}');
+    });
+
+    $('#stroke').click(function(){  
+    window.open('{% static "pdf/stroke.pdf" %}');
+    });
+
+    $('#svt').click(function(){  
+    window.open('{% static "pdf/svt.pdf" %}');
+    });
+
+    $('#tubi').click(function(){  
+    window.open('{% static "pdf/tubi.pdf" %}');
+    });
+
+    $('#vena').click(function(){  
+    window.open('{% static "pdf/vena.pdf" %}');
+    });
+});
+    
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
