@@ -36,29 +36,32 @@
             {% endif %}
 
             <div class="container-sm p-3 rounded text-center bg-light" >
-                <!--<p class="slogan">Mezzi H/24</p>-->
-                {% for m in mezzi %}
-                    {% if m.all_day %}
+                {% if mezzi %}
+                    <p class="slogan mb-0">Mezzi associativi attivi H24</p>
+                    {% for m in mezzi %}
+                        {% if m.all_day %}
+                            <div class="row">
+                                <div class="col m-2">
+                                    <input type="radio" class="btn-check btn-lg float-start" name="mezzoscelto" id="{{ m.nome }}" value="{{ m.id_mezzo }}" autocomplete="off">
+                                    <label class="btn btn-primary btn-lg w-50" for="{{ m.nome }}">{{ m.nome }}</label>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %} 
+                    <p class="slogan mb-0">Mezzi associativi estemporanei</p>
+                    {% for m in mezzitemp %}
                         <div class="row">
                             <div class="col m-2">
                                 <input type="radio" class="btn-check btn-lg float-start" name="mezzoscelto" id="{{ m.nome }}" value="{{ m.id_mezzo }}" autocomplete="off">
-                                <label class="btn btn-primary btn-lg w-50" for="{{ m.nome }}">{{ m.nome }}</label>
+                                <label class="btn btn-secondary btn-lg w-50" for="{{ m.nome }}">{{ m.nome }}</label>
                             </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}  
-                
-                <!--<p class="slogan">Mezzi non H/24</p>-->
-                {% for m in mezzitemp %}
-                    <div class="row">
-                        <div class="col m-2">
-                            <input type="radio" class="btn-check btn-lg float-start" name="mezzoscelto" id="{{ m.nome }}" value="{{ m.id_mezzo }}" autocomplete="off">
-                            <label class="btn btn-secondary btn-lg w-50" for="{{ m.nome }}">{{ m.nome }}</label>
-                        </div>
-                    </div>   
-                    {% empty %}
-                        <!--<p>Nessun mezzo non h/24 registrato</p>-->
-                {% endfor %}  
+                        </div>   
+                        
+                    {% endfor %} 
+                {% else %}  
+                    <p class="slogan mb-0">Non sono ancora presenti mezzi associativi.</p>
+                    <p class="slogan mb-0">Per crearne di nuovi vai in <a href="{% url 'gestione_mezzi' %}" class="text-decoration-none" style="color: var(--bs-info);"><strong>GESTIONE MEZZI</strong></a></p>
+                {% endif %} 
             </div>
                             
             <div class="container p-5 mt-auto mb-5 me-5 text-center bg-white position-absolute bottom-0 end-0">

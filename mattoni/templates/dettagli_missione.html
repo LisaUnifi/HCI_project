@@ -46,7 +46,7 @@
     <h1 class="m-3">Dettagli missione</h1>
   </div>
   <div class="col-6 d-flex justify-content-start">
-    <a href="{% url 'gestione_missioni' %}" class="btn btn-primary mt-3 mb-3 ms-2" role="button" type="submit">Torna a missioni</a>
+    <a href="{% url 'gestione_missioni' %}" class="btn btn-secondary mt-3 mb-3 ms-2" role="button" type="submit">Torna a missioni</a>
     <a class="btn btn-primary mt-3 mb-3 ms-2" role="button" id="scarica_pdf">Scarica</a>
   </div>
 </div>
@@ -76,18 +76,25 @@
       <!-- Luogo intervento -->
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
-        <p class="text-muted mb-0">{{missione.luogo_intervento}}, {{missione.civico_intervento}}</p>
-        <p class="text-muted mb-4">{{missione.cap_intervento}}, {{missione.comune_intervento}} ( {{missione.provincia_intervento}} )</p>
+        <p class="text-muted mb-4">{{missione.luogo_intervento}}, {{missione.civico_intervento}}, {{missione.cap_intervento}}, {{missione.comune_intervento}} ( {{missione.provincia_intervento}} )</p>
       </div>
       <!-- Note -->
       <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Note Missione</strong></p>
-        <p class="text-muted mb-4">{{missione.note}}</p>
+        <p class="text-uppercase mb-2"><strong>Note</strong></p>
+        {% if request.session.missione.note == '' %}
+          <p class="text-muted mb-4">---</p>
+        {% else %}
+        <p class="text-muted mb-4">{{request.session.missione.note}}</p>
+        {% endif %}
       </div>
       <!-- Avvisi -->
       <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Avvisi dalla centrale</strong></p>
-        <p class="text-muted mb-4">{{missione.avvisi}}</p>
+        <p class="text-uppercase mb-2"><strong>Avvisi da centrale 118</strong></p>
+        {% if request.session.missione.avvisi == '' %}
+          <p class="text-muted mb-4">---</p>
+        {% else %}
+        <p class="text-muted mb-4">{{request.session.missione.avvisi}}</p>
+        {% endif %}
       </div>
     </div>
 
@@ -97,6 +104,7 @@
         <h4 class="text-uppercase mb-4 text-center"><strong>Dati paziente</strong></h4>
       </div>
     </div>
+
     <div class="row">
       <!-- Cognome Nome -->
       <div class="col-12">
@@ -112,10 +120,9 @@
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Residenza</strong></p>
         {% if missione.residenza is not None %}
-        <p class="text-muted mb-0">{{missione.residenza}}, {{missione.civico_residenza}}</p>
-        <p class="text-muted mb-4">{{missione.cap_residenza}}, {{missione.comune_residenza}} ( {{missione.provincia_residenza}} )</p>
+        <p class="text-muted mb-4">{{missione.residenza}}, {{missione.civico_residenza}}, {{missione.cap_residenza}}, {{missione.comune_residenza}} ( {{missione.provincia_residenza}} )</p>
         {% else %}
-        <p class="text-muted mb-0">Non specificato</p>
+        <p class="text-muted mb-4">Non specificato</p>
         {% endif %}
       </div>
       <!-- Data nascita -->
@@ -124,7 +131,7 @@
         {% if missione.data_nascita is not None %}
         <p class="text-muted mb-4">{{missione.data_nascita}}</p>
         {% else %}
-        <p class="text-muted mb-0">Non specificata</p>
+        <p class="text-muted mb-4">Non specificata</p>
         {% endif %}
       </div>
       <!-- Dove nascita -->
@@ -133,7 +140,7 @@
         {% if missione.dove_nato is not None %}
         <p class="text-muted mb-4">{{missione.dove_nato}}</p>
         {% else %}
-        <p class="text-muted mb-0">Non specificato</p>
+        <p class="text-muted mb-4">Non specificato</p>
         {% endif %}
       </div>
     </div>
@@ -608,7 +615,7 @@
 
       <!-- Allergie -->
       <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Allergie riferite</strong></p>
+        <p class="text-uppercase mb-2 mt-4"><strong>Allergie riferite</strong></p>
         {% if scheda.allergie == '' %}
           <p class="text-muted mb-4">---</p>
         {% else %}
@@ -653,10 +660,9 @@
           <p class="text-muted mb-4">{{scheda.pasto}}</p>
         {% endif %}
       </div> 
-      <!-- IMPLEMENTA TESTA-PIEDI -->
     </div>
 
-
+    {% if scheda.note != '' %}
     <div class="row">
       <div class="col-12">
         <h4 class="text-uppercase mb-4 text-center"><strong>Note aggiuntive</strong></h4>
@@ -665,13 +671,10 @@
     <div class="row">
       <!-- Note aggiuntive -->
       <div class="col-12">
-        {% if scheda.note == '' %}
-          <p class="text-muted mb-4">---</p>
-        {% else %}
-          <p class="text-muted mb-4">{{scheda.note}}</p>
-        {% endif %}
+        <p class="text-muted mb-4">{{scheda.note}}</p>
       </div> 
     </div>
+    {% endif %}
 
 
     <!-- IMPLEMENTA ESITO magari esito=true -->
@@ -730,50 +733,68 @@
     </div>
     <div class="row">
       <!-- Invio missione -->
+      {% if missione.invio is not None %}
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Invio Missione</strong></p>
         <p class="text-muted mb-4">{{missione.invio}}</p>
       </div>
+      {% endif %}
       <!-- Accetta missione -->
+      {% if missione.accetta_missione is not None %}
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Arrivo Missione</strong></p>
         <p class="text-muted mb-4">{{missione.accetta_missione}}</p>
       </div>
+      {% endif %}
       <!-- Partenza dalla sede -->
+      {% if missione.partenza is not None %}
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Partenza dalla sede</strong></p>
         <p class="text-muted mb-4">{{missione.partenza}}</p>
       </div>
+      {% endif %}
       <!-- Arrivo sul posto -->
+      {% if missione.arrivo is not None %}
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Arrivo sul posto</strong></p>
         <p class="text-muted mb-4">{{missione.arrivo}}</p>
       </div>
+      {% endif %}
       <!-- Partenza dal luogo di intervento -->
+      {% if missione.conferma_trasporto is not None %}
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Partenza dal luogo di intervento</strong></p>
         <p class="text-muted mb-4">{{missione.conferma_trasporto}}</p>
       </div>
+      {% endif %}
       <!-- Arrivo al pronto soccorso -->
+      {% if missione.pronto_socc is not None %}
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Arrivo al pronto soccorso</strong></p>
         <p class="text-muted mb-4">{{missione.pronto_socc}}</p>
       </div>
+      {% endif %}
       <!-- Rifiuto trasporto in ospedale -->
+      {% if missione.rifiuto_trasporto is not None %}
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Rifiuto trasporto in ospedale</strong></p>
         <p class="text-muted mb-4">{{missione.rifiuto_trasporto}}</p>
       </div>
+      {% endif %}
       <!-- Libero dal servizio -->
+      {% if missione.libero is not None %}
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Libero dal servizio</strong></p>
         <p class="text-muted mb-4">{{missione.libero}}</p>
       </div>
+      {% endif %}
       <!-- Rientro in sede -->
+      {% if missione.rientro_sede is not None %}
       <div class="col-12">
         <p class="text-uppercase mb-2"><strong>Rientro in sede</strong></p>
         <p class="text-muted mb-4">{{missione.rientro_sede}}</p>
       </div>
+      {% endif %}
     </div>
     
   </div>

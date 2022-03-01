@@ -560,7 +560,7 @@ class GeneratePdf(generic.View):
         pdf = render_to_pdf('pdf/dettagli.html', data)
         if pdf:
             response = HttpResponse(pdf, content_type='application/pdf')
-            filename = "Invoice_%s.pdf" %("12341231")
+            filename = "Missione_%s.pdf" %(pk)
             content = "inline; filename='%s'" %(filename)
             download = request.GET.get("download")
             if download:

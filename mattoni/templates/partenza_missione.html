@@ -52,11 +52,19 @@
           </li>
           <li>
             <p class="text-uppercase mb-2"><strong>Note</strong></p>
+            {% if request.session.missione.note == '' %}
+              <p class="text-muted mb-4">---</p>
+            {% else %}
             <p class="text-muted mb-4">{{request.session.missione.note}}</p>
+            {% endif %}
           </li>
           <li>
             <p class="text-uppercase mb-2"><strong>Avvisi da centrale 118</strong></p>
+            {% if request.session.missione.avvisi == '' %}
+              <p class="text-muted mb-4">---</p>
+            {% else %}
             <p class="text-muted mb-4">{{request.session.missione.avvisi}}</p>
+            {% endif %}
           </li>
         
         </ul>
