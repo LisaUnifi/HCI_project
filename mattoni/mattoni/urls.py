@@ -30,6 +30,7 @@ urlpatterns = [
     path('access/', scheda.LoginView.access, name='access'),
     path('admin/', admin.site.urls),
     path('logout/', scheda.logout_view, name='logout'),
+    path('change_theme/', scheda.change_theme, name='change_theme'),
     path("registration_user/", scheda.registration_request, name="registration_user"),
     #TODO: da togliere
     path('home_op/', TemplateView.as_view(template_name='home_op.html'), name='home_op'),

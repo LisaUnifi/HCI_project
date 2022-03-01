@@ -32,10 +32,18 @@ from scheda.utils import render_to_pdf #created in step 4
 import pdb
 
 
-
 def myconverter(o):
     if isinstance(o, datetime.datetime):
         return o.__str__()
+
+
+def change_theme(request):
+
+    if request.method == 'GET':
+        data = {}
+        tema = request.GET.get('theme')
+        request.session['tema'] = tema
+        return JsonResponse(data)
 
 
 def operator_check(user):
@@ -165,7 +173,10 @@ def mezzo_scelto(request):
 
 
 def logout_view(request):
+    tema = request.session['tema']
     logout(request)
+    request.session['tema']=tema
+    breakpoint()
     redirect('home')
 
 
@@ -241,7 +252,6 @@ def missione_creation_form(request):
             request.session['missione'] = dictMissione
             request.session['scheda'] = dictScheda
             data['status'] = 'success'
-            messages.success(request, 'Mezzo creato con successo!')
             return JsonResponse(data)
         else:
             errors = form.errors

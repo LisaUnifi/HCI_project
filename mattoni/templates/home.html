@@ -3,12 +3,10 @@
 
 {% block title %}Home{% endblock %}
 
-
-
 {% block content %}
 <div class="container">
   <div class="container d-flex justify-content-end" style="position: absolute; right: 0; top: 0;">
-    <button class="btn btn-info mt-3 ms-0 me-3">Tema</button>
+    <button id="cambia_tema" class="btn btn-info mt-3 ms-0 me-3">Tema</button>
     <a role="button" class="btn btn-info mt-3 ms-0 me-3" onclick="test()">Usability Test</a>
   </div>
   <!-- Contenuto principale -->
@@ -35,6 +33,41 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal Tema -->
+<div class="modal fade" id="modal_tema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Personalizza la tua pagina</h5>
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form class="text-center" id="form_tema" method="get"> 
+            {% csrf_token %}
+              <div class="modal-body">
+                  <input type="radio" class="btn-check" id="tema_1" name="theme" value="tema_1">
+                  <label class="btn btn-info" for="tema_1">Tema 1: <div class="badge" style="width: 6rem; height: 2rem; background-color: #93b7bf;"> </div><div class="badge" style="width: 6rem; height: 2rem; background-color: #93b7bf;"> </div><div class="badge" style="width: 6rem; height: 2rem; background-color: #93b7bf;"> </div></label>
+                  <input type="radio" class="btn-check" id="tema_2" name="theme" value="tema_2">
+                  <label class="btn btn-info" for="tema_2">Tema 2</label>
+                  <input type="radio" class="btn-check" id="tema_3" name="theme" value="tema_3">
+                  <label class="btn btn-info" for="tema_3">Tema 3</label> 
+
+                
+                <button type="button" class="btn w-25" style="background-color: #93b7bf;">Conferma</button>
+                <button type="button" class="btn w-25" style="background-color: #c1d4d9;">Conferma</button>
+                <button type="button" class="btn w-25" style="background-color: #593954;">Conferma</button>
+              
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
+                  <button type="submit" id="dati_tema" class="btn btn-primary w-25">Conferma</button>
+              </div>
+                  
+          </form>
+          
+      </div>
+    </div>
 </div>
 {% endblock %}
 
@@ -63,6 +96,31 @@
   function test () {
     window.open('https://docs.google.com/forms/d/e/1FAIpQLSei1-KxRFB4sA4nVLF2FQ6o7zKAA5VyyBdYlviGgLJ8aJl8ag/viewform?usp=sf_link').focus();
   };
+
+
+
+$(document).ready(function () {
+  var token = '{{ csrf_token }}';
+
+  $('#dati_tema').click(function (e) {
+      e.preventDefault();
+      formData = $('#form_tema').serialize();
+          $.ajax({
+              headers: {
+                  "X-CSRFToken": token,
+              },
+              url: '{% url "change_theme" %}',
+              dataType: 'json', 
+              type: 'GET',
+              data: formData,
+              success: function (result) {
+                  window.location = '{% url "home" %}'
+              },
+          });
+    });
+
+});
 </script>
+<script src="{% static 'js/home.js' %}"></script>
 {% endblock %}
 

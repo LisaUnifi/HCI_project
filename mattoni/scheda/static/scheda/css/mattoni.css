@@ -33,10 +33,10 @@
 }
 
 .nav-pills .nav-link {
-    background: #c1d4d9;
+    background: var(--bs-secondary);
 }
 
 .btn-check:checked+.btn-light {
-    background-color: #c1d4d9;
-    border-color: #c1d4d9;
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
 }

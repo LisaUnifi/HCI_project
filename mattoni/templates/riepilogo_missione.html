@@ -24,7 +24,7 @@
   <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
 
     <!-- Dati missione -->
-    <div class="card bg-light">
+    <div>
 
     <div class="card-header" role="tab" id="headingOne1">
         <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
@@ -55,8 +55,7 @@
                 <!-- Luogo intervento -->
                 <div class="col-12">
                   <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
-                  <p class="text-muted mb-0">{{missione.luogo_intervento}}, {{missione.civico_intervento}}</p>
-                  <p class="text-muted mb-4">{{missione.cap_intervento}}, {{missione.comune_intervento}} ( {{missione.provincia_intervento}} )</p>
+                  <p class="text-muted mb-4">{{missione.luogo_intervento}}, {{missione.civico_intervento}}, {{missione.cap_intervento}}, {{missione.comune_intervento}} ( {{missione.provincia_intervento}} )</p>
                 </div>
               </div>
         </div>
@@ -65,13 +64,13 @@
     </div>
 
     <!-- Dati paziente -->
-    <div class="card bg-light">
+    <div>
 
     <div class="card-header" role="tab" id="headingTwo2">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
         aria-expanded="false" aria-controls="collapseTwo2">
         <h5 class="mb-0">
-            Dati paziente <i class="fas fa-angle-down rotate-icon"></i>
+            Dati paziente
         </h5>
         </a>
     </div>
@@ -81,34 +80,48 @@
             <div class="row">
                 <!-- Cognome -->
                 <div class="col-12">
-                  <p class="text-uppercase mb-2"><strong>Cognome</strong></p>
-                  <p class="text-muted mb-4">{{missione.cognome_p}}</p>
-                </div>
-                <!-- Nome -->
-                <div class="col-12">
-                  <p class="text-uppercase mb-2"><strong>Nome</strong></p>
-                  <p class="text-muted mb-4">{{missione.nome_p}}</p>
+                  <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
+                  {% if missione.cognome_p is None %}
+                  <p class="text-muted mb-4">NON DEFINITO</p>
+                  {% else %}
+                  <p class="text-muted mb-4">{{missione.cognome_p}} {{missione.nome_p}}</p>
+                  {% endif %}
                 </div>
                 <!-- Cellulare -->
                 <div class="col-12">
                   <p class="text-uppercase mb-2"><strong>Cellulare</strong></p>
+                  {% if missione.cellulare is None %}
+                  <p class="text-muted mb-4">NON DEFINITO</p>
+                  {% else %}
                   <p class="text-muted mb-4">{{missione.cellulare}}</p>
+                  {% endif %}
                 </div>
                 <!-- Luogo intervento -->
                 <div class="col-12">
-                  <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
-                  <p class="text-muted mb-0">{{missione.residenza}}, {{missione.civico_residenza}}</p>
-                  <p class="text-muted mb-4">{{missione.cap_residenza}}, {{missione.comune_residenza}} ( {{missione.provincia_residenza}} )</p>
+                  <p class="text-uppercase mb-2"><strong>Residenza</strong></p>
+                  {% if missione.residenza is None %}
+                  <p class="text-muted mb-4">NON DEFINITO</p>
+                  {% else %}
+                  <p class="text-muted mb-4">{{missione.residenza}}, {{missione.civico_residenza}}, {{missione.cap_residenza}}, {{missione.comune_residenza}} ( {{missione.provincia_residenza}} )</p>
+                  {% endif %}
                 </div>
                 <!-- Data nascita -->
                 <div class="col-12">
                   <p class="text-uppercase mb-2"><strong>Data nascita</strong></p>
+                  {% if missione.data_nascita is None %}
+                  <p class="text-muted mb-4">NON DEFINITO</p>
+                  {% else %}
                   <p class="text-muted mb-4">{{missione.data_nascita}}</p>
+                  {% endif %}
                 </div>
                 <!-- Dove nascita -->
                 <div class="col-12">
                   <p class="text-uppercase mb-2"><strong>Nato a</strong></p>
+                  {% if missione.dove_nato is None %}
+                  <p class="text-muted mb-4">NON DEFINITO</p>
+                  {% else %}
                   <p class="text-muted mb-4">{{missione.dove_nato}}</p>
+                  {% endif %}
                 </div>
               </div>
         </div>
@@ -117,13 +130,13 @@
     </div>
 
     <!-- Scenario -->
-    <div class="card bg-light">
+    <div>
 
     <div class="card-header" role="tab" id="headingThree3">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
         aria-expanded="false" aria-controls="collapseThree3">
         <h5 class="mb-0">
-            Scenario <i class="fas fa-angle-down rotate-icon"></i>
+            Scenario 
         </h5>
         </a>
     </div>
@@ -142,13 +155,13 @@
     </div>
 
     <!-- A -->
-    <div class="card bg-light">
+    <div>
 
         <div class="card-header" role="tab" id="headingThree3">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree4"
             aria-expanded="false" aria-controls="collapseThree3">
             <h5 class="mb-0">
-                A - Airway <i class="fas fa-angle-down rotate-icon"></i>
+                A - Airway 
             </h5>
             </a>
         </div>
@@ -196,13 +209,13 @@
     </div>
 
     <!-- B -->
-    <div class="card bg-light">
+    <div>
 
         <div class="card-header" role="tab" id="headingThree3">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree5"
             aria-expanded="false" aria-controls="collapseThree3">
             <h5 class="mb-0">
-                B -Breathing <i class="fas fa-angle-down rotate-icon"></i>
+                B -Breathing
             </h5>
             </a>
         </div>
@@ -295,13 +308,13 @@
     </div>
 
     <!-- C -->
-    <div class="card bg-light">
+    <div>
 
         <div class="card-header" role="tab" id="headingThree3">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree6"
             aria-expanded="false" aria-controls="collapseThree3">
             <h5 class="mb-0">
-                C - Circulation <i class="fas fa-angle-down rotate-icon"></i>
+                C - Circulation
             </h5>
             </a>
         </div>
@@ -455,13 +468,13 @@
     </div>
 
     <!-- D -->
-    <div class="card bg-light">
+    <div>
 
         <div class="card-header" role="tab" id="headingThree3">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree7"
             aria-expanded="false" aria-controls="collapseThree3">
             <h5 class="mb-0">
-                D - Disability <i class="fas fa-angle-down rotate-icon"></i>
+                D - Disability 
             </h5>
             </a>
         </div>
@@ -567,13 +580,13 @@
     </div>
 
     <!-- E -->
-    <div class="card bg-light">
+    <div>
 
         <div class="card-header" role="tab" id="headingThree3">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree8"
             aria-expanded="false" aria-controls="collapseThree3">
             <h5 class="mb-0">
-                E - Exposure <i class="fas fa-angle-down rotate-icon"></i>
+                E - Exposure 
             </h5>
             </a>
         </div>
@@ -646,13 +659,13 @@
     </div>
 
     <!-- Note -->
-    <div class="card bg-light">
+    <div>
 
         <div class="card-header" role="tab" id="headingThree3">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree9"
             aria-expanded="false" aria-controls="collapseThree3">
             <h5 class="mb-0">
-                Note <i class="fas fa-angle-down rotate-icon"></i>
+                Note 
             </h5>
             </a>
         </div>
@@ -675,14 +688,14 @@
     </div>
 
     <!-- Esito -->
-    <div class="card bg-light">
+    <div>
 
         <!-- Card header -->
         <div class="card-header" role="tab" id="headingThree3">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree10"
             aria-expanded="false" aria-controls="collapseThree3">
             <h5 class="mb-0">
-                Esito <i class="fas fa-angle-down rotate-icon"></i>
+                Esito 
             </h5>
             </a>
         </div>
