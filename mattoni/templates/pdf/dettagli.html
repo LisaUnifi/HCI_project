@@ -66,6 +66,46 @@
         <div class="list-group">
             <p>Associazione: {{ corp }}</p>
         </div>
+        <div>
+            <p><strong>Codice intervento</strong></p>
+            {% if missione.patologia < 10 %}
+            <p>{{missione.luogo}} C0{{missione.patologia}} {{missione.criticita}}</p>
+            {% else %}
+            <p>{{missione.luogo}} C{{missione.patologia}} {{missione.criticita}}</p>
+            {% endif %}
+        </div>
+        <div>
+            <p><strong>Luogo intervento</strong></p>
+            <p>{{missione.luogo_intervento}}, {{missione.civico_intervento}}, {{missione.cap_intervento}}, {{missione.comune_intervento}} ( {{missione.provincia_intervento}} )</p>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12">
+              <h4 class="text-uppercase mb-4 text-center"><strong>Dati paziente</strong></h4>
+            </div>
+          </div>
+          <div class="row">
+            <!-- Cognome Nome -->
+            <div class="col-12">
+              <p class="text-uppercase mb-2"><strong>Nome Cognome</strong></p>
+              <p class="text-muted mb-4">{{missione.cognome_p}} {{missione.nome_p}}</p>
+            </div>
+            <!-- Cellulare -->
+            <div class="col-12">
+              <p class="text-uppercase mb-2"><strong>Cellulare</strong></p>
+              <p class="text-muted mb-4">{{missione.cellulare}}</p>
+            </div>
+            <!-- Luogo intervento -->
+            <div class="col-12">
+              <p class="text-uppercase mb-2"><strong>Residenza</strong></p>
+              {% if missione.residenza is not None %}
+              <p class="text-muted mb-0">{{missione.residenza}}, {{missione.civico_residenza}}</p>
+              <p class="text-muted mb-4">{{missione.cap_residenza}}, {{missione.comune_residenza}} ( {{missione.provincia_residenza}} )</p>
+              {% else %}
+              <p class="text-muted mb-0">Non specificato</p>
+              {% endif %}
+            </div>
 
         <table class="table">
             <thead>
@@ -77,34 +117,550 @@
             </tr>
             </thead>
             <tbody>
-              {% if scheda.scenario is not None %}
-                <tr>
-                    <td>Scenario</td>
-                    <td>Dinamica</td>
-                    <td>{{ scheda.scenario }}</td>
-                </tr>
-              {% endif %}
-              {% if scheda.cosciente is not None %}
-                <tr>
-                  <td>A</td>
-                  <td>Coscienza</td>
-                  <td>{{ scheda.cosciente }}</td>
-                </tr>
+                {% if scheda.scenario is not None %}
+                    <tr>
+                        <td>Scenario</td>
+                        <td>Dinamica</td>
+                        <td>{{ scheda.scenario }}</td>
+                    </tr>
                 {% endif %}
+                <tr>
+                    <td>A</td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+                {% if scheda.cosciente is True %}
+                    <tr>
+                        <td> </td>
+                        <td>Coscienza</td>
+                        <td>Si</td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.cosciente is False %}
+                    <tr>
+                        <td> BLS-D </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                    {% if scheda.respiraBLS is not None %}
+                        <tr>
+                            <td> </td>
+                            <td>Respiro</td>
+                            {% if scheda.respiraBLS is True %}
+                                <td>Si</td>
+                            {% else %}
+                                <td>No</td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                    {% if scheda.circoloBLS is not None %}
+                        <tr>
+                            <td> </td>
+                            <td>Circolo</td>
+                            {% if scheda.circoloBLS is True %}
+                                <td>Si</td>
+                            {% else %}
+                                <td>No</td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                    {% if scheda.dae is not None %}
+                        <tr>
+                            <td> </td>
+                            <td>Defibrillatore</td>
+                            {% if scheda.dae is True %}
+                                <td>Si</td>
+                            {% else %}
+                                <td>No</td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                    {% if scheda.cicli > 0 %}
+                        <tr>
+                            <td> </td>
+                            <td>Cicli</td>
+                            {% if scheda.cicli is True %}
+                                <td>Si</td>
+                            {% else %}
+                                <td>No</td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endif %}
+
                 {% if scheda.pervieta is not None %}
-                <tr>
-                  <td> </td>
-                  <td>Pervieta' vie aeree</td>
-                  <td>{{ scheda.pervieta }}</td>
-                </tr>
+                    <tr>
+                        <td> </td>
+                        <td>Pervieta' vie aeree</td>
+                        {% if scheda.circoloBLS is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
                 {% endif %}
+
                 {% if scheda.ostruzione is not None %}
-                <tr>
-                  <td> </td>
-                  <td>Tipologia ostruzione</td>
-                  <td>{{ scheda.ostruzione }}</td>
-                </tr>
+                    <tr>
+                        <td> </td>
+                        <td>Tipologia ostruzione</td>
+                        {% if scheda.ostruzione is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
                 {% endif %}
+                
+                <tr>
+                    <td>B</td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+
+                {% if scheda.respira is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Respira</td>
+                        {% if scheda.ostruzione is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+
+                    </tr>
+                {% endif %}
+
+                {% if scheda.conto > 0 %}
+                    <tr>
+                        <td> </td>
+                        <td>Frequenza respiratoria</td>
+                        <td>{{ scheda.conto }}</td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.dispnea is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Respirazione dispneica</td>
+                        {% if scheda.dispnea is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+
+                {% if scheda.ascolto is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Respiro rumoroso</td>
+                        {% if scheda.ascolto is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+
+                {% if scheda.palpo is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Palpazione torace</td>
+                        {% if scheda.palpo is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+
+                {% if scheda.saturazione > 0 %}
+                    <tr>
+                        <td> </td>
+                        <td>Saturazione</td>
+                        <td>{{ scheda.saturazione }}</td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.saturazione_oss > 0 %}
+                    <tr>
+                        <td> </td>
+                        <td>Saturazione con ossigeno</td>
+                        <td>{{ scheda.saturazione_oss }}</td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.saturazione_oss > 0 %}
+                    <tr>
+                        <td> </td>
+                        <td>Ossigeno</td>
+                        <td>{{ scheda.ossigeno }} L/min</td>
+                    </tr>
+                {% endif %}
+
+
+                <tr>
+                    <td>C</td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+
+                {% if scheda.pressione_massima > 0 and scheda.pressione_minima > 0 %}
+                    <tr>
+                        <td> </td>
+                        <td>Pressione arteriosa</td>
+                        <td>{{scheda.pressione_massima}} / {{scheda.pressione_minima}} mmHg</td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.frequenza > 0 %}
+                    <tr>
+                        <td> </td>
+                        <td>Frequenza circolatoria</td>
+                        <td>{{ scheda.frequenza }} batt/min</td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.temperatura > 0 %}
+                    <tr>
+                        <td> </td>
+                        <td>Temperatura corporea</td>
+                        <td>{{ scheda.temperatura }} </td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.emorragie is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Emorragie</td>
+                        {% if scheda.emorragie is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+
+                {% if scheda.polso is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Polso radiale</td>
+                        {% if scheda.polso is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+
+                {% if scheda.regolare_polso is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Polso regolare</td>
+                        {% if scheda.regolare_polso is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+
+                {% if scheda.cute is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Colorito cutaneo</td>
+                        {% if scheda.cute is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+
+                {% if scheda.sudato is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Sudato</td>
+                        {% if scheda.sudato is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+
+                    {% if scheda.sudore_freddo is True %}
+                        <tr>
+                            <td> </td>
+                            <td>Tipologia sudore</td>
+                            <td>Freddo</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td> </td>
+                            <td>Tipologia sudore</td>
+                            <td>Caldo</td>
+                        </tr>
+                    {% endif %}
+
+                {% endif %}
+
+                {% if scheda.dolore_toracico is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Dolore toracico</td>
+                        {% if scheda.dolore_toracico is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                    {% if scheda.dolore_toracico is True %}
+                        <tr>
+                            <td> </td>
+                            <td>Data insorgenza sintomi</td>
+                            
+                            <td>{{ scheda.data_dolore }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td>Ora insorgenza sintomi</td>
+                            
+                            <td>{{ scheda.ora_dolore }}</td>
+                            
+                        </tr>
+                        {% if scheda.tipo_dolore is True %}
+                            <td>Dolore a spilli</td>
+                        {% else %}
+                            <td>Dolore oppressivo</td>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                
+                <tr>
+                    <td>D</td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+
+                {% if scheda.avpu is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Valutazione neurologica</td>
+                        <td>{{ scheda.avpu }}</td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.tempo is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Orientato nel tempo</td>
+                        {% if scheda.tempo is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+
+                {% if scheda.spazio is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Orientato nello spazio</td>
+                        {% if scheda.spazio is True %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+
+                {% if scheda.mimica_c is not None or scheda.braccia_c is not None or scheda.linguaggio_c is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Cincinnaty</td>
+                        <td></td>
+                    </tr>
+                    {% if scheda.mimica_c is not None %}
+                        <tr>
+                            <td> </td>
+                            <td>Mimica facciale</td>
+                            <td>{{scheda.mimica_c}}</td>
+                        </tr>
+                    {% endif %}
+                    {% if scheda.braccia_c is not None %}
+                        <tr>
+                            <td> </td>
+                            <td>Movimento delle braccia</td>
+                            <td>{{scheda.braccia_c}}</td>
+                        </tr>
+                    {% endif %}
+                    {% if scheda.linguaggio_c is not None %}
+                        <tr>
+                            <td> </td>
+                            <td>Linguaggio</td>
+                            {% if scheda.linguaggio_c is True %}
+                                <td>Normale</td>
+                            {% else %}
+                                <td>Anormale</td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endif %}
+
+
+                {% if scheda.forza_sup is not None or scheda.forza_inf is not None or scheda.sens_sup is not None or scheda.sens_inf is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Forza e sensibilità</td>
+                        <td></td>
+                    </tr>
+                    {% if scheda.forza_sup is not None %}
+                        <tr>
+                            <td> </td>
+                            <td>Forza sugli arti superiori</td>
+                            <td>{{scheda.forza_sup}}</td>
+                        </tr>
+                    {% endif %}
+                    {% if scheda.forza_inf is not None %}
+                        <tr>
+                            <td> </td>
+                            <td>Forza sugli arti inferiori</td>
+                            <td>{{scheda.forza_inf}}</td>
+                        </tr>
+                    {% endif %}
+                    {% if scheda.sens_sup is not None %}
+                        <tr>
+                            <td> </td>
+                            <td>Sensibilita' sugli arti superiori</td>
+                            <td>{{scheda.sens_sup}}</td>
+                        </tr>
+                    {% endif %}
+                    {% if scheda.sens_inf is not None %}
+                        <tr>
+                            <td> </td>
+                            <td>Sensibilità sugli arti inferiori</td>
+                            <td> {{scheda.sens_inf}} </td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
+
+                <tr>
+                    <td>E</td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+
+
+                {% if scheda.posizione is not None %}
+                    <tr>
+                        <td> </td>
+                        <td>Posizione all'arrivo</td>
+                        <td> {{scheda.posizione}} </td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.allergie is not '' %}
+                    <tr>
+                        <td> </td>
+                        <td>Allergie</td>
+                        <td> {{scheda.allergie}} </td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.patologie is not '' %}
+                    <tr>
+                        <td> </td>
+                        <td>Patologie riferite</td>
+                        <td> {{scheda.patologie}} </td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.gliecemia > 0 %}
+                    <tr>
+                        <td> </td>
+                        <td>Glicemia riferita</td>
+                        <td> {{scheda.glicemia}} </td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.farmaci is not '' %}
+                    <tr>
+                        <td> </td>
+                        <td>Riferita assunzione di farmaci</td>
+                        <td> {{scheda.farmaci}} </td>
+                    </tr>
+                {% endif %}
+
+                {% if scheda.pasto is not '' %}
+                    <tr>
+                        <td> </td>
+                        <td>Ultimo pasto riferito</td>
+                        <td> {{scheda.pasto}} </td>
+                    </tr>
+                {% endif %}
+
+
+                {% if scheda.note is not '' %}
+                    <tr>
+                        <td> </td>
+                        <td>Note aggiuntive</td>
+                        <td> {{scheda.note}} </td>
+                    </tr>
+                {% endif %}
+
+            
+
+                {% if missione.esito %}
+                    <tr>
+                        <td> Esito </td>
+                        <td>Trasporto in ospedale</td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td> Criticita' trasporto </td>
+                        <td> {{missione.criticita_trasporto}} </td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td> Patologia ipotizzata </td>
+                        <td> {{missione.patologia_trasporto}} </td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td> Ospedale di destinazione </td>
+                        <td> {{missione.ospedale}} </td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td> Reparto di destinazione </td>
+                        <td> {{missione.reparto}} </td>
+                    </tr>
+                    
+
+                {% else %}
+                    <tr>
+                        <td> Esito </td>
+                        <td>Rifiuto trasporto in ospedale</td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td> Cognome Nome </td>
+                        <td>{{missione.cognome_t}} {{missione.nome_t}}</td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td> Grado parentela con paziente </td>
+                        <td> {{missione.parentela}} </td>
+                    </tr>
+
+                {% endif %}
+
+
             </tbody>
         </table>
     </div>
