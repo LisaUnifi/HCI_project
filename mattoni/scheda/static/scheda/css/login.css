@@ -1,0 +1,11 @@
+@media only screen and (min-width: 576px) {
+    #c {
+        width: 550px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    #c {
+        width: calc(device-width/2);
+    }
+}
