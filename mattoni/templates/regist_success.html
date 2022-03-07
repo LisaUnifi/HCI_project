@@ -3,10 +3,14 @@
 
 {% block title %}Registration Successful{% endblock %}
 
+{% block css %}
+<link href="{% static 'css/regist_success.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 <div class="container">
   <!-- Contenuto principale -->
-  <div class="container w-30 rounded" style="width: 550px; margin-top: 15vh;">
+  <div class="container w-30 rounded" style="width: calc(device-width/2); margin-top: 15vh;">
     <div class="row">
       <div class="col-sm-12 text-center p-3">
         <img src="{% static 'img/logoHCI.png' %}" class="rounded" alt="Covid" style="height: 30vh">    

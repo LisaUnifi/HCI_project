@@ -3,6 +3,10 @@
 
 {% block title %}Home{% endblock %}
 
+{% block css %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 <div class="container">
   <div class="container d-flex justify-content-end" style="position: absolute; right: 0; top: 0;">
@@ -10,25 +14,25 @@
     <a role="button" class="btn btn-info mt-3 ms-0 me-3" onclick="test()">Usability Test</a>
   </div>
   <!-- Contenuto principale -->
-  <div class="container w-30 rounded" style="width: 550px; margin-top: 15vh;">
+  <div class="container w-30 rounded" id="c" style="margin-top: 15vh;">
     <div class="row">
-      <div class="col-sm-12 text-center p-3">
+      <div class="col-12 text-center p-3">
         <img src="{% static 'img/logoHCI.png' %}" class="rounded" alt="Covid" style="height: 30vh">    
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 text-center p-3">
+      <div class="col-12 text-center p-3">
         <p class="display-3"><strong>Mattoni 2.0</strong></p>    
         <h4 class="text-gray">Scheda di intervento locale in emergenza</h4>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 text-center mb-2">
+      <div class="col-12 text-center mb-2">
         <a href="{% url 'loginpage' %}" class="btn btn-primary btn-lg w-50" role="button">Log In</a>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 text-center mb-2">
+      <div class="col-12 text-center mb-2">
         <a href="{% url 'registration_user' %}" class="btn btn-secondary btn-lg w-50" role="button">Registrati</a>
       </div>
     </div>
@@ -46,18 +50,62 @@
           <form class="text-center" id="form_tema" method="get"> 
             {% csrf_token %}
               <div class="modal-body">
+                  <p class="slogan">Scegli il tema che preferisci</p>
                   <input type="radio" class="btn-check" id="tema_1" name="theme" value="tema_1">
-                  <label class="btn btn-info" for="tema_1">Tema 1: <div class="badge" style="width: 6rem; height: 2rem; background-color: #93b7bf;"> </div><div class="badge" style="width: 6rem; height: 2rem; background-color: #93b7bf;"> </div><div class="badge" style="width: 6rem; height: 2rem; background-color: #93b7bf;"> </div></label>
+                  <label class="btn w-25" for="tema_1">
+                    <div class="row mt-2">
+                      <div class="col-12">
+                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #1b6f6d;"> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #73a09b;"> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #9dacaf;"> </div>
+                      </div>
+                    </div>
+                  </label>
                   <input type="radio" class="btn-check" id="tema_2" name="theme" value="tema_2">
-                  <label class="btn btn-info" for="tema_2">Tema 2</label>
+                  <label class="btn w-25" for="tema_2">
+                    <div class="row mt-2">
+                      <div class="col-12">
+                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #435922;"> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #698c35;"> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #1f4373;"> </div>
+                      </div>
+                    </div>
+                  </label>
                   <input type="radio" class="btn-check" id="tema_3" name="theme" value="tema_3">
-                  <label class="btn btn-info" for="tema_3">Tema 3</label> 
+                  <label class="btn w-25" for="tema_3">
+                    <div class="row mt-2">
+                      <div class="col-12">
+                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #93b7bf;"> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #c1d4d9;"> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #593954;"> </div>
+                      </div>
+                    </div>
+                  </label>
 
-                
-                <button type="button" class="btn w-25" style="background-color: #93b7bf;">Conferma</button>
-                <button type="button" class="btn w-25" style="background-color: #c1d4d9;">Conferma</button>
-                <button type="button" class="btn w-25" style="background-color: #593954;">Conferma</button>
-              
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>

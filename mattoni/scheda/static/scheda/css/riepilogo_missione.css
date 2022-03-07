@@ -1,0 +1,12 @@
+.product-holder {
+    position: relative;
+    display: block;
+}
+
+.plus-image {
+    left: 0%;
+    top: 0%;
+    position: absolute;
+    margin-top: 0px;
+    margin-left: 0px;
+}

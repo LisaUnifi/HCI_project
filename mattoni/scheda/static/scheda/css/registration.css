@@ -4,8 +4,26 @@
     }
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 992px) and (min-width: 576px) {
     #c {
         margin-top: 15vh;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    #c {
+        margin-top: 5vh;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    #c {
+        width: 550px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    #c {
+        width: calc(device-width/2);
     }
 }

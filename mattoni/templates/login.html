@@ -3,9 +3,13 @@
 
 {% block title %}Login{% endblock %}
 
+{% block css %}
+<link href="{% static 'css/login.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 <div class="container">
-  <div class="container w-30 rounded text-center" style="width: 550px; margin-top: 20vh">
+  <div class="container w-30 rounded text-center" id="c" style="margin-top: 20vh">
     <div class="container text-center w-75">
       <img src="{% static 'img/hciLogo.png' %}" class="w-75 logo mb-4 img-fluid"/>
     </div>
