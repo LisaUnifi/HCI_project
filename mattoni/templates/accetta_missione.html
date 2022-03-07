@@ -21,6 +21,7 @@
 
 <div class="container mt-1 mb-auto p-0 w-75 d-flex justify-content-center align-items-center" style="height: 85vh">
     <div class="card m-5 p-5 bg-light text-center">
+      <h2>Nuova missione in arrivo!</h2>
       <a href="{% url 'partenza_missione' %}">
         <!-- Card image -->
         {% if request.session.missione.criticita == 'B' %}

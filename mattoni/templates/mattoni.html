@@ -949,6 +949,12 @@
                     <p class="slogan">Inserisci i dati per il rifiuto trasporto:</p>
                     <p class="slogan">Nel caso non sia presente nessun parente o conosciente del paziente, inserire i dati di uno dei soccorritori.</p>
 
+                    <div class='text-center'>
+                        <ul class="alert alert-danger" id='errors_rifiuto' style="list-style: none;" hidden>
+                            
+                        </ul>
+                    </div>
+
                     <!-- Nome e Cognome -->
                     <div class="row mb-4">
                         <div class="col">
@@ -1006,6 +1012,12 @@
                 {% csrf_token %}
                 <div class="modal-body">
                     <p class="slogan">Inserisci i dati per il trasporto:</p>
+
+                    <div class='text-center'>
+                        <ul class="alert alert-danger" id='errors_trasporto' style="list-style: none;" hidden>
+                            
+                        </ul>
+                    </div>
 
                     <div class="row mb-4">
                         <div class="col-12 mb-4">
@@ -1228,8 +1240,14 @@
                   type: 'POST',
                   data: formData,
                   success: function (result) {
-                      if(result['status']=='error'){
-                            
+                    if(result['status']=='error'){
+                        $('#errors_rifiuto').empty();
+                        errors = result['errors']
+                        for(const item in errors)
+                        {
+                            $('#errors_rifiuto').removeAttr('hidden');
+                            $("#errors_rifiuto").prepend('<p><strong>'+errors[item]+'</strong></p>');
+                        }
                     }
                     else{
                         $.ajax({
@@ -1299,8 +1317,14 @@
                   type: 'POST',
                   data: formData,
                   success: function (result) {
-                      if(result['status']=='error'){
-                            
+                    if(result['status']=='error'){
+                        $('#errors_trasporto').empty();
+                        errors = result['errors']
+                        for(const item in errors)
+                        {
+                            $('#errors_trasporto').removeAttr('hidden');
+                            $("#errors_trasporto").prepend('<p><strong>'+errors[item]+'</strong></p>');
+                        }
                     }
                     else{
                         $('#modal_trasporto').modal('hide');

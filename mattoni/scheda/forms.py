@@ -319,6 +319,18 @@ class MissioneTrasportoForm(forms.ModelForm):
             'ospedale', 'reparto',
         ]
 
+    criticita_trasporto = forms.CharField(required=True, label='criticita_trasporto')
+    patologia_trasporto = forms.CharField(required=True, label='patologia_trasporto')
+    ospedale = forms.CharField(required=True, label='ospedale')
+    reparto = forms.CharField(required=True, label='reparto')
+
+    def __init__(self, *args, **kwargs):
+        super(MissioneTrasportoForm, self).__init__(*args, **kwargs)
+        self.fields['criticita_trasporto'].error_messages = {'required':'Criticità richiesta!'}
+        self.fields['patologia_trasporto'].error_messages = {'required':'Patologia richiesta!'}
+        self.fields['ospedale'].error_messages = {'required':'Inserire ospedale di destinazione!'}
+        self.fields['reparto'].error_messages = {'required':'Inserire reparto di destinazione!'}
+
 
 
 class MissioneRifiutoForm(forms.ModelForm):
@@ -328,3 +340,13 @@ class MissioneRifiutoForm(forms.ModelForm):
         fields = [
             'nome_t', 'cognome_t', 'parentela'
         ]
+
+    nome_t = forms.CharField(required=True, label='nome_t')
+    cognome_t = forms.CharField(required=True, label='cognome_t')
+    parentela = forms.CharField(required=True, label='parentela')
+
+    def __init__(self, *args, **kwargs):
+        super(MissioneRifiutoForm, self).__init__(*args, **kwargs)
+        self.fields['nome_t'].error_messages = {'required':'Nome del testimone richiesto!'}
+        self.fields['cognome_t'].error_messages = {'required':'Cognome del testimone richiesto!'}
+        self.fields['parentela'].error_messages = {'required':'Inserire grado di parentela!'}

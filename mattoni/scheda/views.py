@@ -173,28 +173,36 @@ def mezzo_scelto(request):
 
 
 def logout_view(request):
-    tema = request.session['tema']
     logout(request)
-    request.session['tema']=tema
-    breakpoint()
-    redirect('home')
 
 
+class RegistrationView(generic.View):
+    def get(self, request):
+        form = UserRegistrationForm(request.POST or None, request.FILES or None)
+        template_name = 'registration.html'
+        return render(request, template_name, context={'form': form})
 
+class RegistrationSuccess(generic.View):
+    def get(self, request):
+        template_name = 'regist_success.html'
+        return render(request, template_name)
 
 def registration_request(request):
     form = UserRegistrationForm(request.POST or None, request.FILES or None)
     if request.method == 'POST':
+        data={}
         if form.is_valid():
             user = form.save(commit=False)
             
             user.save()
-            return render(request, 'regist_success.html')
+
+            data['status'] = 'success'
+            return JsonResponse(data)
         else:
-            print(form.errors)
-            #TODO:funziona ma devo aggiungere un metodo per controllare i dati e gli errori
-            #return HttpResponse('<h1>Form Not valid</h1>')
-    return render(request, 'registration.html', {'form': form})
+            errors = form.errors
+            data['errors'] = errors
+            data['status'] = 'error'
+            return JsonResponse(data)
 
 
 def change_password(request):
@@ -352,6 +360,16 @@ class RiepilogoMissione(generic.View):
         if request.method == 'GET':
             missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
             scheda = Scheda.objects.get(id_scheda =request.session['scheda']['id_scheda'])
+            tp = scheda.testa_piedi
+
+            front = str(tp.front)
+            fsplit = front.split('/')
+            f = fsplit[len(fsplit)-2] + '/' + fsplit[len(fsplit)-1]
+            
+            back = str(tp.back)
+            bsplit = back.split('/')
+            b = bsplit[len(bsplit)-2] + '/' + bsplit[len(bsplit)-1]
+
             missione.chiusa = True
             if request.session['missione']['esito'] == True:
                 
@@ -364,7 +382,7 @@ class RiepilogoMissione(generic.View):
                 request.session['missione']['pronto_socc'] = d[1:17]
             else:
                 missione.save()
-            return render(request, template_name, context={'missione': missione, 'scheda': scheda})
+            return render(request, template_name, context={'missione': missione, 'scheda': scheda, 'front': f, 'back': b})
 
 
 def visualizza_protocollo(request, pk):

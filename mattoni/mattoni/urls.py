@@ -31,7 +31,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('logout/', scheda.logout_view, name='logout'),
     path('change_theme/', scheda.change_theme, name='change_theme'),
-    path("registration_user/", scheda.registration_request, name="registration_user"),
+    path("registration_user/", scheda.RegistrationView.as_view(), name="registration_user"),
+    path("registration_req/", scheda.registration_request, name="registration_req"),
+
+    path("registration_success/", scheda.RegistrationSuccess.as_view(), name="registration_success"),
     #TODO: da togliere
     path('home_op/', TemplateView.as_view(template_name='home_op.html'), name='home_op'),
     path('home_sc/', scheda.HomeSocieta.as_view(), name='home_sc'),
