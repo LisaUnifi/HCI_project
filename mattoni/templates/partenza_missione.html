@@ -34,7 +34,8 @@
   
           <li>
             <p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
+            <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}} <button type="button" class="btn btn-dark btn-sm p-1 pt-0 pb-0 example-popover ms-2" data-toggle="popover">?</button></p>
+
           </li>
   
           <li>
@@ -88,6 +89,26 @@
 
 {% endblock %}
 {% block scripts %}
+<script>
+$(document).ready(function () {
+  var c, l, p;
+  var dictC = {'R': 'rosso', 'G': 'giallo', 'V': 'verde', 'B': 'bianco'};
+  var dictL = {'S': 'strada', 'P': 'ufficio o esercizio pubblico', 'Y': 'impianto sportivo', 'K': 'casa', 'L': 'impianto lavorativo', 'Q': 'scuola', 'Z': 'altro', 'T': 'trasferimento'};
+  var dictP = {'1': 'traumatica', '2': 'cardiocircolatoria', '3': 'respiratoria', '4': 'neurologica', '5': 'psichiatrica', '6': 'neoplastica', '7': 'tossicologica', '8': 'metabolica', '9': 'gastroenterologica', '10': 'urologica', '11': 'oculistica', '12': 'otorinolaringoiatrica', '13': 'dermatologica', '14': 'ostetrico-ginecologica', '15': 'infettiva', '19': 'altro', '20': 'non identificata'};
+  c = '{{request.session.missione.criticita}}';
+  l = '{{request.session.missione.luogo}}';
+  p = '{{request.session.missione.patologia}}';
+  
+
+  $('.example-popover').popover({
+  container: 'body',
+  html: true,
+  placement: 'right',
+  content: 'Luogo: ' + dictL[l] + '<br /> Patologia: ' + dictP[p] + '<br /> Criticità: ' + dictC[c],
+  trigger: 'click'
+  })
+})
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

@@ -20,7 +20,7 @@
 </nav>
 
 <div class="container mt-1 mb-auto p-0 w-75 d-flex justify-content-center align-items-center" style="height: 85vh">
-    <div class="card m-5 p-5 bg-light text-center">
+    <div class="card m-5 p-5 text-center">
       <h2>Nuova missione in arrivo!</h2>
       <a href="{% url 'partenza_missione' %}">
         <!-- Card image -->
@@ -38,10 +38,11 @@
         <div class="card-body p-0 m-0">
           <!-- Title -->
           {% if request.session.missione.patologia < 10 %}
-          <h1 class="card-title display-1"><strong>{{request.session.missione.luogo}} C0{{request.session.missione.patologia}} {{request.session.missione.criticita}}</strong></h1>
+          <h1 class="card-title display-1"><span class="badge example-popover" data-toggle="popover" style="background-color: var(--bs-light); color: var(--bs-dark); box-shadow: 2px 2px 10px rgb(197, 197, 197);">{{request.session.missione.luogo}} C0{{request.session.missione.patologia}} {{request.session.missione.criticita}}</span></h1>
           {% else %}
-          <h1 class="card-title display-1"><strong>{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</strong></h1>
+          <h1 class="card-title display-1"><span class="badge example-popover" data-toggle="popover" style="background-color: var(--bs-light); color: var(--bs-dark); box-shadow: 2px 2px 10px rgb(197, 197, 197);">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</span></h1>
           {% endif %}
+
         </div>
       
       </div>
@@ -56,6 +57,26 @@
 
 {% endblock %}
 {% block scripts %}
+<script>
+$(document).ready(function () {
+  var c, l, p;
+  var dictC = {'R': 'rosso', 'G': 'giallo', 'V': 'verde', 'B': 'bianco'};
+  var dictL = {'S': 'strada', 'P': 'ufficio o esercizio pubblico', 'Y': 'impianto sportivo', 'K': 'casa', 'L': 'impianto lavorativo', 'Q': 'scuola', 'Z': 'altro', 'T': 'trasferimento'};
+  var dictP = {'1': 'traumatica', '2': 'cardiocircolatoria', '3': 'respiratoria', '4': 'neurologica', '5': 'psichiatrica', '6': 'neoplastica', '7': 'tossicologica', '8': 'metabolica', '9': 'gastroenterologica', '10': 'urologica', '11': 'oculistica', '12': 'otorinolaringoiatrica', '13': 'dermatologica', '14': 'ostetrico-ginecologica', '15': 'infettiva', '19': 'altro', '20': 'non identificata'};
+  c = '{{request.session.missione.criticita}}';
+  l = '{{request.session.missione.luogo}}';
+  p = '{{request.session.missione.patologia}}';
+  
+
+  $('.example-popover').popover({
+  container: 'body',
+  html: true,
+  placement: 'right',
+  content: 'Luogo: ' + dictL[l] + '<br /> Patologia: ' + dictP[p] + '<br /> Criticità: ' + dictC[c],
+  trigger: 'click'
+  })
+})
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

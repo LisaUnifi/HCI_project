@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-4">
                     <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#paziente" id="modalbutton">
-                        Modifica
+                        Dati paziente
                     </button>
                 </div>
             </div>
@@ -849,10 +849,10 @@
                         <div class="col">
                         <div class="form-floating">
                             {% if request.session.missione.cognome_p is None %}
-                            <input type="text" id="cognome_p" class="form-control border"  value="NON DEFINITO" name="nome_p">
+                            <input type="text" id="cognome_p" class="form-control border"  value="NON DEFINITO" name="cognome_p">
                             <label class="form-label" for="cognome_p">Cognome</label>
                             {% else %}
-                            <input type="text" id="cognome_p" class="form-control border"  value="{{request.session.missione.nome_p}}" name="nome_p">
+                            <input type="text" id="cognome_p" class="form-control border"  value="{{request.session.missione.cognome_p}}" name="cognome_p">
                             <label class="form-label" for="cognome_p">Cognome</label>
                             {% endif %}
                         </div>

@@ -51,7 +51,7 @@
   </div>
 </div>
 
-<div class="container pt-2 ps-5 pe-5">
+<div class="container pt-2 ps-5 pe-5" >
   <div class="p-5 m-0 bg-light">
     <div class="row">
       <div class="col-12">
@@ -678,51 +678,53 @@
 
 
     <!-- IMPLEMENTA ESITO magari esito=true -->
-    {% if missione.esito %}
-    <div class="row">
-      <div class="col-12">
-        <h4 class="text-uppercase mb-4 text-center"><strong>Trasporto in ospedale</strong></h4>
+    {% if missione.esito is not None %}
+      {% if missione.esito %}
+      <div class="row">
+        <div class="col-12">
+          <h4 class="text-uppercase mb-4 text-center"><strong>Trasporto in ospedale</strong></h4>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <!-- Criticità trasporto -->
-      <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Criticità trasporto</strong></p>
-        <p class="text-muted mb-4">{{missione.criticita_trasporto}}</p>
+      <div class="row">
+        <!-- Criticità trasporto -->
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Criticità trasporto</strong></p>
+          <p class="text-muted mb-4">{{missione.criticita_trasporto}}</p>
+        </div>
+        <!-- Patologia ipotizzata dalla centrale -->
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Patologia ipotizzata dalla centrale</strong></p>
+          <p class="text-muted mb-4">{{missione.patologia_trasporto}}</p>
+        </div>
+        <!-- Ospedale di destinazione -->
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Ospedale di destinazione</strong></p>
+          <p class="text-muted mb-4">{{missione.ospedale}}</p>
+        </div>
+        <!-- Reparto di destinazione -->
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Reparto di destinazione</strong></p>
+          <p class="text-muted mb-4">{{missione.reparto}}</p>
+        </div>
       </div>
-      <!-- Patologia ipotizzata dalla centrale -->
-      <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Patologia ipotizzata dalla centrale</strong></p>
-        <p class="text-muted mb-4">{{missione.patologia_trasporto}}</p>
+      {% else %}
+      <div class="row">
+        <div class="col-12">
+          <h4 class="text-uppercase mb-4 text-center"><strong>Rifiuto trasporto in ospedale</strong></h4>
+        </div>
       </div>
-      <!-- Ospedale di destinazione -->
-      <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Ospedale di destinazione</strong></p>
-        <p class="text-muted mb-4">{{missione.ospedale}}</p>
+      <div class="row">
+        <!-- Testimone -->
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Cognome Nome</strong></p>
+          <p class="text-muted mb-4">{{missione.cognome_t}} {{missione.nome_t}}</p>
+        </div>
+        <div class="col-12">
+          <p class="text-uppercase mb-2"><strong>Grado parentela con paziente</strong></p>
+          <p class="text-muted mb-4">{{missione.parentela}}</p>
+        </div>
       </div>
-      <!-- Reparto di destinazione -->
-      <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Reparto di destinazione</strong></p>
-        <p class="text-muted mb-4">{{missione.reparto}}</p>
-      </div>
-    </div>
-    {% else %}
-    <div class="row">
-      <div class="col-12">
-        <h4 class="text-uppercase mb-4 text-center"><strong>Rifiuto trasporto in ospedale</strong></h4>
-      </div>
-    </div>
-    <div class="row">
-      <!-- Testimone -->
-      <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Cognome Nome</strong></p>
-        <p class="text-muted mb-4">{{missione.cognome_t}} {{missione.nome_t}}</p>
-      </div>
-      <div class="col-12">
-        <p class="text-uppercase mb-2"><strong>Grado parentela con paziente</strong></p>
-        <p class="text-muted mb-4">{{missione.parentela}}</p>
-      </div>
-    </div>
+      {% endif %}
     {% endif %}
 
 
@@ -808,7 +810,6 @@ $(document).ready(function(){
     window.open('{% url "scarica_pdf" missione.id_missione %}');
   });
 });
-  
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>

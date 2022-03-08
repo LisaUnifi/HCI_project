@@ -226,7 +226,7 @@ class Missione(models.Model):
     parentela = models.CharField(max_length = 20, blank=True,null=True)
 
     #capire come gestire esito
-    esito = models.BooleanField(default = True)
+    esito = models.BooleanField(blank=True, null=True)
     
     chiusa = models.BooleanField(default = False)
 
