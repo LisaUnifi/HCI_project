@@ -19,6 +19,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
 from django.forms.models import model_to_dict
 from django.conf import settings
+from django.core.cache import cache
 
 import datetime
 import json
@@ -40,6 +41,7 @@ def myconverter(o):
 def change_theme(request):
 
     if request.method == 'GET':
+        cache.clear()
         data = {}
         tema = request.GET.get('theme')
         request.session['tema'] = tema

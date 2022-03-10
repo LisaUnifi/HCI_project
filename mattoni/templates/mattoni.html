@@ -20,7 +20,7 @@
                     <p class="mb-3"><strong class="text-uppercase">Codice:</strong> {{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
                 </div>
                 <div class="col-6">
-                    <p class="mb-4"><strong class="text-uppercase">Nome Cognome:</strong>
+                    <p class="mb-4"><strong class="text-uppercase">Cognome Nome:</strong>
                         {% if request.session.missione.cognome_p is None %}
                         NON DEFINITO
                         {% else %}
@@ -630,7 +630,7 @@
                                 <div class="collapse" id="tp_scheda_front">
                                     <div class="row p-1">
                                         <div class="col-7 col-md-6 col-lg-6 d-flex justify-content-center" id="stack_f">
-                                            <img src="{% static 'img/man.png' %}" class="img-fluid" alt="Responsive image" id="img_front">
+                                            <img src="{% static 'img/frontman.png' %}" class="img-fluid" alt="Responsive image" id="img_front">
                                             <canvas id="canvas_front"></canvas>
                                         </div>
                                         <div class="col-5 col-md-6 col-lg-6 text-center" id="img_buttons">
@@ -653,7 +653,7 @@
                                 <div class="collapse" id="tp_scheda_back">
                                     <div class="row p-1 ">
                                         <div class="col-7 col-md-6 col-lg-6 d-flex justify-content-center" id="stack_b">
-                                            <img src="{% static 'img/man.png' %}" class="img-fluid" alt="Responsive image" id="img_back">
+                                            <img src="{% static 'img/backman.png' %}" class="img-fluid" alt="Responsive image" id="img_back">
                                             <canvas id="canvas_back"></canvas>
                                         </div>
                                         <div class="col-5 col-md-6 col-lg-6 text-center">

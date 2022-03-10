@@ -171,8 +171,7 @@ class UserRegistrationForm(UserCreationForm):
             raise forms.ValidationError("Utente già registrato con questa mail!")
         return email
 
-
-    def clean(self):
+    def clean_password2(self):
         '''
         Verify both passwords match.
         '''
@@ -181,6 +180,16 @@ class UserRegistrationForm(UserCreationForm):
         password2 = cleaned_data.get("password2")
         if password1 is not None and password1 != password2:
             self.add_error("password2", "Le password devono essere uguali!")
+        return password2
+
+    def clean(self):
+        '''
+        Verify both passwords match.
+        '''
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        if len(password1) < 8 :
+            self.add_error("password1", "La password deve contenere almeno 8 caratteri!")
         return cleaned_data
 
 

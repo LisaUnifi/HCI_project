@@ -33,6 +33,12 @@
   <link href="{% static 'css/theme_1.css' %}" rel="stylesheet">
   {% elif request.session.tema == 'tema_2' %}
   <link href="{% static 'css/theme_2.css' %}" rel="stylesheet">
+  {% elif request.session.tema == 'tema_4' %}
+  <link href="{% static 'css/theme_4.css' %}" rel="stylesheet">
+  {% elif request.session.tema == 'tema_5' %}
+  <link href="{% static 'css/theme_5.css' %}" rel="stylesheet">
+  {% elif request.session.tema == 'tema_6' %}
+  <link href="{% static 'css/theme_6.css' %}" rel="stylesheet">
   {% else %}
   <link href="{% static 'css/theme_3.css' %}" rel="stylesheet">
   {% endif %}
