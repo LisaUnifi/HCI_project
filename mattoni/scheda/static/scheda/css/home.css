@@ -9,3 +9,7 @@
         width: calc(device-width/2);
     }
 }
+
+.btn-check:checked+.btn {
+    background-color: #d6d6da;
+}

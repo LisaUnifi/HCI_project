@@ -6,15 +6,15 @@
 {% block content %}
 <!-- Navbar -->
 <nav class="navbar navbar-light d-flex justify-content-start">
-  <a class="navbar-brand ms-3" href="#">
-    <img
+  <a class="navbar-brand ms-3 m-1" href="#">
+  <img
       src="{% static 'img/logoHCI.png' %}"
       height="50"
       loading="lazy"
-    />
+  />
   </a>
   <div class="nav-item ms-0 p-3">
-      <h3><strong>{{request.user.corporation}}</strong></h3>
+      <h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
   </div>
 
   <!--Dropdown primary-->

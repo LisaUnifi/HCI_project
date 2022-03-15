@@ -9,15 +9,15 @@
 
 {% block content %}
 <nav class="navbar navbar-light d-flex justify-content-start">
-  <a class="navbar-brand ms-3" href="#">
-    <img
+  <a class="navbar-brand ms-3 m-1" href="#">
+  <img
       src="{% static 'img/logoHCI.png' %}"
       height="50"
       loading="lazy"
-    />
+  />
   </a>
   <div class="nav-item ms-0 p-3">
-      <h3><strong>{{request.user.corporation}}</strong></h3>
+      <h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
   </div>
 </nav>
 
@@ -32,8 +32,9 @@
   </div>
 </div>
 
-<div class="container pt-2 ps-5 pe-5" style="height: 70vh; overflow: auto;">
-  <div class="p-5 m-0 bg-light">
+<div class="container pt-2 ps-5 pe-5" id="div_overflow" style="height: 70vh; overflow: auto;">
+  <div class="p-5 m-0 bg-light" id="top">
+    
     <div class="row">
       <div class="col-12">
         <h4 class="text-uppercase mb-4 text-center"><strong>Dati missione</strong></h4>
@@ -779,6 +780,10 @@
       </div>
       {% endif %}
     </div>
+    <div class="d-flex justify-content-end">
+      <a type="button" class="btn p-3 btn-info btn-lg m-2" href='#top'>Torna su</a>
+    </div>
+    
     
   </div>
 

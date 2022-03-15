@@ -637,11 +637,11 @@
                                             <h6>Tipologia:</h6>
                                             <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
                                                 <input type="radio" class="btn-check" id="Dolore_f">
-                                                <label class="btn btn-light" for="Dolore_f">Dolore</label>
+                                                <label class="btn btn-light" for="Dolore_f"><strong>X</strong> - Dolore</label>
                                                 <input type="radio" class="btn-check" id="Ustione_f">
-                                                <label class="btn btn-light" for="Ustione_f">Ustione</label>
+                                                <label class="btn btn-light" for="Ustione_f"><strong>#</strong> - Ustione</label>
                                                 <input type="radio" class="btn-check" id="Emorragia_f">
-                                                <label class="btn btn-light" for="Emorragia_f">Emorragia</label>
+                                                <label class="btn btn-light" for="Emorragia_f"><strong>O</strong> - Emorragia</label>
                                             </div>
                                             <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
                                                 <input type="radio" class="btn-check" id="Cancella_f">
@@ -660,11 +660,11 @@
                                             <h6>Tipologia:</h6>
                                             <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
                                                 <input type="radio" class="btn-check" id="Dolore_b">
-                                                <label class="btn btn-light" for="Dolore_b">Dolore</label>
+                                                <label class="btn btn-light" for="Dolore_b"><strong>X</strong> - Dolore</label>
                                                 <input type="radio" class="btn-check" id="Ustione_b">
-                                                <label class="btn btn-light" for="Ustione_b">Ustione</label>
+                                                <label class="btn btn-light" for="Ustione_b"><strong>#</strong> - Ustione</label>
                                                 <input type="radio" class="btn-check" id="Emorragia_b">
-                                                <label class="btn btn-light" for="Emorragia_b">Emorragia</label>
+                                                <label class="btn btn-light" for="Emorragia_b"><strong>O</strong> - Emorragia</label>
                                             </div>
                                             <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
                                                 <input type="radio" class="btn-check" id="Cancella_b">
@@ -677,25 +677,25 @@
                 
                                 <div class="container mb-2 p-0">
                                     <div class="form-floating">
-                                        <textarea class="form-control" id="allergie" name="allergie" rows="2"></textarea>
+                                        <textarea class="form-control" id="allergie" name="allergie" style="height: 80px;"></textarea>
                                         <label class="form-label" for="allergie">Allergie riferite</label>
                                     </div>
                                 </div>
                                 <div class="container mb-2 p-0">
                                     <div class="form-floating">
-                                        <textarea class="form-control" id="patologie" name="patologie" rows="2"></textarea>
+                                        <textarea class="form-control" id="patologie" name="patologie" style="height: 80px;"></textarea>
                                         <label class="form-label" for="patologie">Patologie riferite</label>
                                     </div>
                                 </div>
                                 <div class="container mb-2 p-0">
                                     <div class="form-floating">
-                                        <textarea class="form-control" id="farmaci" name="farmaci" rows="2"></textarea>
+                                        <textarea class="form-control" id="farmaci" name="farmaci" style="height: 80px;"></textarea>
                                         <label class="form-label" for="farmaci">Riferita assunzione di farmaci</label>
                                     </div>
                                 </div>
                                 <div class="container mb-2 p-0">
                                     <div class="form-floating">
-                                        <textarea class="form-control" id="pasto" name="pasto" rows="2"></textarea>
+                                        <textarea class="form-control" id="pasto" name="pasto" style="height: 80px;"></textarea>
                                         <label class="form-label" for="pasto">Ultimo pasto riferito</label>
                                     </div>
                                 </div>
@@ -718,7 +718,7 @@
                                 <h1 class="text-center mt-4 border-bottom border-top">Note</h1>
                                 <div class="container p-0">
                                     <div class="form-floating mb-4">
-                                        <textarea class="form-control" id="note" name="note" rows="4"></textarea>
+                                        <textarea class="form-control" id="note" name="note" style="height: 80px;"></textarea>
                                         <label class="form-label" for="note">Note del soccorritore</label>
                                     </div>
                                 </div>
@@ -828,10 +828,10 @@
                 <h5 class="modal-title" id="exampleModalLabel">Modifica dati paziente</h5>
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="text-center" id="modifica_paziente" method="post"> 
+            <form id="modifica_paziente" method="post"> 
                 {% csrf_token %}
                 <div class="modal-body">
-                    <p class="slogan">Inserisci tutti i dati relativi al paziente:</p>
+                    <p class="slogan text-center">Inserisci tutti i dati relativi al paziente:</p>
 
                     <!-- Nome e Cognome -->
                     <div class="row mb-4">
@@ -943,11 +943,11 @@
                 <h5 class="modal-title" id="exampleModalLabel">Dati rifiuto trasporto</h5>
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="text-center" id="form_rifiuto" method="post"> 
+            <form id="form_rifiuto" method="post"> 
                 {% csrf_token %}
                 <div class="modal-body">
-                    <p class="slogan">Inserisci i dati per il rifiuto trasporto:</p>
-                    <p class="slogan">Nel caso non sia presente nessun parente o conosciente del paziente, inserire i dati di uno dei soccorritori.</p>
+                    <p class="slogan text-center">Inserisci i dati per il rifiuto trasporto:</p>
+                    <p class="slogan text-center">Nel caso non sia presente nessun parente o conosciente del paziente, inserire i dati di uno dei soccorritori.</p>
 
                     <div class='text-center'>
                         <ul class="alert alert-danger" id='errors_rifiuto' style="list-style: none;" hidden>
@@ -1008,10 +1008,10 @@
                 <h5 class="modal-title" id="exampleModalLabel">Dati ospedale di destinazione</h5>
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="text-center" id="form_trasporto" method="post"> 
+            <form id="form_trasporto" method="post"> 
                 {% csrf_token %}
                 <div class="modal-body">
-                    <p class="slogan">Inserisci i dati per il trasporto:</p>
+                    <p class="slogan text-center">Inserisci i dati per il trasporto:</p>
 
                     <div class='text-center'>
                         <ul class="alert alert-danger" id='errors_trasporto' style="list-style: none;" hidden>

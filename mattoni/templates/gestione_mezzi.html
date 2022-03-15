@@ -12,7 +12,7 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand m-1" href="#">
                     <img
                     src="{% static 'img/logoHCI.png' %}"
                     height="50"
@@ -24,7 +24,7 @@
 
         <li class="nav-item">
             <div class="container ms-0 p-3">
-                <h3>{{request.user.corporation}}</h3>
+                <h3 class="mb-1 mt-1">{{request.user.corporation}}</h3>
             </div>
         </li>
     </ul>
@@ -76,7 +76,7 @@
     <div class="row">
         <div class="col d-flex justify-content-end">
             <a href="{% url 'home_sc' %}" role="button" class="btn p-3 btn-secondary m-2 btn-lg">
-                Torna a selezione mezzo 
+                Indietro
             </a>
             <button type="button" class="btn p-3 btn-primary btn-lg m-2" data-mdb-toggle="modal" data-mdb-target="#nuovomezzo" id="modalbutton">
                 Nuovo Mezzo

@@ -10,29 +10,29 @@
 {% block content %}
 <!-- Navbar -->
 <nav class="navbar navbar-light d-flex justify-content-start">
-  <a class="navbar-brand ms-3" href="#">
-    <img
+  <a class="navbar-brand ms-3 m-1" href="#">
+  <img
       src="{% static 'img/logoHCI.png' %}"
       height="50"
       loading="lazy"
-    />
+  />
   </a>
   <div class="nav-item ms-0 p-3">
-      <h3><strong>{{request.user.corporation}}</strong></h3>
+      <h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
   </div>
 </nav>
 
-<div class="bg-light">
-  <div class="card-body white-text rgba-black-light text-center pb-0">
-    <div class="row d-flex justify-content-center">
+<div class="bg-light ps-5 pe-5">
+  <div class="card-body white-text rgba-black-light pb-0">
+    <div class="row">
       <div class="col-3">
-        <p class="mb-4"><strong class="text-uppercase">Id missione:</strong> {{request.session.missione.id_missione}}</p>
+        <p class="mb-2"><strong class="text-uppercase">Id missione:</strong> {{request.session.missione.id_missione}}</p>
       </div>
       <div class="col-3">
-        <p class="mb-4"><strong class="text-uppercase">Codice:</strong> {{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
+        <p class="mb-2"><strong class="text-uppercase">Codice:</strong> {{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
       </div>
       <div class="col-6">
-        <p class="mb-4"><strong class="text-uppercase">Cognome Nome:</strong>
+        <p class="mb-2"><strong class="text-uppercase">Cognome Nome:</strong>
             {% if request.session.missione.cognome_p is None %}
             NON DEFINITO
             {% else %}
@@ -41,30 +41,19 @@
         </p>
       </div>
     </div>
-    <div class="row d-flex justify-content-center">
+    <div class="row ">
       <div class="col-12">
         <p class="mb-2"><strong class="text-uppercase">Luogo intervento:</strong> {{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}, {{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
       </div>
     </div>
-    <div class="row d-flex justify-content-center">
+    <div class="row ">
       <div class="col-12">
-        <button class="btn btn-info btn-sm m-0" id="bottone" type="button">espandi</button>
+        <p class="mb-2"><strong class="text-uppercase">Note:</strong> {{request.session.missione.note}}</p>
       </div>
     </div>
-  </div>
-</div>
-<div class="collapse" id="dati_centrale">
-  <div class="card card-intro bg-light">
-    <div class="card-body white-text rgba-black-light text-center">
-      <div class="row d-flex justify-content-center">
-        <div class="col-12">
-          <p class="mb-2"><strong class="text-uppercase">Note:</strong> {{request.session.missione.note}}</p>
-        </div>
-      </div>
-      <div class="row d-flex justify-content-center">
-        <div class="col-12">
-          <p class="mb-2"><strong class="text-uppercase">Avvisi:</strong> {{request.session.missione.avvisi}}</p>
-        </div>
+    <div class="row ">
+      <div class="col-12">
+        <p class="mb-4"><strong class="text-uppercase">Avvisi:</strong> {{request.session.missione.avvisi}}</p>
       </div>
     </div>
   </div>
