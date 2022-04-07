@@ -820,6 +820,23 @@
     </div>
 </div>
 
+<!-- Notifica Partenza da obiettivo -->
+<div class="modal fade" id="notifica_partenza" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Messaggio da Centrale Operativa 118</h5>
+            </div>
+            <div class="modal-body text-center">
+                <h5 class="modal-title" id="exampleModalLabel">Conferma presa visione di partenza da obiettivo</h5>
+            </div>
+            <div class="modal-footer">
+            <button type="button" id="notifica_visione" class="btn btn-primary w-25" data-mdb-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal Paziente -->
 <div class="modal fade" id="paziente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -1363,6 +1380,7 @@
                     }
                     else{
                         $('#partenza').attr('hidden',true);
+                        $('#notifica_partenza').modal('show');
                         $('#conclusione').attr('hidden',false);
                     }
                   },

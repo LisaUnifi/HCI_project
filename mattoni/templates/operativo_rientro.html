@@ -3,6 +3,10 @@
 
 {% block title %}Home Intervento{% endblock %}
 
+{% block css %}
+<link href="{% static 'css/operativo_rientro.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 
 <!-- Navbar -->
@@ -19,23 +23,31 @@
   </div>
 </nav>
 
-<div class="container mt-1 mb-auto p-0 bg-white" style="height: 85vh">
-    <div class="row">
-        <div class="col-6">
-            <p>{{request.session.mezzo.nome}} Operativa</p>
-            <p>Rientro in sede</p>
-        </div>
-        <div class="col-6">
-            
-        </div>
+
+<div class="container mt-1 mb-auto p-0 w-75 d-flex justify-content-center align-items-center" style="height: 85vh">
+  <div class="row w-100">
+    <div class="col-12 d-flex justify-content-center">
+      <img src="{% static 'img/background_HCI.png' %}" id="bg_img" class="img-fluid mx-auto" >  
     </div>
-    <div class="position-absolute bottom-0 end-0 m-4">
-      <div class="container p-5">
-        <a type="button" id="invio_get" class="btn p-3 btn-primary btn-lg m-2 w-100">
-          Rientro in sede
-        </a>
+    <div class="col-12 d-flex justify-content-center">
+      <h2><strong>{{request.session.mezzo.nome}}</strong> sta rientrando in sede</h2>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+      <p>In attesa di una nuova missione</p>
+      <div class="spinner-border spinner-border-sm text-primary m-1 ms-2" role="status">
+        <span class="sr-only">Loading...</span>
       </div>
     </div>
+  </div>
+     
+</div>
+
+<div class="position-absolute bottom-0 end-0 m-4">
+  <div class="container p-5">
+    <button type="button" id="invio_get" class="btn p-3 btn-primary btn-lg m-2 w-100" style="width: 200px;">
+      Rientro in sede
+    </button>
+  </div>
 </div>
 
 

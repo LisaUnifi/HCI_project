@@ -1,0 +1,116 @@
+.filter-button{
+    font-size: 18px;
+    border: 2px solid #3F6184;
+	padding:5px 10px;
+    text-align: center;
+    color: #3F6184;
+    margin-bottom: 30px;
+	background:transparent;
+}
+
+.filter-button:hover, .filter-button:focus, .filter-button.active{
+    color: #ffffff;
+    background-color:#3F6184;
+	  outline:none;
+}
+
+span.border {
+    width: 520px;
+    height: 520px;
+    overflow: hidden;
+}
+
+#img_rotate {
+    max-height: 512px; 
+    max-width: 512px; 
+    transform-origin: center center;
+    /* IE 10+, Firefox, etc. */
+    -webkit-transform-origin: center center;
+    /* Chrome */
+    -ms-transform-origin: center center;
+    /* IE 9 */
+}
+
+#img_rotate.rotate90 {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+}
+
+#img_rotate.rotate180 {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+}
+
+#img_rotate.rotate270 {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+}
+
+.bottoni-modal:checked+.btn-light {
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+}
+
+.my-custom-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+#modal_expand .modal-dialog{
+    max-width: 100%;
+    width: auto !important;
+    display: inline-block;
+}
+
+#modal_expand {
+    z-index: -1;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-open #modal_expand {
+    z-index: 1050;
+}
+
+#img_extended {
+    max-height: 800px; 
+    max-width: 800px; 
+    transform-origin: center center;
+    /* IE 10+, Firefox, etc. */
+    -webkit-transform-origin: center center;
+    /* Chrome */
+    -ms-transform-origin: center center;
+    /* IE 9 */
+}
+
+#img_extended.rotate90 {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+}
+
+#img_extended.rotate180 {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+}
+
+#img_extended.rotate270 {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+}
+
+.modal.custom .modal-dialog .modal-content .modal-body{
+    padding: 0;
+}
+
+.modal.custom .modal-dialog .modal-content{
+    background-color: transparent !important;
+    border: 0px !important;
+}
+
+

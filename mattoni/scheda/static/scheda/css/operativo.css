@@ -1,0 +1,11 @@
+@media only screen and (min-width: 576px) {
+    #bg_img {
+        max-height: 60vh;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    #bg_img {
+        max-height: 80vh;
+    }
+}

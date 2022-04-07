@@ -29,9 +29,9 @@ ALLOWED_HOSTS = ['192.168.1.126','0.0.0.0', '192.168.1.22', '192.168.1.13', '192
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'scheda.apps.SchedaConfig',
+    'exif_viewer',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     # CORS
     'corsheaders',
+    # HOTKEY
+    'keyboard_shortcuts',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +121,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'scheda/static/scheda/'),
+    os.path.join(BASE_DIR, 'exif_viewer/static/exif_viewer/'),
 ]
 
 LOGIN_REDIRECT_URL = '/scheda/'
@@ -137,5 +140,12 @@ AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
 
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
+
+HOTKEYS = [
+            {'keys': 'alt+h', 'link': '/'},
+            {'keys': 'alt+l', 'link': 'exif/'},
+        ]
+SPECIAL_DISABLED = True
 
