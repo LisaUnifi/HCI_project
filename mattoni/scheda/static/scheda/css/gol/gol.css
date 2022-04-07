@@ -1,0 +1,22 @@
+body {
+    background-color: lightgray;
+}
+
+#canvas_div {
+    position: relative;
+    padding:0px;
+    overflow: hidden;
+}
+
+#gol {
+    padding:0px;
+    overflow:hidden;
+}
+
+#gol_cells {
+    position:absolute;
+    overflow:hidden;
+    top:0;
+    left:0;
+    padding:0px;
+}
