@@ -1,0 +1,861 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Exif Viewer{% endblock %}
+
+{% block css %}
+<!-- <link href="{% static 'css/theme_dark.css' %}" rel="stylesheet"> SETTA TEMA APPOSITO PER IMMAGINI -->
+<link href="{% static 'css/exif.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-light d-flex justify-content-start">
+    <a class="navbar-brand ms-3 m-1" href="{% url 'home' %}">
+        <img src="{% static 'img/logoHCI.png' %}" height="50" loading="lazy"/>
+    </a>
+    <div class="ms-0 p-3">
+        <h3 class="mb-1 mt-1"><strong>EXIF viewer</strong></h3>
+    </div>
+    <div class="container d-flex justify-content-end" style="position: absolute; right: 0; top: 0;">
+        <button id="gestione_album" class="btn btn-info mt-4 ms-0 me-3">Gestione Album</button>
+        <button id="gestione_img" class="btn btn-info mt-4 ms-0 me-3">Gestione Immagini</button>
+        <button id="settings" class="btn btn-info mt-4 ms-0 me-3"><i class="fa-solid fa-gear"></i></button>
+    </div>
+</nav>
+
+<div id="background" class="d-flex justify-content-center p-2 m-4">
+    <div class="row w-100">
+
+        <div class="col table-responsive">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar p-2 m-0"  style="height: 60vh; overflow: auto;"> 
+                <h5>Dati immagine</h5>
+                <table class="table w-100" id="data_table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Valore</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Nome</th>
+                            <td>{{ selected.name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Album</th>
+                            <td>{{ selected.album }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Nome file</th>
+                            <td>{{ url }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Note</th>
+                            <td>{{ selected.note }}</td>
+                        </tr>
+                        {% for e in other %}
+                            <tr>
+                                <th scope="row">{{ e.key }}</th>
+                                <td>{{ e.value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h5 class="mt-5">Dati Exif</h5>
+                {% if numero%}
+                <table class="table w-100" id="exif_table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Valore</th>
+                        </tr>
+                    </thead>
+                    <caption>Numero di elementi: {{ numero }}</caption>
+                    <tbody>
+                        {% for e in exif %}
+                            <tr>
+                                <th scope="row">{{ e.key }}</th>
+                                <td>{{ e.value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>Non ci sono dati EXIF da visualizzare.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-auto">
+            <div class="row" style="width: 560px;">
+                <div class="col-12 d-flex justify-content-center pt-2">
+                    <span class="border border-white">
+                        <img src="{{ selected.img.url }}" id="img_rotate">
+                    </span>
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <input type="radio" class="btn-check" id="expand">
+                        <label class="btn btn-light" for="expand"><i class="fa-solid fa-expand"></i></label>
+                        <input type="radio" class="btn-check" id="trash" value="{{ selected.id }}">
+                        <label class="btn btn-light" for="trash"><i class="fa-solid fa-trash-can"></i></label>
+                        <input type="radio" class="btn-check" id="geoloc">
+                        <label class="btn btn-light" for="geoloc"><i class="fa-solid fa-map-location-dot"></i></label>
+                        <input type="radio" class="btn-check" id="previous" value="{{ selected.id }}">
+                        <label class="btn btn-light" for="previous"><i class="fa-solid fa-angle-left"></i></label>
+                        <input type="radio" class="btn-check" id="next" value="{{ selected.id }}">
+                        <label class="btn btn-light" for="next"><i class="fa-solid fa-angle-right"></i></label>
+                        <input type="radio" class="btn-check" id="left">
+                        <label class="btn btn-light" for="left"><i class="fa-solid fa-rotate-left"></i></label>
+                        <input type="radio" class="btn-check" id="right">
+                        <label class="btn btn-light" for="right"><i class="fa-solid fa-rotate-right"></i></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col table-responsive">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar p-2 m-0"  style="height: 60vh; overflow: auto;"> 
+                <!-- mettere dati IPTC-XMP-EXIF-DCMI-PLUS-ICC -->
+                <!-- calcolare ISTOGRAMMA -->
+                <!-- capire quali sono adatti -->
+                <h5>Istogramma</h5>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="radio" class="btn-check" id="red" value="red">
+                    <label class="btn btn-light" for="red">Rosso</label>
+                    <input type="radio" class="btn-check" id="green" value="green">
+                    <label class="btn btn-light" for="green">Verde</label>
+                    <input type="radio" class="btn-check" id="blue" value="blue">
+                    <label class="btn btn-light" for="blue">Blu</label>
+                </div>
+
+
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+
+<div class="fixed-bottom" style="padding: 1.5rem; padding: 0; margin: 0 !important;">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center list-group list-group-horizontal">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <input type="radio" class="btn-check" id="all">
+                <label class="btn btn-light" for="all">Tutti</label>
+                {% for a in album %}
+                    <input type="radio" class="btn-check" id="{{ a.title }}" name="bottoni_album" value="{{ a.id }}">
+                    <label class="btn btn-light" for="{{ a.title }}">{{ a.title }}</label>
+                {% endfor %} 
+            </div>
+        </div>
+    </div>
+    <div class="row w-100 m-0 p-4" style="background-color: var(--bs-light);">
+        <div class="col-12 ps-4 pe-4 d-flex list-group list-group-horizontal" style="overflow: auto;">
+            {% for i in image %}
+                <a href="{% url 'change_image' i.id %}" type="button" class="d-flex list-group-item list-group-item-action border-0 p-0 m-0 filter {{ i.album }}" style="background-color: var(--bs-light); min-height: 150px; min-width: 200px;"><img src="{{ i.img.url }}" class="m-auto" style="max-height:150px; max-width:150px;"></a>
+            {% endfor %} 
+        </div>
+    </div>
+</div>
+    
+
+
+<!-- Settings -->
+<div class="modal fade" id="modal_settings" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Informazioni</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <div class="modal-body text-center">
+
+                    <p>I pulsanti da tastiera per le azioni sono:</p>
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar p-2 m-0"> 
+                        <table class="table-responsive w-100">
+                            <thead>
+                            <tr>
+                                <th scope="col">Pulsante</th>
+                                <th scope="col">Azione</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="row">ALT + <i class="fa-solid fa-arrow-up"></i></td>
+                                    <td>Ruota immagine a destra di 90°</td>
+                                </tr>     
+                                <tr>
+                                    <td scope="row">ALT + <i class="fa-solid fa-arrow-down"></i></td>
+                                    <td>Ruota immagine a sinistra di 90°</td>
+                                </tr>  
+                                <tr>
+                                    <td scope="row">ALT + <i class="fa-solid fa-arrow-right"></i></td>
+                                    <td>Passa ad immagine successiva</td>
+                                </tr>        
+                                <tr>
+                                    <td scope="row">ALT + <i class="fa-solid fa-arrow-left"></i></td>
+                                    <td>Torna ad immagine precedente</td>
+                                </tr>   
+                                <tr>
+                                    <td scope="row">ALT + G</i></td>
+                                    <td>Apri menù per la geolocalizzazione dell'immagine</td>
+                                </tr>    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<!-- Google Map -->
+<div class="modal fade" id="maps" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Carica immagine</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {% if lat != "Non specificato" and lat != "" and lon != "Non specificato" and lon != "" %} 
+            <form id="form_maps" method="post"> 
+              {% csrf_token %}
+                <div class="modal-body text-center">
+
+                <p>I dati GPS relativi all'immagine <strong>{{selected.name}}</strong> sono:</p>
+                <div class="form-floating">
+                    <input type="text" id="latitude" class="form-control border" name="latitude" value="{{ lat }}" readonly>
+                    <label class="form-label" for="latitude">Latitudine: </label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" id="longitude" class="form-control border" name="longitude" value="{{ lon }}" readonly>
+                    <label class="form-label" for="longitude">Longitudine: </label>
+                </div>
+
+                <p>Scegli cosa vuoi visualizzare:</p>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="radio" class="btn-check bottoni-modal" id="search" value="search" name="map">
+                    <label class="btn btn-light" for="search">Punto specifico</label>
+                    <input type="radio" class="btn-check bottoni-modal" id="mappa" value="map" name="map">
+                    <label class="btn btn-light" for="mappa">Mappa dintorni</label>
+                    <input type="radio" class="btn-check bottoni-modal" id="pano" value="pano" name="map">
+                    <label class="btn btn-light" for="pano">Panorama</label>
+                </div>
+
+                <!-- Mappa dintorni -->
+                <div class="collapse" id="mappa_elementi">
+                    <p>Inserisci le preferenze di visualizzazione della mappa:</p>
+                    <select id="mezzi" class="selectpicker w-75 mb-2" title="Livello di zoom" name="zoom">
+                        <option value="0">0</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="21">21</option>
+                    </select>
+                    <select id="mezzi" class="selectpicker w-75 mb-2" title="Tipologia di mappa" name="basemap">
+                        <option value="roadmap">Mappa con le strade</option>
+                        <option value="satellite">Vista dal satellite</option>
+                        <option value="terrain">Mappa con terreno</option>
+                    </select>
+                    <select id="mezzi" class="selectpicker w-75" title="Livello aggiuntivo" name="layer">
+                        <option value="none">Nessuno</option>
+                        <option value="transit">Strade di transito</option>
+                        <option value="traffic">Quantità di traffico</option>
+                        <option value="bicycling">Strade ciclabili</option>
+                    </select>
+                </div>
+
+                <!-- Panorama -->
+                <div class="collapse" id="panorama_elementi">
+                    <p>Inserisci le preferenze di visualizzazione della mappa:</p>
+                    <select id="mezzi" class="selectpicker w-75 mb-2" title="Angolo della camera" name="pitch">
+                        <option value="-90">-90°</option>
+                        <option value="-45°">-45°</option>
+                        <option value="0">0°</option>
+                        <option value="45°">45°</option>
+                        <option value="90">90°</option>
+                    </select>
+                    <select id="mezzi" class="selectpicker w-75" title="Campo visivo" name="fov">
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="80">80</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+  
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="chiudi_modal_maps" class="btn btn-secondary w-25" data-dismiss="modal">Annulla</button>
+                    <button type="button" id="invia_maps" class="btn btn-primary w-25">Conferma</button>
+                </div>
+                    
+            </form>
+            {% else %}
+            <div class="modal-body text-center">
+                <p>I dati GPS relativi all'immagine <strong>{{selected.name}}</strong> non sono pesenti nei metadati dell'immagine.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="chiudi_modal_maps" class="btn btn-secondary w-25" data-dismiss="modal">Ok</button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Modal Gestione Album -->
+<div class="modal fade" id="modal_gestion_album" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Gestione Album</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar p-2 m-0"> 
+                    <table class="table-responsive w-100 text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">Album</th>
+                            <th scope="col">N° immagini</th>
+                            <th scope="col">Elimina</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for a in album %}
+                                <tr>
+                                    <td scope="row">{{ a.title }}</td>
+                                    <td>N°img</td>
+                                    <td>
+                                        <input type="radio" class="btn btn-check btn-sm px-1" id="{{a.id}}" name="id_album" value="{{ a.id }}">
+                                        <label class="btn btn-info" for="{{a.id}}">x</label>
+                                    </td>
+                                </tr>
+                                 
+                            {% endfor %}         
+                        </tbody>
+                    </table>
+                </div>
+                <input type="buttun" class="btn-check bottoni-modal" id="album_carica">
+                <label class="btn btn-secondary ms-2" for="album_carica">Aggiungi album</label>
+            </div>
+
+            <div class="collapse text-center" id="album_collapse">
+                <p class="mt-2 mb-2"> Inserisci il nome del nuovo album:</p>
+            <form id="form_album" method="post"> 
+              {% csrf_token %}
+                
+                  <div class='text-center'>
+                      <ul class="alert alert-danger" id='errors_rifiuto' style="list-style: none;" hidden>
+                          
+                      </ul>
+                  </div>
+                    <div class="row ps-4 pe-4 mb-4">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" id="title" class="form-control border" name="title">
+                                <label class="form-label" for="title">Nome</label>
+                            </div>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" id="chiudi_modal_album" class="btn btn-secondary w-25" data-dismiss="modal">Annulla</button>
+                    <button type="button" id="invia_album" class="btn btn-primary w-25">Conferma</button>
+                </div>
+                    
+            </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Cancellazione album conferma -->
+<div class="modal fade" id="modal_conferma_album" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Elimina album</h5>
+            </div>
+            <div class="modal-body text-center">
+                <h5 class="modal-title" id="exampleModalLabel">Vuoi veramente eliminare l'album selezionato?</h5>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">NO</button>
+            <button type="button" id="cancella_alb" class="btn btn-primary w-25">SI</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Gestione immagini -->
+<div class="modal fade" id="modal_gestione" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Gestione immagini</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar p-2 m-0 mb-3"> 
+                        <table class="table-responsive w-100 text-center">
+                            <thead>
+                            <tr>
+                                <th scope="col">Immagine</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Album</th>
+                                <th scope="col">Elimina</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in image %}
+                                    <tr>
+                                        <td scope="row"><img src="{{ i.img.url }}" style="max-height: 50px; max-width: 50px;"></td>
+                                        <td>{{ i.name }}</td>
+                                        <td>{{ i.album }}</td>
+                                        <td>
+                                            <input type="radio" class="btn btn-check btn-sm px-1" id="{{i.id}}" name="bottone_cancella" value="{{ i.id }}">
+                                            <label class="btn btn-info" for="{{i.id}}">x</label>
+                                        </td>
+                                    </tr>
+                                {% endfor %}            
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <input type="buttun" class="btn-check bottoni-modal" id="gestione_carica">
+                    <label class="btn btn-secondary ms-2" for="gestione_carica">Carica immagine</label>
+                </div>
+                <div class="collapse text-center" id="gestione_collapse">
+                <p class="mt-2 mb-2">Carica una nuova immagine:</p>
+
+                <form action="{% url 'carica' %}" method="post" enctype="multipart/form-data"> 
+                    {% csrf_token %}
+        
+                    <div class="row ps-4 pe-4 mb-2">
+                        <div class="col-12">
+                            <div class="form-outline">
+                                <input id="img" type="file" name="img" class="form-control border">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row ps-4 pe-4 mb-2">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" id="name" class="form-control border" name="name">
+                                <label class="form-label" for="name">Nome immagine</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ps-4 pe-4 mb-2">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" id="note" class="form-control border" name="note">
+                                <label class="form-label" for="note">Note</label>
+                            </div>
+                        </div>
+                    </div>
+                    <select id="mezzi" class="selectpicker w-75 mb-4" title="Album" name="album">
+                        {% for a in album %}
+                            <option value="{{ a.id }}">{{ a.title }}</option>
+                        {% endfor %}  
+                    </select>
+                    
+                
+                    <div class="modal-footer">
+                        <button type="button" id="chiudi_modal_gestione" class="btn btn-secondary w-25" data-dismiss="modal">Annulla</button>
+                        <button type="submit" id="invia_gestione_img" class="btn btn-primary w-25">Conferma</button>
+                    </div>
+                    
+                </form>
+                </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Cancellazione conferma -->
+<div class="modal fade" id="modal_delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Elimina immagine</h5>
+          </div>
+          <div class="modal-body text-center">
+              <h5 class="modal-title" id="exampleModalLabel">Vuoi veramente eliminare l'immagine selezionata?</h5>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">NO</button>
+          <button type="button" id="cancella_img" class="btn btn-primary w-25">SI</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Espandi immagine -->
+<div class="modal custom fade" id="modal_expand" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content shadow-none">
+            <div class="modal-body text-center">
+                <img src="{{ selected.img.url }}" id="img_extended" style="max-width: 800px; max-height: 800px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function () {
+    var token = '{{ csrf_token }}';
+    var sel = '{{ selected.id }}';
+    var id; 
+    var album;
+    var title;
+    var angle = 0; 
+    var img, img2;
+
+    resize();
+
+    img = document.getElementById('img_rotate');
+    img.addEventListener('load', resize, false);
+
+
+
+    // FILTRA ALBUM
+    $('#all').click(function (e) {
+        e.preventDefault();
+            $.ajax({
+                headers: {"X-CSRFToken": token,},
+                url: '{% url "exif" %}',
+                dataType: 'json', 
+                type: 'GET',
+                data: {},
+                success: function (result) {
+                },
+            });
+    });
+
+    $('input[name="bottoni_album"]').click(function (e) {
+        e.preventDefault();
+        title = $(this).val();
+            $.ajax({
+                headers: {"X-CSRFToken": token,},
+                url: '{% url "exif" %}',
+                dataType: 'json', 
+                type: 'GET',
+                data: {'id': title },
+                success: function (result) {
+                    var patch = '{% url "change_image" 0 %}'.replace('0', sel); 
+                    window.location = patch;
+                },
+            });
+    });
+
+
+    // NEXT/PREVIOUS IMMAGINE
+    $('#next').click(function (e) {
+        e.preventDefault();
+        id = $(this).val();
+            $.ajax({
+                headers: {"X-CSRFToken": token,},
+                url: '{% url "next_image" %}',
+                dataType: 'json', 
+                type: 'GET',
+                data: {'id': id },
+                success: function (result) {
+                    var pk = result['pk'];
+                    var patch = '{% url "change_image" 0 %}'.replace('0', pk); 
+                    window.location = patch;
+                },
+            });
+    });
+
+    $('#previous').click(function (e) {
+        e.preventDefault();
+        id = $(this).val();
+            $.ajax({
+                headers: {"X-CSRFToken": token,},
+                url: '{% url "previous_image" %}',
+                dataType: 'json', 
+                type: 'GET',
+                data: {'id': id },
+                success: function (result) {
+                    var pk = result['pk'];
+                    var patch = '{% url "change_image" 0 %}'.replace('0', pk); 
+                    window.location = patch;
+                },
+            });
+    });
+
+    
+    // INVIO FORM GEOLOCALIZZAZIONE
+    $('#invia_maps').click(function (e) {
+        e.preventDefault();
+        formData = $('#form_maps').serialize();
+            $.ajax({
+                headers: {"X-CSRFToken": token,},
+                url: '{% url "geolocalizzazione" %}',
+                dataType: 'json', 
+                type: 'POST',
+                data: formData,
+                success: function (result) {
+                    if(result['status']=='success'){
+                        $('#maps').modal('hide');  
+                    }
+                },
+            });
+    });
+
+    //ALBUM
+    $('#gestione_album').click(function (e) {
+        $('#modal_gestion_album').modal('show');
+    });
+
+    $('#album_carica').click(function () {
+        $('#album_collapse').collapse('toggle');
+    });
+
+    $('#chiudi_modal_album').click(function (e) {
+        $('#modal_gestion_album').modal('hide');
+    });
+
+    // INVIO FORM ALBUM
+    $('#invia_album').click(function (e) {
+        e.preventDefault();
+        formData = $('#form_album').serialize();
+            $.ajax({
+                headers: {"X-CSRFToken": token,},
+                url: '{% url "nuovo_album" %}',
+                dataType: 'json', 
+                type: 'POST',
+                data: formData,
+                success: function (result) {
+                    if(result['status']=='error'){
+                        $('#errors_rifiuto').empty();
+                        errors = result['errors']
+                        for(const item in errors){
+                            $('#errors_rifiuto').removeAttr('hidden');
+                            $("#errors_rifiuto").prepend('<p><strong>'+errors[item]+'</strong></p>');
+                        }
+                    }else{
+                        window.location = '{% url "exif" %}'
+                    }
+                    
+                },
+            });
+    });
+
+    // CANCELLA IMMAGINE
+    $('#trash').click(function () {
+        id = $(this).val();
+        $('#modal_delete').modal('show');
+    });
+
+    $('input[name="bottone_cancella"]').click(function () {
+        id = $(this).val();
+        $('#modal_delete').modal('show');
+    });
+
+    $('#cancella_img').click(function (e) {
+        e.preventDefault();
+            $.ajax({
+                headers: {"X-CSRFToken": token,},
+                url: '{% url "cancella" %}',
+                dataType: 'json', 
+                type: 'POST',
+                data: {'id': id},
+                success: function (result) {
+                    window.location = '{% url "exif" %}'
+                },
+            });
+    });
+
+    // CANCELLA ALBUM
+    $('input[name="id_album"]').click(function () {
+        album = $(this).val();
+        $('#modal_conferma_album').modal('show');
+    });
+
+    $('#cancella_alb').click(function (e) {
+        e.preventDefault();
+            $.ajax({
+                headers: {"X-CSRFToken": token,},
+                url: '{% url "cancella_album" %}',
+                dataType: 'json', 
+                type: 'POST',
+                data: {'id': album},
+                success: function (result) {
+                    window.location = '{% url "exif" %}'
+                },
+            });
+    });
+
+    // GESTIONE ROTAZIONE IMMAGINI
+    $('#right').click(function(e) {
+        angle = (angle + 90) % 360;
+        img = document.getElementById('img_rotate');
+        img2 = document.getElementById('img_extended');
+        img.className = "rotate" + angle;
+        img2.className = "rotate" + angle;
+    });
+
+    $('#left').click(function(e) {
+        if (angle == 0){
+            angle = 270;
+        }else{
+            angle = (angle - 90) % 360;
+        }
+        img = document.getElementById('img_rotate');
+        img2 = document.getElementById('img_extended');
+        img.className = "rotate" + angle;
+        img2.className = "rotate" + angle;
+    });
+
+    // ESPANDI IMMAGINE
+    $('#expand').click(function () {
+        $('#modal_expand').modal('show');
+    });
+
+    document.addEventListener('mousedown', closeExpand);
+
+    function closeExpand(e) {
+        $('#modal_expand').modal('hide');
+    }
+
+    // GESTIONE HOTKEYS
+    document.addEventListener('keydown', pressKey);
+
+    function pressKey(e) {
+        if (e.altKey) {
+            switch (e.key) {
+            case "ArrowUp":
+                angle = (angle + 90) % 360;
+                img = document.getElementById('img_rotate');
+                img2 = document.getElementById('img_extended');
+                img.className = "rotate" + angle;
+                img2.className = "rotate" + angle;
+                break
+            case "ArrowDown":
+                if (angle == 0){
+                    angle = 270;
+                }else{
+                    angle = (angle - 90) % 360;
+                }
+                img = document.getElementById('img_rotate');
+                img2 = document.getElementById('img_extended');
+                img.className = "rotate" + angle;
+                img2.className = "rotate" + angle;
+                break
+            case "ArrowRight":
+                
+                break
+            case "ArrowLeft":
+                
+                break
+            case "g":
+                $('#maps').modal('show');
+            default:
+                return
+            }
+        }
+    }
+
+    function resize() {
+        var image = document.getElementById("img_rotate");
+        var height = (520 - image.height)/2 -1;
+        var width = (520 - image.width)/2 -1;
+
+        image.style.marginTop = String(height)+"px";
+        image.style.marginLeft = String(width)+"px";
+    }
+});
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="{% static 'js/functions.js' %}"></script>
+<script src="{% static 'js/exif.js' %}"></script>
+{% endblock %}
+
+<!-- Modal Album -->
+<div class="modal fade" id="modal_album" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Carica immagine</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="form_album" method="post"> 
+              {% csrf_token %}
+                <div class="modal-body text-center">
+  
+                  <p> Inserisci il nome del nuovo album:</p>
+                  <div class='text-center'>
+                      <ul class="alert alert-danger" id='errors_rifiuto' style="list-style: none;" hidden>
+                          
+                      </ul>
+                  </div>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" id="title" class="form-control border" name="title">
+                                <label class="form-label" for="title">Nome</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="chiudi_modal_album" class="btn btn-secondary w-25" data-dismiss="modal">Annulla</button>
+                    <button type="button" id="invia_album" class="btn btn-primary w-25">Conferma</button>
+                </div>
+                    
+            </form>
+            
+        </div>
+    </div>
+  </div>
+  
+  <!-- Modal Elimina Album -->
+  <div class="modal fade" id="modal_elimina_album" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Elimina album</h5>
+                  <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+    
+                  <div class="table-wrapper-scroll-y my-custom-scrollbar p-2 m-0"> 
+                    <table class="table-responsive w-100">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Album</th>
+                            <th scope="col">Elimina</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for a in album %}
+                                <tr>
+                                    <td scope="row">{{ a.id }}</td>
+                                    <td>{{ a.title }}</td>
+                                    <td>
+                                        <input type="radio" class="btn btn-check btn-sm px-1" id="{{a.id}}" name="id_album" value="{{ a.id }}">
+                                        <label class="btn btn-info" for="{{a.id}}">x</label>
+                                    </td>
+                                </tr>
+                            {% endfor %}            
+                        </tbody>
+                    </table>
+                  </div>
+                  
+                </div>
+              
+          </div>
+      </div>
+  </div>

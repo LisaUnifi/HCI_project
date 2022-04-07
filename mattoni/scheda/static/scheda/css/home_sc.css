@@ -1,0 +1,9 @@
+.btn-check:checked+.btn-primary {
+    background-color: var(--bs-light);
+    border-color: var(--bs-primary);
+}
+
+.btn-check:checked+.btn-secondary {
+    background-color: var(--bs-light);
+    border-color: var(--bs-secondary);
+}

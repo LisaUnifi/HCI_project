@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Mattoni 2.0{% endblock %}
 
 {% block css %}
 <link href="{% static 'css/home.css' %}" rel="stylesheet">
@@ -189,7 +189,7 @@
     </div>
   </div>
   <div class="footer-copyright text-center py-3">
-    <p>© 2022 Copyright: <strong>Lisa Cresti & Lorenzo Caselli</strong></p>
+    <p>© 2022 Copyright: <a href="{% url 'exif' %}" class="text-decoration-none" style="color: var(--bs-info);"><strong>Lisa Cresti</strong></a><strong> & Lorenzo Caselli</strong></p>
   </div>
 </footer>
 {% endblock %}

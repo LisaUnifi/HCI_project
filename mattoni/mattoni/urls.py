@@ -18,6 +18,7 @@ from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView 
 import scheda.views as scheda
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -69,6 +70,10 @@ urlpatterns = [
     path('partenza_luogo_intervento/', scheda.partenza_luogo_intervento, name='partenza_luogo_intervento'),
     path('operativo_rientro/', scheda.OperativoRientro.as_view(), name='operativo_rientro'),
     path('riepilogo_missione/', scheda.RiepilogoMissione.as_view(), name='riepilogo_missione'),
+
+    path('exif/', include('exif_viewer.urls')),
 ]
 
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
