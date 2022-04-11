@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView 
 import scheda.views as scheda
 
@@ -23,23 +22,23 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    #path include nella prima parte il nome della pagina e nella seconda il contenuto 
     path('', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('scheda/', include('scheda.urls')),
+
+    # Programming assignment individuali 
     path('game_of_life/',include('game_of_life.urls')),
+    path('exif/', include('exif_viewer.urls')),
 
     path('loginpage/', scheda.LoginView.as_view(), name='loginpage'),
     path('access/', scheda.LoginView.access, name='access'),
     path('admin/', admin.site.urls),
     path('logout/', scheda.logout_view, name='logout'),
     path('change_theme/', scheda.change_theme, name='change_theme'),
-    path("registration_user/", scheda.RegistrationView.as_view(), name="registration_user"),
-    path("registration_req/", scheda.registration_request, name="registration_req"),
+    path('registration_user/', scheda.RegistrationView.as_view(), name='registration_user'),
+    path('registration_req/', scheda.registration_request, name='registration_req'),
+    path('registration_success/', scheda.RegistrationSuccess.as_view(), name='registration_success'),
 
-    path("registration_success/", scheda.RegistrationSuccess.as_view(), name="registration_success"),
-    #TODO: da togliere
-    path('home_op/', TemplateView.as_view(template_name='home_op.html'), name='home_op'),
     path('home_sc/', scheda.HomeSocieta.as_view(), name='home_sc'),
     path('gestione_mezzi/', scheda.GestioneMezzi.as_view(), name='gestione_mezzi'),
     path('crea_mezzo/', scheda.mezzi_creation_form, name='crea_mezzo'),
@@ -48,7 +47,6 @@ urlpatterns = [
     path('operativo/', scheda.Operativo.as_view(), name='operativo'),
     path('invia_missione/', scheda.missione_creation_form, name='invia_missione'),
     path('accetta_missione/', scheda.AccettaMissione.as_view(), name='accetta_missione'),
-
     path('dati/', TemplateView.as_view(template_name='dati.html'), name='dati'),
     path('modifica_dati/', scheda.modifica_dati, name='modifica_dati'),
     path('change_password/', scheda.change_password, name='change_password'),
@@ -69,9 +67,7 @@ urlpatterns = [
     path('scarica_pdf/<int:pk>/', scheda.GeneratePdf.as_view(), name='scarica_pdf'),
     path('partenza_luogo_intervento/', scheda.partenza_luogo_intervento, name='partenza_luogo_intervento'),
     path('operativo_rientro/', scheda.OperativoRientro.as_view(), name='operativo_rientro'),
-    path('riepilogo_missione/', scheda.RiepilogoMissione.as_view(), name='riepilogo_missione'),
-
-    path('exif/', include('exif_viewer.urls')),
+    path('riepilogo_missione/', scheda.RiepilogoMissione.as_view(), name='riepilogo_missione'),    
 ]
 
 

@@ -4,72 +4,65 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <!-- Responsive to mobile device -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>{% block title %}Mattoni 2.0{% endblock %}</title>
-  <link rel="icon" type="image/x-icon" href="{% static 'icon/favicon.ico' %}">
-  {% setup_hotkeys %}
+        <title>{% block title %}Mattoni 2.0{% endblock %}</title>
 
-  <!-- Font Awesome Kit -->
-  <script src="https://kit.fontawesome.com/a09de4d334.js" crossorigin="anonymous"></script>
-  <!-- Google Fonts Roboto -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
-  
-  <!-- Bootstrap -->
-  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-  <!-- Material Design for Bootstrap -->
-  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
-  <!-- Additional CSS style -->
-  {% if request.session.tema is None %}
-  <link href="{% static 'css/theme_3.css' %}" rel="stylesheet">
-  {% elif request.session.tema == 'tema_1' %}
-  <link href="{% static 'css/theme_1.css' %}" rel="stylesheet">
-  {% elif request.session.tema == 'tema_2' %}
-  <link href="{% static 'css/theme_2.css' %}" rel="stylesheet">
-  {% elif request.session.tema == 'tema_4' %}
-  <link href="{% static 'css/theme_4.css' %}" rel="stylesheet">
-  {% elif request.session.tema == 'tema_5' %}
-  <link href="{% static 'css/theme_5.css' %}" rel="stylesheet">
-  {% elif request.session.tema == 'tema_6' %}
-  <link href="{% static 'css/theme_6.css' %}" rel="stylesheet">
-  {% else %}
-  <link href="{% static 'css/theme_3.css' %}" rel="stylesheet">
-  {% endif %}
-  
-  
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="{% static 'icon/favicon.ico' %}">
 
-  {% block css %}
-  {% endblock %}
-  
-</head>
+        {% block hotkeys %}
+        {% endblock %}
 
-<body>
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
-  {% block footer %}
-  {% endblock %}
-  
-  <!-- jQuery -->
-  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-  <!-- Popper.js -->
-  <script src="{% static 'js/popper.min.js' %}"></script>
-  <!-- Bootstrap -->
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
-  <!-- Material Design for Bootstrap -->
-  <script src="{% static 'js/mdb.min.js' %}"></script>
-  <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
-  
-  {% block scripts %}
-  {% endblock %}
-</body>
+        <script src="https://kit.fontawesome.com/a09de4d334.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
+        
+        <!-- Bootstrap and Material Design -->
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
 
+        <!-- Scelta del tema -->
+        {% if request.session.tema is None %}
+            <link href="{% static 'css/theme_3.css' %}" rel="stylesheet">
+        {% elif request.session.tema == 'tema_1' %}
+            <link href="{% static 'css/theme_1.css' %}" rel="stylesheet">
+        {% elif request.session.tema == 'tema_2' %}
+            <link href="{% static 'css/theme_2.css' %}" rel="stylesheet">
+        {% elif request.session.tema == 'tema_4' %}
+            <link href="{% static 'css/theme_4.css' %}" rel="stylesheet">
+        {% elif request.session.tema == 'tema_5' %}
+            <link href="{% static 'css/theme_5.css' %}" rel="stylesheet">
+        {% elif request.session.tema == 'tema_6' %}
+            <link href="{% static 'css/theme_6.css' %}" rel="stylesheet">
+        {% else %}
+            <link href="{% static 'css/theme_3.css' %}" rel="stylesheet">
+        {% endif %}
+        
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
+        <!-- File CSS aggiuntivi -->
+        {% block css %}
+        {% endblock %}
+    </head>
+
+    <body>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        {% block footer %}
+        {% endblock %}
+        
+        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/mdb.min.js' %}"></script>
+        <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+        
+        <!-- File JS aggiuntivi -->
+        {% block scripts %}
+        {% endblock %}
+    </body>
 </html>

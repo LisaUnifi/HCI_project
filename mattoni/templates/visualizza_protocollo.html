@@ -3,8 +3,6 @@
 
 {% block title %}Protocollo{% endblock %}
 
-<!-- ABBELLISCI -->
-
 {% block content %}
     {% with 'pdf/'|add:nome|add:'.pdf' as pdf_static %}
     <object data="{% static pdf_static %}" frameborder="0" style="min-height:100vh; width:100%;">
@@ -12,5 +10,4 @@
         <p><a href="{% static pdf_static %}">Download Instead</a></p>
     </object>
     {% endwith %}
-
 {% endblock %}

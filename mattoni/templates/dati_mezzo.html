@@ -6,94 +6,79 @@
 {% block content %}
 <!-- Navbar -->
 <nav class="navbar navbar-light d-flex justify-content-start">
-  <a class="navbar-brand ms-3 m-1" href="#">
-  <img
-      src="{% static 'img/logoHCI.png' %}"
-      height="50"
-      loading="lazy"
-  />
-  </a>
-  <div class="nav-item ms-0 p-3">
-      <h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
-  </div>
+	<a class="navbar-brand ms-3 m-1">
+		<img src="{% static 'img/logoHCI.png' %}" height="50" loading="lazy" />
+	</a>
+	<div class="nav-item ms-0 p-3">
+		<h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
+	</div>
 
-  <!--Dropdown primary-->
-  <div class="dropdown" style="position: absolute; right: 0; top: 0;">
-    <!--Trigger-->
-    <button class="btn btn-primary mt-4 me-4" type="button" id="dropdownMenu1" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false"><span><i
-        class="fas fa-bars fa-1x"></i></span></button>
-    <!--Menu-->
-    <div class="dropdown-menu" style="right: 1.5em;">
-      <a class="dropdown-item" href="{% url 'operativo' %}">Home</a>
-      <a class="dropdown-item" href="{% url 'dati' %}">I miei dati</a>
-      <a class="dropdown-item" href="{% url 'protocolli' %}">Protocolli</a>
-      <a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
-      <a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-    </div>
-  </div>
+	<!-- Menu -->
+	<div class="dropdown" style="position: absolute; right: 0; top: 0;">
+		<button class="btn btn-primary mt-4 me-4" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span><i class="fas fa-bars fa-1x"></i></span></button>
+		<div class="dropdown-menu" style="right: 1.5em;">
+			<a class="dropdown-item" href="{% url 'operativo' %}">Home</a>
+			<a class="dropdown-item" href="{% url 'dati' %}">I miei dati</a>
+			<a class="dropdown-item" href="{% url 'protocolli' %}">Protocolli</a>
+			<a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
+			<a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+		</div>
+	</div>
 </nav>
 
 <div class="container mt-5 text-center bg-white">
-  <h1 class="m-3">Dati mezzo</h1>
+	<h1 class="m-3">Dati mezzo</h1>
 </div>
 
 <div class="container pt-2 ps-5 pe-5">
-  <div class="p-5 m-0 bg-light">
-    <div class="col-12 d-flex flex-column">
+	<div class="p-5 m-0 bg-light">
+		<div class="col-12 d-flex flex-column">
+			<ul class="list-unstyled font-small m-4">
+				<li>
+					<p class="text-uppercase mb-2"><strong>Mezzo</strong></p>
+					<p class="text-muted mb-4">{{mezzo.id_mezzo}}</p>
+				</li>
 
-      <ul class="list-unstyled font-small m-4">
-        <li>
-          <p class="text-uppercase mb-2"><strong>Mezzo</strong></p>
-          <p class="text-muted mb-4">{{mezzo.id_mezzo}}</p>
-        </li>
+				<li>
+					<p class="text-uppercase mb-2"><strong>Nome</strong></p>
+					<p class="text-muted mb-4">{{mezzo.nome}}</p>
+				</li>
 
-        <li>
-          <p class="text-uppercase mb-2"><strong>Nome</strong></p>
-          <p class="text-muted mb-4">{{mezzo.nome}}</p>
-        </li>
+				<li>
+					<p class="text-uppercase mb-2"><strong>Tipologia</strong></p>
+					<p class="text-muted mb-4">{{mezzo.tipologia}}</p>
+				</li>
 
-        <li>
-          <p class="text-uppercase mb-2"><strong>Tipologia</strong></p>
-          <p class="text-muted mb-4">{{mezzo.tipologia}}</p>
-        </li>
+				<li>
+					<p class="text-uppercase mb-2"><strong>Mezzo attivo h24</strong></p>
+					<p class="text-muted mb-4">{{mezzo.all_day}}</p>
+				</li>
 
-        <li>
-          <p class="text-uppercase mb-2"><strong>Mezzo attivo h24</strong></p>
-          <p class="text-muted mb-4">{{mezzo.all_day}}</p>
-        </li>
+				<li>
+					<p class="text-uppercase mb-2"><strong>Numero mezzo</strong></p>
+					<p class="text-muted mb-4">{{mezzo.num_mezzo}}</p>
+				</li>
 
-        <li>
-          <p class="text-uppercase mb-2"><strong>Numero mezzo</strong></p>
-          <p class="text-muted mb-4">{{mezzo.num_mezzo}}</p>
-        </li>
+				<li>
+					<p class="text-uppercase mb-2"><strong>Equipaggio minimo</strong></p>
+					<p class="text-muted mb-4">{{mezzo.equip_min}}</p>
+				</li>
 
-        <li>
-          <p class="text-uppercase mb-2"><strong>Equipaggio minimo</strong></p>
-          <p class="text-muted mb-4">{{mezzo.equip_min}}</p>
-        </li>
-
-        <li>
-          <div class="container p-5 d-flex justify-content-end">
-            <a href="{% url 'home_sc' %}" role="button" class="btn btn-primary btn-lg">
-              Cambia mezzo
-            </a>
-          </div>
-        </li>
-
-      </ul>
-
-    </div>
-    
-  </div>
+				<li>
+					<div class="container p-5 d-flex justify-content-end">
+						<a href="{% url 'home_sc' %}" role="button" class="btn btn-primary btn-lg">
+							Cambia mezzo
+						</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>
-
-    
-
-
 {% endblock %}
+
 {% block scripts %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>

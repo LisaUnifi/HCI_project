@@ -20,14 +20,14 @@ $(document).ready(function () {
 
     $('#respiraBLS_si').click(function () {
         if($('#circoloBLS_no').prop('checked')){
-            $('#msg_respiro').prop('hidden', true);
-            $('#msg_circolo').prop('hidden', true);
-            $('#msg_cicli').prop('disabled', true);
-            $('#plus').prop('disabled', true);
-            $('#minus').prop('disabled', true);
             $('#circoloBLS_no').prop('checked', false);
             $('#circoloBLS_si').prop('checked', true);
         }
+        $('#msg_respiro').prop('hidden', true);
+        $('#msg_circolo').prop('hidden', true);
+        $('#msg_cicli').prop('disabled', true);
+        $('#plus').prop('disabled', true);
+        $('#minus').prop('disabled', true);
     });
 
     $('#circoloBLS_si').click(function () {

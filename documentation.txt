@@ -1,5 +1,0 @@
-https://django-angular.readthedocs.io/en/latest/integration.html
-https://docs.djangoproject.com/en/4.0/intro/tutorial05/
-https://www.madewithangular.com/
-https://www.w3schools.com/angular/angular_intro.asp
-https://www.django-rest-framework.org/tutorial/1-serialization/

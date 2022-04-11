@@ -145,7 +145,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
 
 HOTKEYS = [
             {'keys': 'alt+h', 'link': '/'},
-            {'keys': 'alt+l', 'link': 'exif/'},
         ]
 SPECIAL_DISABLED = True
 

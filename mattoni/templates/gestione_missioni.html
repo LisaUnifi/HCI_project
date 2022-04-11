@@ -6,78 +6,67 @@
 {% block content %}
 <!-- Navbar -->
 <nav class="navbar navbar-light d-flex justify-content-start">
-  <a class="navbar-brand ms-3 m-1" href="#">
-  <img
-      src="{% static 'img/logoHCI.png' %}"
-      height="50"
-      loading="lazy"
-  />
-  </a>
-  <div class="nav-item ms-0 p-3">
-      <h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
-  </div>
-
-  <!--Dropdown primary-->
-  <div class="dropdown" style="position: absolute; right: 0; top: 0;">
-    <!--Trigger-->
-    <button class="btn btn-primary mt-4 me-4" type="button" id="dropdownMenu1" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false"><span></span><i
-        class="fas fa-bars fa-1x"></i></span></button>
-    <!--Menu-->
-    <div class="dropdown-menu" style="right: 1.5em;">
-      <a class="dropdown-item" href="{% url 'operativo' %}">Home</a>
-      <a class="dropdown-item" href="{% url 'dati' %}">I miei dati</a>
-      <a class="dropdown-item" href="{% url 'protocolli' %}">Protocolli</a>
-      <a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
-      <a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-    </div>
-  </div>
+	<a class="navbar-brand ms-3 m-1">
+		<img src="{% static 'img/logoHCI.png' %}" height="50" loading="lazy" />
+	</a>
+	<div class="nav-item ms-0 p-3">
+		<h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
+	</div>
+	<!-- Menu -->
+	<div class="dropdown" style="position: absolute; right: 0; top: 0;">
+		<button class="btn btn-primary mt-4 me-4" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span></span><i class="fas fa-bars fa-1x"></i></span></button>
+		<div class="dropdown-menu" style="right: 1.5em;">
+			<a class="dropdown-item" href="{% url 'operativo' %}">Home</a>
+			<a class="dropdown-item" href="{% url 'dati' %}">I miei dati</a>
+			<a class="dropdown-item" href="{% url 'protocolli' %}">Protocolli</a>
+			<a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
+			<a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+		</div>
+	</div>
 </nav>
 
 <div class="d-flex flex-column" style="height: 85vh">
-  <div class="container mt-5 text-center bg-white">
-    <h1 class="m-3">Gestione missioni</h1>
-  </div>
+	<div class="container mt-5 text-center bg-white">
+		<h1 class="m-3">Gestione missioni</h1>
+	</div>
 
-  <div class="container pt-2 ps-5 pe-5 mb-auto bg-white" style="height: 70vh; overflow: auto;">
-      <div class="table-wrapper-scroll-y my-custom-scrollbar p-5 m-0 bg-light"> 
-          <table class="table-responsive w-100">
-              <thead>
-              <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Codice</th>
-                  <th scope="col">Paziente</th>
-                  <th scope="col">Lugo intervento</th>
-                  <th scope="col">Apri</th>
-              </tr>
-              </thead>
-              <tbody>
-                  {% for m in missione %}
-                      {% if m.chiusa %}
-                          <tr>
-                              <td class="text-nowrap" scope="row">{{ m.id_missione }}</td>
-                              <td class="text-nowrap">{{ m.luogo }} C{{ m.patologia }} {{ m.criticita }}</td>
-                              <td class="text-nowrap">{{ m.cognome_p }} {{ m.nome_p }}</td>
-                              <td>{{ m.luogo_intervento }}, {{ m.civico_intervento }}</td>
-                              <td>
-                                  <form action="{% url 'dettagli_missione' m.id_missione %}" method='get'>
-                                      {% csrf_token %}
-                                      <input type="submit" class="btn btn-info btn-sm px-3" value='+'>
-                                      
-                                  </form> 
-                              </td>
-                          </tr>
-                      {% endif %}
-                  {% endfor %}            
-              </tbody>
-          </table>
-      </div>
-  </div>
-
+	<div class="container pt-2 ps-5 pe-5 mb-auto bg-white" style="height: 70vh; overflow: auto;">
+		<div class="table-wrapper-scroll-y my-custom-scrollbar p-5 m-0 bg-light">
+			<table class="table-responsive w-100">
+				<thead>
+					<tr>
+						<th scope="col">Id</th>
+						<th scope="col">Codice</th>
+						<th scope="col">Paziente</th>
+						<th scope="col">Lugo intervento</th>
+						<th scope="col">Apri</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for m in missione %}
+						{% if m.chiusa %}
+						<tr>
+							<td class="text-nowrap" scope="row">{{ m.id_missione }}</td>
+							<td class="text-nowrap">{{ m.luogo }} C{{ m.patologia }} {{ m.criticita }}</td>
+							<td class="text-nowrap">{{ m.cognome_p }} {{ m.nome_p }}</td>
+							<td>{{ m.luogo_intervento }}, {{ m.civico_intervento }}</td>
+							<td>
+								<form action="{% url 'dettagli_missione' m.id_missione %}" method='get'>
+									{% csrf_token %}
+									<input type="submit" id="{{m.id_missione}}" class="btn btn-check" value='+'>
+								</form>
+								<label class="btn btn-info btn-sm px-3" for="{{m.id_missione}}"><i class="fa-solid fa-plus"></i></label>
+							</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
-
 {% endblock %}
 
 {% block scripts %}
@@ -86,8 +75,3 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script src="{% static 'js/functions.js' %}"></script>
 {% endblock %}
-
-
-
-    
-  

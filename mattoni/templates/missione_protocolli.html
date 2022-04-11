@@ -10,224 +10,219 @@
 {% block content %}
 <!-- Navbar -->
 <nav class="navbar navbar-light d-flex justify-content-start">
-  <a class="navbar-brand ms-3 m-1">
-  <img
-      src="{% static 'img/logoHCI.png' %}"
-      height="50"
-      loading="lazy"
-  />
-  </a>
-  <div class="nav-item ms-0 p-3">
-      <h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
-  </div>
+	<a class="navbar-brand ms-3 m-1">
+		<img src="{% static 'img/logoHCI.png' %}" height="50" loading="lazy" />
+	</a>
+	<div class="nav-item ms-0 p-3">
+		<h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
+	</div>
 </nav>
 
 <div class="bg-light ps-5 pe-5">
-  <div class="card-body pb-0 text-center">
-    <div class="row">
-      <div class="col-3">
-        <p class="mb-2"><strong class="text-uppercase">Id missione:</strong> {{request.session.missione.id_missione}}</p>
-      </div>
-      <div class="col-3">
-        <p class="mb-2"><strong class="text-uppercase">Codice:</strong> {{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
-      </div>
-      <div class="col-6">
-        <p class="mb-2"><strong class="text-uppercase">Cognome Nome:</strong>
-            {% if request.session.missione.cognome_p is None %}
-            NON DEFINITO
-            {% else %}
-            {{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}
-            {% endif %}
-        </p>
-      </div>
-    </div>
-    <div class="row border-bottom">
-      <div class="col-12">
-        <p class="mb-2"><strong class="text-uppercase">Luogo intervento:</strong> {{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}, {{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-6">
-        <p class="mb-2"><strong class="text-uppercase">Note:</strong> {{request.session.missione.note}}</p>
-      </div>
-      <div class="col-6">
-        <p class="mb-2"><strong class="text-uppercase">Avvisi:</strong> {{request.session.missione.avvisi}}</p>
-      </div>
-    </div>
-  </div>
+	<div class="card-body pb-0 text-center">
+		<div class="row">
+			<div class="col-3">
+				<p class="mb-2"><strong class="text-uppercase">Id missione:</strong> {{request.session.missione.id_missione}}</p>
+			</div>
+			<div class="col-3">
+				<p class="mb-2"><strong class="text-uppercase">Codice:</strong> {{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
+			</div>
+			<div class="col-6">
+				<p class="mb-2"><strong class="text-uppercase">Cognome Nome:</strong>
+					{% if request.session.missione.cognome_p is None %}
+					NON DEFINITO
+					{% else %}
+					{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}
+					{% endif %}
+				</p>
+			</div>
+		</div>
+		<div class="row border-bottom">
+			<div class="col-12">
+				<p class="mb-2"><strong class="text-uppercase">Luogo intervento:</strong> {{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}, {{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-6">
+				<p class="mb-2"><strong class="text-uppercase">Note:</strong> {{request.session.missione.note}}</p>
+			</div>
+			<div class="col-6">
+				<p class="mb-2"><strong class="text-uppercase">Avvisi:</strong> {{request.session.missione.avvisi}}</p>
+			</div>
+		</div>
+	</div>
 </div>
- 
+
 <div class="d-flex flex-column" style="height: 75vh">
-  <div class="container mt-5 text-center bg-white">
-      <h1 class="m-3">Protocolli operativi</h1>
-  </div>
+	<div class="container mt-5 text-center bg-white">
+		<h1 class="m-3">Protocolli operativi</h1>
+	</div>
 
-  <div class="container pt-2 ps-5 pe-5 mb-auto bg-white" style="height: 45vh; overflow: auto;">
-      <div class="table-wrapper-scroll-y my-custom-scrollbar p-5 m-0 bg-light"> 
-          <table class="table-responsive w-100 align-middle">
-              <thead>
-              <tr>
-                  <th scope="col">Protocollo</th>
-                  <th scope="col">Livello</th>
-                  <th scope="col">Apri</th>
-              </tr>
-              </thead>
-              <tbody>
-                <tr>
-                    <td scope="row">BLS-D</td>
-                    <td>Base</td>
-                    <td>
-                        <input value="blsd" id="blsd" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="blsd">+</label>
-                    </td>
-                </tr>   
-                <tr>
-                    <td scope="row">PBLS-D</td>
-                    <td>Base</td>
-                    <td>
-                        <input value="pblsd" id="pblsd" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="pblsd">+</label>
-                    </td>
-                </tr>  
-                <tr>
-                    <td scope="row">Emergenza COVID-19</td>
-                    <td>Base</td>
-                    <td>
-                        <input value="covid" id="covid" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="covid">+</label>
-                    </td>
-                </tr> 
-                <tr>
-                    <td scope="row">Uso C-PAP</td>
-                    <td>Avanzato</td>
-                    <td>
-                        <input value="c-pap" id="c-pap" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="c-pap">+</label>
-                    </td>
-                </tr>  
-                <tr>
-                    <td scope="row">Codici intervento</td>
-                    <td>Base</td>
-                    <td>
-                        <input value="codici" id="codici" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="codici">+</label>
-                    </td>
-                </tr>  
-                <tr>
-                    <td scope="row">Posizione elettrodi ECG</td>
-                    <td>Avanzato</td>
-                    <td>
-                        <input value="ecg" id="ecg" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="ecg">+</label>
-                    </td>
-                </tr>  
-                <tr>
-                    <td scope="row">Metodo Triage START</td>
-                    <td>Avanzato</td>
-                    <td>
-                        <input value="start" id="start" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="start">+</label>
-                    </td>
-                </tr> 
-                <tr>
-                    <td scope="row">Gestione ICTUS - Protocollo STROKE</td>
-                    <td>Avanzato</td>
-                    <td>
-                        <input value="stroke" id="stroke" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="stroke">+</label>
-                    </td>
-                </tr>  
-                <tr>
-                    <td scope="row">Protocollo SVT paziente traumatizzato </td>
-                    <td>Avanzato</td>
-                    <td>
-                        <input value="svt" id="svt" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="svt">+</label>
-                    </td>
-                </tr> 
-                <tr>
-                    <td scope="row">Protocolli intubazione</td>
-                    <td>Avanzato</td>
-                    <td>
-                        <input value="tubi" id="tubi" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="tubi">+</label>
-                    </td>
-                </tr> 
-                <tr>
-                    <td scope="row">Protocollo accesso venoso</td>
-                    <td>Avanzato</td>
-                    <td>
-                        <input value="vena" id="vena" class="btn btn-check apri" role="button" type="submit" >
-                        <label class="btn btn-info btn-sm px-3" for="vena">+</label>
-                    </td>
-                </tr> 
-              </tbody>
-          </table>
-      </div>
-  </div>
-
+	<div class="container pt-2 ps-5 pe-5 mb-auto bg-white" style="height: 45vh; overflow: auto;">
+		<div class="table-wrapper-scroll-y my-custom-scrollbar p-5 m-0 bg-light">
+			<table class="table-responsive w-100 align-middle">
+				<thead>
+					<tr>
+						<th scope="col">Protocollo</th>
+						<th scope="col">Livello</th>
+						<th scope="col">Apri</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td scope="row">BLS-D</td>
+						<td>Base</td>
+						<td>
+							<input value="blsd" id="blsd" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="blsd"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">PBLS-D</td>
+						<td>Base</td>
+						<td>
+							<input value="pblsd" id="pblsd" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="pblsd"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">Emergenza COVID-19</td>
+						<td>Base</td>
+						<td>
+							<input value="covid" id="covid" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="covid"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">Uso C-PAP</td>
+						<td>Avanzato</td>
+						<td>
+							<input value="c-pap" id="c-pap" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="c-pap"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">Codici intervento</td>
+						<td>Base</td>
+						<td>
+							<input value="codici" id="codici" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="codici"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">Posizione elettrodi ECG</td>
+						<td>Avanzato</td>
+						<td>
+							<input value="ecg" id="ecg" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="ecg"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">Metodo Triage START</td>
+						<td>Avanzato</td>
+						<td>
+							<input value="start" id="start" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="start"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">Gestione ICTUS - Protocollo STROKE</td>
+						<td>Avanzato</td>
+						<td>
+							<input value="stroke" id="stroke" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="stroke"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">Protocollo SVT paziente traumatizzato </td>
+						<td>Avanzato</td>
+						<td>
+							<input value="svt" id="svt" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="svt"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">Protocolli intubazione</td>
+						<td>Avanzato</td>
+						<td>
+							<input value="tubi" id="tubi" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="tubi"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row">Protocollo accesso venoso</td>
+						<td>Avanzato</td>
+						<td>
+							<input value="vena" id="vena" class="btn btn-check apri" role="button" type="submit">
+							<label class="btn btn-info btn-sm px-3" for="vena"><i class="fa-solid fa-plus"></i></label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 
 <div class="position-absolute bottom-0 end-0 m-4">
-    <div class="container p-5">
-      <a type="button" class="btn p-3 btn-primary btn-lg m-2 w-100" href="{% url 'mattoni' %}">Arrivo sul posto</a>
-    </div>
+	<div class="container p-5">
+		<a type="button" class="btn p-3 btn-primary btn-lg m-2 w-100" href="{% url 'mattoni' %}">Arrivo sul posto</a>
+	</div>
 </div>
-  
-
 {% endblock %}
+
 {% block scripts %}
 <script>
-$(document).ready(function(){
-  $('#bottone').click(function () {
-      $('#dati_centrale').collapse('toggle');
-  });
+	$(document).ready(function () {
+		$('#bottone').click(function () {
+			$('#dati_centrale').collapse('toggle');
+		});
 
-  $('#blsd').click(function(){  
-  window.open('{% static "pdf/blsd.pdf" %}');
-  });
+		$('#blsd').click(function () {
+			window.open('{% static "pdf/blsd.pdf" %}');
+		});
 
-  $('#pblsd').click(function(){  
-  window.open('{% static "pdf/pblsd.pdf" %}');
-  });
+		$('#pblsd').click(function () {
+			window.open('{% static "pdf/pblsd.pdf" %}');
+		});
 
-  $('#covid').click(function(){  
-  window.open('{% static "pdf/covid.pdf" %}');
-  });
+		$('#covid').click(function () {
+			window.open('{% static "pdf/covid.pdf" %}');
+		});
 
-  $('#c-pap').click(function(){  
-  window.open('{% static "pdf/c-pap.pdf" %}');
-  });
+		$('#c-pap').click(function () {
+			window.open('{% static "pdf/c-pap.pdf" %}');
+		});
 
-  $('#codici').click(function(){  
-  window.open('{% static "pdf/codici.pdf" %}');
-  });
+		$('#codici').click(function () {
+			window.open('{% static "pdf/codici.pdf" %}');
+		});
 
-  $('#ecg').click(function(){  
-  window.open('{% static "pdf/ecg.pdf" %}');
-  });
+		$('#ecg').click(function () {
+			window.open('{% static "pdf/ecg.pdf" %}');
+		});
 
-  $('#start').click(function(){  
-  window.open('{% static "pdf/start.pdf" %}');
-  });
+		$('#start').click(function () {
+			window.open('{% static "pdf/start.pdf" %}');
+		});
 
-  $('#stroke').click(function(){  
-  window.open('{% static "pdf/stroke.pdf" %}');
-  });
+		$('#stroke').click(function () {
+			window.open('{% static "pdf/stroke.pdf" %}');
+		});
 
-  $('#svt').click(function(){  
-  window.open('{% static "pdf/svt.pdf" %}');
-  });
+		$('#svt').click(function () {
+			window.open('{% static "pdf/svt.pdf" %}');
+		});
 
-  $('#tubi').click(function(){  
-  window.open('{% static "pdf/tubi.pdf" %}');
-  });
+		$('#tubi').click(function () {
+			window.open('{% static "pdf/tubi.pdf" %}');
+		});
 
-  $('#vena').click(function(){  
-  window.open('{% static "pdf/vena.pdf" %}');
-  });
-});
+		$('#vena').click(function () {
+			window.open('{% static "pdf/vena.pdf" %}');
+		});
+	});
 </script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

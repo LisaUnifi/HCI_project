@@ -1,6 +1,4 @@
 from django.urls import path
-from django.contrib import admin
-from django.views.generic.base import TemplateView 
 import exif_viewer.views as exif
 
 from . import views
@@ -15,5 +13,8 @@ urlpatterns = [
     path('previous_image/', exif.previous_image, name='previous_image'),
     path('nuovo_album/', exif.nuovo_album, name='nuovo_album'),
     path('geolocalizzazione/', exif.geolocalizzazione, name='geolocalizzazione'),
-    path('filter_image/<int:pk>/', exif.filter_image, name='filter_image'),
+    path('histogram_red/', exif.histogram_red, name='histogram_red'),
+    path('histogram_green/', exif.histogram_green, name='histogram_green'),
+    path('histogram_blue/', exif.histogram_blue, name='histogram_blue'),
+    path('filter/', exif.filter, name='filter'),
     ]
