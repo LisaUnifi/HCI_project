@@ -23,7 +23,7 @@
             <a class="dropdown-item" href="{% url 'gestione_missioni' %}">Missioni</a>
             <a class="dropdown-item" href="{% url 'dati_mezzo' %}">Dati mezzo</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            <a class="dropdown-item" id="apri">Logout</a>
         </div>
     </div>
 </nav>
@@ -138,6 +138,26 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Logout -->
+<div class="modal fade" id="modal_logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+			</div>
+			<div class="modal-body text-center">
+				<h5 class="modal-title" id="exampleModalLabel">Sei sicuro di voler uscire dall'applicazione?</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary w-25" id="annulla">NO</button>
+				<a href="{% url 'logout' %}" role="button" class="btn btn-primary w-25">
+					SI
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -186,6 +206,14 @@
         $('#vena').click(function () {
             window.open('{% static "pdf/vena.pdf" %}');
         });
+
+        $('#apri').click(function () {
+			$('#modal_logout').modal('show');
+		});
+
+		$('#annulla').click(function () {
+			$('#modal_logout').modal('hide');
+		});
     });
 </script>
 
