@@ -20,13 +20,12 @@
 
 
 ## Tools and Techniques
-La scelta di digitalizzare la scheda attraverso la creazione di un applicativo web ci permette di creare un'applicazione che possa essere usata senza la necessità di scaricare o installare particolari applicativi.
+La scelta di digitalizzare la scheda attraverso la creazione di un applicativo web ci permette di creare un'applicazione che possa essere usata senza la necessità di scaricare o installare particolari applicativi. Questo implica che sia facilmente utilizzabile su tutti i tipi di dispositivi, requisito per noi fondamentale visto che soccorritori e Operatori di Centrale lavorano e comunicano attraverso device diversi, nel primo caso mobili e nel secondo fissi.
 Allo scopo di creare un applicativo completo abbiamo realizzato sia la parte di back-end che quella di front-end. 
 Una delle prime tecnologie che vogliamo menzionare è il python web framework Django.
 Django implementa nel suo codice un pattern definito Model-View-Template finalizzato a gestire la comunicazione tra database e server e che permette una facile gestione delle informazioni derivanti dall'interazione dell'utente col frontend, ispirandosi al pattern Model-View-Controller.
 Allo scopo di rendere l'interfaccia utente più accessibile e "visually appealing", la scelta è stata quella di affiancare un altro strumento all'utilizzo di Django: Bootstrap.
 Bootstrap è un CSS framework che supporta la creazione di pagine web responsive: nello specifico abbiamo deciso di utilizzare la versione 4 con l'estensione finalizzata all'utilizzo del Material Design.
-
 Insieme all'utilizzo dei framework sopra menzionati abbiamo anche utilizzato:
 - JavaScript
 - CSS
@@ -38,7 +37,7 @@ Insieme all'utilizzo dei framework sopra menzionati abbiamo anche utilizzato:
 
 ## Expected Outcomes
 Gli obiettivi che vorremmo raggiungere sono:
-- creare un'interfacccia digitale della scheda Mattoni rivisitata per essere più intuitiva all'utilizzo
+- creare un'interfaccia digitale della scheda Mattoni rivisitata per essere più intuitiva all'utilizzo
 - possibilità di adattare i contenuti della scheda in base al tipo d'intervento e al protocollo da attuare 
 - simulare la comunicazione tra soccorritore e medico di centrale tramite l'applicativo
 - fornire un report stampabile/inviabile dell'intervento

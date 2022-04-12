@@ -68,18 +68,49 @@
 
 				<li>
 					<div class="container p-5 d-flex justify-content-end">
-						<a href="{% url 'home_sc' %}" role="button" class="btn btn-primary btn-lg">
+						<button id="apri" type="button" class="btn btn-primary btn-lg">
 							Cambia mezzo
-						</a>
+						</button>
 					</div>
 				</li>
 			</ul>
 		</div>
 	</div>
 </div>
+
+<!-- Modal Cambio mezzo -->
+<div class="modal fade" id="cambio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Cambio mezzo</h5>
+			</div>
+			<div class="modal-body text-center">
+				<h5 class="modal-title" id="exampleModalLabel">Sei sicuro di voler cambiare mezzo?</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary w-25" id="annulla">NO</button>
+				<a href="{% url 'home_sc' %}" role="button" class="btn btn-primary w-25">
+					SI
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 
 {% block scripts %}
+<script>
+	$(document).ready(function () {
+		$('#apri').click(function () {
+			$('#cambio').modal('show');
+		});
+
+		$('#annulla').click(function () {
+			$('#cambio').modal('hide');
+		});
+	});
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

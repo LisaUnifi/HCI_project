@@ -140,7 +140,7 @@
 											</div>
 										</div>
 										<div id="msg_respiro" hidden>
-											<p class="slogan m-0">Condurre 1 insufflazione ogni 5 secondi</p>
+											<p class="slogan m-0">Effettuare 1 insufflazione ogni 5 secondi</p>
 											<p class="slogan m-0 mb-2">Rivalutare dopo 1 minuto</p>
 										</div>
 										<div id="msg_circolo" hidden>
@@ -203,6 +203,15 @@
 										</div>
 									</div>
 								</div>
+
+								<!-- Ostruzione totale - Elemento nascosto -->
+								<div id="msg_totale" class="text-center" hidden>
+									<p class="slogan m-0 mt-2">Effettuare le seguenti manovre di disostruzione:</p>
+									<p class="slogan m-0">5 <strong>pacche interscapolari</strong> con uscita esterna e</p>
+									<p class="slogan m-0 mb-2">5 volte la <strong>manovra Heimlich</strong>.</p>
+									<p class="slogan m-0">Continuare fino a quando le vie aeree non tornano pervie o </p>
+									<p class="slogan m-0 mb-2">fino a quando il paziente cade non cosciente.</p>
+								</div>
 							</section>
 
 							<!-- Breathing -->
@@ -240,7 +249,7 @@
 								<!-- Dispnea -->
 								<div class="row p-1 ">
 									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-										<h6>Respirazione dispneica?</h6>
+										<h6>Respirazione dispnoica?</h6>
 									</div>
 									<div class="col-5 col-md-3 col-lg-2">
 										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
@@ -787,11 +796,12 @@
 							</section>
 
 							<!-- Esito -->
-							<section id="esito_menu">
+							<section id="esito_menu" class="text-center">
 								<h1 class="text-center mt-4 border-bottom border-top">Esito</h1>
-								<p id="attesa" class="text-center text-muted mb-4">In attesa di informazioni sul trasporto</p>
+								<p id="attesa" class="text-center text-muted mb-2">Seleziona l'esito del trattamento:</p>
+								<button type="button" id="trasporto_ospedale" class="btn btn-secondary mb-2 w-50">Trasporto in ospedale</button>
 								<div id="risposta" hidden>
-									<p class="text-center text-muted mb-4">Indicazioni dalla centrale:</p>
+									<p class="text-center text-muted mt-2 mb-4">Indicazioni dalla centrale:</p>
 									<div class="row p-1 ">
 										<div class="col-6 d-flex">
 											<h6>Destinazione</h6>
@@ -812,12 +822,14 @@
 										<div class="col-6 d-flex">
 											<h6>Classe patologia ipotizzata</h6>
 										</div>
-										<div class="col-6 d-flex justify-content-end">
+										<div class="col-6 mb-4 d-flex justify-content-end">
 											<p id="pat" class="text-center text-muted mb-4"></p>
 											<p id="cri" class="text-center text-muted mb-4"></p>
 										</div>
 									</div>
 								</div>
+								<button type="button" id="rifiuto_trasporto" class="btn btn-secondary w-50 mb-2" data-mdb-toggle="modal" data-mdb-target="#modal_rifiuto">Rifiuto trasporto</button>
+								<button type="button" id="libero" class="btn btn-secondary w-50 mb-2" hidden>Liberi dal servizio</button>
 							</section>
 						</div>
 					</div>
@@ -831,9 +843,6 @@
 <div class="row bg-light p-0 m-0">
 	<div class="col-12">
 		<div class="fixed-bottom p-4 d-flex justify-content-end">
-			<button type="button" id="rifiuto_trasporto" class="btn p-3 me-2 btn-secondary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modal_rifiuto">Rifiuto trasporto</button>
-			<button type="button" id="libero" class="btn p-3 me-2 btn-secondary btn-lg" hidden>Liberi dal servizio</button>
-			<button type="button" id="trasporto_ospedale" class="btn p-3 me-2 btn-primary btn-lg">Trasporto in ospedale</button>
 			<button type="button" id="conclusione" class="btn p-3 me-2 btn-primary btn-lg" hidden>Arrivo in reparto</button>
 			<button type="button" id="partenza" class="btn p-3 me-2 btn-primary btn-lg" hidden>Partenza da intervento</button>
 		</div>
@@ -1129,7 +1138,10 @@
 							<select id="mezzi" class="selectpicker w-100" title="Reparto destinazione" name="reparto">
 								<option value="Pronto soccorso - DEA">Pronto soccorso - DEA</option>
 								<option value="Emodinamica">Emodinamica</option>
+								<option value="Terapia intensiva">Terapia intensiva</option>
+								<option value="Neurologia">Neurologia</option>
 								<option value="Ostetricia">Ostetricia</option>
+								<option value="Infettivo - Reparto">Infettivo - Reparto</option>
 								<option value="Infettivo - BOLLA">Infettivo - BOLLA</option>
 							</select>
 						</div>
@@ -1335,7 +1347,6 @@
 					}
 					else {
 						$('#modal_trasporto').modal('show');
-
 					}
 				},
 			});

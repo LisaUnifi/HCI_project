@@ -16,7 +16,7 @@
 	<div class="ms-0 p-3">
 		<h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
 	</div>
-	<a href="{% url 'logout' %}" class="btn btn-primary m-4" style="position: absolute; right: 0; top: 0;">Log out</a>
+	<a id="apri" class="btn btn-primary m-4" style="position: absolute; right: 0; top: 0;">Log out</a>
 </nav>
 
 <div class="container-sm p-3 rounded bg-white text-center d-flex flex-column">
@@ -52,6 +52,7 @@
 					{% if not mezzitemp %}
 						<p class="slogan mt-2 mb-0 ms-4 me-4">Ancora non sono stati inseriti mezzi estemporanei.</p>
 						<p class="slogan mb-0 ms-4 me-4">Per aggiungerli vai su <a href="{% url 'gestione_mezzi' %}" class="text-decoration-none" style="color: var(--bs-info);"><strong>GESTIONE MEZZI</strong></a></p>
+					{% else %}
 						{% for m in mezzitemp %}
 						<div class="row">
 							<div class="col m-2">
@@ -81,6 +82,26 @@
 		</div>
 	</form>
 </div>
+
+<!-- Modal Logout -->
+<div class="modal fade" id="modal_logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+			</div>
+			<div class="modal-body text-center">
+				<h5 class="modal-title" id="exampleModalLabel">Sei sicuro di voler uscire dall'applicazione?</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary w-25" id="annulla">NO</button>
+				<a href="{% url 'logout' %}" role="button" class="btn btn-primary w-25">
+					SI
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -89,6 +110,14 @@
 		$('input[name="mezzoscelto"]').click(function () {
 			$('input[name="mezzoscelto"]').prop('checked', false);
 			$(this).prop('checked', true);
+		});
+
+		$('#apri').click(function () {
+			$('#modal_logout').modal('show');
+		});
+
+		$('#annulla').click(function () {
+			$('#modal_logout').modal('hide');
 		});
 	});
 </script>
