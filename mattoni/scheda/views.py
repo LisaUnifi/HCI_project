@@ -1,45 +1,33 @@
-from re import S
-from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse, reverse_lazy
-from django.http import Http404
-from django.template import loader, RequestContext
-from django.utils import timezone
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import generic
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-
-from django.core.serializers import serialize
-from django.core.serializers.json import DjangoJSONEncoder
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
-from django.core.files import File
-from .forms import MezziCreationForm, MissionCreationForm, MissioneModificaForm, SchedaMissioneForm, UserChangePass, UserModificaForm, UserRegistrationForm, MissioneRifiutoForm, MissioneTrasportoForm
-from .models import Missione, MyUser, Mezzo, Scheda, Intervento, TestaPiedi
 from django.contrib import messages 
-from django.contrib.auth.forms import PasswordChangeForm
 from django.forms.models import model_to_dict
 from django.conf import settings
 from django.core.cache import cache
+from scheda.utils import render_to_pdf 
+
+from .forms import MezziCreationForm, MissionCreationForm, MissioneModificaForm, SchedaMissioneForm, UserChangePass, UserModificaForm, UserRegistrationForm, MissioneRifiutoForm, MissioneTrasportoForm
+from .models import Missione, MyUser, Mezzo, Scheda, Intervento, TestaPiedi
 
 import datetime
 import json
 import base64
 import os
-import io
-from django.http import FileResponse
-from scheda.utils import render_to_pdf #created in step 4
 
 
-import pdb
-
-
+# Funzioni usate da views
 def myconverter(o):
     if isinstance(o, datetime.datetime):
         return o.__str__()
 
 
+# VIEWS 
 def change_theme(request):
-
     if request.method == 'GET':
         cache.clear()
         data = {}
@@ -47,12 +35,6 @@ def change_theme(request):
         request.session['tema'] = tema
         return JsonResponse(data)
 
-
-def operator_check(user):
-    return user.is_operator
-
-def staff_check(user):
-    return user.is_staff
 
 class LoginView(generic.View):
     def get(self, request):
@@ -77,9 +59,7 @@ def modifica_dati(request):
     if request.method == 'POST':
         data = {}
         if form.is_valid():
-
-            user = form.save()
-
+            form.save()
             data['status'] = 'success'
             messages.success(request, 'Modifiche apportate con successo!')
             return JsonResponse(data)
@@ -114,21 +94,17 @@ def mezzi_creation_form(request):
         data = {}
         if form.is_valid():
             mezzo = form.save(commit=False)
-
             user = MyUser.objects.get(username=request.user.username)
             mezzo.username = user
             mezzo.save()
-
             data['status'] = 'success'
             messages.success(request, 'Mezzo creato con successo!')
             return JsonResponse(data)
         else:
-            
             errors = form.errors
             data['errors'] = errors
             data['status'] = 'error'
             return JsonResponse(data)
-
 
 
 class Operativo(generic.View):
@@ -141,7 +117,6 @@ class OperativoRientro(generic.View):
     def get(self, request):
         template_name = 'operativo_rientro.html'
         missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
-
         dict = {'invio' : datetime.datetime.now()}
         d = json.dumps(dict['invio'], default=myconverter)
         d.replace('"', '')
@@ -169,10 +144,6 @@ def mezzo_scelto(request):
             request.session['mezzo'] = mezzo
             return redirect('operativo')
 
-  #  nell'HTML:
-    
-
-
 
 def logout_view(request):
     logout(request)
@@ -184,10 +155,12 @@ class RegistrationView(generic.View):
         template_name = 'registration.html'
         return render(request, template_name, context={'form': form})
 
+
 class RegistrationSuccess(generic.View):
     def get(self, request):
         template_name = 'regist_success.html'
         return render(request, template_name)
+
 
 def registration_request(request):
     form = UserRegistrationForm(request.POST or None, request.FILES or None)
@@ -195,9 +168,7 @@ def registration_request(request):
         data={}
         if form.is_valid():
             user = form.save(commit=False)
-            
             user.save()
-
             data['status'] = 'success'
             return JsonResponse(data)
         else:
@@ -211,16 +182,13 @@ def change_password(request):
     form = UserChangePass(request.user, request.POST)
     if request.method == 'POST':
         data = {}
-        
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
             data['status'] = 'success' 
             messages.success(request, 'La password è stata cambiata correttamente')
-
             return JsonResponse(data)
         else:
-
             errors = form.errors
             data['errors'] = errors
             data['status'] = 'error'
@@ -241,19 +209,16 @@ def missione_creation_form(request):
     if request.method == 'POST':
         if form.is_valid():
             missione = form.save(commit=False)
-
             scheda = Scheda()
             tp = TestaPiedi()
             tp.save()
             scheda.testa_piedi = tp
             scheda.save()
-            
             dict = {'invio' : datetime.datetime.now()}
             d = json.dumps(dict['invio'], default=myconverter)
             d.replace('"', '')
             missione.invio = d[1:17]
             missione.save()
-
             dictMissione = model_to_dict(missione)
             dictScheda = model_to_dict(scheda)
             m = request.session['mezzo']
@@ -270,19 +235,15 @@ def missione_creation_form(request):
         return JsonResponse(data)
     
 
-
-# TODO: fix il problema con la pagina
 def partenza_missione(request):
     template_name = 'partenza_missione.html'
     missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
-
     dict = {'invio' : datetime.datetime.now()}
     d = json.dumps(dict['invio'], default=myconverter)
     d.replace('"', '')
     missione.accetta_missione = d[1:17]
     missione.save()
     request.session['missione']['accetta_missione'] = d[1:17]
-
     return render(request, template_name)
 
 
@@ -293,46 +254,38 @@ class AccettaMissione(generic.View):
 
 
 class GestioneMissioni(generic.View):
-
     def get(self, request):
         m = request.session['mezzo']
         intervento = Intervento.objects.filter(id_mezzo= Mezzo.objects.get(id_mezzo=m['id_mezzo']))
         mis = intervento.values_list('id_missione')
-
         missione = Missione.objects.filter(id_missione__in = mis)
         template_name = 'gestione_missioni.html'
         return render(request, template_name, context={'missione': missione})
 
 
 class MissioneProtocolli(generic.View):
-
     def get(self, request):
         template_name = 'missione_protocolli.html'
         missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
-        
         dict = {'invio' : datetime.datetime.now()}
         d = json.dumps(dict['invio'], default=myconverter)
         d.replace('"', '')
         missione.partenza = d[1:17]
         missione.save()
         request.session['missione']['partenza'] = d[1:17]
-
         return render(request, template_name)
 
 
 class CompilazioneScheda(generic.View):
-
     def get(self, request):
         template_name = 'mattoni.html'
         missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
-
         dict = {'invio' : datetime.datetime.now()}
         d = json.dumps(dict['invio'], default=myconverter)
         d.replace('"', '')
         missione.arrivo = d[1:17]
         missione.save()
         request.session['missione']['arrivo'] = d[1:17]
-
         return render(request, template_name)
 
 
@@ -343,39 +296,30 @@ def dettagli_missione(request, pk):
         intervento = Intervento.objects.get(id_missione=query)
         scheda = Scheda.objects.get(id_scheda = intervento.id_scheda.id_scheda)
         tp = scheda.testa_piedi
-
         front = str(tp.front)
         fsplit = front.split('/')
         f = fsplit[len(fsplit)-2] + '/' + fsplit[len(fsplit)-1]
-        
         back = str(tp.back)
         bsplit = back.split('/')
         b = bsplit[len(bsplit)-2] + '/' + bsplit[len(bsplit)-1]
-
         return render(request, template_name, context={'missione': query, 'scheda': scheda, 'front': f, 'back': b})
 
 
 class RiepilogoMissione(generic.View):
-
     def get(self, request):
         template_name = 'riepilogo_missione.html'
         if request.method == 'GET':
             missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
             scheda = Scheda.objects.get(id_scheda =request.session['scheda']['id_scheda'])
             tp = scheda.testa_piedi
-
             front = str(tp.front)
             fsplit = front.split('/')
             f = fsplit[len(fsplit)-2] + '/' + fsplit[len(fsplit)-1]
-            
             back = str(tp.back)
             bsplit = back.split('/')
             b = bsplit[len(bsplit)-2] + '/' + bsplit[len(bsplit)-1]
-
             missione.chiusa = True
             if request.session['missione']['esito'] == True:
-                
-
                 dict = {'invio' : datetime.datetime.now()}
                 d = json.dumps(dict['invio'], default=myconverter)
                 d.replace('"', '')
@@ -405,15 +349,10 @@ def invia_scheda(request):
         data = {}
         if form.is_valid():
             scheda = form.save(commit=False)
-            
             scheda.save()
-
             data['status'] = 'success'
-            
-            #messages.success(request, 'Scheda salvata!')
             return JsonResponse(data)
         else:
-
             errors = form.errors
             data['errors'] = errors
             data['status'] = 'error'
@@ -424,7 +363,6 @@ def invia_scheda(request):
 def invia_tp(request):
     if request.method == 'POST':
         data = {}
-
         image_data = request.POST.get('front')
         format, imgstr = image_data.split(';base64,')
         ext = format.split('/')[-1]
@@ -432,11 +370,9 @@ def invia_tp(request):
         front = "front"+str(request.session['scheda']['id_scheda'])+"." + ext
         fs = FileSystemStorage()
         frontname = fs.save(front, dataf)
-
         scheda = Scheda.objects.get(id_scheda = request.session['scheda']['id_scheda'])
         tp = scheda.testa_piedi
         tp.front = os.path.join(settings.MEDIA_ROOT, frontname)
-
         image_data = request.POST.get('back')
         format, imgstr = image_data.split(';base64,')
         ext = format.split('/')[-1]
@@ -444,12 +380,8 @@ def invia_tp(request):
         back = "back"+str(request.session['scheda']['id_scheda'])+"." + ext
         fs = FileSystemStorage()
         backname = fs.save(back, datab)
-
         tp.back = os.path.join(settings.MEDIA_ROOT, backname)
-
         tp.save()
-
-        
         return JsonResponse(data)
 
 
@@ -459,23 +391,19 @@ def modifica_paziente(request):
         data = {}
         if form.is_valid():
             missione = form.save(commit=False)
-            
             missione.save()
-
             data['status'] = 'success'
-            #messages.success(request, 'Scheda salvata!')
             return JsonResponse(data)
         else:
-
             errors = form.errors
             data['errors'] = errors
             data['status'] = 'error'
             return JsonResponse(data)
 
+
 def rientro_sede(request):
     if request.method == 'GET':
         missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
-        
         dict = {'invio' : datetime.datetime.now()}
         d = json.dumps(dict['invio'], default=myconverter)
         d.replace('"', '')
@@ -492,7 +420,6 @@ def rientro_sede(request):
 def partenza_luogo_intervento(request):
     if request.method == 'GET':
         missione = Missione.objects.get(id_missione=request.session['missione']['id_missione'])
-        
         dict = {'invio' : datetime.datetime.now()}
         d = json.dumps(dict['invio'], default=myconverter)
         d.replace('"', '')
@@ -514,12 +441,10 @@ def invia_rifiuto(request):
             missione.rifiuto_trasporto = d[1:17]
             missione.esito = False
             request.session['missione']['esito'] = False
-            
             missione.save()
             data['status'] = 'success'
             return JsonResponse(data)
         else:
-
             errors = form.errors
             data['errors'] = errors
             data['status'] = 'error'
@@ -537,46 +462,38 @@ def invia_trasporto(request):
             d.replace('"', '')
             missione.rientro_sede = d[1:17]
             missione.esito = True
-            
             request.session['missione']['criticita_trasporto'] = missione.criticita_trasporto
             request.session['missione']['patologia_trasporto'] = missione.patologia_trasporto
             request.session['missione']['ospedale'] = missione.ospedale
             request.session['missione']['reparto'] = missione.reparto
             request.session['missione']['esito'] = True
-
             missione.save()
-            
             data['criticita_trasporto'] = missione.criticita_trasporto
             data['patologia_trasporto'] = missione.patologia_trasporto
             data['ospedale'] = missione.ospedale
             data['reparto'] = missione.reparto
-            
-
             data['status'] = 'success'
             return JsonResponse(data)
         else:
-
             errors = form.errors
             data['errors'] = errors
             data['status'] = 'error'
             return JsonResponse(data)
         
+
 class GeneratePdf(generic.View):
     def get(self, request, pk):
         query = Missione.objects.get(id_missione=pk)
         intervento = Intervento.objects.get(id_missione=query)
         scheda = Scheda.objects.get(id_scheda = intervento.id_scheda.id_scheda)
         tp = scheda.testa_piedi
-
         front = str(tp.front)
         fsplit = front.split('/')
         f = fsplit[len(fsplit)-2] + '/' + fsplit[len(fsplit)-1]
-        
         back = str(tp.back)
         bsplit = back.split('/')
         b = bsplit[len(bsplit)-2] + '/' + bsplit[len(bsplit)-1]
         data = {'missione': query, 'scheda': scheda, 'front': f, 'back': b, 'corp':request.user.corporation}
-        
         pdf = render_to_pdf('pdf/dettagli.html', data)
         if pdf:
             response = HttpResponse(pdf, content_type='application/pdf')

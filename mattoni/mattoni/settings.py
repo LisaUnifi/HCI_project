@@ -25,7 +25,7 @@ SECRET_KEY = 'n0+qch)kjti*g=7cw*hj^s(nf6zm+%@(ju_4ce_3hzzzhtmm6i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.126','0.0.0.0', '192.168.1.22', '192.168.1.13', '192.168.1.10', '192.168.1.123', '192.168.111.18']
+ALLOWED_HOSTS = ['192.168.1.126','0.0.0.0', '192.168.1.22', '192.168.1.13', '192.168.1.10', '192.168.1.123', '192.168.111.18', '192.168.40.26']
 
 
 # Application definition
@@ -145,7 +145,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
 
 HOTKEYS = [
             {'keys': 'alt+h', 'link': '/'},
-            {'keys': 'alt+l', 'link': 'exif/'},
         ]
 SPECIAL_DISABLED = True
 

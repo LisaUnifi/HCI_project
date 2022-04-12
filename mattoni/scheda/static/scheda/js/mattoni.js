@@ -20,14 +20,14 @@ $(document).ready(function () {
 
     $('#respiraBLS_si').click(function () {
         if($('#circoloBLS_no').prop('checked')){
-            $('#msg_respiro').prop('hidden', true);
-            $('#msg_circolo').prop('hidden', true);
-            $('#msg_cicli').prop('disabled', true);
-            $('#plus').prop('disabled', true);
-            $('#minus').prop('disabled', true);
             $('#circoloBLS_no').prop('checked', false);
             $('#circoloBLS_si').prop('checked', true);
         }
+        $('#msg_respiro').prop('hidden', true);
+        $('#msg_circolo').prop('hidden', true);
+        $('#msg_cicli').prop('disabled', true);
+        $('#plus').prop('disabled', true);
+        $('#minus').prop('disabled', true);
     });
 
     $('#circoloBLS_si').click(function () {
@@ -53,12 +53,21 @@ $(document).ready(function () {
         $('#pervieta_si').prop('checked', false);
     });
 
+    $('#ostruzione_no').click(function () {
+        $('#msg_totale').prop('hidden', false);
+    });
+
+    $('#ostruzione_si').click(function () {
+        $('#msg_totale').prop('hidden', true);
+    });
+
     $('#pervieta_si').click(function () {
         $('#ostruzione').collapse('hide');
         $('#pervieta_no').prop('checked', false);
         $('#pervieta_si').prop('checked', true);
         $('#ostruzione_no').prop('checked', false);
         $('#ostruzione_si').prop('checked', false);
+        $('#msg_totale').prop('hidden', true);
     });
 
     $('#sudato_si').click(function () {

@@ -11,78 +11,65 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-light d-flex justify-content-start">
-  <a class="navbar-brand ms-3 m-1" href="#">
-  <img
-      src="{% static 'img/logoHCI.png' %}"
-      height="50"
-      loading="lazy"
-  />
-  </a>
-  <div class="nav-item ms-0 p-3">
-      <h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
-  </div>
+	<a class="navbar-brand ms-3 m-1">
+		<img src="{% static 'img/logoHCI.png' %}" height="50" loading="lazy" />
+	</a>
+	<div class="nav-item ms-0 p-3">
+		<h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
+	</div>
 </nav>
 
 
 <div class="container mt-1 mb-auto p-0 w-75 d-flex justify-content-center align-items-center" style="height: 85vh">
-  <div class="row w-100">
-    <div class="col-12 d-flex justify-content-center">
-      <img src="{% static 'img/background_HCI.png' %}" id="bg_img" class="img-fluid mx-auto" >  
-    </div>
-    <div class="col-12 d-flex justify-content-center">
-      <h2><strong>{{request.session.mezzo.nome}}</strong> sta rientrando in sede</h2>
-    </div>
-    <div class="col-12 d-flex justify-content-center">
-      <p>In attesa di una nuova missione</p>
-      <div class="spinner-border spinner-border-sm text-primary m-1 ms-2" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-  </div>
-     
+	<div class="row w-100">
+		<div class="col-12 d-flex justify-content-center">
+			<img src="{% static 'img/background_HCI.png' %}" id="bg_img" class="img-fluid mx-auto">
+		</div>
+		<div class="col-12 d-flex justify-content-center">
+			<h2><strong>{{request.session.mezzo.nome}}</strong> sta rientrando in sede</h2>
+		</div>
+		<div class="col-12 d-flex justify-content-center">
+			<p>In attesa di una nuova missione</p>
+			<div class="spinner-border spinner-border-sm text-primary m-1 ms-2" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</div>
+	</div>
+
 </div>
 
 <div class="position-absolute bottom-0 end-0 m-4">
-  <div class="container p-5">
-    <button type="button" id="invio_get" class="btn p-3 btn-primary btn-lg m-2 w-100" style="width: 200px;">
-      Rientro in sede
-    </button>
-  </div>
+	<div class="container p-5">
+		<button type="button" id="invio_get" class="btn p-3 btn-primary btn-lg m-2 w-100" style="width: 200px;">
+			Rientro in sede
+		</button>
+	</div>
 </div>
-
-
 {% endblock %}
+
 {% block scripts %}
 <script>
-  $(document).ready(function () {
+	$(document).ready(function () {
+		$('#invio_get').click(function (e) {
+			e.preventDefault();
+			$.ajax({
+				headers: {
+				},
+				url: '{% url "rientro_sede" %}',
+				dataType: 'json',
+				type: 'GET',
+				data: '',
+				success: function (result) {
 
-  
-  
-      $('#invio_get').click(function (e) {
-          e.preventDefault();
-          
-          
-            $.ajax({
-                headers: {
-                },
-                url: '{% url "rientro_sede" %}',
-                dataType: 'json', 
-                type: 'GET',
-                data: '',
-                success: function (result) {
-                    
-                  window.location = '{% url "operativo" %}'
-                },
-  
-            });
-    });
-  
-    
-});
+					window.location = '{% url "operativo" %}'
+				},
+			});
+		});
+	});
 </script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script src="{% static 'js/functions.js' %}"></script>
 {% endblock %}
-

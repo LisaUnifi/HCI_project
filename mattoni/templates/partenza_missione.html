@@ -7,108 +7,103 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-light d-flex justify-content-start">
-  <a class="navbar-brand ms-3 m-1" href="#">
-  <img
-      src="{% static 'img/logoHCI.png' %}"
-      height="50"
-      loading="lazy"
-  />
-  </a>
-  <div class="nav-item ms-0 p-3">
-      <h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
-  </div>
+	<a class="navbar-brand ms-3 m-1" href="#">
+		<img src="{% static 'img/logoHCI.png' %}" height="50" loading="lazy" />
+	</a>
+	<div class="nav-item ms-0 p-3">
+		<h3 class="mb-1 mt-1"><strong>{{request.user.corporation}}</strong></h3>
+	</div>
 </nav>
 
 <div class="container mt-5 text-center bg-white">
-    <h1 class="m-3">Missione in carico</h1>
-  </div>
-  <div class="container pt-2 ps-5 pe-5">
-    <div class="p-5 m-0 bg-light">
-      <div class="col-12 d-flex flex-column">
-  
-        <ul class="list-unstyled font-small m-4 ">
-          <li>
-            <p class="text-uppercase mb-2"><strong>Id missione</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.id_missione}}</p>
-          </li>
-  
-          <li>
-            <p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}} <button type="button" class="btn btn-dark btn-sm p-1 pt-0 pb-0 example-popover ms-2" data-toggle="popover">?</button></p>
+	<h1 class="m-3">Missione in carico</h1>
+</div>
 
-          </li>
-  
-          <li>
-            <p class="text-uppercase mb-2"><strong>Cognome Nome</strong></p>
-            {% if request.session.missione.cognome_p is None %}
-            <p class="text-muted mb-4">NON DEFINITO</p>
-            {% else %}
-            <p class="text-muted mb-4">{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}</p>
-            {% endif %}
-          </li>
-  
-          <li>
-            <p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
-            <p class="text-muted mb-4">{{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}, {{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
-          </li>
-          <li>
-            <p class="text-uppercase mb-2"><strong>Note</strong></p>
-            {% if request.session.missione.note == '' %}
-              <p class="text-muted mb-4">---</p>
-            {% else %}
-            <p class="text-muted mb-4">{{request.session.missione.note}}</p>
-            {% endif %}
-          </li>
-          <li>
-            <p class="text-uppercase mb-2"><strong>Avvisi da centrale 118</strong></p>
-            {% if request.session.missione.avvisi == '' %}
-              <p class="text-muted mb-4">---</p>
-            {% else %}
-            <p class="text-muted mb-4">{{request.session.missione.avvisi}}</p>
-            {% endif %}
-          </li>
-          <li>
-            <p>Alla partenza del mezzo, cliccare su <strong>Partenza per missione</strong> per avvisare la centrale.</p>
-          </li>
-          
-        
-        </ul>
+<div class="container pt-2 ps-5 pe-5">
+	<div class="p-5 m-0 bg-light">
+		<div class="col-12 d-flex flex-column">
+			<ul class="list-unstyled font-small m-4 ">
+				<li>
+					<p class="text-uppercase mb-2"><strong>Id missione</strong></p>
+					<p class="text-muted mb-4">{{request.session.missione.id_missione}}</p>
+				</li>
 
-        
-  
-      </div>
-      
-      
-    </div>
-    <div class="position-absolute bottom-0 end-0 m-4">
-        <div class="container p-5">
-          <a type="button" class="btn p-3 btn-primary btn-lg m-2 w-100" href="{% url 'missione_protocolli' %}">Partenza per missione</a>
-        </div>
-      </div>
-  </div>
+				<li>
+					<p class="text-uppercase mb-2"><strong>Codice missione</strong></p>
+					<p class="text-muted mb-4">{{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}} 
+						<button type="button" class="btn btn-dark btn-sm p-1 pt-0 pb-0 example-popover ms-2" data-toggle="popover">?</button>
+					</p> 
+				</li>
 
+				<li>
+					<p class="text-uppercase mb-2"><strong>Cognome Nome</strong></p>
+					{% if request.session.missione.cognome_p is None %}
+					<p class="text-muted mb-4">NON DEFINITO</p>
+					{% else %}
+					<p class="text-muted mb-4">{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}</p>
+					{% endif %}
+				</li>
+
+				<li>
+					<p class="text-uppercase mb-2"><strong>Luogo intervento</strong></p>
+					<p class="text-muted mb-4">{{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}, {{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
+				</li>
+
+				<li>
+					<p class="text-uppercase mb-2"><strong>Note</strong></p>
+					{% if request.session.missione.note == '' %}
+					<p class="text-muted mb-4">---</p>
+					{% else %}
+					<p class="text-muted mb-4">{{request.session.missione.note}}</p>
+					{% endif %}
+				</li>
+
+				<li>
+					<p class="text-uppercase mb-2"><strong>Avvisi da centrale 118</strong></p>
+					{% if request.session.missione.avvisi == '' %}
+					<p class="text-muted mb-4">---</p>
+					{% else %}
+					<p class="text-muted mb-4">{{request.session.missione.avvisi}}</p>
+					{% endif %}
+				</li>
+
+				<li>
+					<p>Alla partenza del mezzo, cliccare su <strong>Partenza per missione</strong> per avvisare la centrale.</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="position-absolute bottom-0 end-0 m-4">
+		<div class="container p-5">
+			<a type="button" class="btn p-3 btn-primary btn-lg m-2 w-100" href="{% url 'missione_protocolli' %}">Partenza per missione</a>
+		</div>
+	</div>
+</div>
 {% endblock %}
+
 {% block scripts %}
 <script>
-$(document).ready(function () {
-  var c, l, p;
-  var dictC = {'R': 'rosso', 'G': 'giallo', 'V': 'verde', 'B': 'bianco'};
-  var dictL = {'S': 'strada', 'P': 'ufficio o esercizio pubblico', 'Y': 'impianto sportivo', 'K': 'casa', 'L': 'impianto lavorativo', 'Q': 'scuola', 'Z': 'altro', 'T': 'trasferimento'};
-  var dictP = {'1': 'traumatica', '2': 'cardiocircolatoria', '3': 'respiratoria', '4': 'neurologica', '5': 'psichiatrica', '6': 'neoplastica', '7': 'tossicologica', '8': 'metabolica', '9': 'gastroenterologica', '10': 'urologica', '11': 'oculistica', '12': 'otorinolaringoiatrica', '13': 'dermatologica', '14': 'ostetrico-ginecologica', '15': 'infettiva', '19': 'altro', '20': 'non identificata'};
-  c = '{{request.session.missione.criticita}}';
-  l = '{{request.session.missione.luogo}}';
-  p = '{{request.session.missione.patologia}}';
-  
+	$(document).ready(function () {
+		var c, l, p;
+		var dictC = { 'R': 'rosso', 'G': 'giallo', 'V': 'verde', 'B': 'bianco' };
+		var dictL = { 'S': 'strada', 'P': 'ufficio o esercizio pubblico', 'Y': 'impianto sportivo', 'K': 'casa', 'L': 'impianto lavorativo', 'Q': 'scuola', 'Z': 'altro', 'T': 'trasferimento' };
+		var dictP = { '1': 'traumatica', '2': 'cardiocircolatoria', '3': 'respiratoria', '4': 'neurologica', '5': 'psichiatrica', '6': 'neoplastica', '7': 'tossicologica', '8': 'metabolica', '9': 'gastroenterologica', '10': 'urologica', '11': 'oculistica', '12': 'otorinolaringoiatrica', '13': 'dermatologica', '14': 'ostetrico-ginecologica', '15': 'infettiva', '19': 'altro', '20': 'non identificata' };
+		
+		c = '{{request.session.missione.criticita}}';
+		l = '{{request.session.missione.luogo}}';
+		p = '{{request.session.missione.patologia}}';
 
-  $('.example-popover').popover({
-  container: 'body',
-  html: true,
-  placement: 'right',
-  content: 'Luogo: ' + dictL[l] + '<br /> Patologia: ' + dictP[p] + '<br /> Criticità: ' + dictC[c],
-  trigger: 'click'
-  })
-})
+		$('.example-popover').popover({
+			container: 'body',
+			html: true,
+			placement: 'right',
+			content: 'Luogo: ' + dictL[l] + '<br /> Patologia: ' + dictP[p] + '<br /> Criticità: ' + dictC[c],
+			trigger: 'click'
+		});
+	});
 </script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

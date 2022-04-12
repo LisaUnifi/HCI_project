@@ -10,1443 +10,1451 @@
 
 {% block content %}
 <div class="row bg-light p-0 m-0">
-    <div class="col-12">
-        <div class="bg-light sticky-top p-4">
-            <div class="row text-center d-flex justify-content-center">
-                <div class="col-3">
-                    <p class="mb-3"><strong class="text-uppercase">Id:</strong> {{request.session.missione.id_missione}}</p>
-                </div>
-                <div class="col-3">
-                    <p class="mb-3"><strong class="text-uppercase">Codice:</strong> {{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
-                </div>
-                <div class="col-6">
-                    <p class="mb-4"><strong class="text-uppercase">Cognome Nome:</strong>
-                        {% if request.session.missione.cognome_p is None %}
-                        NON DEFINITO
-                        {% else %}
-                        {{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}
-                        {% endif %}
-                    </p>
-                </div>
-            </div>
-            <div class="row text-center d-flex justify-content-center">
-                <div class="col-8">
-                    <p class="mb-2"><strong class="text-uppercase">Luogo intervento:</strong> {{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}, {{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
-                </div>
-                <div class="col-4">
-                    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#paziente" id="modalbutton">
-                        Dati paziente
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="col-12">
+		<div class="bg-light sticky-top p-4">
+			<div class="row text-center d-flex justify-content-center">
+				<div class="col-3">
+					<p class="mb-3"><strong class="text-uppercase">Id:</strong> {{request.session.missione.id_missione}}</p>
+				</div>
+				<div class="col-3">
+					<p class="mb-3"><strong class="text-uppercase">Codice:</strong> {{request.session.missione.luogo}} C{{request.session.missione.patologia}} {{request.session.missione.criticita}}</p>
+				</div>
+				<div class="col-6">
+					<p class="mb-4"><strong class="text-uppercase">Cognome Nome:</strong>
+						{% if request.session.missione.cognome_p is None %}
+						NON DEFINITO
+						{% else %}
+						{{request.session.missione.cognome_p}} {{request.session.missione.nome_p}}
+						{% endif %}
+					</p>
+				</div>
+			</div>
+			<div class="row text-center d-flex justify-content-center">
+				<div class="col-8">
+					<p class="mb-2"><strong class="text-uppercase">Luogo intervento:</strong> {{request.session.missione.luogo_intervento}}, {{request.session.missione.civico_intervento}}, {{request.session.missione.cap_intervento}}, {{request.session.missione.comune_intervento}} ( {{request.session.missione.provincia_intervento}} )</p>
+				</div>
+				<div class="col-4">
+					<button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#paziente" id="modalbutton">
+						Dati paziente
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="row p-0 m-0">
-    <div class="col-12">
-        <form id="compilazione_scheda" method="post">
-            {% csrf_token %}
-            <div class="container mt-1 mb-1 p-0 bg-white">
-            
-                <div class="row">
-                    <div class="col-sm-3 m-0 d-flex align-items-stretch" style="height: 75vh;">
-                        <nav id="pulsanti" class="nav nav-pills flex-column fixed-left nav-fill" >
-                            <a class="nav-link d-flex align-items-center justify-content-center" href="#scenario" active>Scenario</a>
-                            <a class="nav-link d-flex align-items-center justify-content-center" href="#A">A</a>
-                            <a class="nav-link d-flex align-items-center justify-content-center" href="#B">B</a>
-                            <a class="nav-link d-flex align-items-center justify-content-center" href="#C">C</a>
-                            <a class="nav-link d-flex align-items-center justify-content-center" href="#D">D</a>
-                            <a class="nav-link d-flex align-items-center justify-content-center" href="#E">E</a>
-                            <a class="nav-link d-flex align-items-center justify-content-center" href="#note_menu">Note</a>
-                            <a class="nav-link d-flex align-items-center justify-content-center" href="#esito_menu">Esito</a>
-                        </nav>
-                    </div>
-                
-                    <div class="col-sm-9 m-0 d-flex align-items-stretch" style="height: 75vh; overflow: auto;">
-                        
-                        <div data-spy="scroll" id="scroll_element" class="scrollspy-example z-depth-1 mt-4" data-offset="0">
+	<div class="col-12">
+		<form id="compilazione_scheda" method="post">
+			{% csrf_token %}
+			<div class="container mt-1 mb-1 p-0 bg-white">
+				<div class="row">
+					<div class="col-sm-3 m-0 d-flex align-items-stretch" style="height: 75vh;">
+						<nav id="pulsanti" class="nav nav-pills flex-column fixed-left nav-fill">
+							<a class="nav-link d-flex align-items-center justify-content-center" href="#scenario" active>Scenario</a>
+							<a class="nav-link d-flex align-items-center justify-content-center" href="#A">A</a>
+							<a class="nav-link d-flex align-items-center justify-content-center" href="#B">B</a>
+							<a class="nav-link d-flex align-items-center justify-content-center" href="#C">C</a>
+							<a class="nav-link d-flex align-items-center justify-content-center" href="#D">D</a>
+							<a class="nav-link d-flex align-items-center justify-content-center" href="#E">E</a>
+							<a class="nav-link d-flex align-items-center justify-content-center" href="#note_menu">Note</a>
+							<a class="nav-link d-flex align-items-center justify-content-center" href="#esito_menu">Esito</a>
+						</nav>
+					</div>
 
-                            <!-- Scenario -->
-                            <section id="scenario">
-                                <h1 class="text-center border-bottom border-top">Scenario all'arrivo</h1>
-                                <h6>Dinamica riferita:</h6>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="scenario" value="Soccorso a persona" checked>
-                                    <label class="custom-control-label" for="defaultGroupExample1" >Soccorso a persona</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="scenario" value="Trauma">
-                                    <label class="custom-control-label" for="defaultGroupExample2">Trauma</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="defaultGroupExample3" name="scenario"  value="Trauma maggiore">
-                                    <label class="custom-control-label" for="defaultGroupExample3">Trauma maggiore</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="defaultGroupExample4" name="scenario" value="Non definita">
-                                    <label class="custom-control-label" for="defaultGroupExample4">Non definita</label>
-                                </div>
-                            </section>
-            
-                            <!-- Airway -->
-                            <section id="A">
-                                <h1 class="text-center mt-4 border-bottom border-top">A - Airway</h1>
-                                <div class="row p-1 ">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Cosciente?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="cosciente_si" name="cosciente" value="True">
-                                            <label class="btn btn-light" for="cosciente_si">SI</label>
-                                            <input type="radio" class="btn-check" id="cosciente_no" name="cosciente" value="False">
-                                            <label class="btn btn-light" for="cosciente_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Elemento nascosto -->
-                                <div class="collapse" id="blsd">
-                                    <div class="container text-center bg-light border mb-2 w-100">
-                                        <h4 class="mt-2 mb-2">BLS-D</h4>
-                                        <p class="slogan m-0">Posiziona il paziente su un piano rigido</p>
-                                        <p class="slogan m-0">Allinea gli arti e scopri il torace</p>
-                                        <p class="slogan m-0">Posiziona il capo in iperestensione</p>
-                                        <p class="slogan m-0 mb-2">Valuta la pervietà delle vie aeree</p>
-                                        <div class="row p-1 ">
-                                            <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                                <h6>Respira?</h6>
-                                            </div>
-                                            <div class="col-5 col-md-3 col-lg-2">
-                                                <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                                    <input type="radio" class="btn-check" id="respiraBLS_si" value="True" name="respiraBLS" autocomplete="off">
-                                                    <label class="btn btn-light" for="respiraBLS_si">SI</label>
-                                                    <input type="radio" class="btn-check" id="respiraBLS_no" value="False" name="respiraBLS" autocomplete="off">
-                                                    <label class="btn btn-light" for="respiraBLS_no">NO</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row p-1 ">
-                                            <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                                <h6>Circolo?</h6>
-                                            </div>
-                                            <div class="col-5 col-md-3 col-lg-2">
-                                                <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                                    <input type="radio" class="btn-check" id="circoloBLS_si" value="True" name="circoloBLS" autocomplete="off">
-                                                    <label class="btn btn-light" for="circoloBLS_si">SI</label>
-                                                    <input type="radio" class="btn-check" id="circoloBLS_no" value="False" name="circoloBLS" autocomplete="off">
-                                                    <label class="btn btn-light" for="circoloBLS_no">NO</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="msg_respiro" hidden>
-                                            <p class="slogan m-0">Condurre 1 insufflazione ogni 5 secondi</p>
-                                            <p class="slogan m-0 mb-2">Rivalutare dopo 1 minuto</p>
-                                        </div>
-                                        <div id="msg_circolo" hidden>
-                                            <p class="slogan m-0">RCP con rapporto 30:2</p>
-                                            <p class="slogan m-0 mb-2">Dopo il primo ciclo se possibile inserisci la cannula</p>
-                                        </div>
-                                        <div class="row p-1 mb-2">
-                                            <div class="col-7 col-md-9 col-lg-10 d-flex justify-content-start align-items-end">
-                                                <h6>Numero cicli insufflazioni-massaggio</h6>
-                                            </div>
-                                            <div class="col-5 col-md-3 col-lg-2 d-flex justify-content-end">
-                                                <div class="def-number-input number-input">
-                                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus" id="minus" disabled></button>
-                                                    <input class="quantity form-control" min="0" value="0" type="number" name="cicli" id="msg_cicli" disabled>
-                                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" id="plus" disabled></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row p-1 mb-2">
-                                            <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                                <h6>Defibrillatore</h6>
-                                            </div>
-                                            <div class="col-5 col-md-3 col-lg-2">
-                                                <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                                    <input type="radio" class="btn-check" id="dae_si" value="True" name="dae" autocomplete="off">
-                                                    <label class="btn btn-light" for="dae_si">SI</label>
-                                                    <input type="radio" class="btn-check" id="dae_no" value="False" name="dae" autocomplete="off">
-                                                    <label class="btn btn-light" for="dae_no">NO</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="slogan">Continuare la raccolta dati solo se il paziente è stabile!</p>
-                                    </div>
-                                </div>
-                
-                                <div class="row p-1">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Vie aeree pervie?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="pervieta_si" name="pervieta" value="True">
-                                            <label class="btn btn-light" for="pervieta_si">SI</label>
-                                            <input type="radio" class="btn-check" id="pervieta_no" name="pervieta" value="False">
-                                            <label class="btn btn-light" for="pervieta_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Elemento nascosto -->
-                                <div class="collapse" id="ostruzione">
-                                    <div class="row mt-2 m-0 p-0">
-                                        <div class="btn-group p-0 d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="ostruzione_si" name="ostruzione" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="ostruzione_si">Ostruzione parziale</label>
-                                            <input type="radio" class="btn-check" id="ostruzione_no" name="ostruzione" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="ostruzione_no">Ostruzione totale</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+					<div class="col-sm-9 m-0 d-flex align-items-stretch" style="height: 75vh; overflow: auto;"> 
+						<div data-spy="scroll" id="scroll_element" class="scrollspy-example z-depth-1 mt-4" data-offset="0">
 
+							<!-- Scenario -->
+							<section id="scenario">
+								<h1 class="text-center border-bottom border-top">Scenario all'arrivo</h1>
+								<h6>Dinamica riferita:</h6>
+								<div class="custom-control custom-radio">
+									<input type="radio" class="custom-control-input" id="soccorso_a_persona" name="scenario" value="Soccorso a persona" checked>
+									<label class="custom-control-label" for="soccorso_a_persona">Soccorso a persona</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input type="radio" class="custom-control-input" id="trauma" name="scenario" value="Trauma">
+									<label class="custom-control-label" for="trauma">Trauma</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input type="radio" class="custom-control-input" id="trauma_maggiore" name="scenario" value="Trauma maggiore">
+									<label class="custom-control-label" for="trauma_maggiore">Trauma maggiore</label>
+								</div>
+								<div class="custom-control custom-radio">
+									<input type="radio" class="custom-control-input" id="non_definita" name="scenario" value="Non definita">
+									<label class="custom-control-label" for="non_definita">Non definita</label>
+								</div>
+							</section>
 
-                            <!-- Breathing -->
-                            <section id="B">
-                                <h1 class="text-center mt-4 border-bottom border-top">B - Breathing</h1>
-                                <div class="row p-1 mb-2">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Respira?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="respira_si" name="respira" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="respira_si">SI</label>
-                                            <input type="radio" class="btn-check" id="respira_no" name="respira" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="respira_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 mb-2">
-                                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                                        <h6>Frequenza respiratoria:</h6>
-                                    </div>
-                                    <div class="col-2 d-flex justify-content-end align-items-end">
-                                        <h6>atti/min</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                                        <input type="number" class="form-control" id="conto" name="conto">
-                                    </div>
-                                </div>
-                                <div class="row p-1 ">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Respirazione dispneica?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="dispnea_si" name="dispnea" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="dispnea_si">SI</label>
-                                            <input type="radio" class="btn-check" id="dispnea_no" name="dispnea" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="dispnea_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 ">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Respiro rumoroso?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="ascolto_si" name="ascolto" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="ascolto_si">SI</label>
-                                            <input type="radio" class="btn-check" id="ascolto_no" name="ascolto" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="ascolto_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 ">
-                                    <select id="mezzi" class="selectpicker w-100 mb-2" name="palpo" title="Palpazione torace:">
-                                        <option value="Normale">Normale</option>
-                                        <option value="Anor.dx">Anormale a destra</option>
-                                        <option value="Anor.sx">Anormale a sinistra</option>
-                                        <option value="Anor.dx/sx">Anormale da entrambi i lati</option>
-                                    </select>
-                                </div>
-                                <div class="row p-1 mb-2">
-                                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                                        <h6>Saturazione in aria:</h6>
-                                    </div>
-                                    <div class="col-2 d-flex justify-content-end align-items-end">
-                                        <h6>%</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                                        <input type="number" class="form-control" id="saturazione" name="saturazione">
-                                    </div>
-                                </div>
-                
-                                <div class="container text-center bg-light border mb-2 w-100">
-                                    <h6 class="mt-2">Somministrazione ossigeno:</h6>
-                                    <div class="row p-1 mb-2">
-                                        <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                                            <h6>Saturazione con ossigeno:</h6>
-                                        </div>
-                                        <div class="col-2 d-flex justify-content-end align-items-end">
-                                            <h6>%</h6>
-                                        </div>
-                                        <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                                            <input type="number" class="form-control" id="saturazione_oss" name="saturazione_oss">
-                                        </div>
-                                    </div>
-                                    <div class="row p-1 mb-2">
-                                        <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                                            <h6>Ossigeno:</h6>
-                                        </div>
-                                        <div class="col-2 d-flex justify-content-end align-items-end">
-                                            <h6>L/min</h6>
-                                        </div>
-                                        <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                                            <input type="number" class="form-control" id="ossigeno" name="ossigeno">
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            
+							<!-- Airway -->
+							<section id="A">
+								<h1 class="text-center mt-4 border-bottom border-top">A - Airway</h1>
 
-                            <!-- Circulation -->
-                            <section id="C">
-                                <h1 class="text-center mt-4 border-bottom border-top">C - Circulation</h1>
-                                <div class="row p-1 mb-2">
-                                    <div class="col-5 col-md-5 col-lg-5 d-flex justify-content-start align-items-end">
-                                        <h6>Pressione arteriosa:</h6>
-                                    </div>
-                                    <div class="col-2 d-flex justify-content-end align-items-end">
-                                        <h6>mmHg</h6>
-                                    </div>
-                                    <div class="col-2 col-md-2 col-lg-2 d-flex flex-fill">
-                                        <input type="number" class="form-control" id="pressione_massima" name="pressione_massima">
-                                    </div>
-                                    <div class="col-1 d-flex justify-content-middle align-items-end">
-                                        <h6>/</h6>
-                                    </div>
-                                    <div class="col-2 col-md-2 col-lg-2 d-flex flex-fill">
-                                        <input type="number" class="form-control" id="pressione_minima" name="pressione_minima">
-                                    </div>
-                                </div>
-                                <div class="row p-1 mb-2">
-                                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                                        <h6>Frequenza circolatoria:</h6>
-                                    </div>
-                                    <div class="col-2 d-flex justify-content-end align-items-end">
-                                        <h6>batt/min</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                                        <input type="number" class="form-control" id="frequenza" name="frequenza">
-                                    </div>
-                                </div>
-                                <div class="row p-1 mb-2">
-                                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                                        <h6>Temperatura corporea:</h6>
-                                    </div>
-                                    <div class="col-2 d-flex justify-content-end align-items-end">
-                                        <h6>°C</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                                        <input type="number" class="form-control" id="temperatura" name="temperatura">
-                                    </div>
-                                </div>
-                                <div class="row p-1 ">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Emorragie?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="emorragie_si" name="emorragie" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="emorragie_si">SI</label>
-                                            <input type="radio" class="btn-check" id="emorragie_no" name="emorragie" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="emorragie_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 ">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Polso radiale?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="polso_si" name="polso" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="polso_si">SI</label>
-                                            <input type="radio" class="btn-check" id="polso_no" name="polso" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="polso_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 ">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Regolare?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="regolare_polso_si" name="regolare_polso" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="regolare_polso_si">SI</label>
-                                            <input type="radio" class="btn-check" id="regolare_polso_no" name="regolare_polso" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="regolare_polso_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 ">
-                                    <select id="mezzi" class="selectpicker w-100 mb-2" name="cute" title="Colorito cutaneo:">
-                                        <option value="Normale">Normale</option>
-                                        <option value="Cianotico">Cianotico</option>
-                                        <option value="Rossastro">Rossastro</option>
-                                        <option value="Pallido">Pallido</option>
-                                    </select>
-                                </div>
-                                <div class="row p-1 ">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Sudato?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="sudato_si" name="sudato" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="sudato_si">SI</label>
-                                            <input type="radio" class="btn-check" id="sudato_no" name="sudato" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="sudato_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Elemento nascosto -->
-                                <div class="collapse" id="freddo">
-                                    <div class="row mt-2 mb-2 m-0 p-0">
-                                        <div class="btn-group p-0 d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="sudato_freddo_si" name="sudore_freddo" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="sudato_freddo_si">Sudato freddo</label>
-                                            <input type="radio" class="btn-check" id="sudato_freddo_no" name="sudore_freddo" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="sudato_freddo_no">Sudato caldo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row p-1">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Dolore toracico?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="dolore_toracico_si" name="dolore_toracico" value="True">
-                                            <label class="btn btn-light" for="dolore_toracico_si">SI</label>
-                                            <input type="radio" class="btn-check" id="dolore_toracico_no" name="dolore_toracico" value="False">
-                                            <label class="btn btn-light" for="dolore_toracico_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Elemento nascosto -->
-                                <div class="collapse" id="torace">
-                                    <div class="container text-center bg-light border mb-2 w-100">
-                                        <div class="row p-1 mt-2">
-                                            <div class="col-7 d-flex align-items-end">
-                                                <h6>Data insorgenza sintomi:</h6>
-                                            </div>
-                                            <div class="col-5 d-flex justify-content-end">
-                                                <div class="md-form md-outline input-with-post-icon datepicker">
-                                                    <input placeholder="Seleziona giorno" type="date" id="data_dolore" name="data_dolore" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row p-1 ">
-                                            <div class="col-7 d-flex align-items-end">
-                                                <h6>Ora insorgenza sintomi:</h6>
-                                            </div>
-                                            <div class="col-5 d-flex justify-content-end">
-                                                <div class="md-form md-outline" >
-                                                    <input type="time" class="form-control" id="ora_dolore" name="ora_dolore" placeholder="Seleziona ora">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row m-0 p-0 mb-2">
-                                            <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                                <input type="radio" class="btn-check" id="tipo_dolore_si" name="tipo_dolore" value="True" autocomplete="off">
-                                                <label class="btn btn-light" for="tipo_dolore_si">Dolore a spilli</label>
-                                                <input type="radio" class="btn-check" id="tipo_dolore_no" name="tipo_dolore" value="False" autocomplete="off">
-                                                <label class="btn btn-light" for="tipo_dolore_no">Dolore oppressivo</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-            
+								<!-- Cosciente -->
+								<div class="row p-1 ">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Cosciente?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="cosciente_si" name="cosciente" value="True">
+											<label class="btn btn-light" for="cosciente_si">SI</label>
+											<input type="radio" class="btn-check" id="cosciente_no" name="cosciente" value="False">
+											<label class="btn btn-light" for="cosciente_no">NO</label>
+										</div>
+									</div>
+								</div>
+								<!-- Cosciente/BLSD - Elemento nascosto -->
+								<div class="collapse" id="blsd">
+									<div class="container text-center bg-light border mb-2 w-100">
+										<h4 class="mt-2 mb-2">BLS-D</h4>
+										<p class="slogan m-0">Posiziona il paziente su un piano rigido</p>
+										<p class="slogan m-0">Allinea gli arti e scopri il torace</p>
+										<p class="slogan m-0">Posiziona il capo in iperestensione</p>
+										<p class="slogan m-0 mb-2">Valuta la pervietà delle vie aeree</p>
+										<div class="row p-1 ">
+											<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+												<h6>Respira?</h6>
+											</div>
+											<div class="col-5 col-md-3 col-lg-2">
+												<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+													<input type="radio" class="btn-check" id="respiraBLS_si" value="True" name="respiraBLS" autocomplete="off">
+													<label class="btn btn-light" for="respiraBLS_si">SI</label>
+													<input type="radio" class="btn-check" id="respiraBLS_no" value="False" name="respiraBLS" autocomplete="off">
+													<label class="btn btn-light" for="respiraBLS_no">NO</label>
+												</div>
+											</div>
+										</div>
+										<div class="row p-1 ">
+											<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+												<h6>Circolo?</h6>
+											</div>
+											<div class="col-5 col-md-3 col-lg-2">
+												<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+													<input type="radio" class="btn-check" id="circoloBLS_si" value="True" name="circoloBLS" autocomplete="off">
+													<label class="btn btn-light" for="circoloBLS_si">SI</label>
+													<input type="radio" class="btn-check" id="circoloBLS_no" value="False" name="circoloBLS" autocomplete="off">
+													<label class="btn btn-light" for="circoloBLS_no">NO</label>
+												</div>
+											</div>
+										</div>
+										<div id="msg_respiro" hidden>
+											<p class="slogan m-0">Effettuare 1 insufflazione ogni 5 secondi</p>
+											<p class="slogan m-0 mb-2">Rivalutare dopo 1 minuto</p>
+										</div>
+										<div id="msg_circolo" hidden>
+											<p class="slogan m-0">RCP con rapporto 30:2</p>
+											<p class="slogan m-0 mb-2">Dopo il primo ciclo se possibile inserisci la cannula</p>
+										</div>
+										<div class="row p-1 mb-2">
+											<div
+												class="col-7 col-md-9 col-lg-10 d-flex justify-content-start align-items-end">
+												<h6>Numero cicli insufflazioni-massaggio</h6>
+											</div>
+											<div class="col-5 col-md-3 col-lg-2 d-flex justify-content-end">
+												<div class="def-number-input number-input">
+													<button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus" id="minus" disabled></button>
+													<input class="quantity form-control" min="0" value="0" type="number" name="cicli" id="msg_cicli" disabled>
+													<button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" id="plus" disabled></button>
+												</div>
+											</div>
+										</div>
+										<div class="row p-1 mb-2">
+											<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+												<h6>Defibrillatore</h6>
+											</div>
+											<div class="col-5 col-md-3 col-lg-2">
+												<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+													<input type="radio" class="btn-check" id="dae_si" value="True" name="dae" autocomplete="off">
+													<label class="btn btn-light" for="dae_si">SI</label>
+													<input type="radio" class="btn-check" id="dae_no" value="False" name="dae" autocomplete="off">
+													<label class="btn btn-light" for="dae_no">NO</label>
+												</div>
+											</div>
+										</div>
+										<p class="slogan">Continuare la raccolta dati solo se il paziente è stabile!</p>
+									</div>
+								</div>
 
-                            <!-- Disability -->
-                            <section id="D">
-                                <h1 class="text-center mt-4 border-bottom border-top">D - Disability</h1>
-                                <div class="row p-1">
-                                    <div class="btn-group d-flex flex-fill p-0 me-3" role="group" aria-label="Basic example">
-                                        <input type="radio" class="btn-check" id="avpu_a" name="avpu" value="A" autocomplete="off">
-                                        <label class="btn btn-light" for="avpu_a">A</label>
-                                        <input type="radio" class="btn-check" id="avpu_v" name="avpu" value="V" autocomplete="off">
-                                        <label class="btn btn-light" for="avpu_v">V</label>
-                                        <input type="radio" class="btn-check" id="avpu_p" name="avpu" value="P" autocomplete="off">
-                                        <label class="btn btn-light" for="avpu_p">P</label>
-                                        <input type="radio" class="btn-check" id="avpu_u" name="avpu" value="U" autocomplete="off">
-                                        <label class="btn btn-light" for="avpu_u">U</label>
-                                    </div>
-                                </div>
-                                <div class="row p-1 ">
-                                    <div class="btn-group d-flex flex-fill p-0 me-3" role="group" aria-label="Basic example">
-                                        <input type="radio" class="btn-check" id="cincinnaty" name="cincinnaty" autocomplete="off">
-                                        <label class="btn btn-light" for="cincinnaty">Cincinnaty</label>
-                                        <input type="radio" class="btn-check" id="forza_sensibilita" name="forza_sensibilita" value="False" autocomplete="off">
-                                        <label class="btn btn-light" for="forza_sensibilita">Forza e sensibilità</label>
-                                    </div>
-                                </div>
-                                <!-- Elemento nascosto -->
-                                <div class="collapse" id="cincinnaty_scheda">
-                                    <div class="container text-center bg-light border mb-2 w-100">
-                                        <h4 class="mt-2">Cincinnaty</h4>
-                                        <h6 class="mt-2">Mimica facciale:</h6>
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="mimica_n" name="mimica_c" value="Normale" autocomplete="off">
-                                            <label class="btn btn-light" for="mimica_n">Normale</label>
-                                            <input type="radio" class="btn-check" id="mimica_ad" name="mimica_c" value="Anor.dx" autocomplete="off">
-                                            <label class="btn btn-light" for="mimica_ad">Anor. dx</label>
-                                            <input type="radio" class="btn-check" id="mimica_as" name="mimica_c" value="Anor.sx" autocomplete="off">
-                                            <label class="btn btn-light" for="mimica_as">Anor. sx</label>
-                                            <input type="radio" class="btn-check" id="mimica_ads" name="mimica_c" value="Anor.dx/sx" autocomplete="off">
-                                            <label class="btn btn-light" for="mimica_ads">Anor. dx e sx</label>
-                                        </div>
-                                        <h6 class="mt-2">Spostamento delle braccia:</h6>
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="braccia_n" name="braccia_c" value="Normale" autocomplete="off">
-                                            <label class="btn btn-light" for="braccia_n">Normale</label>
-                                            <input type="radio" class="btn-check" id="braccia_ad" name="braccia_c" value="Anor.dx" autocomplete="off">
-                                            <label class="btn btn-light" for="braccia_ad">Anor. dx</label>
-                                            <input type="radio" class="btn-check" id="braccia_as" name="braccia_c" value="Anor.sx" autocomplete="off">
-                                            <label class="btn btn-light" for="braccia_as">Anor. sx</label>
-                                            <input type="radio" class="btn-check" id="braccia_ads" name="braccia_c" value="Anor.dx/sx" autocomplete="off">
-                                            <label class="btn btn-light" for="braccia_ads">Anor. dx e sx</label>
-                                        </div>
-                                        <h6 class="mt-2">Linguaggio:</h6>
-                                        <div class="btn-group d-flex flex-fill mb-2" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="linguaggio_n" name="linguaggio_c" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="linguaggio_n">Normale</label>
-                                            <input type="radio" class="btn-check" id="linguaggio_a" name="linguaggio_c" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="linguaggio_a">Anormale</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="collapse" id="forza_sensibilita_scheda">
-                                    <div class="container text-center bg-light border mb-2 w-100">
-                                        <h4 class="mt-2">Forza e sensibilità</h4>
-                                        <h6 class="mt-2">Forza arti superiori:</h6>
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="forza_sup_n" name="forza_sup" value="Normale" autocomplete="off">
-                                            <label class="btn btn-light" for="forza_sup_n">Normale</label>
-                                            <input type="radio" class="btn-check" id="forza_sup_ad" name="forza_sup" value="Anor.dx" autocomplete="off">
-                                            <label class="btn btn-light" for="forza_sup_ad">Anor. dx</label>
-                                            <input type="radio" class="btn-check" id="forza_sup_as" name="forza_sup" value="Anor.sx" autocomplete="off">
-                                            <label class="btn btn-light" for="forza_sup_as">Anor. sx</label>
-                                            <input type="radio" class="btn-check" id="forza_sup_ads" name="forza_sup" value="Anor.dx/sx" autocomplete="off">
-                                            <label class="btn btn-light" for="forza_sup_ads">Anor. dx e sx</label>
-                                        </div>
-                                        <h6 class="mt-2">Sensibilità arti superiori:</h6>
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="forza_inf_n" name="forza_inf" value="Normale" autocomplete="off">
-                                            <label class="btn btn-light" for="forza_inf_n">Normale</label>
-                                            <input type="radio" class="btn-check" id="forza_inf_ad" name="forza_inf" value="Anor.dx" autocomplete="off">
-                                            <label class="btn btn-light" for="forza_inf_ad">Anor. dx</label>
-                                            <input type="radio" class="btn-check" id="forza_inf_as" name="forza_inf" value="Anor.sx" autocomplete="off">
-                                            <label class="btn btn-light" for="forza_inf_as">Anor. sx</label>
-                                            <input type="radio" class="btn-check" id="forza_inf_ads" name="forza_inf" value="Anor.dx/sx" autocomplete="off">
-                                            <label class="btn btn-light" for="forza_inf_ads">Anor. dx e sx</label>
-                                        </div>
-                                        <h6 class="mt-2">Forza arti inferiori:</h6>
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="sens_sup_n" name="sens_sup" value="Normale" autocomplete="off">
-                                            <label class="btn btn-light" for="sens_sup_n">Normale</label>
-                                            <input type="radio" class="btn-check" id="sens_sup_ad" name="sens_sup" value="Anor.dx" autocomplete="off">
-                                            <label class="btn btn-light" for="sens_sup_ad">Anor. dx</label>
-                                            <input type="radio" class="btn-check" id="sens_sup_as" name="sens_sup" value="Anor.sx" autocomplete="off">
-                                            <label class="btn btn-light" for="sens_sup_as">Anor. sx</label>
-                                            <input type="radio" class="btn-check" id="sens_sup_ads" name="sens_sup" value="Anor.dx/sx" autocomplete="off">
-                                            <label class="btn btn-light" for="sens_sup_ads">Anor. dx e sx</label>
-                                        </div>
-                                        <h6 class="mt-2">Sensibilità arti inferiori:</h6>
-                                        <div class="btn-group d-flex flex-fill mb-2" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="sens_inf_n" name="sens_inf" value="Normale" autocomplete="off">
-                                            <label class="btn btn-light" for="sens_inf_n">Normale</label>
-                                            <input type="radio" class="btn-check" id="sens_inf_ad" name="sens_inf" value="Anor.dx" autocomplete="off">
-                                            <label class="btn btn-light" for="sens_inf_ad">Anor. dx</label>
-                                            <input type="radio" class="btn-check" id="sens_inf_as" name="sens_inf" value="Anor.sx" autocomplete="off">
-                                            <label class="btn btn-light" for="sens_inf_as">Anor. sx</label>
-                                            <input type="radio" class="btn-check" id="sens_inf_ads" name="sens_inf" value="Anor.dx/sx" autocomplete="off">
-                                            <label class="btn btn-light" for="sens_inf_ads">Anor. dx e sx</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 ">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Orientato nel tempo?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="tempo_si" name="tempo" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="tempo_si">SI</label>
-                                            <input type="radio" class="btn-check" id="tempo_no" name="tempo" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="tempo_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row p-1 ">
-                                    <div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
-                                        <h6>Orientato nello spazio?</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2">
-                                        <div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
-                                            <input type="radio" class="btn-check" id="spazio_si" name="spazio" value="True" autocomplete="off">
-                                            <label class="btn btn-light" for="spazio_si">SI</label>
-                                            <input type="radio" class="btn-check" id="spazio_no" name="spazio" value="False" autocomplete="off">
-                                            <label class="btn btn-light" for="spazio_no">NO</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            
+								<!-- Pervietà vie aeree -->
+								<div class="row p-1">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Vie aeree pervie?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="pervieta_si" name="pervieta" value="True">
+											<label class="btn btn-light" for="pervieta_si">SI</label>
+											<input type="radio" class="btn-check" id="pervieta_no" name="pervieta" value="False">
+											<label class="btn btn-light" for="pervieta_no">NO</label>
+										</div>
+									</div>
+								</div>
 
-                            <!-- Eventually -->
-                            <section id="E">
-                                <h1 class="text-center mt-4 border-bottom border-top">E - Eventually</h1>
-                                <select id="mezzi" class="selectpicker w-100 mb-2" name="posizione" title="Posizione all'arrivo">
-                                    <option value="In piedi">In piedi</option>
-                                    <option value="Seduto">Seduto</option>
-                                    <option value="Supino">Supino</option>
-                                    <option value="Prono">Prono</option>
-                                    <option value="Incastrato">Incastrato</option>
-                                    <option value="Sul fianco sx">Sul fianco sx</option>
-                                    <option value="Sul fianco dx">Sul fianco dx</option>
-                                </select>
-                
-                                <div class="row p-1 mb-2">
-                                    <div class="btn-group d-flex flex-fill p-0 me-2 ms-2" role="group" aria-label="Basic example">
-                                        <input type="radio" class="btn-check" id="tp_front" name="tp_front" autocomplete="off">
-                                        <label class="btn btn-light" for="tp_front">Testa-Piedi - Parte Anteriore</label>
-                                        <input type="radio" class="btn-check" id="tp_back" name="tp_back" autocomplete="off">
-                                        <label class="btn btn-light" for="tp_back">Testa-Piedi - Parte Posteriore</label>
-                                    </div>
-                                </div>
-                                <!-- Elemento nascosto -->
-                                <img src="{% static 'img/circle.png' %}" id="circle" hidden>
-                                <img src="{% static 'img/ecs.png' %}" class="img-fluid" alt="Responsive image" id="ecs" hidden>
-                                <img src="{% static 'img/hashtag.png' %}" class="img-fluid" alt="Responsive image" id="hashtag" hidden>
-                                <div class="collapse" id="tp_scheda_front">
-                                    <div class="row p-1">
-                                        <div class="col-7 col-md-6 col-lg-6 d-flex justify-content-center" id="stack_f">
-                                            <img src="{% static 'img/frontman.png' %}" class="img-fluid" alt="Responsive image" id="img_front">
-                                            <canvas id="canvas_front"></canvas>
-                                        </div>
-                                        <div class="col-5 col-md-6 col-lg-6 text-center" id="img_buttons">
-                                            <h6>Tipologia:</h6>
-                                            <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
-                                                <input type="radio" class="btn-check" id="Dolore_f">
-                                                <label class="btn btn-light" for="Dolore_f"><strong>X</strong> - Dolore</label>
-                                                <input type="radio" class="btn-check" id="Ustione_f">
-                                                <label class="btn btn-light" for="Ustione_f"><strong>#</strong> - Ustione</label>
-                                                <input type="radio" class="btn-check" id="Emorragia_f">
-                                                <label class="btn btn-light" for="Emorragia_f"><strong>O</strong> - Emorragia</label>
-                                            </div>
-                                            <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
-                                                <input type="radio" class="btn-check" id="Cancella_f">
-                                                <label class="btn btn-light" for="Cancella_f">Cancella</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="collapse" id="tp_scheda_back">
-                                    <div class="row p-1 ">
-                                        <div class="col-7 col-md-6 col-lg-6 d-flex justify-content-center" id="stack_b">
-                                            <img src="{% static 'img/backman.png' %}" class="img-fluid" alt="Responsive image" id="img_back">
-                                            <canvas id="canvas_back"></canvas>
-                                        </div>
-                                        <div class="col-5 col-md-6 col-lg-6 text-center">
-                                            <h6>Tipologia:</h6>
-                                            <div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
-                                                <input type="radio" class="btn-check" id="Dolore_b">
-                                                <label class="btn btn-light" for="Dolore_b"><strong>X</strong> - Dolore</label>
-                                                <input type="radio" class="btn-check" id="Ustione_b">
-                                                <label class="btn btn-light" for="Ustione_b"><strong>#</strong> - Ustione</label>
-                                                <input type="radio" class="btn-check" id="Emorragia_b">
-                                                <label class="btn btn-light" for="Emorragia_b"><strong>O</strong> - Emorragia</label>
-                                            </div>
-                                            <div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
-                                                <input type="radio" class="btn-check" id="Cancella_b">
-                                                <label class="btn btn-light" for="Cancella_b">Cancella</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                
-                
-                                <div class="container mb-2 p-0">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" id="allergie" name="allergie" style="height: 80px;"></textarea>
-                                        <label class="form-label" for="allergie">Allergie riferite</label>
-                                    </div>
-                                </div>
-                                <div class="container mb-2 p-0">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" id="patologie" name="patologie" style="height: 80px;"></textarea>
-                                        <label class="form-label" for="patologie">Patologie riferite</label>
-                                    </div>
-                                </div>
-                                <div class="container mb-2 p-0">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" id="farmaci" name="farmaci" style="height: 80px;"></textarea>
-                                        <label class="form-label" for="farmaci">Riferita assunzione di farmaci</label>
-                                    </div>
-                                </div>
-                                <div class="container mb-2 p-0">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" id="pasto" name="pasto" style="height: 80px;"></textarea>
-                                        <label class="form-label" for="pasto">Ultimo pasto riferito</label>
-                                    </div>
-                                </div>
-                                <div class="row p-1 mb-2">
-                                    <div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
-                                        <h6>Glicemia riferita:</h6>
-                                    </div>
-                                    <div class="col-2 d-flex justify-content-end align-items-end">
-                                        <h6>mg/dl</h6>
-                                    </div>
-                                    <div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
-                                        <input type="number" class="form-control" id="glicemia" name="glicemia">
-                                    </div>
-                                </div>
-                            </section>
+								<!-- Pervietà - Elemento nascosto -->
+								<div class="collapse" id="ostruzione">
+									<div class="row mt-2 m-0 p-0">
+										<div class="btn-group p-0 d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="ostruzione_si" name="ostruzione" value="True" autocomplete="off">
+											<label class="btn btn-light" for="ostruzione_si">Ostruzione parziale</label>
+											<input type="radio" class="btn-check" id="ostruzione_no" name="ostruzione" value="False" autocomplete="off">
+											<label class="btn btn-light" for="ostruzione_no">Ostruzione totale</label>
+										</div>
+									</div>
+								</div>
 
+								<!-- Ostruzione totale - Elemento nascosto -->
+								<div id="msg_totale" class="text-center" hidden>
+									<p class="slogan m-0 mt-2">Effettuare le seguenti manovre di disostruzione:</p>
+									<p class="slogan m-0">5 <strong>pacche interscapolari</strong> con uscita esterna e</p>
+									<p class="slogan m-0 mb-2">5 volte la <strong>manovra Heimlich</strong>.</p>
+									<p class="slogan m-0">Continuare fino a quando le vie aeree non tornano pervie o </p>
+									<p class="slogan m-0 mb-2">fino a quando il paziente cade non cosciente.</p>
+								</div>
+							</section>
 
-                            <!-- Note -->
-                            <section id="note_menu">
-                                <h1 class="text-center mt-4 border-bottom border-top">Note</h1>
-                                <div class="container p-0">
-                                    <div class="form-floating mb-4">
-                                        <textarea class="form-control" id="note" name="note" style="height: 80px;"></textarea>
-                                        <label class="form-label" for="note">Note del soccorritore</label>
-                                    </div>
-                                </div>
-                            </section>
-                            
+							<!-- Breathing -->
+							<section id="B">
+								<h1 class="text-center mt-4 border-bottom border-top">B - Breathing</h1>
 
-                            <!-- Esito -->
-                            <section id="esito_menu">
-                                <h1 class="text-center mt-4 border-bottom border-top">Esito</h1>
-                                <p id="attesa" class="text-center text-muted mb-4">In attesa di informazioni sul trasporto</p>
-                                <div id="risposta" hidden>
-                                    <p class="text-center text-muted mb-4">Indicazioni dalla centrale:</p>
-                                    <div class="row p-1 ">
-                                        <div class="col-6 d-flex">
-                                            <h6>Destinazione</h6>
-                                        </div>
-                                        <div class="col-6 d-flex justify-content-end">
-                                            <p id="osp" class="text-center text-muted mb-4"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row p-1 ">
-                                        <div class="col-6 d-flex">
-                                            <h6>Reparto</h6>
-                                        </div>
-                                        <div class="col-6 d-flex justify-content-end">
-                                            <p id="rep" class="text-center text-muted mb-4"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row p-1 ">
-                                        <div class="col-6 d-flex">
-                                            <h6>Classe patologia ipotizzata</h6>
-                                        </div>
-                                        <div class="col-6 d-flex justify-content-end">
-                                            <p id="pat" class="text-center text-muted mb-4"></p>
-                                            <p id="cri" class="text-center text-muted mb-4"></p>
-                                        </div>
-                                    </div>
-                                </div>  
-                            </section>
-                        </div>
-                        
-                    </div>
-                
-        
-                </div>
-            
-            </div>
-        
-        </form>
-    </div>
+								<!-- Respira -->
+								<div class="row p-1 mb-2">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Respira?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="respira_si" name="respira" value="True" autocomplete="off">
+											<label class="btn btn-light" for="respira_si">SI</label>
+											<input type="radio" class="btn-check" id="respira_no" name="respira" value="False" autocomplete="off">
+											<label class="btn btn-light" for="respira_no">NO</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Freq. respiratoria -->
+								<div class="row p-1 mb-2">
+									<div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+										<h6>Frequenza respiratoria:</h6>
+									</div>
+									<div class="col-2 d-flex justify-content-end align-items-end">
+										<h6>atti/min</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+										<input type="number" class="form-control" id="conto" name="conto">
+									</div>
+								</div>
+
+								<!-- Dispnea -->
+								<div class="row p-1 ">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Respirazione dispnoica?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="dispnea_si" name="dispnea" value="True" autocomplete="off">
+											<label class="btn btn-light" for="dispnea_si">SI</label>
+											<input type="radio" class="btn-check" id="dispnea_no" name="dispnea" value="False" autocomplete="off">
+											<label class="btn btn-light" for="dispnea_no">NO</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Respiro rumoroso -->
+								<div class="row p-1 ">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Respiro rumoroso?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="ascolto_si" name="ascolto" value="True" autocomplete="off">
+											<label class="btn btn-light" for="ascolto_si">SI</label>
+											<input type="radio" class="btn-check" id="ascolto_no" name="ascolto" value="False" autocomplete="off">
+											<label class="btn btn-light" for="ascolto_no">NO</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Torace -->
+								<div class="row p-1">
+									<select id="mezzi" class="selectpicker w-100 mb-2" name="palpo"
+										title="Palpazione torace:">
+										<option value="Normale">Normale</option>
+										<option value="Anor.dx">Anormale a destra</option>
+										<option value="Anor.sx">Anormale a sinistra</option>
+										<option value="Anor.dx/sx">Anormale da entrambi i lati</option>
+									</select>
+								</div>
+
+								<!-- Saturazione -->
+								<div class="row p-1 mb-2">
+									<div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+										<h6>Saturazione in aria:</h6>
+									</div>
+									<div class="col-2 d-flex justify-content-end align-items-end">
+										<h6>%</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+										<input type="number" class="form-control" id="saturazione" name="saturazione">
+									</div>
+								</div>
+
+								<!-- Ossigeno -->
+								<div class="container text-center bg-light border mb-2 w-100">
+									<h6 class="mt-2">Somministrazione ossigeno:</h6>
+									<div class="row p-1 mb-2">
+										<div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+											<h6>Saturazione con ossigeno:</h6>
+										</div>
+										<div class="col-2 d-flex justify-content-end align-items-end">
+											<h6>%</h6>
+										</div>
+										<div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+											<input type="number" class="form-control" id="saturazione_oss" name="saturazione_oss">
+										</div>
+									</div>
+									<div class="row p-1 mb-2">
+										<div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+											<h6>Ossigeno:</h6>
+										</div>
+										<div class="col-2 d-flex justify-content-end align-items-end">
+											<h6>L/min</h6>
+										</div>
+										<div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+											<input type="number" class="form-control" id="ossigeno" name="ossigeno">
+										</div>
+									</div>
+								</div>
+							</section>
+
+							<!-- Circulation -->
+							<section id="C">
+								<h1 class="text-center mt-4 border-bottom border-top">C - Circulation</h1>
+
+								<!-- Pressione -->
+								<div class="row p-1 mb-2">
+									<div class="col-5 col-md-5 col-lg-5 d-flex justify-content-start align-items-end">
+										<h6>Pressione arteriosa:</h6>
+									</div>
+									<div class="col-2 d-flex justify-content-end align-items-end">
+										<h6>mmHg</h6>
+									</div>
+									<div class="col-2 col-md-2 col-lg-2 d-flex flex-fill">
+										<input type="number" class="form-control" id="pressione_massima" name="pressione_massima">
+									</div>
+									<div class="col-1 d-flex justify-content-middle align-items-end">
+										<h6>/</h6>
+									</div>
+									<div class="col-2 col-md-2 col-lg-2 d-flex flex-fill">
+										<input type="number" class="form-control" id="pressione_minima" name="pressione_minima">
+									</div>
+								</div>
+
+								<!-- Freq. circolatoria -->
+								<div class="row p-1 mb-2">
+									<div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+										<h6>Frequenza circolatoria:</h6>
+									</div>
+									<div class="col-2 d-flex justify-content-end align-items-end">
+										<h6>batt/min</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+										<input type="number" class="form-control" id="frequenza" name="frequenza">
+									</div>
+								</div>
+
+								<!-- Temperatura -->
+								<div class="row p-1 mb-2">
+									<div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+										<h6>Temperatura corporea:</h6>
+									</div>
+									<div class="col-2 d-flex justify-content-end align-items-end">
+										<h6>°C</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+										<input type="number" class="form-control" id="temperatura" name="temperatura">
+									</div>
+								</div>
+
+								<!-- Emorragie -->
+								<div class="row p-1 ">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Emorragie?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="emorragie_si" name="emorragie" value="True" autocomplete="off">
+											<label class="btn btn-light" for="emorragie_si">SI</label>
+											<input type="radio" class="btn-check" id="emorragie_no" name="emorragie" value="False" autocomplete="off">
+											<label class="btn btn-light" for="emorragie_no">NO</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Polso -->
+								<div class="row p-1 ">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Polso radiale?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="polso_si" name="polso" value="True" autocomplete="off">
+											<label class="btn btn-light" for="polso_si">SI</label>
+											<input type="radio" class="btn-check" id="polso_no" name="polso" value="False" autocomplete="off">
+											<label class="btn btn-light" for="polso_no">NO</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Regolare -->
+								<div class="row p-1 ">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Regolare?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="regolare_polso_si" name="regolare_polso" value="True" autocomplete="off">
+											<label class="btn btn-light" for="regolare_polso_si">SI</label>
+											<input type="radio" class="btn-check" id="regolare_polso_no" name="regolare_polso" value="False" autocomplete="off">
+											<label class="btn btn-light" for="regolare_polso_no">NO</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Cute -->
+								<div class="row p-1 ">
+									<select id="mezzi" class="selectpicker w-100 mb-2" name="cute"
+										title="Colorito cutaneo:">
+										<option value="Normale">Normale</option>
+										<option value="Cianotico">Cianotico</option>
+										<option value="Rossastro">Rossastro</option>
+										<option value="Pallido">Pallido</option>
+									</select>
+								</div>
+
+								<!-- Sudato -->
+								<div class="row p-1 ">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Sudato?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="sudato_si" name="sudato" value="True" autocomplete="off">
+											<label class="btn btn-light" for="sudato_si">SI</label>
+											<input type="radio" class="btn-check" id="sudato_no" name="sudato" value="False" autocomplete="off">
+											<label class="btn btn-light" for="sudato_no">NO</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Sudato - Elemento nascosto -->
+								<div class="collapse" id="freddo">
+									<div class="row mt-2 mb-2 m-0 p-0">
+										<div class="btn-group p-0 d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="sudato_freddo_si" name="sudore_freddo" value="True" autocomplete="off">
+											<label class="btn btn-light" for="sudato_freddo_si">Sudato freddo</label>
+											<input type="radio" class="btn-check" id="sudato_freddo_no" name="sudore_freddo" value="False" autocomplete="off">
+											<label class="btn btn-light" for="sudato_freddo_no">Sudato caldo</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Dolore toracico -->
+								<div class="row p-1">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Dolore toracico?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="dolore_toracico_si" name="dolore_toracico" value="True">
+											<label class="btn btn-light" for="dolore_toracico_si">SI</label>
+											<input type="radio" class="btn-check" id="dolore_toracico_no" name="dolore_toracico" value="False">
+											<label class="btn btn-light" for="dolore_toracico_no">NO</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Dolore toracico - Elemento nascosto -->
+								<div class="collapse" id="torace">
+									<div class="container text-center bg-light border mb-2 w-100">
+										<div class="row p-1 mt-2">
+											<div class="col-7 d-flex align-items-end">
+												<h6>Data insorgenza sintomi:</h6>
+											</div>
+											<div class="col-5 d-flex justify-content-end">
+												<div class="md-form md-outline input-with-post-icon datepicker">
+													<input placeholder="Seleziona giorno" type="date" id="data_dolore" name="data_dolore" class="form-control">
+												</div>
+											</div>
+										</div>
+										<div class="row p-1 ">
+											<div class="col-7 d-flex align-items-end">
+												<h6>Ora insorgenza sintomi:</h6>
+											</div>
+											<div class="col-5 d-flex justify-content-end">
+												<div class="md-form md-outline">
+													<input type="time" class="form-control" id="ora_dolore" name="ora_dolore" placeholder="Seleziona ora">
+												</div>
+											</div>
+										</div>
+										<div class="row m-0 p-0 mb-2">
+											<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+												<input type="radio" class="btn-check" id="tipo_dolore_si" name="tipo_dolore" value="True" autocomplete="off">
+												<label class="btn btn-light" for="tipo_dolore_si">Dolore a spilli</label>
+												<input type="radio" class="btn-check" id="tipo_dolore_no" name="tipo_dolore" value="False" autocomplete="off">
+												<label class="btn btn-light" for="tipo_dolore_no">Dolore oppressivo</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+
+							<!-- Disability -->
+							<section id="D">
+								<h1 class="text-center mt-4 border-bottom border-top">D - Disability</h1>
+
+								<!-- AVPU -->
+								<div class="row p-1">
+									<div class="btn-group d-flex flex-fill p-0 me-3" role="group" aria-label="Basic example">
+										<input type="radio" class="btn-check" id="avpu_a" name="avpu" value="A" autocomplete="off">
+										<label class="btn btn-light" for="avpu_a">A</label>
+										<input type="radio" class="btn-check" id="avpu_v" name="avpu" value="V" autocomplete="off">
+										<label class="btn btn-light" for="avpu_v">V</label>
+										<input type="radio" class="btn-check" id="avpu_p" name="avpu" value="P" autocomplete="off">
+										<label class="btn btn-light" for="avpu_p">P</label>
+										<input type="radio" class="btn-check" id="avpu_u" name="avpu" value="U" autocomplete="off">
+										<label class="btn btn-light" for="avpu_u">U</label>
+									</div>
+								</div>
+
+								<!-- Cincinnaty/Forza e sensibilità -->
+								<div class="row p-1 ">
+									<div class="btn-group d-flex flex-fill p-0 me-3" role="group" aria-label="Basic example">
+										<input type="radio" class="btn-check" id="cincinnaty" name="cincinnaty" autocomplete="off">
+										<label class="btn btn-light" for="cincinnaty">Cincinnaty</label>
+										<input type="radio" class="btn-check" id="forza_sensibilita" name="forza_sensibilita" value="False" autocomplete="off">
+										<label class="btn btn-light" for="forza_sensibilita">Forza e sensibilità</label>
+									</div>
+								</div>
+
+								<!-- Cincinnaty - Elemento nascosto -->
+								<div class="collapse" id="cincinnaty_scheda">
+									<div class="container text-center bg-light border mb-2 w-100">
+										<h4 class="mt-2">Cincinnaty</h4>
+										<h6 class="mt-2">Mimica facciale:</h6>
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="mimica_n" name="mimica_c" value="Normale" autocomplete="off">
+											<label class="btn btn-light" for="mimica_n">Normale</label>
+											<input type="radio" class="btn-check" id="mimica_ad" name="mimica_c" value="Anor.dx" autocomplete="off">
+											<label class="btn btn-light" for="mimica_ad">Anor. dx</label>
+											<input type="radio" class="btn-check" id="mimica_as" name="mimica_c" value="Anor.sx" autocomplete="off">
+											<label class="btn btn-light" for="mimica_as">Anor. sx</label>
+											<input type="radio" class="btn-check" id="mimica_ads" name="mimica_c" value="Anor.dx/sx" autocomplete="off">
+											<label class="btn btn-light" for="mimica_ads">Anor. dx e sx</label>
+										</div>
+										<h6 class="mt-2">Spostamento delle braccia:</h6>
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="braccia_n" name="braccia_c" value="Normale" autocomplete="off">
+											<label class="btn btn-light" for="braccia_n">Normale</label>
+											<input type="radio" class="btn-check" id="braccia_ad" name="braccia_c" value="Anor.dx" autocomplete="off">
+											<label class="btn btn-light" for="braccia_ad">Anor. dx</label>
+											<input type="radio" class="btn-check" id="braccia_as" name="braccia_c" value="Anor.sx" autocomplete="off">
+											<label class="btn btn-light" for="braccia_as">Anor. sx</label>
+											<input type="radio" class="btn-check" id="braccia_ads" name="braccia_c" value="Anor.dx/sx" autocomplete="off">
+											<label class="btn btn-light" for="braccia_ads">Anor. dx e sx</label>
+										</div>
+										<h6 class="mt-2">Linguaggio:</h6>
+										<div class="btn-group d-flex flex-fill mb-2" role="group"
+											aria-label="Basic example">
+											<input type="radio" class="btn-check" id="linguaggio_n" name="linguaggio_c" value="True" autocomplete="off">
+											<label class="btn btn-light" for="linguaggio_n">Normale</label>
+											<input type="radio" class="btn-check" id="linguaggio_a" name="linguaggio_c" value="False" autocomplete="off">
+											<label class="btn btn-light" for="linguaggio_a">Anormale</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Forza e sensibilità - Elemento nascosto -->
+								<div class="collapse" id="forza_sensibilita_scheda">
+									<div class="container text-center bg-light border mb-2 w-100">
+										<h4 class="mt-2">Forza e sensibilità</h4>
+										<h6 class="mt-2">Forza arti superiori:</h6>
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="forza_sup_n" name="forza_sup" value="Normale" autocomplete="off">
+											<label class="btn btn-light" for="forza_sup_n">Normale</label>
+											<input type="radio" class="btn-check" id="forza_sup_ad" name="forza_sup" value="Anor.dx" autocomplete="off">
+											<label class="btn btn-light" for="forza_sup_ad">Anor. dx</label>
+											<input type="radio" class="btn-check" id="forza_sup_as" name="forza_sup" value="Anor.sx" autocomplete="off">
+											<label class="btn btn-light" for="forza_sup_as">Anor. sx</label>
+											<input type="radio" class="btn-check" id="forza_sup_ads" name="forza_sup" value="Anor.dx/sx" autocomplete="off">
+											<label class="btn btn-light" for="forza_sup_ads">Anor. dx e sx</label>
+										</div>
+										<h6 class="mt-2">Sensibilità arti superiori:</h6>
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="forza_inf_n" name="forza_inf" value="Normale" autocomplete="off">
+											<label class="btn btn-light" for="forza_inf_n">Normale</label>
+											<input type="radio" class="btn-check" id="forza_inf_ad" name="forza_inf" value="Anor.dx" autocomplete="off">
+											<label class="btn btn-light" for="forza_inf_ad">Anor. dx</label>
+											<input type="radio" class="btn-check" id="forza_inf_as" name="forza_inf" value="Anor.sx" autocomplete="off">
+											<label class="btn btn-light" for="forza_inf_as">Anor. sx</label>
+											<input type="radio" class="btn-check" id="forza_inf_ads" name="forza_inf" value="Anor.dx/sx" autocomplete="off">
+											<label class="btn btn-light" for="forza_inf_ads">Anor. dx e sx</label>
+										</div>
+										<h6 class="mt-2">Forza arti inferiori:</h6>
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="sens_sup_n" name="sens_sup" value="Normale" autocomplete="off">
+											<label class="btn btn-light" for="sens_sup_n">Normale</label>
+											<input type="radio" class="btn-check" id="sens_sup_ad" name="sens_sup" value="Anor.dx" autocomplete="off">
+											<label class="btn btn-light" for="sens_sup_ad">Anor. dx</label>
+											<input type="radio" class="btn-check" id="sens_sup_as" name="sens_sup" value="Anor.sx" autocomplete="off">
+											<label class="btn btn-light" for="sens_sup_as">Anor. sx</label>
+											<input type="radio" class="btn-check" id="sens_sup_ads" name="sens_sup" value="Anor.dx/sx" autocomplete="off">
+											<label class="btn btn-light" for="sens_sup_ads">Anor. dx e sx</label>
+										</div>
+										<h6 class="mt-2">Sensibilità arti inferiori:</h6>
+										<div class="btn-group d-flex flex-fill mb-2" role="group"
+											aria-label="Basic example">
+											<input type="radio" class="btn-check" id="sens_inf_n" name="sens_inf" value="Normale" autocomplete="off">
+											<label class="btn btn-light" for="sens_inf_n">Normale</label>
+											<input type="radio" class="btn-check" id="sens_inf_ad" name="sens_inf" value="Anor.dx" autocomplete="off">
+											<label class="btn btn-light" for="sens_inf_ad">Anor. dx</label>
+											<input type="radio" class="btn-check" id="sens_inf_as" name="sens_inf" value="Anor.sx" autocomplete="off">
+											<label class="btn btn-light" for="sens_inf_as">Anor. sx</label>
+											<input type="radio" class="btn-check" id="sens_inf_ads" name="sens_inf" value="Anor.dx/sx" autocomplete="off">
+											<label class="btn btn-light" for="sens_inf_ads">Anor. dx e sx</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Orientato nel tempo -->
+								<div class="row p-1 ">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Orientato nel tempo?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="tempo_si" name="tempo" value="True" autocomplete="off">
+											<label class="btn btn-light" for="tempo_si">SI</label>
+											<input type="radio" class="btn-check" id="tempo_no" name="tempo" value="False" autocomplete="off">
+											<label class="btn btn-light" for="tempo_no">NO</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Orientato nello spazio -->
+								<div class="row p-1 ">
+									<div class="col-7 col-md-9 col-lg-10 d-flex align-items-end">
+										<h6>Orientato nello spazio?</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2">
+										<div class="btn-group d-flex flex-fill" role="group" aria-label="Basic example">
+											<input type="radio" class="btn-check" id="spazio_si" name="spazio" value="True" autocomplete="off">
+											<label class="btn btn-light" for="spazio_si">SI</label>
+											<input type="radio" class="btn-check" id="spazio_no" name="spazio" value="False" autocomplete="off">
+											<label class="btn btn-light" for="spazio_no">NO</label>
+										</div>
+									</div>
+								</div>
+							</section>
+
+							<!-- Eventually -->
+							<section id="E">
+								<h1 class="text-center mt-4 border-bottom border-top">E - Eventually</h1>
+
+								<!-- Posizione all'arrivo -->
+								<select id="mezzi" class="selectpicker w-100 mb-2" name="posizione"
+									title="Posizione all'arrivo">
+									<option value="In piedi">In piedi</option>
+									<option value="Seduto">Seduto</option>
+									<option value="Supino">Supino</option>
+									<option value="Prono">Prono</option>
+									<option value="Incastrato">Incastrato</option>
+									<option value="Sul fianco sx">Sul fianco sx</option>
+									<option value="Sul fianco dx">Sul fianco dx</option>
+								</select>
+
+								<!-- Testa-piedi -->
+								<div class="row p-1 mb-2">
+									<div class="btn-group d-flex flex-fill p-0 me-2 ms-2" role="group"
+										aria-label="Basic example">
+										<input type="radio" class="btn-check" id="tp_front" name="tp_front" autocomplete="off">
+										<label class="btn btn-light" for="tp_front">Testa-Piedi - Parte Anteriore</label>
+										<input type="radio" class="btn-check" id="tp_back" name="tp_back" autocomplete="off">
+										<label class="btn btn-light" for="tp_back">Testa-Piedi - Parte Posteriore</label>
+									</div>
+								</div>
+
+								<!-- Testa-piedi - Elemento nascosto -->
+								<img src="{% static 'img/circle.png' %}" id="circle" hidden>
+								<img src="{% static 'img/ecs.png' %}" class="img-fluid" alt="Responsive image" id="ecs" hidden>
+								<img src="{% static 'img/hashtag.png' %}" class="img-fluid" alt="Responsive image" id="hashtag" hidden>
+
+								<div class="collapse" id="tp_scheda_front">
+									<div class="row p-1">
+										<div class="col-7 col-md-6 col-lg-6 d-flex justify-content-center" id="stack_f">
+											<img src="{% static 'img/frontman.png' %}" class="img-fluid" alt="Responsive image" id="img_front">
+											<canvas id="canvas_front"></canvas>
+										</div>
+										<div class="col-5 col-md-6 col-lg-6 text-center" id="img_buttons">
+											<h6>Tipologia:</h6>
+											<div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
+												<input type="radio" class="btn-check" id="Dolore_f">
+												<label class="btn btn-light" for="Dolore_f"><strong>X</strong> - Dolore</label>
+												<input type="radio" class="btn-check" id="Ustione_f">
+												<label class="btn btn-light" for="Ustione_f"><strong>#</strong> - Ustione</label>
+												<input type="radio" class="btn-check" id="Emorragia_f">
+												<label class="btn btn-light" for="Emorragia_f"><strong>O</strong> - Emorragia</label>
+											</div>
+											<div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
+												<input type="radio" class="btn-check" id="Cancella_f">
+												<label class="btn btn-light" for="Cancella_f">Cancella</label>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="collapse" id="tp_scheda_back">
+									<div class="row p-1 ">
+										<div class="col-7 col-md-6 col-lg-6 d-flex justify-content-center" id="stack_b">
+											<img src="{% static 'img/backman.png' %}" class="img-fluid" alt="Responsive image" id="img_back">
+											<canvas id="canvas_back"></canvas>
+										</div>
+										<div class="col-5 col-md-6 col-lg-6 text-center">
+											<h6>Tipologia:</h6>
+											<div class="btn-group-vertical w-75 mb-4 " role="group" aria-label="Basic example">
+												<input type="radio" class="btn-check" id="Dolore_b">
+												<label class="btn btn-light" for="Dolore_b"><strong>X</strong> - Dolore</label>
+												<input type="radio" class="btn-check" id="Ustione_b">
+												<label class="btn btn-light" for="Ustione_b"><strong>#</strong> - Ustione</label>
+												<input type="radio" class="btn-check" id="Emorragia_b">
+												<label class="btn btn-light" for="Emorragia_b"><strong>O</strong> - Emorragia</label>
+											</div>
+											<div class="btn-group-vertical w-75" role="group" aria-label="Basic example">
+												<input type="radio" class="btn-check" id="Cancella_b">
+												<label class="btn btn-light" for="Cancella_b">Cancella</label>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Allergie -->
+								<div class="container mb-2 p-0">
+									<div class="form-floating">
+										<textarea class="form-control" id="allergie" name="allergie" style="height: 80px;"></textarea>
+										<label class="form-label" for="allergie">Allergie riferite</label>
+									</div>
+								</div>
+
+								<!-- Patologie -->
+								<div class="container mb-2 p-0">
+									<div class="form-floating">
+										<textarea class="form-control" id="patologie" name="patologie" style="height: 80px;"></textarea>
+										<label class="form-label" for="patologie">Patologie riferite</label>
+									</div>
+								</div>
+
+								<!-- Farmaci -->
+								<div class="container mb-2 p-0">
+									<div class="form-floating">
+										<textarea class="form-control" id="farmaci" name="farmaci" style="height: 80px;"></textarea>
+										<label class="form-label" for="farmaci">Riferita assunzione di farmaci</label>
+									</div>
+								</div>
+
+								<!-- Pasto -->
+								<div class="container mb-2 p-0">
+									<div class="form-floating">
+										<textarea class="form-control" id="pasto" name="pasto" style="height: 80px;"></textarea>
+										<label class="form-label" for="pasto">Ultimo pasto riferito</label>
+									</div>
+								</div>
+
+								<!-- Glicemia -->
+								<div class="row p-1 mb-2">
+									<div class="col-5 col-md-7 col-lg-8 d-flex justify-content-start align-items-end">
+										<h6>Glicemia riferita:</h6>
+									</div>
+									<div class="col-2 d-flex justify-content-end align-items-end">
+										<h6>mg/dl</h6>
+									</div>
+									<div class="col-5 col-md-3 col-lg-2 d-flex flex-fill">
+										<input type="number" class="form-control" id="glicemia" name="glicemia">
+									</div>
+								</div>
+							</section>
+
+							<!-- Note -->
+							<section id="note_menu">
+								<h1 class="text-center mt-4 border-bottom border-top">Note</h1>
+								<div class="container p-0">
+									<div class="form-floating mb-4">
+										<textarea class="form-control" id="note" name="note" style="height: 80px;"></textarea>
+										<label class="form-label" for="note">Note del soccorritore</label>
+									</div>
+								</div>
+							</section>
+
+							<!-- Esito -->
+							<section id="esito_menu" class="text-center">
+								<h1 class="text-center mt-4 border-bottom border-top">Esito</h1>
+								<p id="attesa" class="text-center text-muted mb-2">Seleziona l'esito del trattamento:</p>
+								<button type="button" id="trasporto_ospedale" class="btn btn-secondary mb-2 w-50">Trasporto in ospedale</button>
+								<div id="risposta" hidden>
+									<p class="text-center text-muted mt-2 mb-4">Indicazioni dalla centrale:</p>
+									<div class="row p-1 ">
+										<div class="col-6 d-flex">
+											<h6>Destinazione</h6>
+										</div>
+										<div class="col-6 d-flex justify-content-end">
+											<p id="osp" class="text-center text-muted mb-4"></p>
+										</div>
+									</div>
+									<div class="row p-1 ">
+										<div class="col-6 d-flex">
+											<h6>Reparto</h6>
+										</div>
+										<div class="col-6 d-flex justify-content-end">
+											<p id="rep" class="text-center text-muted mb-4"></p>
+										</div>
+									</div>
+									<div class="row p-1 ">
+										<div class="col-6 d-flex">
+											<h6>Classe patologia ipotizzata</h6>
+										</div>
+										<div class="col-6 mb-4 d-flex justify-content-end">
+											<p id="pat" class="text-center text-muted mb-4"></p>
+											<p id="cri" class="text-center text-muted mb-4"></p>
+										</div>
+									</div>
+								</div>
+								<button type="button" id="rifiuto_trasporto" class="btn btn-secondary w-50 mb-2" data-mdb-toggle="modal" data-mdb-target="#modal_rifiuto">Rifiuto trasporto</button>
+								<button type="button" id="libero" class="btn btn-secondary w-50 mb-2" hidden>Liberi dal servizio</button>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </div>
 
+<!-- Bottoni Azioni -->
 <div class="row bg-light p-0 m-0">
-    <div class="col-12">
-        <div class="fixed-bottom p-4 d-flex justify-content-end">
-            <button type="button" id="rifiuto_trasporto" class="btn p-3 me-2 btn-secondary btn-lg" data-mdb-toggle="modal" data-mdb-target="#modal_rifiuto">
-                Rifiuto trasporto
-            </button>
-            <button type="button" id="libero" class="btn p-3 me-2 btn-secondary btn-lg" hidden>Liberi dal servizio</button>
-            <button type="button" id="trasporto_ospedale" class="btn p-3 me-2 btn-primary btn-lg">Trasporto in ospedale</button>
-            <button type="button" id="conclusione" class="btn p-3 me-2 btn-primary btn-lg" hidden>Arrivo in reparto</button>
-            <button type="button" id="partenza" class="btn p-3 me-2 btn-primary btn-lg" hidden>Partenza da intervento</button>
-        </div>
-    </div>
+	<div class="col-12">
+		<div class="fixed-bottom p-4 d-flex justify-content-end">
+			<button type="button" id="conclusione" class="btn p-3 me-2 btn-primary btn-lg" hidden>Arrivo in reparto</button>
+			<button type="button" id="partenza" class="btn p-3 me-2 btn-primary btn-lg" hidden>Partenza da intervento</button>
+		</div>
+	</div>
 </div>
 
-<!-- Centrale -->
+<!-- Modal Centrale -->
 <div class="modal fade" id="centrale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Attivazione chiamata in centrale!</h5>
-            </div>
-            <div class="modal-body text-center">
-                <h5 class="modal-title" id="exampleModalLabel">Avverto la centrale?</h5>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary w-25" id="annulla_cosciente">NO</button>
-            <button type="button" id="allerta" class="btn btn-primary w-25" data-dismiss="modal">SI</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Attivazione chiamata in centrale!</h5>
+			</div>
+			<div class="modal-body text-center">
+				<h5 class="modal-title" id="exampleModalLabel">Avverto la centrale?</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary w-25" id="annulla_cosciente">NO</button>
+				<button type="button" id="allerta" class="btn btn-primary w-25" data-dismiss="modal">SI</button>
+			</div>
+		</div>
+	</div>
 </div>
 
-<!-- Risposta 118 -->
+<!-- Modal Risposta 118 -->
 <div class="modal fade" id="risposta_centrale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Messaggio da Centrale Operativa 118</h5>
-            </div>
-            <div class="modal-body text-center">
-                <h5 class="modal-title" id="exampleModalLabel">Esito missione aggiornato</h5>
-            </div>
-            <div class="modal-footer">
-            <button type="button" id="presa_visione" class="btn btn-primary w-25" data-mdb-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Messaggio da Centrale Operativa 118</h5>
+			</div>
+			<div class="modal-body text-center">
+				<h5 class="modal-title" id="exampleModalLabel">Esito missione aggiornato</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="presa_visione" class="btn btn-primary w-25" data-mdb-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
 </div>
 
-<!-- Notifica Partenza da obiettivo -->
+<!-- Modal Notifica Partenza da obiettivo -->
 <div class="modal fade" id="notifica_partenza" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Messaggio da Centrale Operativa 118</h5>
-            </div>
-            <div class="modal-body text-center">
-                <h5 class="modal-title" id="exampleModalLabel">Conferma presa visione di partenza da obiettivo</h5>
-            </div>
-            <div class="modal-footer">
-            <button type="button" id="notifica_visione" class="btn btn-primary w-25" data-mdb-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Messaggio da Centrale Operativa 118</h5>
+			</div>
+			<div class="modal-body text-center">
+				<h5 class="modal-title" id="exampleModalLabel">Conferma presa visione di partenza da obiettivo</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="notifica_visione" class="btn btn-primary w-25" data-mdb-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Modal Paziente -->
 <div class="modal fade" id="paziente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modifica dati paziente</h5>
-                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="modifica_paziente" method="post"> 
-                {% csrf_token %}
-                <div class="modal-body">
-                    <p class="slogan text-center">Inserisci tutti i dati relativi al paziente:</p>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modifica dati paziente</h5>
+				<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form id="modifica_paziente" method="post">
+				{% csrf_token %}
+				<div class="modal-body">
+					<p class="slogan ms-2 me-2 text-center">Richiedi al paziente la <strong>tessera sanitaria</strong> da consegnare in pronto soccorso e inserisci tutti i dati:</p>
 
-                    <!-- Nome e Cognome -->
-                    <div class="row mb-4">
-                        <div class="col">
-                        <div class="form-floating">
-                            {% if request.session.missione.cognome_p is None %}
-                            <input type="text" id="nome_p" class="form-control border"  value="NON DEFINITO" name="nome_p">
-                            <label class="form-label" for="nome_p">Nome</label>
-                            {% else %}
-                            <input type="text" id="nome_p" class="form-control border"  value="{{request.session.missione.nome_p}}" name="nome_p">
-                            <label class="form-label" for="nome_p">Nome</label>
-                            {% endif %}
-                        </div>
-                        </div>
-                        <div class="col">
-                        <div class="form-floating">
-                            {% if request.session.missione.cognome_p is None %}
-                            <input type="text" id="cognome_p" class="form-control border"  value="NON DEFINITO" name="cognome_p">
-                            <label class="form-label" for="cognome_p">Cognome</label>
-                            {% else %}
-                            <input type="text" id="cognome_p" class="form-control border"  value="{{request.session.missione.cognome_p}}" name="cognome_p">
-                            <label class="form-label" for="cognome_p">Cognome</label>
-                            {% endif %}
-                        </div>
-                        </div>
-                    </div>
-                    <!-- Compleanno -->
-                    <div class="row mb-4">
-                        <div class="col-5">
-                            <div class="form-floating input-with-post-icon datepicker">
-                                <input placeholder="Seleziona giorno" type="date" id="data_nascita" name="data_nascita" class="form-control">
-                                <label class="form-label" for="data_nascita">Data di nascita</label>
-                            </div>
-                        </div>
-                        <div class="col-7">
-                            <div class="form-floating">
-                                <input type="text" id="dove_nato" class="form-control" name="dove_nato">
-                                <label class="form-label" for="dove_nato">Nato a</label>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <!-- Numero Telefono -->
-                    <div class="form-floating mb-4">
-                        {% if request.session.missione.cognome_p is None %}
-                        <input type="tel" id="cellulare" class="form-control" value=" " name="cellulare" mdInput>
-                        <label class="form-label" for="cellulare">Cellulare</label>
-                        {% else %}
-                        <input type="tel" id="cellulare" class="form-control" value="{{request.session.missione.cellulare}}" name="cellulare" mdInput>
-                        <label class="form-label" for="cellulare">Cellulare</label>
-                        {% endif %}
-                    </div>
+					<!-- Nome e Cognome -->
+					<div class="row mb-4">
+						<div class="col">
+							<div class="form-floating">
+								{% if request.session.missione.cognome_p is None %}
+								<input type="text" id="nome_p" class="form-control border" value="NON DEFINITO" name="nome_p">
+								<label class="form-label" for="nome_p">Nome</label>
+								{% else %}
+								<input type="text" id="nome_p" class="form-control border" value="{{request.session.missione.nome_p}}" name="nome_p">
+								<label class="form-label" for="nome_p">Nome</label>
+								{% endif %}
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-floating">
+								{% if request.session.missione.cognome_p is None %}
+								<input type="text" id="cognome_p" class="form-control border" value="NON DEFINITO" name="cognome_p">
+								<label class="form-label" for="cognome_p">Cognome</label>
+								{% else %}
+								<input type="text" id="cognome_p" class="form-control border" value="{{request.session.missione.cognome_p}}" name="cognome_p">
+								<label class="form-label" for="cognome_p">Cognome</label>
+								{% endif %}
+							</div>
+						</div>
+					</div>
 
-                    <p class="slogan">Indirizzo di residenza</p>
-        
-                    <!-- Indirizzo -->
-                    <div class="row mb-4">
-                        <div class="col-9">
-                        <div class="form-floating">
-                            <input type="text" id="residenza" class="form-control" value="{{request.session.missione.luogo_intervento}}" name="residenza">
-                            <label class="form-label" for="residenza">Indirizzo</label>
-                        </div>
-                        </div>
-                        <div class="col-3">
-                        <div class="form-floating">
-                            <input type="text" id="civico_residenza" class="form-control" value="{{request.session.missione.civico_intervento}}" name="civico_residenza">
-                            <label class="form-label" for="civico_residenza">Civico</label>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-5">
-                        <div class="form-floating">
-                            <input type="text" id="comune_residenza" class="form-control" value="{{request.session.missione.comune_intervento}}" name="comune_residenza">
-                            <label class="form-label" for="comune_residenza">Comune</label>
-                        </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-floating">
-                                <input type="text" id="provincia_residenza" class="form-control" value="{{request.session.missione.provincia_intervento}}" name="provincia_residenza">
-                                <label class="form-label" for="provincia_residenza">Provincia</label>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-floating">
-                                <input type="text" id="cap_residenza" class="form-control" value="{{request.session.missione.cap_intervento}}" name="cap_residenza">
-                                <label class="form-label" for="cap_residenza">CAP</label>
-                            </div>
-                        </div>
-                    </div>
-                
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="paziente_chiudi" class="btn btn-secondary w-25" data-dismiss="modal">Annulla</button>
-                    <button type="submit" id="paziente_submit" class="btn btn-primary w-25">Conferma</button>
-                </div>
-                    
-            </form>
-            
-        </div>
-    </div>
+					<!-- Compleanno -->
+					<div class="row mb-4">
+						<div class="col-5">
+							<div class="form-floating input-with-post-icon datepicker">
+								<input placeholder="Seleziona giorno" type="date" id="data_nascita" name="data_nascita" class="form-control">
+								<label class="form-label" for="data_nascita">Data di nascita</label>
+							</div>
+						</div>
+						<div class="col-7">
+							<div class="form-floating">
+								<input type="text" id="dove_nato" class="form-control" name="dove_nato">
+								<label class="form-label" for="dove_nato">Nato a</label>
+							</div>
+						</div>
+					</div>
+
+					<!-- Numero Telefono -->
+					<div class="form-floating mb-4">
+						{% if request.session.missione.cognome_p is None %}
+						<input type="tel" id="cellulare" class="form-control" value=" " name="cellulare" mdInput>
+						<label class="form-label" for="cellulare">Cellulare</label>
+						{% else %}
+						<input type="tel" id="cellulare" class="form-control" value="{{request.session.missione.cellulare}}" name="cellulare" mdInput>
+						<label class="form-label" for="cellulare">Cellulare</label>
+						{% endif %}
+					</div>
+
+					<p class="slogan">Indirizzo di residenza</p>
+
+					<!-- Indirizzo -->
+					<div class="row mb-4">
+						<div class="col-9">
+							<div class="form-floating">
+								<input type="text" id="residenza" class="form-control" value="{{request.session.missione.luogo_intervento}}" name="residenza">
+								<label class="form-label" for="residenza">Indirizzo</label>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-floating">
+								<input type="text" id="civico_residenza" class="form-control" value="{{request.session.missione.civico_intervento}}" name="civico_residenza">
+								<label class="form-label" for="civico_residenza">Civico</label>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-4">
+						<div class="col-5">
+							<div class="form-floating">
+								<input type="text" id="comune_residenza" class="form-control" value="{{request.session.missione.comune_intervento}}" name="comune_residenza">
+								<label class="form-label" for="comune_residenza">Comune</label>
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-floating">
+								<input type="text" id="provincia_residenza" class="form-control" value="{{request.session.missione.provincia_intervento}}" name="provincia_residenza">
+								<label class="form-label" for="provincia_residenza">Provincia</label>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-floating">
+								<input type="text" id="cap_residenza" class="form-control" value="{{request.session.missione.cap_intervento}}" name="cap_residenza">
+								<label class="form-label" for="cap_residenza">CAP</label>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="paziente_chiudi" class="btn btn-secondary w-25" data-dismiss="modal">Annulla</button>
+					<button type="submit" id="paziente_submit" class="btn btn-primary w-25">Conferma</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
 <!-- Modal Rifiuto-->
 <div class="modal fade" id="modal_rifiuto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Dati rifiuto trasporto</h5>
-                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="form_rifiuto" method="post"> 
-                {% csrf_token %}
-                <div class="modal-body">
-                    <p class="slogan text-center">Inserisci i dati per il rifiuto trasporto:</p>
-                    <p class="slogan text-center">Nel caso non sia presente nessun parente o conosciente del paziente, inserire i dati di uno dei soccorritori.</p>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Dati rifiuto trasporto</h5>
+				<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form id="form_rifiuto" method="post">
+				{% csrf_token %}
+				<div class="modal-body">
+					<p class="slogan text-center">Inserisci i dati per il rifiuto trasporto:</p>
+					<p class="slogan text-center">Nel caso non sia presente nessun parente o conosciente del paziente, inserire i dati di uno dei soccorritori.</p>
 
-                    <div class='text-center'>
-                        <ul class="alert alert-danger" id='errors_rifiuto' style="list-style: none;" hidden>
-                            
-                        </ul>
-                    </div>
+					<div class='text-center'>
+						<ul class="alert alert-danger" id='errors_rifiuto' style="list-style: none;" hidden>
 
-                    <!-- Nome e Cognome -->
-                    <div class="row mb-4">
-                        <div class="col">
-                        <div class="form-floating">
-                            <input type="text" id="nome_t" class="form-control border" name="nome_t">
-                            <label class="form-label" for="nome_t">Nome</label>
-                        </div>
-                        </div>
-                        <div class="col">
-                        <div class="form-floating">
-                            <input type="text" id="cognome_t" class="form-control" name="cognome_t">
-                            <label class="form-label" for="cognome_t">Cognome</label>
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-4">
-                        <div class="col w-75">
-                            <select id="mezzi" class="selectpicker w-100" title="Tipologia testimone" name="parentela">
-                            <option value="Coniuge">Coniuge</option>
-                            <option value="Figlio/a">Figlio/a</option>
-                            <option value="Genitore">Genitore</option>
-                            <option value="Nonno/a">Nonno/a</option>
-                            <option value="Parente 2° grado">Parente 2° grado</option>
-                            <option value="Parente 3° grado">Parente 3° grado</option>
-                            <option value="Tutore">Tutore</option>
-                            <option value="Conoscente">Conoscente</option>
-                            <option value="Soccorritore">Soccorritore</option>
-                            </select>
-                        </div>
-                    </div>
-                
-                
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
-                    <button type="submit" id="submit_rifiuto" class="btn btn-primary w-25">Conferma</button>
-                </div>
-                    
-            </form>
-            
-        </div>
-    </div>
+						</ul>
+					</div>
+
+					<!-- Nome e Cognome -->
+					<div class="row mb-4">
+						<div class="col">
+							<div class="form-floating">
+								<input type="text" id="nome_t" class="form-control border" name="nome_t">
+								<label class="form-label" for="nome_t">Nome</label>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-floating">
+								<input type="text" id="cognome_t" class="form-control" name="cognome_t">
+								<label class="form-label" for="cognome_t">Cognome</label>
+							</div>
+						</div>
+					</div>
+
+					<!-- Parentela -->
+					<div class="row mb-4">
+						<div class="col w-75">
+							<select id="mezzi" class="selectpicker w-100" title="Tipologia testimone" name="parentela">
+								<option value="Coniuge">Coniuge</option>
+								<option value="Figlio/a">Figlio/a</option>
+								<option value="Genitore">Genitore</option>
+								<option value="Nonno/a">Nonno/a</option>
+								<option value="Parente 2° grado">Parente 2° grado</option>
+								<option value="Parente 3° grado">Parente 3° grado</option>
+								<option value="Tutore">Tutore</option>
+								<option value="Conoscente">Conoscente</option>
+								<option value="Soccorritore">Soccorritore</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
+					<button type="submit" id="submit_rifiuto" class="btn btn-primary w-25">Conferma</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
 <!-- Modal Trasporto-->
 <div class="modal fade" id="modal_trasporto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Dati ospedale di destinazione</h5>
-                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="form_trasporto" method="post"> 
-                {% csrf_token %}
-                <div class="modal-body">
-                    <p class="slogan text-center">Inserisci i dati per il trasporto:</p>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Dati ospedale di destinazione</h5>
+				<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form id="form_trasporto" method="post">
+				{% csrf_token %}
+				<div class="modal-body">
+					<p class="slogan text-center">Inserisci i dati per il trasporto:</p>
 
-                    <div class='text-center'>
-                        <ul class="alert alert-danger" id='errors_trasporto' style="list-style: none;" hidden>
-                            
-                        </ul>
-                    </div>
+					<div class='text-center'>
+						<ul class="alert alert-danger" id='errors_trasporto' style="list-style: none;" hidden>
 
-                    <div class="row mb-4">
-                        <div class="col-12 mb-4">
-                            <select id="mezzi" class="selectpicker w-100" title="Criticità" name="criticita_trasporto">
-                                <option value="B">Bianco</option>
-                                <option value="V">Verde</option>
-                                <option value="G">Giallo</option>
-                                <option value="R">Rosso</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                        <div class="form-floating">
-                            <input type="text" id="patologia_trasporto" class="form-control" name="patologia_trasporto">
-                            <label class="form-label" for="patologia_trasporto">Patologia ipotizzata da CO</label>
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-4">
-                        <div class="col w-75">
-                            <select id="mezzi" class="selectpicker w-100" title="Luogo destinazione" name="ospedale">
-                            <option value="S. Giovanni di Dio - Torregalli">S. Giovanni di Dio - Torregalli</option>
-                            <option value="S. Maria Nuova">S. Maria Nuova</option>
-                            <option value="Palagi - IOT">Palagi - IOT</option>
-                            <option value="Azienda Osp. Universitaria Careggi">Azienda Osp. Universitaria Careggi</option>
-                            <option value="S. Maria Annunziata - OSMA">S. Maria Annunziata - OSMA</option>
-                            <option value="RSA Veranella">RSA Veranella</option>
-                            <option value="RSA Bobolino">RSA Bobolino</option>
-                            <option value="RSA Le Terme">RSA Le Terme</option>
-                            </select>
-                        </div>
-                    </div>
+						</ul>
+					</div>
 
-                    <div class="row mb-4">
-                        <div class="col w-75">
-                            <select id="mezzi" class="selectpicker w-100" title="Reparto destinazione" name="reparto">
-                            <option value="Pronto soccorso - DEA">Pronto soccorso - DEA</option>
-                            <option value="Emodinamica">Emodinamica</option>
-                            <option value="Ostetricia">Ostetricia</option>
-                            <option value="Infettivo - BOLLA">Infettivo - BOLLA</option>
-                            </select>
-                        </div>
-                    </div>
-                
-                
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
-                    <button type="submit" id="submit_trasporto" class="btn btn-primary w-25">Conferma</button>
-                </div>
-                    
-            </form>
-            
-        </div>
-    </div>
+					<!-- Criticità e patologia trasporto -->
+					<div class="row mb-4">
+						<div class="col-12 mb-4">
+							<select id="mezzi" class="selectpicker w-100" title="Criticità" name="criticita_trasporto">
+								<option value="B">Bianco</option>
+								<option value="V">Verde</option>
+								<option value="G">Giallo</option>
+								<option value="R">Rosso</option>
+							</select>
+						</div>
+						<div class="col-12">
+							<div class="form-floating">
+								<input type="text" id="patologia_trasporto" class="form-control"
+									name="patologia_trasporto">
+								<label class="form-label" for="patologia_trasporto">Patologia ipotizzata da CO</label>
+							</div>
+						</div>
+					</div>
+
+					<!-- Ospedale -->
+					<div class="row mb-4">
+						<div class="col w-75">
+							<select id="mezzi" class="selectpicker w-100" title="Luogo destinazione" name="ospedale">
+								<option value="S. Giovanni di Dio - Torregalli">S. Giovanni di Dio - Torregalli</option>
+								<option value="S. Maria Nuova">S. Maria Nuova</option>
+								<option value="Palagi - IOT">Palagi - IOT</option>
+								<option value="Azienda Osp. Universitaria Careggi">Azienda Osp. Universitaria Careggi
+								</option>
+								<option value="S. Maria Annunziata - OSMA">S. Maria Annunziata - OSMA</option>
+								<option value="RSA Veranella">RSA Veranella</option>
+								<option value="RSA Bobolino">RSA Bobolino</option>
+								<option value="RSA Le Terme">RSA Le Terme</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- Reparto -->
+					<div class="row mb-4">
+						<div class="col w-75">
+							<select id="mezzi" class="selectpicker w-100" title="Reparto destinazione" name="reparto">
+								<option value="Pronto soccorso - DEA">Pronto soccorso - DEA</option>
+								<option value="Emodinamica">Emodinamica</option>
+								<option value="Terapia intensiva">Terapia intensiva</option>
+								<option value="Neurologia">Neurologia</option>
+								<option value="Ostetricia">Ostetricia</option>
+								<option value="Infettivo - Reparto">Infettivo - Reparto</option>
+								<option value="Infettivo - BOLLA">Infettivo - BOLLA</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
+					<button type="submit" id="submit_trasporto" class="btn btn-primary w-25">Conferma</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 {% endblock %}
 
 {% block scripts %}
-
 <script>
-    $(document).ready(function () {
-        var token = '{{ csrf_token }}';
-    
+	$(document).ready(function () {
+		var token = '{{ csrf_token }}';
 
-      $('#paziente_submit').click(function (e) {
-            e.preventDefault();
-            formData = $('#modifica_paziente').serialize();
-            
-            
-              $.ajax({
-                  headers: {
-                      "X-CSRFToken": token,
-                  },
-                  url: '{% url "modifica_paziente" %}',
-                  dataType: 'json', 
-                  type: 'POST',
-                  data: formData,
-                  success: function (result) {
-                      if(result['status']=='error'){
-                            
-                    }
-                    else{
-                        $('#paziente').modal('toggle');
-                    }
-                  },
-    
-              });
-    
-    });
+		$('#paziente_submit').click(function (e) {
+			e.preventDefault();
+			formData = $('#modifica_paziente').serialize();
+			$.ajax({
+				headers: {
+					"X-CSRFToken": token,
+				},
+				url: '{% url "modifica_paziente" %}',
+				dataType: 'json',
+				type: 'POST',
+				data: formData,
+				success: function (result) {
+					if (result['status'] == 'error') {
 
-    $('#paziente_chiudi').click(function () {
-        $('#paziente').modal('hide');
-    });
+					}
+					else {
+						$('#paziente').modal('toggle');
+					}
+				},
+			});
+		});
 
+		$('#paziente_chiudi').click(function () {
+			$('#paziente').modal('hide');
+		});
 
-    $('#allerta').click(function (e) {
-            e.preventDefault();
-            formData = $('#compilazione_scheda').serialize();
-            
-            
-              $.ajax({
-                  headers: {
-                      "X-CSRFToken": token,
-                  },
-                  url: '{% url "invia_scheda" %}',
-                  dataType: 'json', 
-                  type: 'POST',
-                  data: formData,
-                  success: function (result) {
-                      if(result['status']=='error'){
-                            
-                    }
-                    else{
-                        $('#blsd').collapse('show');
-                        $('#centrale').modal('hide');
-                        $('#rifiuto_trasporto').attr('hidden',true);
-                        $('#libero').attr('hidden',false);
-                    }
-                  },
-    
-              });
-      });
+		$('#allerta').click(function (e) {
+			e.preventDefault();
+			formData = $('#compilazione_scheda').serialize();
+			$.ajax({
+				headers: {
+					"X-CSRFToken": token,
+				},
+				url: '{% url "invia_scheda" %}',
+				dataType: 'json',
+				type: 'POST',
+				data: formData,
+				success: function (result) {
+					if (result['status'] == 'error') {
 
+					}
+					else {
+						$('#blsd').collapse('show');
+						$('#centrale').modal('hide');
+						$('#rifiuto_trasporto').attr('hidden', true);
+						$('#libero').attr('hidden', false);
+					}
+				},
+			});
+		});
 
-      $('#libero').click(function (e) {
-            e.preventDefault();
-            formData = $('#compilazione_scheda').serialize();
-            canvasf = document.getElementById("canvas_front");
-            canvasb = document.getElementById("canvas_back");
-            cfront = canvasf.toDataURL();
-            cback = canvasb.toDataURL();
-            
-            
-              $.ajax({
-                  headers: {
-                      "X-CSRFToken": token,
-                  },
-                  url: '{% url "invia_scheda" %}',
-                  dataType: 'json', 
-                  type: 'POST',
-                  data: formData,
-                  success: function (result) {
-                      if(result['status']=='error'){
-                            
-                    }
-                    else{
-                        $.ajax({
-                                headers: {
-                                    "X-CSRFToken": token,
-                                },
-                                url: '{% url "invia_tp" %}',
-                                dataType: 'json', 
-                                type: 'POST',
-                                data: {'front':cfront, 'back':cback},
-                                success: function (result) {
-                                    if(result['status']=='error'){
-                                            
-                                    }
-                                    else{
-                                        window.location = '{% url "riepilogo_missione" %}';
-                                    }
-                                },
-                    
-                            });
-                    }
-                  },
-    
-              });
-      });
+		$('#libero').click(function (e) {
+			e.preventDefault();
+			formData = $('#compilazione_scheda').serialize();
+			canvasf = document.getElementById("canvas_front");
+			canvasb = document.getElementById("canvas_back");
+			cfront = canvasf.toDataURL();
+			cback = canvasb.toDataURL();
+			$.ajax({
+				headers: {
+					"X-CSRFToken": token,
+				},
+				url: '{% url "invia_scheda" %}',
+				dataType: 'json',
+				type: 'POST',
+				data: formData,
+				success: function (result) {
+					if (result['status'] == 'error') {
 
-      $('#annulla_cosciente').click(function () {
+					}
+					else {
+						$.ajax({
+							headers: {
+								"X-CSRFToken": token,
+							},
+							url: '{% url "invia_tp" %}',
+							dataType: 'json',
+							type: 'POST',
+							data: { 'front': cfront, 'back': cback },
+							success: function (result) {
+								if (result['status'] == 'error') {
 
-            $('#cosciente_no').prop('checked', false);
-            $('#cosciente_si').prop('checked', true);
-            $('#centrale').modal('hide');
-      });
+								}
+								else {
+									window.location = '{% url "riepilogo_missione" %}';
+								}
+							},
+						});
+					}
+				},
+			});
+		});
 
+		$('#annulla_cosciente').click(function () {
+			$('#cosciente_no').prop('checked', false);
+			$('#cosciente_si').prop('checked', true);
+			$('#centrale').modal('hide');
+		});
 
-    $('#rifiuto_trasporto').click(function (e) {
-            e.preventDefault();
-            formData = $('#compilazione_scheda').serialize();
-            
-            
-              $.ajax({
-                  headers: {
-                      "X-CSRFToken": token,
-                  },
-                  url: '{% url "invia_scheda" %}',
-                  dataType: 'json', 
-                  type: 'POST',
-                  data: formData,
-                  success: function (result) {
-                      if(result['status']=='error'){
-                            
-                    }
-                    else{
-                        $('#modal_rifiuto').modal('show');
-                    }
-                  },
-    
-              });
-      });
+		$('#rifiuto_trasporto').click(function (e) {
+			e.preventDefault();
+			formData = $('#compilazione_scheda').serialize();
+			$.ajax({
+				headers: {
+					"X-CSRFToken": token,
+				},
+				url: '{% url "invia_scheda" %}',
+				dataType: 'json',
+				type: 'POST',
+				data: formData,
+				success: function (result) {
+					if (result['status'] == 'error') {
 
-      $('#submit_rifiuto').click(function (e) {
-            e.preventDefault();
-            formData = $('#form_rifiuto').serialize();
-            canvasf = document.getElementById("canvas_front");
-            canvasb = document.getElementById("canvas_back");
-            cfront = canvasf.toDataURL();
-            cback = canvasb.toDataURL();
-            
-            
-              $.ajax({
-                  headers: {
-                      "X-CSRFToken": token,
-                  },
-                  url: '{% url "invia_rifiuto" %}',
-                  dataType: 'json', 
-                  type: 'POST',
-                  data: formData,
-                  success: function (result) {
-                    if(result['status']=='error'){
-                        $('#errors_rifiuto').empty();
-                        errors = result['errors']
-                        for(const item in errors)
-                        {
-                            $('#errors_rifiuto').removeAttr('hidden');
-                            $("#errors_rifiuto").prepend('<p><strong>'+errors[item]+'</strong></p>');
-                        }
-                    }
-                    else{
-                        $.ajax({
-                                headers: {
-                                    "X-CSRFToken": token,
-                                },
-                                url: '{% url "invia_tp" %}',
-                                dataType: 'json', 
-                                type: 'POST',
-                                data: {'front':cfront, 'back':cback},
-                                success: function (result) {
-                                    if(result['status']=='error'){
-                                            
-                                    }
-                                    else{
-                                        window.location = '{% url "riepilogo_missione" %}';
-                                    }
-                                },
-                    
-                            });
-                    }
-                  },
-    
-              });
-      });
+					}
+					else {
+						$('#modal_rifiuto').modal('show');
+					}
+				},
+			});
+		});
 
+		$('#submit_rifiuto').click(function (e) {
+			e.preventDefault();
+			formData = $('#form_rifiuto').serialize();
+			canvasf = document.getElementById("canvas_front");
+			canvasb = document.getElementById("canvas_back");
+			cfront = canvasf.toDataURL();
+			cback = canvasb.toDataURL();
+			$.ajax({
+				headers: {
+					"X-CSRFToken": token,
+				},
+				url: '{% url "invia_rifiuto" %}',
+				dataType: 'json',
+				type: 'POST',
+				data: formData,
+				success: function (result) {
+					if (result['status'] == 'error') {
+						$('#errors_rifiuto').empty();
+						errors = result['errors']
+						for (const item in errors) {
+							$('#errors_rifiuto').removeAttr('hidden');
+							$("#errors_rifiuto").prepend('<p><strong>' + errors[item] + '</strong></p>');
+						}
+					}
+					else {
+						$.ajax({
+							headers: {
+								"X-CSRFToken": token,
+							},
+							url: '{% url "invia_tp" %}',
+							dataType: 'json',
+							type: 'POST',
+							data: { 'front': cfront, 'back': cback },
+							success: function (result) {
+								if (result['status'] == 'error') {
 
-      $('#trasporto_ospedale').click(function (e) {
-            e.preventDefault();
-            formData = $('#compilazione_scheda').serialize();
-            
-            
-            
-              $.ajax({
-                  headers: {
-                      "X-CSRFToken": token,
-                  },
-                  url: '{% url "invia_scheda" %}',
-                  dataType: 'json', 
-                  type: 'POST',
-                  data: formData,
-                  success: function (result) {
-                      if(result['status']=='error'){
-                            
-                    }
-                    else{
-                        $('#modal_trasporto').modal('show');
-                            
-                    }
-                  },
-    
-              });
-      });
+								}
+								else {
+									window.location = '{% url "riepilogo_missione" %}';
+								}
+							},
+						});
+					}
+				},
+			});
+		});
 
+		$('#trasporto_ospedale').click(function (e) {
+			e.preventDefault();
+			formData = $('#compilazione_scheda').serialize();
+			$.ajax({
+				headers: {
+					"X-CSRFToken": token,
+				},
+				url: '{% url "invia_scheda" %}',
+				dataType: 'json',
+				type: 'POST',
+				data: formData,
+				success: function (result) {
+					if (result['status'] == 'error') {
 
-      $('#submit_trasporto').click(function (e) {
-            e.preventDefault();
-            formData = $('#form_trasporto').serialize();
-            
-            
-              $.ajax({
-                  headers: {
-                      "X-CSRFToken": token,
-                  },
-                  url: '{% url "invia_trasporto" %}',
-                  dataType: 'json', 
-                  type: 'POST',
-                  data: formData,
-                  success: function (result) {
-                    if(result['status']=='error'){
-                        $('#errors_trasporto').empty();
-                        errors = result['errors']
-                        for(const item in errors)
-                        {
-                            $('#errors_trasporto').removeAttr('hidden');
-                            $("#errors_trasporto").prepend('<p><strong>'+errors[item]+'</strong></p>');
-                        }
-                    }
-                    else{
-                        $('#modal_trasporto').modal('hide');
-                        $('#trasporto_ospedale').attr('hidden',true);
-                        $('#partenza').attr('hidden',false);
-                        $('#attesa').attr('hidden',true);
-                        $('#risposta').attr('hidden',false);
-                        $('#osp').text(result['ospedale']);
-                        $('#rep').text(result['reparto']);
-                        $('#pat').text(result['patologia_trasporto']);
-                        $('#cri').text(result['criticita_trasporto']);
-                        $('#risposta_centrale').modal('show');
-                    }
+					}
+					else {
+						$('#modal_trasporto').modal('show');
+					}
+				},
+			});
+		});
 
-                  },
-    
-              });
-      });
+		$('#submit_trasporto').click(function (e) {
+			e.preventDefault();
+			formData = $('#form_trasporto').serialize();
+			$.ajax({
+				headers: {
+					"X-CSRFToken": token,
+				},
+				url: '{% url "invia_trasporto" %}',
+				dataType: 'json',
+				type: 'POST',
+				data: formData,
+				success: function (result) {
+					if (result['status'] == 'error') {
+						$('#errors_trasporto').empty();
+						errors = result['errors']
+						for (const item in errors) {
+							$('#errors_trasporto').removeAttr('hidden');
+							$("#errors_trasporto").prepend('<p><strong>' + errors[item] + '</strong></p>');
+						}
+					}
+					else {
+						$('#modal_trasporto').modal('hide');
+						$('#trasporto_ospedale').attr('hidden', true);
+						$('#partenza').attr('hidden', false);
+						$('#attesa').attr('hidden', true);
+						$('#risposta').attr('hidden', false);
+						$('#osp').text(result['ospedale']);
+						$('#rep').text(result['reparto']);
+						$('#pat').text(result['patologia_trasporto']);
+						$('#cri').text(result['criticita_trasporto']);
+						$('#risposta_centrale').modal('show');
+					}
+				},
+			});
+		});
 
+		$('#partenza').click(function (e) {
+			e.preventDefault();
+			$.ajax({
+				headers: {
+					"X-CSRFToken": token,
+				},
+				url: '{% url "partenza_luogo_intervento" %}',
+				dataType: 'json',
+				type: 'GET',
+				data: formData,
+				success: function (result) {
+					if (result['status'] == 'error') {
 
-      $('#partenza').click(function (e) {
-            e.preventDefault();
-            
-            
-              $.ajax({
-                  headers: {
-                      "X-CSRFToken": token,
-                  },
-                  url: '{% url "partenza_luogo_intervento" %}',
-                  dataType: 'json', 
-                  type: 'GET',
-                  data: formData,
-                  success: function (result) {
-                      if(result['status']=='error'){
-                            
-                    }
-                    else{
-                        $('#partenza').attr('hidden',true);
-                        $('#notifica_partenza').modal('show');
-                        $('#conclusione').attr('hidden',false);
-                    }
-                  },
-    
-              });
-      });
+					}
+					else {
+						$('#partenza').attr('hidden', true);
+						$('#notifica_partenza').modal('show');
+						$('#conclusione').attr('hidden', false);
+					}
+				},
+			});
+		});
 
-      $('#conclusione').click(function (e) {
-            e.preventDefault();
-            formData = $('#compilazione_scheda').serialize();
-            canvasf = document.getElementById("canvas_front");
-            canvasb = document.getElementById("canvas_back");
-            cfront = canvasf.toDataURL();
-            cback = canvasb.toDataURL();
-            
-            
-              $.ajax({
-                  headers: {
-                      "X-CSRFToken": token,
-                  },
-                  url: '{% url "invia_scheda" %}',
-                  dataType: 'json', 
-                  type: 'POST',
-                  data: formData,
-                  success: function (result) {
-                      if(result['status']=='error'){
-                            
-                    }
-                    else{
-                        $.ajax({
-                                headers: {
-                                    "X-CSRFToken": token,
-                                },
-                                url: '{% url "invia_tp" %}',
-                                dataType: 'json', 
-                                type: 'POST',
-                                data: {'front':cfront, 'back':cback},
-                                success: function (result) {
-                                    if(result['status']=='error'){
-                                            
-                                    }
-                                    else{
-                                        window.location = '{% url "riepilogo_missione" %}';
-                                    }
-                                },
-                    
-                            });
-                        
-                    }
-                  },
-    
-              });
-      });
+		$('#conclusione').click(function (e) {
+			e.preventDefault();
+			formData = $('#compilazione_scheda').serialize();
+			canvasf = document.getElementById("canvas_front");
+			canvasb = document.getElementById("canvas_back");
+			cfront = canvasf.toDataURL();
+			cback = canvasb.toDataURL();
+			$.ajax({
+				headers: {
+					"X-CSRFToken": token,
+				},
+				url: '{% url "invia_scheda" %}',
+				dataType: 'json',
+				type: 'POST',
+				data: formData,
+				success: function (result) {
+					if (result['status'] == 'error') {
 
+					}
+					else {
+						$.ajax({
+							headers: {
+								"X-CSRFToken": token,
+							},
+							url: '{% url "invia_tp" %}',
+							dataType: 'json',
+							type: 'POST',
+							data: { 'front': cfront, 'back': cback },
+							success: function (result) {
+								if (result['status'] == 'error') {
 
-      
-
-      $('.datepicker').on('changeDate show', function(e) {
-        // Revalidate the date when user change it
-        $('#myForm').bootstrapValidator('revalidateField', 'endDate');
-    });
-
-      
-    
-});
+								}
+								else {
+									window.location = '{% url "riepilogo_missione" %}';
+								}
+							},
+						});
+					}
+				},
+			});
+		});
+	});
 </script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>

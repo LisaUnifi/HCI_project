@@ -12,7 +12,7 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <div class="container">
-                <a class="navbar-brand m-1" href="#">
+                <a class="navbar-brand m-1">
                     <img
                     src="{% static 'img/logoHCI.png' %}"
                     height="50"
@@ -21,17 +21,17 @@
                 </a>
             </div>
         </li>
-
         <li class="nav-item">
             <div class="container ms-0 p-3">
                 <h3 class="mb-1 mt-1">{{request.user.corporation}}</h3>
             </div>
         </li>
     </ul>
-    <a href="{% url 'logout' %}" class="btn btn-primary m-4" style="position: absolute; right: 0; top: 0;">Log out</a>
+    <a id="apri" class="btn btn-primary m-4" style="position: absolute; right: 0; top: 0;">Log out</a>
 </nav>
 
 <div class="container-sm p-3 rounded bg-white text-center d-flex flex-column">
+
     <div class="container mt-5 text-center bg-white">
         <h1 class="m-3">Gestione mezzi</h1>
     </div>
@@ -44,6 +44,7 @@
             {% endfor %}
         </ul>
         {% endif %}
+
         <div class="table-wrapper-scroll-y my-custom-scrollbar p-5 m-0 bg-light"> 
             <table class="table-responsive w-100 text-center">
                 <thead>
@@ -85,7 +86,7 @@
     </div>
 </div>
 
-<!-- Creazione mezzo -->
+<!-- Modal Creazione mezzo -->
 <div class="modal fade" id="nuovomezzo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -93,9 +94,9 @@
                 <h5 class="modal-title" id="exampleModalLabel">Nuovo Mezzo</h5>
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-center">
-                <form class="text-center" id="creazione_mezzo_form" method="post"> <!--action="{% url 'registration_user' %}"-->
-                    {% csrf_token %}
+            <form class="text-center" id="creazione_mezzo_form" method="post">
+                {% csrf_token %}
+                <div class="modal-body text-center">
                     <p class="slogan">Inserisci i dati del nuovo mezzo:</p>
                 
                     <div class='text-center'>
@@ -154,19 +155,17 @@
                         <input type="checkbox" class="custom-control-input" id="all_day" name="all_day">
                         <label class="custom-control-label" for="all_day"> Mezzo attivo H24</label>
                     </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
-                        <button type="submit" id="invio_post" class="btn btn-primary" style="width: 180px;">Aggiungi mezzo</button>
-                    </div>
-                    
-                </form>
-            
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
+                    <button type="submit" id="invio_post" class="btn btn-primary" style="width: 180px;">Aggiungi mezzo</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- Cancellazione bottone -->
+<!-- Modal Cancellazione bottone -->
 <div class="modal fade" id="mezzo_canc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -177,28 +176,48 @@
                 <h5 class="modal-title" id="exampleModalLabel">Vuoi veramente eliminare il mezzo?</h5>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">NO</button>
-            <button type="button" id="cancella_mezzo" class="btn btn-primary w-25">SI</button>
+                <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">NO</button>
+                <button type="button" id="cancella_mezzo" class="btn btn-primary w-25">SI</button>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal Logout -->
+<div class="modal fade" id="modal_logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+			</div>
+			<div class="modal-body text-center">
+				<h5 class="modal-title" id="exampleModalLabel">Sei sicuro di voler uscire dall'applicazione?</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary w-25" id="annulla">NO</button>
+				<a href="{% url 'logout' %}" role="button" class="btn btn-primary w-25">
+					SI
+				</a>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-$(document).ready(function () {
-    var token = '{{ csrf_token }}';
-    var id; 
+    $(document).ready(function () {
+        var token = '{{ csrf_token }}';
+        var id; 
 
-    $('input[name="id_mezzo"]').click(function () {
-        id = $(this).val();
-        $('#mezzo_canc').modal('show');
-    });
+        $('input[name="id_mezzo"]').click(function () {
+            id = $(this).val();
+            $('#mezzo_canc').modal('show');
+        });
 
-    $('#invio_post').click(function (e) {
-        e.preventDefault();
-        formData = $('#creazione_mezzo_form').serialize();
+        $('#invio_post').click(function (e) {
+            e.preventDefault();
+            formData = $('#creazione_mezzo_form').serialize();
             $.ajax({
                 headers: {
                     "X-CSRFToken": token,
@@ -216,16 +235,16 @@ $(document).ready(function () {
                             $('#errors').removeAttr('hidden');
                             $("#errors").prepend('<p><strong>'+errors[item]+'</strong></p>');
                         }
-                }
-                else{
-                    window.location = '{% url "gestione_mezzi" %}'
-                }
+                    }
+                    else{
+                        window.location = '{% url "gestione_mezzi" %}'
+                    }
                 },
             });
-      });
+        });
 
-      $('#cancella_mezzo').click(function (e) {
-        e.preventDefault();
+        $('#cancella_mezzo').click(function (e) {
+            e.preventDefault();
             $.ajax({
                 headers: {
                     "X-CSRFToken": token,
@@ -238,12 +257,29 @@ $(document).ready(function () {
                     window.location = '{% url "gestione_mezzi" %}'
                 },
             });
-      });
-});
+        });
+
+        $('#apri').click(function () {
+			$('#modal_logout').modal('show');
+		});
+
+		$('#annulla').click(function () {
+			$('#modal_logout').modal('hide');
+		});
+
+        var g = document.getElementById('nome');
+        g.addEventListener('input', resetMsg );
+
+        function resetMsg(){
+            $('#errors').empty();
+            $('#errors').prop('hidden', true);
+        }
+
+    });
 </script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
 {% endblock %}
 

@@ -9,94 +9,93 @@
 
 {% block content %}
 <div class="container">
-  <div class="container w-30 rounded text-center" id="c" style="width: calc(device-width/2);">
-    <div class="container text-center w-75">
-      <img src="{% static 'img/hciLogo.png' %}" class="w-75 logo mb-4 img-fluid"/>
-    </div>
-    <p class="slogan mb-4">Registrati e fai parte del nostro gruppo!</p>
-    <!-- Form di registrazione -->
-    <form method="post" id="registration_form">
-      {% csrf_token %}
-
-      <!-- Errori nella compilazione del form -->
-      <div class='text-center'>
-        <ul class="alert alert-danger" id='errors' style="list-style: none;" hidden>
-            
-        </ul>
-      </div>
-
-      <!-- Nome e Cognome -->
-      <div class="row mb-4">
-        <div class="col">
-          <div class="form-outline">
-            <input type="text" id="name" class="form-control" name="first_name">
-            <label class="form-label" for="name">Nome</label>
-          </div>
+    <div class="container w-30 rounded text-center" id="c" style="width: calc(device-width/2);">
+        <div class="container text-center w-75">
+            <img src="{% static 'img/hciLogo.png' %}" class="w-75 logo mb-4 img-fluid"/>
         </div>
-        <div class="col">
-          <div class="form-outline">
-            <input type="text" id="last_name" class="form-control" name="last_name">
-            <label class="form-label" for="last_name">Cognome</label>
-          </div>
-        </div>
-      </div>
 
-      <!-- Username -->
-      <div class="form-outline mb-4">
-        <input type="text" id="username" class="form-control" name="username">
-        <label class="form-label" for="username">Username</label>
-      </div>
+        <p class="slogan mb-4">Registrati e fai parte del nostro gruppo!</p>
 
-      <!-- Email -->
-      <div class="form-outline mb-4">
-        <input type="email" id="email" class="form-control" name="email">
-        <label class="form-label" for="email">Email</label>
-      </div>
-      
-      <p>La password deve contenere almeno 8 caratteri:</p>
-      <!-- Password -->
-      <div class="form-outline mb-4">
-        <input id="password1" type=password  class="form-control" name="password1" >
-        <label class="form-label" for="password1">Password</label>
-      </div>
-      <div class="form-outline mb-4">
-        <input id="password2" type=password  class="form-control" name="password2">
-        <label class="form-label" for="password2">Conferma password</label>
-      </div>
+        <form method="post" id="registration_form">
+            {% csrf_token %}
 
-      <!-- Numero Telefono -->
-      <div class="form-outline mb-4">
-        <input type="tel" id="phone" class="form-control" name="phone">
-        <label class="form-label" for="phone">Cellulare</label>
-      </div>
+            <!-- Errori nella compilazione del form -->
+            <div class='text-center'>
+                <ul class="alert alert-danger" id='errors' style="list-style: none;" hidden>
+                    
+                </ul>
+            </div>
 
-      <!-- Associazione -->
-      <div class="form-outline mb-4">
-        <input type="text" id="corporation" class="form-control" name="corporation">
-        <label class="form-label" for="corporation">Associazione</label>
-      </div>
-      
-        <!-- Submit button -->
-      <div class="row">
-          <div class="col-sm-12 text-center p-1">
-              <input class="btn btn-primary w-75" id="invio_post" value="Registrati">
-          </div>
-      </div> 
+            <!-- Nome e Cognome -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="name" class="form-control" name="first_name">
+                        <label class="form-label" for="name">Nome</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="last_name" class="form-control" name="last_name">
+                        <label class="form-label" for="last_name">Cognome</label>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Register buttons -->
-      <div class="text-center mt-2 mb-2">
-        <p>Vuoi annullare la registrazione? <a href="{% url 'home' %}">Torna alla home</a></p>
-      </div>
+            <!-- Username -->
+            <div class="form-outline mb-4">
+                <input type="text" id="username" class="form-control" name="username">
+                <label class="form-label" for="username">Username</label>
+            </div>
+
+            <!-- Email -->
+            <div class="form-outline mb-4">
+                <input type="email" id="email" class="form-control" name="email">
+                <label class="form-label" for="email">Email</label>
+            </div>
           
-    </form>
-  </div>
+            <!-- Password -->
+            <p>La password deve contenere almeno 8 caratteri:</p>
+            <div class="form-outline mb-4">
+                <input id="password1" type=password  class="form-control" name="password1" >
+                <label class="form-label" for="password1">Password</label>
+            </div>
+            <div class="form-outline mb-4">
+                <input id="password2" type=password  class="form-control" name="password2">
+                <label class="form-label" for="password2">Conferma password</label>
+            </div>
+
+            <!-- Numero Telefono -->
+            <div class="form-outline mb-4">
+                <input type="tel" id="phone" class="form-control" name="phone">
+                <label class="form-label" for="phone">Cellulare</label>
+            </div>
+
+            <!-- Associazione -->
+            <div class="form-outline mb-4">
+                <input type="text" id="corporation" class="form-control" name="corporation">
+                <label class="form-label" for="corporation">Associazione</label>
+            </div>
+          
+            <!-- Submit button -->
+            <div class="row">
+                <div class="col-sm-12 text-center p-1">
+                    <input class="btn btn-primary w-75" id="invio_post" value="Registrati">
+                </div>
+            </div> 
+
+            <!-- Register buttons -->
+            <div class="text-center mt-2 mb-2">
+                <p>Vuoi annullare la registrazione? <a href="{% url 'home' %}">Torna alla home</a></p>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
 
-
 {% block scripts %}
 <script>
-$(document).ready(function () {
+  $(document).ready(function () {
     var token = '{{ csrf_token }}';
 
     $('#invio_post').click(function (e) {
@@ -126,11 +125,10 @@ $(document).ready(function () {
                 },
             });
       });
-
-});
+  });
 </script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
 {% endblock %}

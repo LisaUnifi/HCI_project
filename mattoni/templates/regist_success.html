@@ -9,27 +9,23 @@
 
 {% block content %}
 <div class="container">
-  <!-- Contenuto principale -->
-  <div class="container w-30 rounded" style="width: calc(device-width/2); margin-top: 15vh;">
-    <div class="row">
-      <div class="col-sm-12 text-center p-3">
-        <img src="{% static 'img/logoHCI.png' %}" class="rounded" alt="Covid" style="height: 30vh">    
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 text-center p-3">
-        <p class="display-3"><strong>Mattoni 2.0</strong></p>    
-        <h4 class="text-gray">Registrazione avvenuta con successo!</h4>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 text-center p-1">
-        <a href="{% url 'home' %}" class="btn btn-primary w-50 btn-lg" role="button">Ritorna alla Home</a>
-      </div>
-    </div>
-    
-  </div>
+	<div class="container w-30 rounded" style="width: calc(device-width/2); margin-top: 15vh;">
+		<div class="row">
+			<div class="col-sm-12 text-center p-3">
+				<img src="{% static 'img/logoHCI.png' %}" class="rounded" alt="Covid" style="height: 30vh">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 text-center p-3">
+				<p class="display-3"><strong>Mattoni 2.0</strong></p>
+				<h4 class="text-gray">Registrazione avvenuta con successo!</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 text-center p-1">
+				<a href="{% url 'home' %}" class="btn btn-primary w-50 btn-lg" role="button">Ritorna alla Home</a>
+			</div>
+		</div>
+	</div>
 </div>
-
-
 {% endblock %}

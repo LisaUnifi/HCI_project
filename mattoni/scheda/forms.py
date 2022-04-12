@@ -5,15 +5,9 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationFor
 from .models import Mezzo, Missione, Scheda, TestaPiedi
 
 
-
-
 MyUser = get_user_model()
 
 class RegisterForm(forms.ModelForm):
-    """
-    The default 
-
-    """
 
     password = forms.CharField(widget=forms.PasswordInput)
     password_2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
@@ -24,9 +18,7 @@ class RegisterForm(forms.ModelForm):
         fields = ['username']
 
     def clean_username(self):
-        '''
-        Verify username is available.
-        '''
+        # verifica disponibilità username 
         username = self.cleaned_data.get('username')
         qs = MyUser.objects.filter(username=username)
         if qs.exists():
@@ -34,9 +26,7 @@ class RegisterForm(forms.ModelForm):
         return username
 
     def clean_email(self):
-        '''
-        Verify email is available.
-        '''
+        # verifica disponibilità della email
         email = self.cleaned_data.get('email')
         qs = MyUser.objects.filter(email=email)
         if qs.exists():
@@ -44,9 +34,7 @@ class RegisterForm(forms.ModelForm):
         return email
 
     def clean(self):
-        '''
-        Verify both passwords match.
-        '''
+        # verifica se le password inserite sono uguali
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         password_2 = cleaned_data.get("password_2")
@@ -56,10 +44,7 @@ class RegisterForm(forms.ModelForm):
 
 
 class UserAdminCreationForm(forms.ModelForm):
-    """
-    A form for creating new users. Includes all the required
-    fields, plus a repeated password.
-    """
+
     password = forms.CharField(widget=forms.PasswordInput)
     password_2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
 
@@ -68,9 +53,7 @@ class UserAdminCreationForm(forms.ModelForm):
         fields = ['username']
 
     def clean(self):
-        '''
-        Verify both passwords match.
-        '''
+        # verifica se le password inserite sono uguali
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         password_2 = cleaned_data.get("password_2")
@@ -79,7 +62,7 @@ class UserAdminCreationForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, commit=True):
-        # Save the provided password in hashed format
+        # salvataggio password in formato hash
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
         if commit:
@@ -121,11 +104,8 @@ class UserChangePass(PasswordChangeForm):
 
 
 class UserRegistrationForm(UserCreationForm):
-    """
-    Registration Form
-    """
-
-
+    
+    # form di registrazione 
     first_name = forms.CharField(required=True, max_length=30, label='first_name')
     last_name = forms.CharField(required=True, max_length=30, label='last_name')
     password1 = forms.CharField(required=True, label='password1')
@@ -152,9 +132,7 @@ class UserRegistrationForm(UserCreationForm):
 
 
     def clean_username(self):
-        '''
-        Verify username is available.
-        '''
+        # verifica disponibilità username 
         username = self.cleaned_data.get('username')
         qs = MyUser.objects.filter(username=username)
         if qs.exists():
@@ -162,9 +140,7 @@ class UserRegistrationForm(UserCreationForm):
         return username
 
     def clean_email(self):
-        '''
-        Verify email is available.
-        '''
+        # verifica disponibilità della email
         email = self.cleaned_data.get('email')
         qs = MyUser.objects.filter(email=email)
         if qs.exists():
@@ -172,9 +148,7 @@ class UserRegistrationForm(UserCreationForm):
         return email
 
     def clean_password2(self):
-        '''
-        Verify both passwords match.
-        '''
+        # verifica se le password inserite sono uguali
         cleaned_data = super().clean()
         password1 = cleaned_data.get("password1")
         password2 = cleaned_data.get("password2")
@@ -183,20 +157,16 @@ class UserRegistrationForm(UserCreationForm):
         return password2
 
     def clean(self):
-        '''
-        Verify both passwords match.
-        '''
+        # verifica se la password ha almeno 8 caratteri 
         cleaned_data = super().clean()
         password1 = cleaned_data.get("password1")
-        if len(password1) < 8 :
+        if password1 is not None and len(password1) < 8 :
             self.add_error("password1", "La password deve contenere almeno 8 caratteri!")
         return cleaned_data
 
 
 class MezziCreationForm(forms.ModelForm):
-    """
-        Creazione mezzi
-    """
+    # form creazione mezzi
 
     class Meta:
         model = Mezzo
@@ -208,9 +178,7 @@ class MezziCreationForm(forms.ModelForm):
         self.fields['tipologia'].error_messages = {'required':'Tipologia del mezzo richiesta!'}
 
     def clean_nome(self):
-        '''
-        Verify nome is available.
-        '''
+        # verifica se il mezzo è già in uso da un qualsiasi utente
         nome = self.cleaned_data.get('nome')
         qs = Mezzo.objects.filter(nome=nome)
         if qs.exists():
@@ -220,12 +188,6 @@ class MezziCreationForm(forms.ModelForm):
 
 
 class MissionCreationForm(forms.ModelForm):
-    """
-        Creazione missioni
-
-        , 'invio'
-    """
-
     class Meta:
         model = Missione
         fields = ['nome_p','cognome_p','luogo','patologia','criticita',
@@ -247,9 +209,6 @@ class MissionCreationForm(forms.ModelForm):
 
 
 class UserModificaForm(forms.ModelForm):
-    """
-    Registration Form
-    """
 
     first_name = forms.CharField(required=True, max_length=30, label='first_name')
     last_name = forms.CharField(required=True, max_length=30, label='last_name')
@@ -268,24 +227,19 @@ class UserModificaForm(forms.ModelForm):
         self.fields['last_name'].error_messages = {'required':'Cognome utente richiesto!'}
         self.fields['email'].error_messages = {'required':'Email richiesta!'}
         self.fields['phone'].error_messages = {'required':'Numero di cellulare richiesto!'}
-        self.fields['corporation'].error_messages = {'required':'Associazione di appartenenza richiesa!'}
+        self.fields['corporation'].error_messages = {'required':'Associazione di appartenenza richiesta!'}
         
 
     def clean_username(self):
-            '''
-            Verify username is available.
-            '''
-            username = self.cleaned_data.get('username')
-            qs = MyUser.objects.filter(username=username)
-            if qs.exists() and self.instance.username!=username:
-                raise forms.ValidationError("Username già preso!")
-            return username
+        # verifica se lo username è disponibile 
+        username = self.cleaned_data.get('username')
+        qs = MyUser.objects.filter(username=username)
+        if qs.exists() and self.instance.username!=username:
+            raise forms.ValidationError("Username già preso!")
+        return username
 
 
 class SchedaMissioneForm(forms.ModelForm):
-    """
-    Registration Form
-    """
 
     class Meta:
         model = Scheda
@@ -298,14 +252,7 @@ class SchedaMissioneForm(forms.ModelForm):
             'pasto', 'note', 'respiraBLS', 'circoloBLS', 'dae', 'cicli',
         ]
 
-    '''
-    def clean_testa_piedi(self):
-            
-            testa_piedi = self.instance.testa_piedi
-            return testa_piedi
-    '''
     
-
 
 class MissioneModificaForm(forms.ModelForm):
 

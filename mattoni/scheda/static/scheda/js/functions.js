@@ -1,4 +1,4 @@
 //functions
 $(document).ready(function () {    
-    $('#mezzi').selectpicker();
+    $('.selectpicker').selectpicker();
   });

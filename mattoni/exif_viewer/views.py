@@ -1,18 +1,12 @@
-from django.shortcuts import get_object_or_404, render, redirect, reverse
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.views.generic import ListView
-from .forms import ExifForm, AlbumForm, MapsForm
-from django.conf import settings
-from django.contrib import messages 
-
-import os
-import matplotlib.pyplot as plt
 from exif import Image as eim
 from PIL import Image as pim
-
+import matplotlib.pyplot as plt
 import webbrowser
+import os
 
-
+from .forms import ExifForm, AlbumForm, MapsForm
 from .models import Album, ExifImage
 
 
@@ -20,20 +14,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def exif(request):
-    ''' CAPIRE COME PASSARE ID DELL'ALBUM '''
-    if request.GET.get('id'):
-        id = Album.objects.get(id = request.GET.get('id'))
-        img = ExifImage.objects.filter(album=id)
-        album = Album.objects.all()
-        data = {}
-        data['status'] = 'success'
-        return JsonResponse(data)
-        ''' CAPIRE COME PASSARE OGGETTI: FORSE HTTPRESPONSEREDIRECT? '''
-    else:
-        img = ExifImage.objects.all()
-        album = Album.objects.all()
-        template_name = 'exif.html'
-        return render(request, template_name, context={'image':img, 'album': album})
+    img = ExifImage.objects.all()
+    album = Album.objects.all()
+    template_name = 'exif.html'
+    request.session['filter'] = 'all'
+    return render(request, template_name, context={'image':img, 'album': album})
 
 
 def delete_img(request):
@@ -52,7 +37,6 @@ def cancella_album(request):
         return JsonResponse({})
 
 
-''' VALUTARE SE COMPLETARE CALCOLO EXIF CON ALTRA LIBRERIA '''
 def exif_image(img):
     path = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
     folder = os.path.join(path, img)
@@ -101,43 +85,93 @@ def RED(R): return '#%02x%02x%02x'%(R,0,0)
 def GREEN(G): return '#%02x%02x%02x'%(0,G,0)
 def BLUE(B):return '#%02x%02x%02x'%(0,0,B)
 
-def image_histogram(img):
-    path = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
-    spath = os.path.join(BASE_DIR, 'scheda/static/scheda/histogram')
-    folder = os.path.join(path, img)
-    image = pim.open(folder)
-    histogram = image.histogram()
-    l1 = histogram[0:256]
-    l2 = histogram[256:512]
-    l3 = histogram[512:768]
-    plt.figure(0)
-    for i in range(0, 256):
-        plt.bar(i, l1[i], color = RED(i), edgecolor=RED(i), alpha=0.3)
-    plt.savefig(os.path.join(spath, 'red.png'))
-    plt.figure(1)
-    for i in range(0, 256):
-        plt.bar(i, l2[i], color = GREEN(i), edgecolor=GREEN(i),alpha=0.3)
-    plt.savefig(os.path.join(spath, 'green.png'))
-    plt.figure(2)
-    for i in range(0, 256):
-        plt.bar(i, l3[i], color = BLUE(i), edgecolor=BLUE(i),alpha=0.3)
-    plt.savefig(os.path.join(spath, 'blue.png'))
+
+def histogram_red(request):
+    if request.method == 'GET':
+        selected = ExifImage.objects.get(id=request.GET.get('id'))
+        img = str(selected.img)
+        path = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
+        spath = os.path.join(BASE_DIR, 'scheda/static/scheda/histogram/red')
+        folder = os.path.join(path, img)
+        image = pim.open(folder)
+        histogram = image.histogram()
+        l1 = histogram[0:256]
+        plt.figure()
+        for i in range(0, 256):
+            plt.bar(i, l1[i], color = RED(i), edgecolor=RED(i), alpha=0.3)
+        img = img.replace('exif/', '')
+        plt.savefig(os.path.join(spath, img))
+        data = {}
+        data['status'] = 'success'
+        data['histo'] = 'scheda/histogram/red/' + img
+        return JsonResponse(data)
 
 
-''' FIXA CHANGE IMAGE PERCHé FA SCOMPARIRE IL FILTRO '''
+def histogram_blue(request):
+    if request.method == 'GET':
+        selected = ExifImage.objects.get(id=request.GET.get('id'))
+        img = str(selected.img)
+        path = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
+        spath = os.path.join(BASE_DIR, 'scheda/static/scheda/histogram/blue')
+        folder = os.path.join(path, img)
+        image = pim.open(folder)
+        histogram = image.histogram()
+        l1 = histogram[512:768]
+        plt.figure()
+        for i in range(0, 256):
+            plt.bar(i, l1[i], color = BLUE(i), edgecolor=BLUE(i), alpha=0.3)
+        img = img.replace('exif/', '')
+        plt.savefig(os.path.join(spath, img))
+        data = {}
+        data['status'] = 'success'
+        data['histo'] = 'scheda/histogram/blue/' + img
+        return JsonResponse(data)
+
+
+def histogram_green(request):
+    if request.method == 'GET':
+        selected = ExifImage.objects.get(id=request.GET.get('id'))
+        img = str(selected.img)
+        path = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
+        spath = os.path.join(BASE_DIR, 'scheda/static/scheda/histogram/green')
+        folder = os.path.join(path, img)
+        image = pim.open(folder)
+        histogram = image.histogram()
+        l1 = histogram[256:512]
+        plt.figure()
+        for i in range(0, 256):
+            plt.bar(i, l1[i], color = GREEN(i), edgecolor=GREEN(i), alpha=0.3)
+        img = img.replace('exif/', '')
+        plt.savefig(os.path.join(spath, img))
+        data = {}
+        data['status'] = 'success'
+        data['histo'] = 'scheda/histogram/green/' + img
+        return JsonResponse(data)
+
+
 def change_image(request, pk):
     if request.method == 'GET':
         selected = ExifImage.objects.get(id=pk)
         exif, lat, lon = exif_image(str(selected.img))
         otherexif = exif_extract(str(selected.img))
-        #image_histogram(str(selected.img))
         numero = len(exif)
         sel = str(selected.img.url)
         url = sel.replace('/media/exif/', '')
-        img = ExifImage.objects.all()
+        
+        if request.session['filter'] == 'all':
+            img = ExifImage.objects.all()
+        else:
+            id = Album.objects.get(id=request.session['filter'])
+            img = ExifImage.objects.filter(album=id)
         album = Album.objects.all()
         template_name = 'exif.html'
         return render(request, template_name, context={'image': img, 'album': album, 'selected': selected, 'url': url, 'exif': exif, 'lat': lat, 'lon': lon, 'other': otherexif, 'numero': numero})
+
+
+def filter(request):
+    if request.method == 'GET':
+        request.session['filter'] = request.GET.get('id')
+        return JsonResponse({})
 
 
 def next_image(request):
@@ -191,7 +225,6 @@ def carica_img(request):
             
             selected = ExifImage.objects.get(id=img.id)
             exif, lat, lon = exif_image(str(selected.img))
-            #image_histogram(str(selected.img))
             numero = len(exif)
             sel = str(selected.img.url)
             url = sel.replace('/media/exif/', '')
@@ -230,15 +263,6 @@ def geolocalizzazione(request):
             return JsonResponse(data)
         else:
             return redirect('exif')
-
-
-def filter_image(request, pk):
-    if request.method == 'GET':
-        id = Album.objects.get(id=pk)
-        img = ExifImage.objects.filter(album=id)
-        album = Album.objects.all()
-        template_name = 'exif.html'
-        return render(request, template_name, context={'image':img, 'album': album})
 
 
 def nuovo_album(request):
