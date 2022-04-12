@@ -1437,6 +1437,13 @@
 
 
       
+
+      $('.datepicker').on('changeDate show', function(e) {
+        // Revalidate the date when user change it
+        $('#myForm').bootstrapValidator('revalidateField', 'endDate');
+    });
+
+      
     
 });
 </script>

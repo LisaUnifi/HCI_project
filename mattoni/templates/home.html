@@ -9,225 +9,266 @@
 
 {% block content %}
 <div class="container">
-  <div class="container d-flex justify-content-end" style="position: absolute; right: 0; top: 0;">
-    <button id="cambia_tema" class="btn btn-info mt-3 ms-0 me-3">Tema</button>
-    <a role="button" class="btn btn-info mt-3 ms-0 me-3" onclick="test()">Usability Test</a>
-  </div>
-  <!-- Contenuto principale -->
-  <div class="container w-30 rounded" id="c" style="margin-top: 15vh;">
-    <div class="row">
-      <div class="col-12 text-center p-3">
-        <img src="{% static 'img/logoHCI.png' %}" class="rounded" alt="Covid" style="height: 30vh">    
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 text-center p-3">
-        <p class="display-3"><strong>Mattoni 2.0</strong></p>    
-        <h4 class="text-gray">Scheda di intervento locale in emergenza</h4>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 text-center mb-2">
-        <a href="{% url 'loginpage' %}" class="btn btn-primary btn-lg w-50" role="button">Log In</a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 text-center mb-2">
-        <a href="{% url 'registration_user' %}" class="btn btn-secondary btn-lg w-50" role="button">Registrati</a>
-      </div>
-    </div>
-  </div>
+	<div class="container d-flex justify-content-end" style="position: absolute; right: 0; top: 0;">
+		<button id="cambia_tema" class="btn btn-info mt-3 ms-0 me-3">Tema</button>
+		<a role="button" class="btn btn-info mt-3 ms-0 me-3" onclick="test()">Usability Test</a>
+	</div>
+	<!-- Contenuto principale -->
+	<div class="container w-30 rounded" id="c" style="margin-top: 15vh;">
+		<div class="row">
+			<div class="col-12 text-center p-3">
+				<img src="{% static 'img/logoHCI.png' %}" class="rounded" alt="Covid" style="height: 30vh">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-center p-3">
+				<p class="display-3"><strong>Mattoni 2.0</strong></p>
+				<h4 class="text-gray">Scheda di intervento locale in emergenza</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-center mb-2">
+				<a href="{% url 'loginpage' %}" class="btn btn-primary btn-lg w-50" role="button">Log In</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-center mb-2">
+				<a href="{% url 'registration_user' %}" class="btn btn-secondary btn-lg w-50"
+					role="button">Registrati</a>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Modal Tema -->
 <div class="modal fade" id="modal_tema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Personalizza la tua pagina</h5>
-              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form class="text-center" id="form_tema" method="get"> 
-            {% csrf_token %}
-              <div class="modal-body">
-                  <p class="slogan">Scegli il tema che preferisci</p>
-                  <input type="radio" class="btn-check" id="tema_1" name="theme" value="tema_1">
-                  <label class="btn w-25" for="tema_1">
-                    <div class="row mt-2">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #1b6f6d;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #73a09b;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #9dacaf;"> </div>
-                      </div>
-                    </div>
-                  </label>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Personalizza la tua pagina</h5>
+				<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form class="text-center" id="form_tema" method="get">
+				{% csrf_token %}
+				<div class="modal-body">
+					<p class="slogan">Scegli il tema che preferisci</p>
+					<input type="radio" class="btn-check" id="tema_1" name="theme" value="tema_1">
+					<label class="btn w-25" for="tema_1">
+						<div class="row mt-2">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #1b6f6d;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #73a09b;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #9dacaf;">
+								</div>
+							</div>
+						</div>
+					</label>
 
-                  <input type="radio" class="btn-check" id="tema_2" name="theme" value="tema_2">
-                  <label class="btn w-25" for="tema_2">
-                    <div class="row mt-2">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #435922;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #698c35;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #1f4373;"> </div>
-                      </div>
-                    </div>
-                  </label>
+					<input type="radio" class="btn-check" id="tema_2" name="theme" value="tema_2">
+					<label class="btn w-25" for="tema_2">
+						<div class="row mt-2">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #435922;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #698c35;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #1f4373;">
+								</div>
+							</div>
+						</div>
+					</label>
 
-                  <input type="radio" class="btn-check" id="tema_3" name="theme" value="tema_3">
-                  <label class="btn w-25" for="tema_3">
-                    <div class="row mt-2">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #93b7bf;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #c1d4d9;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #593954;"> </div>
-                      </div>
-                    </div>
-                  </label>
+					<input type="radio" class="btn-check" id="tema_3" name="theme" value="tema_3">
+					<label class="btn w-25" for="tema_3">
+						<div class="row mt-2">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #93b7bf;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #c1d4d9;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #593954;">
+								</div>
+							</div>
+						</div>
+					</label>
 
-                  <input type="radio" class="btn-check" id="tema_4" name="theme" value="tema_4">
-                  <label class="btn w-25" for="tema_4">
-                    <div class="row mt-2">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #f2b705;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #f2e205;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #7c1b79;"> </div>
-                      </div>
-                    </div>
-                  </label>
+					<input type="radio" class="btn-check" id="tema_4" name="theme" value="tema_4">
+					<label class="btn w-25" for="tema_4">
+						<div class="row mt-2">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #f2b705;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #f2e205;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #7c1b79;">
+								</div>
+							</div>
+						</div>
+					</label>
 
-                  <input type="radio" class="btn-check" id="tema_5" name="theme" value="tema_5">
-                  <label class="btn w-25" for="tema_5">
-                    <div class="row mt-2">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #474073;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #8f8ebf;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #2e4159;"> </div>
-                      </div>
-                    </div>
-                  </label>
+					<input type="radio" class="btn-check" id="tema_5" name="theme" value="tema_5">
+					<label class="btn w-25" for="tema_5">
+						<div class="row mt-2">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #474073;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #8f8ebf;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #2e4159;">
+								</div>
+							</div>
+						</div>
+					</label>
 
-                  <input type="radio" class="btn-check" id="tema_6" name="theme" value="tema_6">
-                  <label class="btn w-25" for="tema_6">
-                    <div class="row mt-2">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #a60a33;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #bc4960;"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="badge" style="width: 6rem; height: 2rem; background-color: #0e7373;"> </div>
-                      </div>
-                    </div>
-                  </label>
+					<input type="radio" class="btn-check" id="tema_6" name="theme" value="tema_6">
+					<label class="btn w-25" for="tema_6">
+						<div class="row mt-2">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #a60a33;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #bc4960;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="badge"
+									style="width: 6rem; height: 2rem; background-color: #0e7373;">
+								</div>
+							</div>
+						</div>
+					</label>
 
-              </div>
-              <div class="modal-footer mt-4">
-                  <button type="button" class="btn btn-secondary w-25" data-mdb-dismiss="modal">Annulla</button>
-                  <button type="submit" id="dati_tema" class="btn btn-primary w-25">Conferma</button>
-              </div>
-                  
-          </form>
-          
-      </div>
-    </div>
+				</div>
+				<div class="modal-footer mt-4">
+					<button type="button" class="btn btn-secondary w-25"
+						data-mdb-dismiss="modal">Annulla</button>
+					<button type="submit" id="dati_tema" class="btn btn-primary w-25">Conferma</button>
+				</div>
+
+			</form>
+
+		</div>
+	</div>
 </div>
 {% endblock %}
 
 {% block footer %}
 <footer class="page-footer font-small w-100 pt-4" style="position: fixed; bottom: 0px;">
-  <div class="container-fluid text-center text-md-left">
-    <div class="row">
-      <div class="col-12 mt-md-0 mt-3">
-        <!-- GitHub -->
-        <a role="button" class="font-weight-bold btn btn-info" onclick="github()">GitHub <i class="fab fa-github"></i> </a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-copyright text-center py-3">
-    <p>© 2022 Copyright: <a href="{% url 'exif' %}" class="text-decoration-none" style="color: var(--bs-info);"><strong>Lisa Cresti</strong></a><a href="{% url 'gol' %}" class="text-decoration-none" style="color: var(--bs-info);"><strong> & Lorenzo Caselli</strong></p></a>
-  </div>
+	<div class="container-fluid text-center text-md-left">
+		<div class="row">
+			<div class="col-12 mt-md-0 mt-3">
+				<!-- GitHub -->
+				<a role="button" class="font-weight-bold btn btn-info" onclick="github()">GitHub <i
+						class="fab fa-github"></i> </a>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright text-center py-3">
+		<p>© 2022 Copyright: <a href="{% url 'exif' %}" class="text-decoration-none"
+				style="color: var(--bs-info);"><strong>Lisa Cresti</strong></a><a href="{% url 'gol' %}"
+				class="text-decoration-none" style="color: var(--bs-info);"><strong> & Lorenzo Caselli</strong>
+		</p></a>
+	</div>
 </footer>
 {% endblock %}
 
 {% block scripts %}
 <script>
-  function github () {
-    window.open('https://github.com/LisaUnifi/HCI_project').focus();
-  };
+	function github() {
+		window.open('https://github.com/LisaUnifi/HCI_project').focus();
+	};
 
-  function test () {
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSei1-KxRFB4sA4nVLF2FQ6o7zKAA5VyyBdYlviGgLJ8aJl8ag/viewform?usp=sf_link').focus();
-  };
+	function test() {
+		window.open('https://docs.google.com/forms/d/e/1FAIpQLSei1-KxRFB4sA4nVLF2FQ6o7zKAA5VyyBdYlviGgLJ8aJl8ag/viewform?usp=sf_link').focus();
+	};
 
 
 
-$(document).ready(function () {
-  var token = '{{ csrf_token }}';
+	$(document).ready(function () {
+		var token = '{{ csrf_token }}';
 
-  $('#dati_tema').click(function (e) {
-      e.preventDefault();
-      formData = $('#form_tema').serialize();
-          $.ajax({
-              headers: {
-                  "X-CSRFToken": token,
-              },
-              url: '{% url "change_theme" %}',
-              dataType: 'json', 
-              type: 'GET',
-              data: formData,
-              success: function (result) {
-                  window.location = '{% url "home" %}'
-              },
-          });
-    });
+		$('#dati_tema').click(function (e) {
+			e.preventDefault();
+			formData = $('#form_tema').serialize();
+			$.ajax({
+				headers: {
+					"X-CSRFToken": token,
+				},
+				url: '{% url "change_theme" %}',
+				dataType: 'json',
+				type: 'GET',
+				data: formData,
+				success: function (result) {
+					window.location = '{% url "home" %}'
+				},
+			});
+		});
 
-});
+	});
 </script>
 <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}
-

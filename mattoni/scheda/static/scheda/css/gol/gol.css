@@ -2,6 +2,10 @@ body {
     background-color: lightgray;
 }
 
+.display-2 {
+    color: white;
+}
+
 #canvas_div {
     position: relative;
     padding:0px;
