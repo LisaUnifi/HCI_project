@@ -416,8 +416,8 @@ class View {
         this.grid_ctx.fillRect(0,0,this.width,this.height);
 
 
-        this.colors = ["rgb(1, 219, 255)","rgb(1, 185, 255)",
-                        "rgb(1, 95, 255)", "rgb(1, 0, 255)", "rgb(186, 0, 255)",
+        this.colors = ["rgb(1, 0, 255)","rgb(1, 95, 255)","rgb(1, 185, 255)","rgb(1, 219, 255)",
+                          "rgb(186, 0, 255)",
                         "rgb(185, 0, 132)", "rgb(255, 87, 0)", "rgb(255, 49, 0)", "rgb(255, 3, 0)","rgb(255, 0, 0)"
                     ]
 
