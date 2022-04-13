@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // GESTIONE IMMAGINI 
+    // INFO HOTKEYS 
     $('#settings').click(function (e) {
         $('#modal_settings').modal('show');
     });

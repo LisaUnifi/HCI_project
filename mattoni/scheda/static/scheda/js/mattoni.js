@@ -31,10 +31,15 @@ $(document).ready(function () {
     });
 
     $('#circoloBLS_si').click(function () {
+        if($('#respiraBLS_si').prop('checked')){
+            $('#msg_respiro').prop('hidden', true);
+        }
+        else{
+            $('#msg_respiro').prop('hidden', false);
+        }
         $('#msg_cicli').prop('disabled', true);
         $('#plus').prop('disabled', true);
         $('#minus').prop('disabled', true);
-        $('#msg_respiro').prop('hidden', false);
         $('#msg_circolo').prop('hidden', true);
     });
     $('#circoloBLS_no').click(function () {

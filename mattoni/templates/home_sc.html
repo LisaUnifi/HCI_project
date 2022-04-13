@@ -38,21 +38,15 @@
 				{% if mezzi %}
 					<p class="slogan mb-0"><strong>Mezzi associativi attivi H24</strong></p>
 					{% for m in mezzi %}
-						{% if m.all_day %}
 						<div class="row">
 							<div class="col m-2">
-								<input type="radio" class="btn-check btn-lg float-start" name="mezzoscelto" id="{{ m.nome }}"
-									value="{{ m.id_mezzo }}" autocomplete="off">
+								<input type="radio" class="btn-check btn-lg float-start" name="mezzoscelto" id="{{ m.nome }}" value="{{ m.id_mezzo }}" autocomplete="off">
 								<label class="btn btn-primary btn-lg w-50" for="{{ m.nome }}">{{ m.nome }}</label>
 							</div>
 						</div>
-						{% endif %}
 					{% endfor %}
-					<p class="slogan mt-4 mb-0"><strong>Mezzi associativi estemporanei</strong></p>
-					{% if not mezzitemp %}
-						<p class="slogan mt-2 mb-0 ms-4 me-4">Ancora non sono stati inseriti mezzi estemporanei.</p>
-						<p class="slogan mb-0 ms-4 me-4">Per aggiungerli vai su <a href="{% url 'gestione_mezzi' %}" class="text-decoration-none" style="color: var(--bs-info);"><strong>GESTIONE MEZZI</strong></a></p>
-					{% else %}
+					{% if mezzitemp %}
+						<p class="slogan mt-4 mb-0"><strong>Mezzi associativi estemporanei</strong></p>
 						{% for m in mezzitemp %}
 						<div class="row">
 							<div class="col m-2">
@@ -62,10 +56,30 @@
 							</div>
 						</div>
 						{% endfor %}
+					{% else %}
+						<p class="slogan mt-4 mb-0"><strong>Mezzi associativi estemporanei</strong></p>
+						<p class="slogan mt-2 mb-0 ms-4 me-4">Ancora non sono stati inseriti mezzi estemporanei.</p>
+						<p class="slogan mb-0 ms-4 me-4">Per aggiungerli vai su <a href="{% url 'gestione_mezzi' %}" class="text-decoration-none" style="color: var(--bs-info);"><strong>GESTIONE MEZZI</strong></a></p>
 					{% endif %}
 				{% else %}
-				<p class="slogan mb-0">Non sono ancora presenti mezzi associativi.</p>
-				<p class="slogan mb-0">Per crearne di nuovi vai in <a href="{% url 'gestione_mezzi' %}" class="text-decoration-none" style="color: var(--bs-info);"><strong>GESTIONE MEZZI</strong></a></p>
+					{% if mezzitemp %}
+						<p class="slogan mt-4 mb-0"><strong>Mezzi associativi attivi H24</strong></p>
+						<p class="slogan mt-2 mb-0 ms-4 me-4">Ancora non sono stati inseriti mezzi attivi H24.</p>
+						<p class="slogan mb-0 ms-4 me-4">Per aggiungerli vai su <a href="{% url 'gestione_mezzi' %}" class="text-decoration-none" style="color: var(--bs-info);"><strong>GESTIONE MEZZI</strong></a></p>
+						<p class="slogan mt-4 mb-0"><strong>Mezzi associativi estemporanei</strong></p>
+						{% for m in mezzitemp %}
+						<div class="row">
+							<div class="col m-2">
+								<input type="radio" class="btn-check btn-lg float-start" name="mezzoscelto" id="{{ m.nome }}"
+									value="{{ m.id_mezzo }}" autocomplete="off">
+								<label class="btn btn-secondary btn-lg w-50" for="{{ m.nome }}">{{ m.nome }}</label>
+							</div>
+						</div>
+						{% endfor %}
+					{% else %}
+						<p class="slogan mb-0">Non sono ancora presenti mezzi associativi.</p>
+						<p class="slogan mb-0">Per crearne di nuovi vai in <a href="{% url 'gestione_mezzi' %}" class="text-decoration-none" style="color: var(--bs-info);"><strong>GESTIONE MEZZI</strong></a></p>
+					{% endif %}
 				{% endif %}
 			</div>
 

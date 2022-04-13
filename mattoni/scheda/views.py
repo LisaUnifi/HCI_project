@@ -75,10 +75,13 @@ class HomeSocieta(generic.View):
         template_name = 'home_sc.html'
         mezzi = Mezzo.objects.filter(username=request.user.id)
         mezzitemp = []
+        mezziday = []
         for m in mezzi:
             if m.all_day == False:
                 mezzitemp.append(m)
-        return render(request, template_name, context={'mezzi':mezzi,'mezzitemp':mezzitemp})
+            else:
+                mezziday.append(m)
+        return render(request, template_name, context={'mezzi':mezziday,'mezzitemp':mezzitemp})
 
 
 class GestioneMezzi(generic.View):

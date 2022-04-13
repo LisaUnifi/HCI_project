@@ -177,7 +177,11 @@ def filter(request):
 def next_image(request):
     if request.method == 'GET':
         data={}
-        img = ExifImage.objects.all()
+        if request.session['filter'] == 'all':
+            img = ExifImage.objects.all()
+        else:
+            id = Album.objects.get(id=request.session['filter'])
+            img = ExifImage.objects.filter(album=id)
         j = 0
         pk = -1
         val = int(request.GET.get('id'))
@@ -196,7 +200,11 @@ def next_image(request):
 def previous_image(request):
     if request.method == 'GET':
         data={}
-        img = ExifImage.objects.all()
+        if request.session['filter'] == 'all':
+            img = ExifImage.objects.all()
+        else:
+            id = Album.objects.get(id=request.session['filter'])
+            img = ExifImage.objects.filter(album=id)
         j = -1
         pk = -1
         val = int(request.GET.get('id'))

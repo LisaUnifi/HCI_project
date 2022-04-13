@@ -32,32 +32,32 @@
 	</div>
 </nav>
 
-  <div class="container mt-1 mb-auto p-0 w-75 d-flex justify-content-center align-items-center" style="height: 85vh">
-    <div class="row w-100">
-      <div class="col-12 d-flex justify-content-center">
-        <img src="{% static 'img/background_HCI.png' %}" id="bg_img" class="img-fluid mx-auto" >  
-      </div>
-      <div class="col-12 d-flex justify-content-center">
-        <h2><strong>{{request.session.mezzo.nome}}</strong> Operativa</h2>
-      </div>
-      <div class="col-12 d-flex justify-content-center">
-        <p>In attesa di una nuova missione</p>
-          <div class="dot-typing mt-2 m-4">
-            <span class="sr-only">Loading...</span>
-          </div>
-      </div>
-    </div>
-       
-  </div>
+<div class="container mt-1 mb-auto p-0 w-75 d-flex justify-content-center align-items-center" style="height: 85vh">
+	<div class="row w-100">
+		<div class="col-12 d-flex justify-content-center">
+			<img src="{% static 'img/background_HCI.png' %}" id="bg_img" class="img-fluid mx-auto" >  
+		</div>
+		<div class="col-12 d-flex justify-content-center">
+			<h2><strong>{{request.session.mezzo.nome}}</strong> Operativa</h2>
+		</div>
+		<div class="col-12 d-flex justify-content-center">
+			<p>In attesa di una nuova missione</p>
+			<div class="dot-typing mt-2 m-4">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</div>
+	</div>
+</div>
   
-    <div class="position-absolute bottom-0 end-0 m-4">
-      <div class="container p-5">
-        <button type="button" class="btn p-3 btn-primary btn-lg m-2 w-100" style="width: 200px;" data-mdb-toggle="modal" data-mdb-target="#formmissione">
-          Nuova Missione 
-        </button>
-      </div>
-    </div>
-  <!-- Modal -->
+<div class="position-absolute bottom-0 end-0 m-4">
+	<div class="container p-5">
+		<button type="button" class="btn p-3 btn-primary btn-lg m-2 w-100" style="width: 200px;" data-mdb-toggle="modal" data-mdb-target="#formmissione">
+			Nuova Missione 
+		</button>
+	</div>
+</div>
+
+<!-- Modal -->
 <div class="modal fade" id="formmissione" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">

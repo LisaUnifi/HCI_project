@@ -9,3 +9,39 @@
         max-height: 80vh;
     }
 }
+
+.dot-typing {
+    position: relative;
+    left: -9999px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: var(--bs-secondary);
+    color: var(--bs-secondary);
+    box-shadow: 9984px 0 0 0 var(--bs-secondary), 9999px 0 0 0 var(--bs-secondary), 10014px 0 0 0 var(--bs-secondary);
+    animation: dotTyping 1.5s infinite linear;
+  }
+  
+  @keyframes dotTyping {
+    0% {
+      box-shadow: 9984px 0 0 0 var(--bs-secondary), 9999px 0 0 0 var(--bs-secondary), 10014px 0 0 0 var(--bs-secondary);
+    }
+    16.667% {
+      box-shadow: 9984px -10px 0 0 var(--bs-secondary), 9999px 0 0 0 var(--bs-secondary), 10014px 0 0 0 var(--bs-secondary);
+    }
+    33.333% {
+      box-shadow: 9984px 0 0 0 var(--bs-secondary), 9999px 0 0 0 var(--bs-secondary), 10014px 0 0 0 var(--bs-secondary);
+    }
+    50% {
+      box-shadow: 9984px 0 0 0 var(--bs-secondary), 9999px -10px 0 0 var(--bs-secondary), 10014px 0 0 0 var(--bs-secondary);
+    }
+    66.667% {
+      box-shadow: 9984px 0 0 0 var(--bs-secondary), 9999px 0 0 0 var(--bs-secondary), 10014px 0 0 0 var(--bs-secondary);
+    }
+    83.333% {
+      box-shadow: 9984px 0 0 0 var(--bs-secondary), 9999px 0 0 0 var(--bs-secondary), 10014px -10px 0 0 var(--bs-secondary);
+    }
+    100% {
+      box-shadow: 9984px 0 0 0 var(--bs-secondary), 9999px 0 0 0 var(--bs-secondary), 10014px 0 0 0 var(--bs-secondary);
+    }
+  }
