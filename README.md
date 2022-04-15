@@ -7,6 +7,7 @@
 
 ## Table of Contents
 * [General Info](#general-information)
+* [Installation](#installation)
 * [Tools and Techniques](#tools-and-techniques)
 * [Expected Outcomes](#expected-outcomes)
 * [Summary and Applications](#summary-and-applications )
@@ -18,6 +19,36 @@
 - Studenti: Lisa Cresti e Lorenzo Caselli
 - CFU: 9
 
+
+## Installation
+Il progetto richiede l'installazione preventiva di python nella versione 3.10.0 e di pip.
+
+### Con pip
+Per installare le dependencies in un virtual enviroment di pip, da terminale eseguire:
+```bash
+pip install -r requirements.txt
+```
+Scaricare da GitHub il progetto in locale.
+Da terminale raggiungere la cartella ../HCI_project/mattoni ed eseguire:
+```bash
+python manage.py runserver 0.0.0.0:8000
+
+```
+per aprire il server. Per accedere all'applicativo collegarsi alla url indicata in output.
+
+### Con Anaconda 
+Una volta installata [Anaconda](https://www.anaconda.com/) eseguire:
+```bash
+conda create --name <env> --file requirements.txt
+```
+per creare un conda virtual enviroment con le dependencies richieste.
+Scaricare da GitHub il progetto in locale.
+Da terminale raggiungere la cartella ../HCI_project/mattoni ed eseguire:
+```bash
+python manage.py runserver 0.0.0.0:8000
+
+```
+per aprire il server. Per accedere all'applicativo collegarsi alla url indicata in output.
 
 ## Tools and Techniques
 La scelta di digitalizzare la scheda attraverso la creazione di un applicativo web ci permette di creare un'applicazione che possa essere usata senza la necessità di scaricare o installare particolari applicativi. Questo implica che sia facilmente utilizzabile su tutti i tipi di dispositivi, requisito per noi fondamentale visto che soccorritori e Operatori di Centrale lavorano e comunicano attraverso device diversi, nel primo caso mobili e nel secondo fissi.
