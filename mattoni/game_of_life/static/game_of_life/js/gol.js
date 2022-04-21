@@ -1,5 +1,5 @@
 
-
+//MODEL
 class Grid {
     constructor(rows, columns){
         this.rows = rows;
@@ -38,8 +38,6 @@ class Grid {
             this.createCell(r,c);
         }
         return this.cells[r][c];
-        
-        //se fare altre cose, aggiungere altro
     }
 
 
@@ -94,7 +92,7 @@ class Grid {
    
 
 
-    //afunction that computes which cells will be alive of dead in the next age, also computing the age of each cell
+    //a function that computes which cells will be alive or dead in the next age, also computing the age of each cell
     nextAge(){
         var changed = [];
         var k=0;
@@ -120,8 +118,6 @@ class Grid {
             this.switchCell(changed[i],changed[i+1])
         }
 
-        //pass this to the controller, so that it can change the view...
-        //this could be called directly by the controller when the system is not paused
         return changed;
     }
 
@@ -337,9 +333,9 @@ class Controller {
 
 
 
+
+
 //VIEW, add the logic to make the data passed by the CONTROLLER be visualized correctly
-
-
 
 class View {
     constructor(rows,cols){
@@ -461,8 +457,6 @@ class View {
             this.grid_ctx.moveTo(x + (this.cellspace*i) + (this.cellsize*i), y + 0);
             this.grid_ctx.lineTo(x + (this.cellspace*i) + (this.cellsize*i), y + this.height);
             this.grid_ctx.stroke();
-            //this.grid_ctx.strokeRect(this.cellspace + (this.cellspace*i) + (this.cellsize*i), 0, this.cellsize, this.height);
-            
         }
         for(var i=0;i<this.rows;i++){
             this.grid_ctx.strokeStyle = 'black';
@@ -487,7 +481,7 @@ class View {
     //draw cell in position i,j
     draw_cell(i,j,a=0,x,y){
         if(a){
-            //se alive
+            //if alive
             this.cell_ctx.fillStyle = this.colors[a];
             this.cell_ctx.fillRect(x + (this.cellspace*i) + (this.cellsize*i), y + (this.cellspace*j) + (this.cellsize*j), this.cellsize+1, this.cellsize+1);
             
