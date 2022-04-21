@@ -24,7 +24,7 @@
 Il progetto richiede l'installazione preventiva di python nella versione 3.10.0 e di pip.
 
 ### Con pip
-Per installare le dependencies in un virtual enviroment di pip, da terminale eseguire:
+Per installare le dependencies in un virtual enviroment di pip, da terminale, sulla cartella ../mattoni che contiene requirements.txt eseguire:
 ```bash
 pip install -r requirements.txt
 ```

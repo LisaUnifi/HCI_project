@@ -64,7 +64,11 @@ ROOT_URLCONF = 'mattoni.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< HEAD
         'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'exif_viewer/templates')],
+=======
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'game_of_life/templates')],
+>>>>>>> main
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,6 +126,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'scheda/static/scheda/'),
     os.path.join(BASE_DIR, 'exif_viewer/static/exif_viewer/'),
+    os.path.join(BASE_DIR, 'game_of_life/static/game_of_life/')
 ]
 
 LOGIN_REDIRECT_URL = '/scheda/'

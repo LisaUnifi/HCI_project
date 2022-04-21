@@ -1,6 +1,3 @@
-//MODEL, a 2 dimensional array that has values 0 if cell is dead, 1 if alive. Must implement
-//all the logic to update dinamically the grid and to tell if a cell has the right number of neighbors
-
 
 
 class Grid {
@@ -24,14 +21,12 @@ class Grid {
     //create a cell
     createCell(r,c){
         this.cells[r][c] = 1;
-        //se fare altre cose, aggiungere altro
     }
 
 
     //delete a cell
     deleteCell(r,c){
         this.cells[r][c]=0;
-        //se fare altre cose, aggiungere altro
     }
 
 
@@ -57,7 +52,7 @@ class Grid {
         return sum;
     }
 
-
+    //controls if cell x,y is alive
     isAlive(x, y)
     {
         if (x < 0 || x >= this.columns || y < 0 || y >= this.rows){
@@ -99,7 +94,7 @@ class Grid {
    
 
 
-    //age of cells? do i implement this?
+    //afunction that computes which cells will be alive of dead in the next age, also computing the age of each cell
     nextAge(){
         var changed = [];
         var k=0;
@@ -164,10 +159,10 @@ class Controller {
     }
 
 
-    //user inputs must be controlled here
-
-    //used when click happens inside the canvas. Returns the x and y of the cell clicked
+    //Handlers from here. The interface get the events and they are passed to the controller
+    //Here there are handlers that specify how to react to every event that may arise from the view
     
+    //handles clicks on canvases, to draw cells
     canvasClickHandler = (e) => {
         var pos = this.mousePos(e);
         if(pos[0]){
@@ -179,15 +174,11 @@ class Controller {
         
     }
 
-
+    //function used to specify which cell was clicked using the mouse, to draw 
     mousePos(e){
         var x , y, posx, posy, cellsize=(this.interface.cellsize+1),cellspace=(this.interface.cellspace);
         var initscale = this.interface.initialscale;
         var rect = this.interface.grid.getBoundingClientRect();
-        var scalex = this.interface.scalex;
-        var scaley = this.interface.scaley;
-        var offsetX = this.interface.offsetX;
-        var offsetY = this.interface.offsetY;
         var event = e;
 
 
@@ -213,7 +204,7 @@ class Controller {
     }
 
 
-    
+    //handles the mouse down event on the canvas, to control the canvas panning
     mouseDownHandler = (e) => {
         document.body.style.mozUserSelect = document.body.style.webkitUserSelect = document.body.style.userSelect = 'none';
         //[this.interface.lastX,this.interface.lastY] = this.interface.screen_to_grid(e.offsetX || (e.pageX - this.interface.grid.offsetLeft), e.offsetY || (e.pageY - this.interface.grid.offsetTop);
@@ -223,7 +214,7 @@ class Controller {
         this.interface.dragged = false;
     }
 
-
+    //handles the mouse movement on the canvas, to control the canvas panning
     mouseMoveHandler = (e) => {
         this.interface.lastX = e.offsetX || (e.pageX - this.interface.grid.offsetLeft);
         this.interface.lastY = e.offsetY || (e.pageY - this.interface.grid.offsetTop);
@@ -238,13 +229,13 @@ class Controller {
     }
 
     
-
+     //handles the mouse up event on the canvas, to control the canvas panning
     mouseUpHandler = (e) => {
         this.interface.dragStart = null;
         if (!this.interface.dragged) this.canvasClickHandler(e);
     }
 
-
+    //handles the scroll of the mouse to control the zoom of the interface
     scrollHandler = (e) => {
         var delta = e.wheelDelta ? e.wheelDelta/200 : e.detail ? -e.detail : 0;
         if (delta) this.zoom(delta,e);
@@ -252,15 +243,13 @@ class Controller {
     }
 
     
-
+    //controls how much the zoom must be, relative to the scroll that is used with the mouse
     zoom(clicks,e){
-        //var pt = this.interface.grid_ctx.transformedPoint(this.interface.lastX, this.interface.lastY);
-        //var gp = this.interface.grid_ctx.transformedPoint(this.interface.offsetX, this.interface.offsetY);
         let MAX_ZOOM = 3;
         let MIN_ZOOM = 1;
 
         var factor = Math.pow(this.interface.scalefactor,clicks);
-        var azx, azy, bzx, bzy, tmpx, tmpy;
+        var azx, azy, bzx, bzy;
 
         this.interface.lastX = e.offsetX || (e.pageX - this.interface.grid.offsetLeft);
         this.interface.lastY = e.offsetY || (e.pageY - this.interface.grid.offsetTop);
@@ -291,15 +280,11 @@ class Controller {
         this.interface.offsetY = this.interface.offsetY - ((bzy-azy)/this.interface.scaley/(this.interface.initialscale));
 
         
-
-        //[tmpx, tmpy] = [this.interface.offsetX,this.interface.offsetY] + this.interface.grid_to_screen((bzx-azx),(bzy-azy));
-        
-        //this.interface.offsetX+= tmpx;
-        //this.interface.offsetY+= tmpy;
         
         
     }
 
+    //handler to clicking on start button
     btnStartHandler= (e) => {
         if(this.running){
             this.running = false;
@@ -313,11 +298,13 @@ class Controller {
             
     }
 
+    //handler to clicking on random button
     btnRandomHandler= (e) => {
         this.gol_grid.randomizeGrid(0.8);
         this.interface.redraw(this.gol_grid.cells)
     }
 
+    //handler to clicking on clear button
     btnClearHandler= (e) => {
         this.gol_grid.clearGrid();
         this.interface.redraw(this.gol_grid.cells)
@@ -328,7 +315,8 @@ class Controller {
         this.interface.update_fps();
     }
 
-
+    //function that controls the flow of the game of life, calling for the update of both the model and the view
+    //based on the fpsvalue to control the speed of simulation
     gameLoop(){
         setTimeout( () => {
             if(this.running){
@@ -356,9 +344,11 @@ class Controller {
 class View {
     constructor(rows,cols){
 
+        // #of rows and columns
         this.rows = rows;
         this.cols = cols;
 
+        //initial scale factor
         this.scalefactor = 1.1;
         
 
@@ -376,7 +366,9 @@ class View {
         this.offsetX=0, this.offsetY=0;
 		this.dragStart,this.dragged;
 
-
+        //elements of the DOM 
+        //here i decided to have 2 canvases one on top of the other
+        //one is for painting the grid, the other for painting the cells on top of the grid
         this.grid = document.getElementById('gol');
         this.grid_cells = document.getElementById('gol_cells');
 
@@ -391,6 +383,7 @@ class View {
 
         this.fps = document.getElementById('fps');
 
+        //value that controls the simulation speed
         this.fpsvalue = this.fps.value;
 
 
@@ -411,11 +404,10 @@ class View {
         this.offsetX += 600/(2*this.initialscale);
         this.offsetY += 600/(2*this.initialscale);
 
-        //inizializzo colore canvas backgroudn
         this.grid_ctx.fillStyle = 'white';
         this.grid_ctx.fillRect(0,0,this.width,this.height);
 
-
+        //colors used to paint differently the cells of the game of life, based on how old they are
         this.colors = ["rgb(1, 0, 255)","rgb(1, 95, 255)","rgb(1, 185, 255)","rgb(1, 219, 255)",
                           "rgb(186, 0, 255)",
                         "rgb(185, 0, 132)", "rgb(255, 87, 0)", "rgb(255, 49, 0)", "rgb(255, 3, 0)","rgb(255, 0, 0)"
@@ -426,20 +418,21 @@ class View {
         
     }
 
+    //function used to transform coordinates
     grid_to_screen(gridX, gridY){
         var screenX = (-gridX+this.offsetX)*this.scalex*this.initialscale;
         var screenY = (-gridY+this.offsetY)*this.scaley*this.initialscale;
         return [screenX, screenY];
     }
 
-
+    //function used to transform coordinates
     screen_to_grid(screenX, screenY){
         var gridX = ((screenX/this.scalex/this.initialscale)-this.offsetX*this.scalex*this.initialscale);
         var gridY = ((screenY/this.scaley/this.initialscale)-this.offsetY*this.scaley*this.initialscale);
         return [gridX, gridY];
     }
 
-
+    //calls for draw grid and redraw cells to update the canvases
     redraw(cells){
         var p1 = this.grid_to_screen(0,0);
         var p2 = this.grid_to_screen(this.offsetX,this.offsetY);
@@ -460,6 +453,7 @@ class View {
         this.redraw_cells(cells, p1[0]+p2[0], p1[1]+p2[1]);
     }
 
+    //draw the grid of the game of life
     draw_grid(x,y){
         for(var i=0;i<this.cols;i++){
             this.grid_ctx.strokeStyle = 'black';
@@ -479,7 +473,7 @@ class View {
         }
     }
 
-    
+        
     redraw_cells(c,x,y){
         for(var i=0;i<this.cols;i++){
             for(var j=0;j<this.rows;j++){
@@ -490,7 +484,7 @@ class View {
         }
     }
 
-
+    //draw cell in position i,j
     draw_cell(i,j,a=0,x,y){
         if(a){
             //se alive
@@ -504,13 +498,15 @@ class View {
         }
     }
 
-
+    //method called to update the speed of the simulation
     update_fps(){
         this.fpsvalue = this.fps.value;
     }
     
 
-
+    //Here we have to listener to all the events that can arise from the interface...
+    //Only catches the events, the handler and how to react to an event is defined in the controller, with an handler
+    //for every type of event...
     bindMouseDown(handler){
         this.grid_cells.addEventListener('mousedown', event => {
             handler(event)

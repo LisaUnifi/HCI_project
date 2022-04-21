@@ -1,4 +1,4 @@
-{% extends 'gol/base_gol.html' %}
+{% extends 'base_gol.html' %}
 {% load static %}
 
 {% block title %}Game of Life{% endblock %}
@@ -6,7 +6,7 @@
 {% block css %}
 
 <link href="{% static 'css/theme_2.css' %}" rel="stylesheet">
-<link href="{% static 'css/gol/gol.css' %}" rel="stylesheet">
+<link href="{% static 'css/gol.css' %}" rel="stylesheet">
 {% endblock %}
 
 
@@ -31,14 +31,6 @@
             <div class="row mt-2">
                 <button type="button" class="btn btn-primary" id="random">Random</button>
             </div>
-
-
-            <select id="configurations" class="selectpicker w-100 mt-2" title="" name="configurations">
-                <option value="initial">Initial</option>
-                <option value="V">Verde</option>
-                <option value="G">Giallo</option>
-                <option value="R">Rosso</option>
-            </select>
 
             <div class="slidecontainer mb-5 mt-5 text-center">
                 
@@ -69,6 +61,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-<script src="{% static 'js/gol/gol.js' %}"></script>
+<script src="{% static 'js/gol.js' %}"></script>
 {% endblock %}
 
