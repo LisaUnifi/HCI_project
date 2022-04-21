@@ -39,7 +39,7 @@ per aprire il server. Per accedere all'applicativo collegarsi alla url indicata 
 ### Con Anaconda 
 Una volta installata [Anaconda](https://www.anaconda.com/) eseguire:
 ```bash
-conda create --name <env> --file requirements.txt
+conda create --name <env> --file requirements_conda.txt
 ```
 per creare un conda virtual enviroment con le dependencies richieste.
 Scaricare da GitHub il progetto in locale.
