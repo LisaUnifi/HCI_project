@@ -1,13 +1,7 @@
 {% extends 'base.html' %}
-{% load hotkeys %}
 {% load static %}
 
 {% block title %}Exif Viewer{% endblock %}
-
-{% block hotkeys %}
-{% setup_hotkeys %}
-{% endblock %}
-
 
 {% block css %}
 <link href="{% static 'css/exif.css' %}" rel="stylesheet">

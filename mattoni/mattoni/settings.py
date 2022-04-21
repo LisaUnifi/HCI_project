@@ -42,8 +42,6 @@ INSTALLED_APPS = [
     'rest_framework',
     # CORS
     'corsheaders',
-    # HOTKEY
-    'keyboard_shortcuts',
 ]
 
 MIDDLEWARE = [
@@ -64,11 +62,7 @@ ROOT_URLCONF = 'mattoni.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-<<<<<<< HEAD
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'exif_viewer/templates')],
-=======
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'game_of_life/templates')],
->>>>>>> main
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'exif_viewer/templates'), os.path.join(BASE_DIR, 'game_of_life/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,9 +142,5 @@ AUTHENTICATION_BACKENDS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
 
-
-HOTKEYS = [
-            {'keys': 'alt+h', 'link': '/'},
-        ]
 SPECIAL_DISABLED = True
 
