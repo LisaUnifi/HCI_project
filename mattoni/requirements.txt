@@ -6,7 +6,6 @@ cycler==0.11.0
 Django==3.0.3
 django-bootstrap-modal-forms==2.2.0
 django-cors-headers==3.11.0
-django-keyboard-shortcuts==0.0.7
 djangorestframework==3.13.1
 exif==1.3.4
 fonttools==4.31.2
