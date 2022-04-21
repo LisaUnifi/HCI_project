@@ -1,15 +1,16 @@
 $(document).ready(function () {
+
     // INFO HOTKEYS 
-    $('#settings').click(function (e) {
+    $('#settings').click(function () {
         $('#modal_settings').modal('show');
     });
 
     // GESTIONE IMMAGINI 
-    $('#gestione_img').click(function (e) {
+    $('#gestione_img').click(function () {
         $('#modal_gestione').modal('show');
     });
 
-    $('#chiudi_modal_gestione').click(function (e) {
+    $('#chiudi_modal_gestione').click(function () {
         $('#modal_gestione').modal('hide');
     });
 
@@ -17,41 +18,41 @@ $(document).ready(function () {
         $('#gestione_collapse').collapse('toggle');
     });
 
-    $('#carica_file').click(function (e) {
+    $('#carica_file').click(function () {
         $('#upload').modal('show');
     });
 
-    $('#chiudi_modal').click(function (e) {
+    $('#chiudi_modal').click(function () {
         $('#upload').modal('hide');
     });
 
-    $('#delete_file').click(function (e) {
+    $('#delete_file').click(function () {
         $('#delete').modal('show');
     });
 
-    $('#chiudi_modal_delete').click(function (e) {
+    $('#chiudi_modal_delete').click(function () {
         $('#delete').modal('hide');
     });
 
     // GESTIONE ALBUM 
-    $('#album_nuovo').click(function (e) {
+    $('#album_nuovo').click(function () {
         $('#modal_album').modal('show');
     });
 
-    $('#chiudi_modal_album').click(function (e) {
+    $('#chiudi_modal_album').click(function () {
         $('#modal_album').modal('hide');
     });
 
-    $('#elimina_album').click(function (e) {
+    $('#elimina_album').click(function () {
         $('#modal_elimina_album').modal('show');
     });
 
-    $('#chiudi_modal_elimina_album').click(function (e) {
+    $('#chiudi_modal_elimina_album').click(function () {
         $('#modal_elimina_album').modal('hide');
     });
 
     // GESTIONE GEOLOCALIZZAZIONE IMMAGINI
-    $('#geoloc').click(function (e) {
+    $('#geoloc').click(function () {
         $('#maps').modal('show');
     });
 
@@ -79,10 +80,10 @@ $(document).ready(function () {
         $('#pano').prop('checked', true);
     });
 
-    $('#chiudi_modal_maps').click(function (e) {
+    $('#chiudi_modal_maps').click(function () {
         $('#maps').modal('hide');
     });
-
+      
 });
    
   

@@ -1,3 +1,43 @@
+@media only screen and (min-width: 992px) {
+    #tabelle_dati{
+        height: 60vh; 
+        overflow: auto;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    #barra_immagini {
+        display: none;
+    }
+
+    #dati_immagine{
+        margin-top: 50px;
+    }
+
+    nav {
+        position: fixed-top;
+    }
+}
+
+@media only screen and (max-height: 950px) {
+    #barra_immagini {
+        display: none;
+    }
+
+    #tabelle_dati{
+        height: 80vh; 
+        overflow: auto;
+    }
+}
+
+#data_table th, #exif_table th {
+    width: 35%;
+}
+
+#data_table td, #exif_table td {
+    width: 65%;
+}
+
 .filter-button{
     font-size: 18px;
     border: 2px solid #3F6184;
