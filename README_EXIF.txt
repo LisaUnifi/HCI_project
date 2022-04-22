@@ -25,6 +25,8 @@ Una volta conclusa l'installazione apparirà la pagina principale: in basso, sul
 ## Tools and Techniques
 ...
 
+scrivere che le immagini sono in static/scheda/static/upload/exif
+
 
 ## Features
 Di seguito andrò ad analizzare e spiegare le features implementate.

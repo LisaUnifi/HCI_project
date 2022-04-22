@@ -6,28 +6,14 @@
 }
 
 @media only screen and (max-width: 992px) {
-    #barra_immagini {
-        display: none;
-    }
-
     #dati_immagine{
         margin-top: 50px;
     }
-
-    nav {
-        position: fixed-top;
-    }
 }
 
-@media only screen and (max-height: 950px) {
-    #barra_immagini {
-        display: none;
-    }
-
-    #tabelle_dati{
-        height: 80vh; 
-        overflow: auto;
-    }
+.clear { 
+    clear: both; 
+    height: 210px; 
 }
 
 #data_table th, #exif_table th {

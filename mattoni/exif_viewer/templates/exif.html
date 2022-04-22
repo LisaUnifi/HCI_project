@@ -68,7 +68,8 @@
                 <div class="col-12 d-flex justify-content-center pt-2">
                     <span class="border border-white text-center">
                         <p class="slogan mt-4 mb-0">Non sono ancora presenti immagini!</p>
-                        <p class="slogan mt-2 mb-0 ms-4 me-4">Per caricarne una vai su <a class="text-decoration-none" style="color: var(--bs-info);"><strong>GESTIONE IMMAGINI</strong></a></p>
+                        <p class="slogan mt-2 mb-2 ms-4 me-4">Per caricarne una vai su <a class="text-decoration-none" style="color: var(--bs-info);"><strong>GESTIONE IMMAGINI</strong></a></p>
+                        <p class="slogan mt-4 mb-0 ms-4 me-4">Per creare un nuovo album vai su <a class="text-decoration-none" style="color: var(--bs-info);"><strong>GESTIONE ALBUM</strong></a></p>
                     </span>
                 </div>
                 {% endif %}
@@ -116,7 +117,7 @@
                 {% endif %}
 
                 <h5 class="mt-5">Dati Exif</h5>
-                {% if numero%}
+                {% if selected.id %}
                 <table class="table w-100" id="exif_table">
                     <thead>
                         <tr>
@@ -141,30 +142,8 @@
         </div>
     </div>
 </div>
-    
-<div id="barra_immagini" class="fixed-bottom" style="padding: 1.5rem; padding: 0; margin: 0 !important;">
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center list-group list-group-horizontal">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <input type="radio" class="btn-check" id="all" name="bottoni_album" value="all">
-                <label class="btn btn-light" for="all">Tutti</label>
-                {% for a in album %}
-                <input type="radio" class="btn-check" id="{{ a.title }}" name="bottoni_album" value="{{ a.id }}">
-                <label class="btn btn-light" for="{{ a.title }}">{{ a.title }}</label>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    <div class="row w-100 m-0 p-4" style="background-color: var(--bs-light); min-height: 200px;">
-        <div class="col-12 ps-4 pe-4 d-flex list-group list-group-horizontal" style="overflow: auto;">
-            {% for i in image %}
-            <a href="{% url 'change_image' i.id %}" type="button" class="list-group-item list-group-item-action border-0 p-0 m-0 filter {{ i.album }}" style="background-color: var(--bs-light); height: 150px; width: 200px;">
-                <img src="{{ i.img.url }}" style="max-height:150px; max-width:150px;">
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+
+<div class="clear"></div>
 
 <!-- Settings -->
 <div class="modal fade" id="modal_settings" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -331,14 +310,15 @@
                         </thead>
                         <tbody>
                             {% for a in album %}
-                            <tr>
-                                <td scope="row">{{ a.title }}</td>
-                                <td>
-                                    <input type="radio" class="btn btn-check btn-sm px-1 id_album" id="{{a.id}}" value="{{ a.id }}">
-                                    <label class="btn btn-info" for="{{a.id}}">x</label>
-                                </td>
-                            </tr>
-
+                                {% if a.title != 'Generico'%}
+                                <tr>
+                                    <td scope="row">{{ a.title }}</td>
+                                    <td>
+                                        <input type="radio" class="btn btn-check btn-sm px-1 id_album" id="{{a.id}}" value="{{ a.id }}">
+                                        <label class="btn btn-info" for="{{a.id}}">x</label>
+                                    </td>
+                                </tr>
+                                {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>
@@ -519,6 +499,34 @@
 </div>
 {% endblock %}
 
+{% block footer %}
+<footer class="page-footer font-small w-100 pt-4" style="position: fixed; bottom: 0px;">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center list-group list-group-horizontal">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <input type="radio" class="btn-check" id="all" name="bottoni_album" value="all">
+                <label class="btn btn-light" for="all">Tutti</label>
+                {% for a in album %}
+                <input type="radio" class="btn-check" id="{{ a.title }}" name="bottoni_album" value="{{ a.id }}">
+                <label class="btn btn-light" for="{{ a.title }}">{{ a.title }}</label>
+                {% endfor %}
+            </div>
+            <button type="button" id="hide_footer" class="btn btn-info"><i class="fa-solid fa-chevron-down"></i></button>
+            <button type="button" id="show_footer" class="btn btn-info" hidden><i class="fa-solid fa-chevron-up"></i></button>
+        </div>
+    </div>
+    <div class="row w-100 m-0 p-4" id="image_list" style="background-color: var(--bs-light); min-height: 200px;">
+        <div class="col-12 ps-4 pe-4 list-group list-group-horizontal" style="overflow: auto;">
+            {% for i in image %}
+            <a href="{% url 'change_image' i.id %}" type="button" class="list-group-item list-group-item-action border-0 p-0 m-2 filter {{ i.album }}" style="background-color: var(--bs-light); max-width: fit-content;">
+                <img src="{{ i.img.url }}" class="me-2 ms-2" style="max-height:150px; max-width:150px;">
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
 {% block scripts %}
 <script>
     $(document).ready(function () {
@@ -529,11 +537,6 @@
         var title;
         var angle = 0;
         var img, img2;
-
-        resize();
-
-        img = document.getElementById('img_rotate');
-        img.addEventListener('load', resize, false);
 
 
         // FILTRA ALBUM
@@ -609,7 +612,7 @@
         });
 
         //ALBUM
-        $('#gestione_album').click(function (e) {
+        $('#gestione_album').click(function () {
             $('#modal_gestion_album').modal('show');
         });
 
@@ -617,7 +620,7 @@
             $('#album_collapse').collapse('toggle');
         });
 
-        $('#chiudi_modal_album').click(function (e) {
+        $('#chiudi_modal_album').click(function () {
             $('#modal_gestion_album').modal('hide');
         });
 
@@ -753,11 +756,19 @@
                         break
                     case "g":
                         $('#maps').modal('show');
+                        break
+                    case "h":
+                        window.location = '{% url "home" %}'
                     default:
                         return
                 }
             }
         }
+
+        resize();
+
+        img = document.getElementById('img_rotate');
+        img.addEventListener('load', resize, false);
 
         function resize() {
             var image = document.getElementById("img_rotate");
