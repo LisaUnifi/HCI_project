@@ -39,6 +39,7 @@ def cancella_album(request):
         return JsonResponse({})
 
 
+# ESTRAZIONE DEI DATI EXIF DA IMMAGINE TRAMITE LIBRERIA EXIF
 def exif_image(img):
     path = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
     folder = os.path.join(path, img)
@@ -58,6 +59,8 @@ def exif_image(img):
     else:
         return {}, '', ''
 
+
+# ESTRAZIONE FORMATO IMMAGINE 
 def exif_extract(img):
     path = os.path.join(BASE_DIR, 'scheda/static/scheda/upload')
     folder = os.path.join(path, img)
@@ -69,6 +72,7 @@ def exif_extract(img):
     return data
 
 
+# COVERSIONE COORDINATE LATITUDINE E LONGITUDINE 
 def maps_coordinate(coordinates, coordinates_ref):
     if coordinates != 'Non specificato':
         decimal_degrees = coordinates[0] + \
@@ -188,6 +192,7 @@ def carica_img(request):
             return redirect('exif')
 
 
+# COSTRUZIONE DELLA MAPPA SU GOOGLE MAPS
 def geolocalizzazione(request):
     form = MapsForm(request.POST or None, request.FILES or None)
     if request.method == 'POST':
