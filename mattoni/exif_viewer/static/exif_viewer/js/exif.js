@@ -1,4 +1,16 @@
 $(document).ready(function () {
+    // FOOTER
+    $('#hide_footer').click(function () {
+        $('#image_list').prop('hidden', true);
+        $('#hide_footer').prop('hidden', true);
+        $('#show_footer').prop('hidden', false);
+    });
+
+    $('#show_footer').click(function () {
+        $('#image_list').prop('hidden', false);
+        $('#show_footer').prop('hidden', true);
+        $('#hide_footer').prop('hidden', false);
+    });
 
     // INFO HOTKEYS 
     $('#settings').click(function () {
@@ -18,30 +30,7 @@ $(document).ready(function () {
         $('#gestione_collapse').collapse('toggle');
     });
 
-    $('#carica_file').click(function () {
-        $('#upload').modal('show');
-    });
-
-    $('#chiudi_modal').click(function () {
-        $('#upload').modal('hide');
-    });
-
-    $('#delete_file').click(function () {
-        $('#delete').modal('show');
-    });
-
-    $('#chiudi_modal_delete').click(function () {
-        $('#delete').modal('hide');
-    });
-
     // GESTIONE ALBUM 
-    $('#album_nuovo').click(function () {
-        $('#modal_album').modal('show');
-    });
-
-    $('#chiudi_modal_album').click(function () {
-        $('#modal_album').modal('hide');
-    });
 
     $('#elimina_album').click(function () {
         $('#modal_elimina_album').modal('show');

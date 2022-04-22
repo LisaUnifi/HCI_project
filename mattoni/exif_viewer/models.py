@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Album(models.Model):
-    id = models.AutoField(primary_key = True)
+    id = models.IntegerField(primary_key = True, default=1000)
     title = models.CharField(max_length = 50, blank=True, null=True)
 
     def __str__(self):

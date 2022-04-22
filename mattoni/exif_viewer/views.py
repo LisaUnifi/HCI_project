@@ -36,8 +36,6 @@ def cancella_album(request):
     if request.method == 'POST':
         query = Album.objects.get(id=request.POST.get('id'))
         query.delete()
-
-        ''' GUARDA SE FARE UN MESSAGGIO IN ALTO '''
         return JsonResponse({})
 
 
@@ -91,12 +89,6 @@ def change_image(request, pk=0):
             selected = ExifImage.objects.first()
         else:
             selected = ExifImage.objects.get(id=pk)
-        exif, lat, lon = exif_image(str(selected.img))
-        otherexif = exif_extract(str(selected.img))
-        numero = len(exif)
-        sel = str(selected.img.url)
-        url = sel.replace('/media/exif/', '')
-        
         if request.session['filter'] == 'all':
             img = ExifImage.objects.all()
         else:
@@ -104,6 +96,11 @@ def change_image(request, pk=0):
             img = ExifImage.objects.filter(album=id)
             if selected.album != id:
                 selected = img.first()
+        exif, lat, lon = exif_image(str(selected.img))
+        otherexif = exif_extract(str(selected.img))
+        numero = len(exif)
+        sel = str(selected.img.url)
+        url = sel.replace('/media/exif/', '')
         album = Album.objects.all()
         template_name = 'exif.html'
         return render(request, template_name, context={'image': img, 'album': album, 'selected': selected, 'url': url, 'exif': exif, 'lat': lat, 'lon': lon, 'other': otherexif, 'numero': numero})
@@ -166,7 +163,7 @@ def carica_img(request):
     if request.method == 'POST':
         data={}
         if form.is_valid():
-            if request.POST.get('album') is not '':
+            if request.POST.get('album') != '':
                 album = Album.objects.get(id = request.POST.get('album'))
             else:
                 album = Album.objects.get(title = 'Generico')
@@ -174,7 +171,6 @@ def carica_img(request):
             img.album = album
             img.save()
             data['status'] = 'success'
-            
             selected = ExifImage.objects.get(id=img.id)
             exif, lat, lon = exif_image(str(selected.img))
             numero = len(exif)
@@ -188,7 +184,7 @@ def carica_img(request):
             errors = form.errors
             data['errors'] = errors
             data['status'] = 'error'
-            messages.warning(request, 'Mezzo creato con successo!')
+            messages.warning(request, '')
             return redirect('exif')
 
 
@@ -223,7 +219,11 @@ def nuovo_album(request):
     if request.method == 'POST':
         data={}
         if form.is_valid():
-            form.save()
+            element = form.save(commit = False)
+            a = Album.objects.filter(title = Album.objects.last())
+            id = a[0].id + 1
+            element.id = id
+            element.save()
             data['status'] = 'success'
             return JsonResponse(data)
         else:
