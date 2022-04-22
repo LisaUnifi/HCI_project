@@ -1,3 +1,4 @@
+/* RIDIMENSIONAMENTO FINESTRA */
 @media only screen and (min-width: 992px) {
     #tabelle_dati{
         height: 60vh; 
@@ -16,6 +17,7 @@
     height: 210px; 
 }
 
+/* COLONNE TABELLE DATI */
 #data_table th, #exif_table th {
     width: 35%;
 }
@@ -24,6 +26,7 @@
     width: 65%;
 }
 
+/* BOTTONI ALBUM */
 .filter-button{
     font-size: 18px;
     border: 2px solid #3F6184;
@@ -40,21 +43,20 @@
 	  outline:none;
 }
 
+/* FINESTRA IMMAGINE */
 span.border {
     width: 520px;
     height: 520px;
     overflow: hidden;
 }
 
+/* ROTAZIONE */
 #img_rotate {
     max-height: 512px; 
     max-width: 512px; 
     transform-origin: center center;
-    /* IE 10+, Firefox, etc. */
     -webkit-transform-origin: center center;
-    /* Chrome */
     -ms-transform-origin: center center;
-    /* IE 9 */
 }
 
 #img_rotate.rotate90 {
@@ -75,15 +77,18 @@ span.border {
     -ms-transform: rotate(270deg);
 }
 
+/* COLORE BOTTONI CLICCATI */
 .bottoni-modal:checked+.btn-light {
     background-color: var(--bs-secondary);
     border-color: var(--bs-secondary);
 }
 
+/* SCROLLBAR */
 .my-custom-scrollbar::-webkit-scrollbar {
     display: none;
 }
 
+/* IMMAGINE A TUTTO SCHERMO */
 #modal_expand .modal-dialog{
     max-width: 100%;
     width: auto !important;
@@ -105,11 +110,8 @@ span.border {
     max-height: 800px; 
     max-width: 800px; 
     transform-origin: center center;
-    /* IE 10+, Firefox, etc. */
     -webkit-transform-origin: center center;
-    /* Chrome */
     -ms-transform-origin: center center;
-    /* IE 9 */
 }
 
 #img_extended.rotate90 {
