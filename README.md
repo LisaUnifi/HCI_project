@@ -24,7 +24,7 @@
 Il progetto richiede l'installazione preventiva di python nella versione 3.10.0 e di pip.
 
 ### Con pip
-Per installare le dependencies in un virtual enviroment di pip, da terminale, sulla cartella ../mattoni che contiene requirements.txt eseguire:
+Per installare le dependencies in un virtual enviroment di pip, una volta dentro il virtualenv da terminale, sulla cartella ../mattoni che contiene requirements.txt eseguire:
 ```bash
 pip install -r requirements.txt
 ```
@@ -57,13 +57,6 @@ Una delle prime tecnologie che vogliamo menzionare è il python web framework Dj
 Django implementa nel suo codice un pattern definito Model-View-Template finalizzato a gestire la comunicazione tra database e server e che permette una facile gestione delle informazioni derivanti dall'interazione dell'utente col frontend, ispirandosi al pattern Model-View-Controller.
 Allo scopo di rendere l'interfaccia utente più accessibile e "visually appealing", la scelta è stata quella di affiancare un altro strumento all'utilizzo di Django: Bootstrap.
 Bootstrap è un CSS framework che supporta la creazione di pagine web responsive: nello specifico abbiamo deciso di utilizzare la versione 4 con l'estensione finalizzata all'utilizzo del Material Design.
-Insieme all'utilizzo dei framework sopra menzionati abbiamo anche utilizzato:
-- JavaScript
-- CSS
-- HTML
-- Ajax
-- SQLite
-- Python
 
 
 ## Expected Outcomes
